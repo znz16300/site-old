@@ -37,8 +37,8 @@ let pets = [
     },
     {
       "id": "4",
-      "name": "Scarlett",
-      "img": "./assets/images/physics1.jpg",
+      "name": "Лінгафонний кабінет",
+      "img": "./assets/images/ling2.jpg",
       "type": "Dog",
       "breed": "Jack Russell Terrier",
       "description": "Scarlett is a happy, playful girl who will make you laugh and smile. She forms a bond quickly and will make a loyal companion and a wonderful family dog or a good companion for a single individual too since she likes to hang out and be with her human.",
@@ -49,8 +49,8 @@ let pets = [
     },
     {
       "id": "5",
-      "name": "Katrine",
-      "img": "./assets/images/physics1.jpg",
+      "name": "Кабінет інформатики",
+      "img": "./assets/images/inform.jpg",
       "type": "Cat",
       "breed": "British Shorthair",
       "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection. She loves cuddles and to stretch into your hands for a deeper relaxations.",
@@ -61,8 +61,8 @@ let pets = [
     },
     {
       "id": "6",
-      "name": "Timmy",
-      "img": "./assets/images/physics1.jpg",
+      "name": "Обслуговуючої праці",
+      "img": "./assets/images/obsl1.jpg",
       "type": "Cat",
       "breed": "British Shorthair",
       "description": "Timmy is an adorable grey british shorthair male. He loves to play and snuggle. He is neutered and up to date on age appropriate vaccinations. He can be chatty and enjoys being held. Timmy has a lot to say and wants a person to share his thoughts with.",
@@ -73,8 +73,8 @@ let pets = [
     },
     {
       "id": "7",
-      "name": "Freddie",
-      "img": "./assets/images/physics1.jpg",
+      "name": "Початкових класів",
+      "img": "./assets/images/poch_kl2.jpg",
       "type": "Cat",
       "breed": "British Shorthair",
       "description": "Freddie is a little shy at first, but very sweet when he warms up. He likes playing with shoe strings and bottle caps. He is quick to learn the rhythms of his human’s daily life. Freddie has bounced around a lot in his life, and is looking to find his forever home.",
