@@ -989,7 +989,7 @@
   /* transition: all 0.5s; */
 }
 .modal__wrapper .modal {
-  width: 900px;
+  width: 910px;
   background: #fafafa;
   border-radius: 9px;
   display: flex;
@@ -1014,6 +1014,7 @@
 }
 .modal__wrapper .modal .modal_close img {
   display: block;
+  
 }
 .modal__wrapper .modal .modal_close:hover {
   /* transform: rotate(360deg); */
@@ -1023,6 +1024,7 @@
 .modal__wrapper .modal .modal__image img {
   display: block;
   width: 500px;
+  padding: 6px;
 }
 .modal__wrapper .modal .pet_info {
   padding: 50px 20px 0 29px;
