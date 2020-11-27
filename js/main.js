@@ -87,14 +87,14 @@ function fillModalWindow(item) {
     let petAge = document.querySelector('.pet__info__age .value');
     petAge.textContent = item.age;
 
-    let petInoculations = document.querySelector('.pet_info__inoculations .value');
-    petInoculations.textContent = item.inoculations.join(', ');
+    // let petInoculations = document.querySelector('.pet_info__inoculations .value');
+    // petInoculations.textContent = item.inoculations.join(', ');
 
-    let petDiseases = document.querySelector('.pet_info__diseases .value');
-    petDiseases.textContent = item.diseases.join(', ');
+    // let petDiseases = document.querySelector('.pet_info__diseases .value');
+    // petDiseases.textContent = item.diseases.join(', ');
 
-    let petParasites = document.querySelector('.pet_info__parasites .value');
-    petParasites.textContent = item.parasites.join(', ');
+    // let petParasites = document.querySelector('.pet_info__parasites .value');
+    // petParasites.textContent = item.parasites.join(', ');
 }
 
 function updateSlider(classForAnimation) {
