@@ -62,7 +62,7 @@ function createSlideItem(item, classForAnimation) {
 
     let button = document.createElement('button');
     button.classList.add('pet_slider__item-button');
-    button.innerText = 'Learn more';
+    button.innerText = 'Більше...';
 
     petItemImage.append(image);
     petItem.append(petItemImage, petName, button);
