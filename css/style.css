@@ -316,7 +316,8 @@
 }
 
 .pet_slider .pet_slider__items .pet_slider__item {
-  height: 435px;
+  height: 320px;
+  padding-top: 10px;
   width: 270px;
   margin-right: 90px;
   box-sizing: border-box;
