@@ -120,7 +120,8 @@
   color: #cdcdcd;
   margin-bottom: 42px;
 }
-.start-screen .start_screen__article .start_screen__button {
+.start-screen .start_screen__article 
+.start_screen__button  {
   width: 207px;
   height: 52px;
   background: #f1cdb3;
@@ -186,6 +187,20 @@
 }
 .about__wrapper .about__text:last-child {
   margin-bottom: 0;
+}
+.about__btn {
+    width: 207px;
+    height: 52px;
+    background: #f1cdb3;
+    border-radius: 100px;
+    border: none;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 19px;
+    letter-spacing: 0.06em;
+    color: #292929;
 }
 
 .our__friends {
