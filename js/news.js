@@ -107,17 +107,25 @@ function calculatePages() {
     let items = [];
     let itemsOnPage = computeNumberItemsOnPage();
     let pagesCount = Math.ceil(newsData.length / itemsOnPage);
-    for (let i = newsData.length - 1; i > 1; i--) {
-        items.push(i + 1);
+    for (let i = newsData.length - 1; i >= 0; i--){
+        items.push(i+1);
+    }
+    for (let i = 0; i < pagesCount; i++) {
+        pages.push(items.slice(i*itemsOnPage, (i+1)*itemsOnPage))
     }
 
-    // while (items.length != 48) {
-    //     items.push(1, 2, 3, 4, 5, 6, 7, 8);
+
+    // if (newsData.length <= itemsOnPage){        
+    //     pages.push(y.slice(0,8))
     // }
-    // for (let i = pagesCount - 1; i > 0; i--) {
-    for (let i = 0; i < pagesCount; i++) {    
-        pages[i] = shuffle(items.slice(i * itemsOnPage, itemsOnPage * (i + 1)));
-    }
+    // for (let i = newsData.length - 1; i > 1; i--) {
+    //     items.push(i + 1);
+    //     if (items.length == 8)
+    // }
+
+    // for (let i = 0; i < pagesCount; i++) {    
+    //     pages[i] = shuffle(items.slice(i * itemsOnPage, itemsOnPage * (i + 1)));
+    // }
 
 
     // pages = [];
