@@ -678,3 +678,19 @@
     margin-bottom: 5px;
   }
 }
+
+#scrollToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  font-size: large;
+  /* height: 60px; */
+   font-weight: bold;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.5s ease-in;
+  /* background-color: blue; */
+  /* z-index: 10; */
+}
+

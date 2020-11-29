@@ -258,25 +258,33 @@ function readNews(){
     
 }
 
+window.onscroll = function() {
+    var scrollElem = document.getElementById("scrollToTop");
+    if (document.body.scrollTop > document.documentElement.clientHeight) {
+       scrollElem.style.opacity = "1";
+    } else {
+        scrollElem.style.opacity = "0.5";
+    }
+ }
+
+var timeOut;
+function goUp() {
+    // window.scrollBy(0,-2000);
+    var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+    if(top > 0) {
+       window.scrollBy(0,-20);
+       timeOut = setTimeout('goUp()',20);
+    } else clearTimeout(timeOut);
+}
+
+const scroolBtn = document.getElementById("scrollToTop");
+
+scroolBtn.addEventListener("click", ()=>{
+    goUp();
+});
+
+
 readNews();
-// while (newsData.length == 0){
-//      console.log("Чекаємо");
-// }
-
-// calculatePages();
-// drawPage(currentPageBtn.textContent);
-// changeDisableStatus(currentPageBtn.textContent);
-
-
-
-// $.getJSON(url,
-//     function (data) {
-//         data = data['feed']['entry'];
-//         d1 = data;
-//         console.log(d1);
-//     });
-
-// console.log(d1);
 
 
     
