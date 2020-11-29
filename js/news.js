@@ -113,33 +113,6 @@ function calculatePages() {
     for (let i = 0; i < pagesCount; i++) {
         pages.push(items.slice(i*itemsOnPage, (i+1)*itemsOnPage))
     }
-
-
-    // if (newsData.length <= itemsOnPage){        
-    //     pages.push(y.slice(0,8))
-    // }
-    // for (let i = newsData.length - 1; i > 1; i--) {
-    //     items.push(i + 1);
-    //     if (items.length == 8)
-    // }
-
-    // for (let i = 0; i < pagesCount; i++) {    
-    //     pages[i] = shuffle(items.slice(i * itemsOnPage, itemsOnPage * (i + 1)));
-    // }
-
-
-    // pages = [];
-    // let items = [];
-    // let itemsOnPage = computeNumberItemsOnPage();
-    // let pagesCount = 48 / itemsOnPage;
-    // while (items.length != 48) {
-    //     items.push(1, 2, 3, 4, 5, 6, 7, 8);
-    // }
-    // for (let i = 0; i < pagesCount; i++) {
-    //     pages[i] = shuffle(items.slice(i * itemsOnPage, itemsOnPage * (i + 1)).reverse());
-    // }
-
-
 }
 
 function createCardItem(item) {
@@ -169,6 +142,7 @@ function drawPage(pageNumber) {
     let itemsForShow = itemNumbersForShow.map(n => createCardItem(newsData[n - 1]));
     cardContainer.innerHTML = '';
     cardContainer.append(...itemsForShow);
+    window.scrollBy(0,-2000);
 }
 
 function changeDisableStatus(pageNumber) {
@@ -177,6 +151,7 @@ function changeDisableStatus(pageNumber) {
 
     arrowToEnd.disabled = arrowNext.disabled =
         pageNumber == pages.length ? true : false;
+    
 }
 
 burgerItem.addEventListener('click', () => toggleMenu());
