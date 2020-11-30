@@ -46,7 +46,14 @@ function fillModalWindow(item) {
     petType.textContent = `${item.type} - ${item.breed}`;
 
     let petAbout = document.querySelector('.pet_info__about');
-    petAbout.textContent = item.description;
+    // petAbout.textContent = item.description;
+    let htmlText = `${item.description}<div class="imgs_on_modal">`;
+    for (let i=0; i < item["images"].length; i++){
+        htmlText +=`<p ><img src="${item["images"][i]}" alt="" width="85%"></p>`; 
+    }
+    htmlText +='</div>';
+
+    petAbout.innerHTML = htmlText;
 
     let petAge = document.querySelector('.pet__info__age .value');
     petAge.textContent = item.age;
@@ -235,20 +242,21 @@ function readNews(){
                         // let end  = images[j].indexOf('/edit');
                         // let l = end - start -1;
                         let ss = images[j].substr(start);
-                        codeImages.push(ss);
+                        codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
                     }
                     
                     let im = ""
                     if (codeImages[0].length === 0) {
                         im = './assets/images/nophoto.png';
                     } else {
-                        im = "http://drive.google.com/uc?export=view&id="+codeImages[0]
+                        im = codeImages[0]
                     }
                     // nophoto.png
                     let newsOne = {
                         "id": String(i+1),
                         "name": d1["gsx$названовини"]["$t"],
                         "img": im,
+                        "images": codeImages,
                         "type": "",
                         "breed": "",
                         "description": d1["gsx$текстновини"]["$t"],
@@ -300,7 +308,9 @@ scroolBtn.addEventListener("click", ()=>{
 
 readNews();
 
-
+function openNewWin(url) {
+    myWin= open(url);
+}
     
 
 

@@ -40,13 +40,18 @@ function fillModalWindow(item) {
     petImage.setAttribute('src', item.img);
 
     let petName = document.querySelector('.pet_info__name');
-    petName.textContent = item.name;
+    //petName.textContent = item.name;
+    petName.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
 
     let petType = document.querySelector('.pet_info__type');
-    petType.textContent = `${item.type} - ${item.breed}`;
+    petType.textContent = ``;
+    
+    // petType.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
 
     let petAbout = document.querySelector('.pet_info__about');
-    petAbout.textContent = item.description;
+    //petAbout.textContent = item.description;
+    petAbout.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.description}</a>`
+
 
     let petAge = document.querySelector('.pet__info__age .value');
     petAge.textContent = item.age;
@@ -131,6 +136,7 @@ function createCardItem(item) {
     let button = document.createElement('button');
     button.classList.add('cards__item-button');
     button.innerText = 'Читати далі...';
+    // button.setAttribute('click', 'window.location.href="'+item.type+'"')  //item.type
     cardItemImage.append(image);
     cardItem.append(cardItemImage, cardItemName, button);
     return cardItem;

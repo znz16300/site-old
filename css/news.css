@@ -124,6 +124,7 @@
   box-sizing: border-box;
   text-align: center;
   margin-bottom: 30px;
+  padding: 5px;
   animation: fade 0.7s;
   background: #fafafa;
   border-radius: 9px;
@@ -527,13 +528,31 @@
   background-color: #fddcc4;
   /* transition: all 0.5s; */
 }
+
+.modal {
+  overflow: scroll;
+  max-height: 500px;
+  
+}
+
+.imgs_on_modal {
+  text-align: center;
+  margin-top: 20px;
+}
+
 .modal__wrapper .modal {
   width: 900px;
   background: #fafafa;
   border-radius: 9px;
   display: flex;
   position: fixed;
+  padding: 5px;
+  
 }
+.modal__wrapper .modal img {
+  border-radius: 9px;
+}
+
 .modal__wrapper .modal:hover .modal_close {
   /* transform: rotate(0deg); */
   background: rgba(41, 41, 41, 0);
@@ -562,7 +581,7 @@
 .modal__wrapper .modal .modal__image img {
   display: block;
   /* width: 100px; */
-  width: 500px; 
+  /* width: 100px;  */
 }
 
 
@@ -695,3 +714,29 @@
   /* z-index: 10; */
 }
 
+#addNews {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 145px;
+  font-size: large;
+  /* height: 60px; */
+   font-weight: bold;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.5s ease-in;
+  /* background-color: blue; */
+  /* z-index: 10; */
+}
+
+.docum__link {
+  text-decoration: none;
+  color: black;
+}
+.pet__info__advantage li {
+  list-style-type: none;
+}
+
+.img_on_modal img{
+  width: 400px;
+}
