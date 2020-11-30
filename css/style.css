@@ -470,6 +470,8 @@
   margin-right: 15px;
   float: left;
 }
+
+
 .donation .donation__wrapper .donation__account .donation__account_number a {
   font-family: Georgia;
   font-style: normal;
@@ -492,6 +494,8 @@
   max-width: 550px;
   color: #b2b2b2;
 }
+
+
 
 .footer {
   background: url(./assets/noise_transparent@2x.png), 
@@ -566,7 +570,7 @@
   width: 300px;
   height: 310px;
   align-self: flex-end;
-  background: url(./assets/footer-puppy.png);
+  background-image: url(./assets/images/school.jpg);
 }
 
 @media screen and (max-width: 1279px) {
@@ -967,7 +971,7 @@
     text-align: left;
   }
   .footer .footer__wrapper .footer__image {
-    background-image: url(./assets/footer-puppy-small.png);
+    background-image: url(./assets/images/school.jpg);
     width: 260px;
     height: 269px;
   }
@@ -989,7 +993,7 @@
   /* transition: all 0.5s; */
 }
 .modal__wrapper .modal {
-  width: 900px;
+  width: 910px;
   background: #fafafa;
   border-radius: 9px;
   display: flex;
@@ -1014,6 +1018,7 @@
 }
 .modal__wrapper .modal .modal_close img {
   display: block;
+  
 }
 .modal__wrapper .modal .modal_close:hover {
   /* transform: rotate(360deg); */
@@ -1023,6 +1028,7 @@
 .modal__wrapper .modal .modal__image img {
   display: block;
   width: 500px;
+  padding: 6px;
 }
 .modal__wrapper .modal .pet_info {
   padding: 50px 20px 0 29px;
