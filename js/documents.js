@@ -3,7 +3,7 @@ let sheet = "1";
 
 let newsData = [];
 
-const keyTableNews ="1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+const keyTableNews ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
 var url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 
 let burgerItem = document.querySelector('.header__burger');
@@ -222,12 +222,12 @@ function readNews(){
        function (data) {
             data = data['feed']['entry'];
             for (let i=0; i<data.length;i++){
-                // console.log("============");
-                // console.log(data[i][gsx$show][$t] !== "");
+                console.log("============");
+                console.log(data[i]);
                 if (data[i]["gsx$show"]["$t"] !== ""){
                     d1 = data[i];
                     // console.log(d1);
-                    let images = d1["gsx$фото"]["$t"].split(",");
+                    let images = d1["gsx$фотонеобовязково"]["$t"].split(",");
                     let codeImages = [] 
                     let photoPath = ""
                     for(let j=0; j<images.length; j++){
@@ -240,18 +240,18 @@ function readNews(){
                     
                     let im = ""
                     if (codeImages[0].length === 0) {
-                        im = './assets/images/nophoto.png';
+                        im = './assets/images/docum.png';
                     } else {
                         im = "http://drive.google.com/uc?export=view&id="+codeImages[0]
                     }
                     // nophoto.png
                     let newsOne = {
                         "id": String(i+1),
-                        "name": d1["gsx$названовини"]["$t"],
+                        "name": d1["gsx$назвадокументу"]["$t"],
                         "img": im,
-                        "type": "",
+                        "type": d1["gsx$посиланнянадокумент"]["$t"],
                         "breed": "",
-                        "description": d1["gsx$текстновини"]["$t"],
+                        "description": d1["gsx$файлдокументу"]["$t"],
                         "age": d1["gsx$позначкачасу"]["$t"],
                         "inoculations": ["none"],
                         "diseases": ["none"],
