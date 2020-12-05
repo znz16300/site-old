@@ -187,12 +187,15 @@ modalWindow.addEventListener('click', e => {
 });
 
 window.addEventListener("resize", () => {
-    if (pages[0].length != computeNumberItemsOnPage()) {
-        calculatePages();
-        currentPageBtn.textContent = 1;
-        drawPage(currentPageBtn.textContent);
-        changeDisableStatus(currentPageBtn.textContent);
+    if (pages[0] !== undefined){
+        if (pages[0].length != computeNumberItemsOnPage()) {
+            calculatePages();
+            currentPageBtn.textContent = 1;
+            drawPage(currentPageBtn.textContent);
+            changeDisableStatus(currentPageBtn.textContent);
+        }
     }
+    
 });
 
 navigation.addEventListener('click', e => {
