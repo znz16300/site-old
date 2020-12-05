@@ -533,7 +533,7 @@
 }
 
 .modal {
-  overflow: scroll;
+  /* overflow: scroll; */
   max-height: 500px;
   
 }
@@ -595,11 +595,16 @@
   font-family: Georgia;
   font-style: normal;
   font-weight: normal;
-  font-size: 35px;
-  line-height: 130%;
-  letter-spacing: 0.06em;
+  font-size: 25px;
+  line-height: 110%;
+  /* letter-spacing: 0.06em; */
   margin-bottom: 10px;
 }
+
+.pet__info__age {
+
+}
+
 .modal__wrapper .modal .pet_info .pet_info__type {
   font-family: Georgia;
   font-style: normal;
@@ -657,6 +662,35 @@
     width: 350px;
     /* width: 350px; */
   }
+  .modal__image img {
+    width: auto;
+    /* width: 350px; */
+  }
+
+  .wr__for_btn {
+    padding-top: 80px;
+  }
+
+  #act__button {
+    border: 2px solid #f1cdb3;
+    box-sizing: border-box;
+    border-radius: 26px;
+    background-color: #fafafa;
+    margin-bottom: 30px;
+    outline: none;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 19px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: #292929;
+    width: 187px;
+    height: 52px;
+    cursor: pointer;
+  }
+
   .modal__wrapper .modal .pet_info {
     padding: 10px 8px 10px 11px;
   }
@@ -680,10 +714,19 @@
     left: calc(100% - 22px);
   }
   .modal__wrapper .modal .modal__image img {
-    display: none;
-    
+    display: none;  
     
   }
+ .search_block {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 19px;
+    letter-spacing: 0.06em;
+    margin-bottom: 80px;
+  }
+
   .modal__wrapper .modal .pet_info {
     padding: 10px;
   }
@@ -715,6 +758,10 @@
   transition: all 0.5s ease-in;
   /* background-color: blue; */
   /* z-index: 10; */
+}
+
+.pet_info{
+  width: 200px;
 }
 
 #addNews {
