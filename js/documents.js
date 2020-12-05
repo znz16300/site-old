@@ -44,7 +44,7 @@ function fillModalWindow(item) {
     petName.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
 
     let petType = document.querySelector('.pet_info__type');
-    petType.textContent = ``;
+    petType.textContent = `${item.type}`;
     
     // petType.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
 
@@ -64,6 +64,12 @@ function fillModalWindow(item) {
 
     let petParasites = document.querySelector('.pet_info__parasites .value');
     petParasites.textContent = item.parasites.join(', ');
+
+    let btnLoad = document.getElementById('act__button');
+    btnLoad.setAttribute('onclick', `window.location.href="${item.description}"`);
+
+
+
 }
 
 function toggleModalWindow() {
@@ -178,8 +184,12 @@ cards.addEventListener('click', e => {
     if (!card) return;
 
     let itemId = card.dataset.id;
-    fillModalWindow(newsData.find(p => p.id == itemId));
-    toggleModalWindow();
+    // console.log(itemId);
+    // console.log(newsData.find(p => p.id == itemId));
+    window.open(newsData.find(p => p.id == itemId)["description"]);
+
+    // fillModalWindow(newsData.find(p => p.id == itemId));
+    // toggleModalWindow();
 });
 
 modalWindow.addEventListener('click', e => {

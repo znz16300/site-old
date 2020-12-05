@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    <link rel="stylesheet" href="./css/documents.css">
+    <link rel="stylesheet" href="./css/news.css">
+    <link rel="stylesheet" href="./css/page.css">
     <script src="./js/jquery-3.5.0.js"></script>
-    <title>Документи - Сайт куликівського ЗЗСО І-ІІІ ступенів</title>
+    <title>Сайт куликівського ЗЗСО І-ІІІ ступенів</title>
 </head>
 
 <body>
@@ -16,18 +17,13 @@
             <div class="modal_close">
                 <img src="./assets/icons/close_icon.png" class="modal_close_button" alt="close button">
             </div>
-            <div class="modal__image" hidden>
-                <img src="./assets/images/school.jpg" alt="school" >
+            <div class="modal__image">
+                <img src="./assets/images/school.jpg" alt="school">
             </div>
             <div class="pet_info">
                 <div class="pet_info__name"></div>
                 <div class="pet_info__type"></div>
-                <div class="pet_info__about" ></div>
-                <div class="wr__for_btn">
-                    <button id="act__button" onclick='window.location.href="#"'>
-                        Файл для скачування
-                    </button>
-                </div>
+                <div class="pet_info__about"></div>
                 <ul class="pet__info__advantage" >                    
                     <li class="pet_info__inoculations" hidden>
                         <span class="key"></span>
@@ -46,7 +42,6 @@
                         <span class="value"></span>
                     </li>
                 </ul>
-               
 
             </div>
         </div>
@@ -64,7 +59,7 @@
                         <ul class="header__list">
                             <li class="header__list_item"><a href="./index.html">Головна</a></li>
                             <li class="header__list_item"><a href="./news.html">Новини</a></li>
-                            <li class="header__list_item"><a class="list-item_active" href="./documents.html">Документи</a></li>
+                            <li class="header__list_item"><a href="./documents.html">Документи</a></li>
                             <li class="header__list_item"><a href="javascript:void(0);">Гроші</a></li>
                             <li class="header__list_item"><a href="javascript:void(0);">Контакти</a></li>
                         </ul>
@@ -78,21 +73,23 @@
             </div>
         </div>
         <main class="pets">
+            
+
+
             <div class="wrapper">
                 <div class="pets__wrapper">
-                    <h3 class="pets__caption">
-                        Документи
-                        <!-- Нормативно-правова база -->
+                    <h3 id="title__id">
+                        Нормативно-правова база
                     </h3>
                     
-                    <div class="cards"></div>
-                    <div class="pages">
+                    <div id="paragraphs__id"></div>
+                    <!-- <div class="pages">
                         <button class="pages__paginator arrow_to_start" data-direction="toStart"> &lt;&lt;</button>
                         <button class="pages__paginator arrow_previous" data-direction="previous"> &lt;</button>
                         <button class="pages__paginator page_number pages__paginator_color">1</button>
                         <button class="pages__paginator arrow_next" data-direction="next">></button>
                         <button class="pages__paginator arrow_to_end" data-direction="toEnd">>></button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </main>
@@ -152,7 +149,7 @@
     </div>
     <div id="scrollToTop">ᐱ</div>
 
-    <script src="./js/documents.js"></script>
+    <script src="./js/page.js"></script>
     
 </body>
 
