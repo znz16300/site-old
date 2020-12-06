@@ -1,3 +1,5 @@
+
+
 .container {
   max-width: 1920px;
   margin: 0 auto;
@@ -717,15 +719,9 @@
     display: none;  
     
   }
- .search_block {
-    font-family: Georgia;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 17px;
-    line-height: 19px;
-    letter-spacing: 0.06em;
-    margin-bottom: 80px;
-  }
+
+
+
 
   .modal__wrapper .modal .pet_info {
     padding: 10px;
@@ -789,4 +785,49 @@
 
 .img_on_modal img{
   width: 400px;
+}
+
+.search_block {
+  all: none;
+  /* color: royalblue; */
+  text-align: right;
+  width: 95%;
+  padding: 20px;
+  padding-bottom: 0;
+
+}
+.search__label {
+  font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 110%;
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+
+.search__edit, .search__btn {
+    
+    border: 2px solid #e9e0d9;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 110%;
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+
+.sp_btn_search :hover {
+  cursor: pointer;
+  background-color: #FDDCC4;
 }
