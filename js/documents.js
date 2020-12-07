@@ -341,29 +341,23 @@ function Search(text){
     console.log("Search");
     readNews(true);
     res = [];
+
     if (text === ""){
         newsData.forEach(e=>{
             res.push(e.id);
         })
     } else {
         newsData.forEach(e=>{
-            if (e.name.indexOf(text) !== -1){
-                console.log("Знайдено");
-                console.log(e.name);
+            if (e.name.toUpperCase().indexOf(text.toUpperCase()) !== -1){
                 res.push(e);
             }        
         })
     }
-    console.log(res);
     if (res.length>0){
         readNews(false);
     } else {
         alert("Документа не знайдено")
     }
-
-    
-    
-
 }
 
 let edtSearch = document.getElementById("searchEditId");
