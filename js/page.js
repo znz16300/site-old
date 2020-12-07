@@ -16,9 +16,11 @@ var d1 = "";
 let sheet = "default";
 
 let newsData = [];
+let title_st = '';
 
-function setPageKey(key){
+function setPageKey(title, key){
     setStorage('keyPages', key);
+    setStorage('titlePages', title);
 }
 
 //  https://docs.google.com/spreadsheets/d/e/2PACX-1vSdWcq5GQH0TNwLJKnx-MAjqzAXTxjJ7o5q5HTyN8K90bxYQS0hFWizoy-qsqzdetv5m5fHRpdqiY5p/pubhtml
@@ -38,7 +40,15 @@ function readPage(){
             console.log(data);
             let text_tmp = "";
             for (let i=0; i<data.length;i++){
-                text_tmp += `<p class="default_par"> ${data[i]["gsx$абзац"]["$t"]} </p>`
+                let text = data[i]["gsx$абзац"]["$t"];
+                console.log("text_tmp");
+
+
+                const regex = String.fromCharCode(10);
+                // '0d0a';
+                text = text.replace(regex,'<br>');
+                console.log(text);
+                text_tmp += `<p class="default_par"> ${text} </p>`
             
 
                 // text.innerText = text_tmp;
@@ -51,10 +61,11 @@ function readPage(){
                     let ss = images[j].substr(start);
                     codeImages.push(ss);
                     im = "http://drive.google.com/uc?export=view&id="+ss;
-                    text_tmp += `<p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
+                    text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
 
                 }
             }
+            
             text.innerHTML = text_tmp;      
         }
 
@@ -90,5 +101,8 @@ scroolBtn.addEventListener("click", ()=>{
 
 keyTableNews = getStorage('keyPages');
 if (keyTableNews !== undefined){
+    title_st = getStorage('titlePages');
+    const title_dom = document.getElementById('title__id');
+    title_dom.innerHTML = title_st;
     readPage();
 }

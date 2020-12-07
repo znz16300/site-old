@@ -1,9 +1,11 @@
 .pets__wrapper {
     align-items:initial;
     margin-left: 30px;
+    
 }
 
 .default_par {
+    all: none;
     font-family: Georgia;
     font-style: normal;
     font-weight: normal;
@@ -13,6 +15,18 @@
     color: #545454;
     text-align: left;
     /* text-align: justify; */
-    margin-top: 20px;
+    margin-top: -5px;
 
+}
+
+h3 {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: #545454;
+    margin-bottom: 45px;
+    /* text-align: center; */
 }
