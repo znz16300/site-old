@@ -40,30 +40,54 @@ function readPage(){
             console.log(data);
             let text_tmp = "";
             for (let i=0; i<data.length;i++){
-                let text = data[i]["gsx$абзац"]["$t"];
-                console.log("text_tmp");
+                if (title_st === data[i]["gsx$розділ"]["$t"]){
+                    let text = data[i]["gsx$абзац"]["$t"];
+                    console.log("text_tmp");
+                    console.log(data[i]);
 
 
-                const regex = String.fromCharCode(10);
-                // '0d0a';
-                text = text.replace(regex,'<br>');
-                console.log(text);
-                text_tmp += `<p class="default_par"> ${text} </p>`
-            
-
-                // text.innerText = text_tmp;
+                    const regex = String.fromCharCode(10);
+                    text = text.replace(regex,'<br>');
+                    console.log(text);
+                    text_tmp += `<p class="default_par"> ${text} </p>`
                 
-                let images = data[i]["gsx$фото"]["$t"].split(",");
-                let codeImages = [] 
-                let photoPath = ""
-                for(let j=0; j<images.length; j++){
-                    let start = images[j].indexOf('?id=') + 4;
-                    let ss = images[j].substr(start);
-                    codeImages.push(ss);
-                    im = "http://drive.google.com/uc?export=view&id="+ss;
-                    text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
 
+                    // text.innerText = text_tmp;
+                    
+                    let images = data[i]["gsx$фото"]["$t"].split(",");
+                    let codeImages = [] 
+                    let photoPath = ""
+                    for(let j=0; j<images.length; j++){
+                       
+                        let x=images[j].indexOf('?id=');
+                        if (x>-1){
+                            //Це якщо малюнок відправлено формою
+                            //  https://drive.google.com/open?id=1s2l8ZXUmEbts4OmZww2D2buw0F_Jqxss
+                            let start = images[j].indexOf('?id=') + 4;
+                            let ss = images[j].substr(start);
+                            //codeImages.push(ss);
+                            im = "http://drive.google.com/uc?export=view&id="+ss;
+                            text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
+                        } else {
+                            x = images[j].indexOf('/file/d/');
+                            if (x>-1){
+                                //Якщо малюнок з гугл диска
+                                //  https://drive.google.com/file/d/1trA3XhkNgZVNw9lwKVl59GBDf4r4ISgp/view?usp=sharing
+                                
+
+                            } else {
+                                //Якщо малюнок по посиланню з іншого ресурсу
+
+                            }
+                        }                      
+                        
+
+                        
+
+
+                    }
                 }
+                
             }
             
             text.innerHTML = text_tmp;      
@@ -79,7 +103,7 @@ window.onscroll = function() {
     if (document.body.scrollTop > document.documentElement.clientHeight) {
        scrollElem.style.opacity = "1";
     } else {
-        scrollElem.style.opacity = "0.5";
+        //scrollElem.style.opacity = "0.5";
     }
  }
 
