@@ -58,11 +58,32 @@ function readPage(){
                     let codeImages = [] 
                     let photoPath = ""
                     for(let j=0; j<images.length; j++){
-                        let start = images[j].indexOf('?id=') + 4;
-                        let ss = images[j].substr(start);
-                        codeImages.push(ss);
-                        im = "http://drive.google.com/uc?export=view&id="+ss;
-                        text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
+                       
+                        let x=images[j].indexOf('?id=');
+                        if (x>-1){
+                            //Це якщо малюнок відправлено формою
+                            //  https://drive.google.com/open?id=1s2l8ZXUmEbts4OmZww2D2buw0F_Jqxss
+                            let start = images[j].indexOf('?id=') + 4;
+                            let ss = images[j].substr(start);
+                            //codeImages.push(ss);
+                            im = "http://drive.google.com/uc?export=view&id="+ss;
+                            text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
+                        } else {
+                            x = images[j].indexOf('/file/d/');
+                            if (x>-1){
+                                //Якщо малюнок з гугл диска
+                                //  https://drive.google.com/file/d/1trA3XhkNgZVNw9lwKVl59GBDf4r4ISgp/view?usp=sharing
+                                
+
+                            } else {
+                                //Якщо малюнок по посиланню з іншого ресурсу
+
+                            }
+                        }                      
+                        
+
+                        
+
 
                     }
                 }
