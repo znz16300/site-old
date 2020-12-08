@@ -1,3 +1,9 @@
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+
 .container {
   overflow-x: hidden;
   max-width: 1920px;
@@ -6,7 +12,7 @@
 
 .start {
   padding-top: 60px;
-  background: url(./assets/noise_transparent@2x.png), 
+  background: url(./../assets/images/noise_transparent@2x.png), 
       radial-gradient(100% 215.42% at 0% 0%, 
       #5b483a 0%, #262425 100%), #211f20;
 }
@@ -135,6 +141,10 @@
   letter-spacing: 0.06em;
   color: #292929;
 }
+
+.btn__span  :hover {
+  cursor: pointer;
+}
 .start-screen .start_screen__article .start_screen__button:hover, 
 .start-screen .start_screen__article .start_screen__button:focus {
   cursor: pointer;
@@ -227,7 +237,41 @@
   color: #545454;
   width: 600px;
 }
-.our__friends .our__friends__wrapper .our__friends__button {
+
+.wr__for_btn {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#act__button {
+  width: 259px;
+  height: 51px;
+  background: #f1cdb3;
+  border-radius: 26px;
+  border: none;
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 19px;
+  letter-spacing: 0.06em;
+  color: #292929;
+  margin: 0px 10px;
+}
+
+.our__friends .our__friends__wrapper .our__friends__caption {
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: #545454;
+  width: 600px;  
+}
+
+.our__friends .our__friends__wrapper .our__friends__button  {
   width: 259px;
   height: 51px;
   background: #f1cdb3;
@@ -498,7 +542,7 @@
 
 
 .footer {
-  background: url(./assets/noise_transparent@2x.png), 
+  background: url(./../assets/images/noise_transparent@2x.png), 
   radial-gradient(110.67% 538.64% at 5.73% 50%,
    #513d2f 0%, #1a1a1c 100%), #211f20;
 }
@@ -570,7 +614,7 @@
   width: 300px;
   height: 310px;
   align-self: flex-end;
-  background-image: url(./assets/images/school.jpg);
+  /* background-image: url(./../assets/images/school.jpg); */
 }
 
 @media screen and (max-width: 1279px) {
@@ -971,7 +1015,7 @@
     text-align: left;
   }
   .footer .footer__wrapper .footer__image {
-    background-image: url(./assets/images/school.jpg);
+    background-image: url(./../assets/images/school.jpg);
     width: 260px;
     height: 269px;
   }
@@ -1062,7 +1106,7 @@
 }
 .modal__wrapper .modal .pet_info .pet__info__advantage li {
   margin-bottom: 10px;
-  background-image: url(./assets/dot.svg);
+  /* background-image: url(./assets/dot.svg); */
   background-repeat: no-repeat;
   background-position: left center;
   padding: 0 0 0 15px;

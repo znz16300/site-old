@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    <link rel="stylesheet" href="./css/news.css">
+    <link rel="stylesheet" href="./css/documents.css">
     <script src="./js/jquery-3.5.0.js"></script>
-    <title>Новини - Сайт куликівського ЗЗСО І-ІІІ ступенів</title>
+    <title>Документи - Сайт куликівського ЗЗСО І-ІІІ ступенів</title>
 </head>
 
 <body>
@@ -17,16 +17,18 @@
                 <img src="./assets/icons/close_icon.png" class="modal_close_button" alt="close button">
             </div>
             <div class="modal__image" hidden>
-                <img src="./assets/images/school.jpg" alt="school">
+                <img src="./assets/images/school.jpg" alt="school" >
             </div>
             <div class="pet_info">
                 <div class="pet_info__name"></div>
-                              
-                <ul class="pet__info__advantage">
-                    <li class="pet__info__age">
-                        <span class="key">Додано:</span>
-                        <span class="value"></span>
-                    </li>
+                <div class="pet_info__type"></div>
+                <div class="pet_info__about" ></div>
+                <div class="wr__for_btn">
+                    <button id="act__button" onclick='window.location.href="#"'>
+                        Файл для скачування
+                    </button>
+                </div>
+                <ul class="pet__info__advantage" >                    
                     <li class="pet_info__inoculations" hidden>
                         <span class="key"></span>
                         <span class="value"></span>
@@ -39,16 +41,20 @@
                         <span class="key"></span>
                         <span class="value"></span>
                     </li>
+                    <li class="pet__info__age">
+                        <span class="key">Додано:</span>
+                        <span class="value"></span>
+                    </li>
                 </ul>
-                <div class="pet_info__type" hidden></div>
-                <div class="pet_info__about"> </div> 
+               
+
             </div>
         </div>
     </div>
     <div class="container">
         <div class="header_pets">
             <div class="wrapper">
-                <h1 class="h1">Новини</h1>
+                <h1 class="h1">Документи</h1>
                 <header class="header">
                     <div class="header__logo_item">
                         <div class="header__logo"><a class="header__logo_link" href="./index.html">Школа</a></div>
@@ -57,8 +63,8 @@
                     <nav class="header__nav">
                         <ul class="header__list">
                             <li class="header__list_item"><a href="./index.html">Головна</a></li>
-                            <li class="header__list_item"><a class="list-item_active" href="./news.html">Новини</a></li>
-                            <li class="header__list_item"><a href="./documents.html">Документи</a></li>
+                            <li class="header__list_item"><a href="./news.html">Новини</a></li>
+                            <li class="header__list_item"><a class="list-item_active" href="./documents.html">Документи</a></li>
                             <li class="header__list_item"><a href="javascript:void(0);">Гроші</a></li>
                             <li class="header__list_item"><a href="javascript:void(0);">Контакти</a></li>
                         </ul>
@@ -68,15 +74,42 @@
                         <div class="header__burger_line"></div>
                         <div class="header__burger_line"></div>
                     </div>
+                    
                 </header>
+                
             </div>
         </div>
         <main class="pets">
+            
             <div class="wrapper">
+                <div  class="search_block ">
+                    <span class="search__label">
+                       Пошук  
+                    </span>
+                    <span class="seach__edit">
+                        <input class="search__edit" id="searchEditId" type="text">
+                    </span>
+                    <span class="sp_btn_search">
+                        <button class="search__btn"  id="searchButtonId">Знайти</button>
+                    </span>                        
+                    
+                    
+                </div>
                 <div class="pets__wrapper">
+                    
                     <h3 class="pets__caption">
-                        Останні новини <br> Куликівського ЗЗСО І-ІІІ ст.
+                        Документи
+                        <!-- Нормативно-правова база -->
                     </h3>
+                    <!-- <div  class="search_block ">
+                        Пошук 
+                        <span class="seach__edit">
+                            <input id="searchEditId" type="text">
+
+                        </span>
+                        
+                        <button id="searchButtonId">Знайти</button>
+                    </div> -->
                     
                     <div class="cards"></div>
                     <div class="pages">
@@ -89,51 +122,7 @@
                 </div>
             </div>
         </main>
-        <!-- <footer class="footer">
-            <div class="wrapper">
-                <div class="footer__wrapper">
-                    <div class="footer__info">
-                        <div class="footer__contacts">
-                            <h2 class="footer__contacts_caption">For questions and suggestions</h2>
-                            <div class="footer__contacts_email">
-                                <a href="mailto:email@shelter.com" class="footer__email_address">
-                                    <img src="./assets/mail.png" alt="email" class="footer__email_icon">
-                                    <span class="span_one_line">email@shelter.com</span>
-                                </a>
-                            </div>
-                            <div class="footer__contacts_phone">
-                                <a href="tel:+13 674 567 75 54" class="footer__phone_number">
-                                    <img src="./assets/phone.png" alt="phone" class="footer__phone-icon">
-                                    <span class="span_one_line">+13 674 567 75 54</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="footer__location">
-                            <h2 class="footer__location_caption">We are waiting for your visit</h2>
-                            <div class="footer__location_address">
-                                <a href="https://www.google.com/maps/place/1+Central+St,+Boston,+MA+02109,+%D0%A1%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D1%96+%D0%A8%D1%82%D0%B0%D1%82%D0%B8+%D0%90%D0%BC%D0%B5%D1%80%D0%B8%D0%BA%D0%B8/@42.3585519,-71.056915,17z/data=!3m1!4b1!4m5!3m4!1s0x89e370868bc2ce7b:0x82fa7db94f5fea9e!8m2!3d42.3585519!4d-71.0547263"
 
-                                    class="footer__location_name" target="_blank">
-                                    <img src="./assets/pin.svg" alt="pin" class="footer__location_icon">
-
-                                    1 Central Street, Boston (entrance from the store)
-                                </a>
-                            </div>
-                            <div class="footer__location_address">
-                                <a href="https://www.google.com/maps/place/South+Park+Gardens/@51.528308,-0.3817825,10z/data=!4m5!3m4!1s0x487608b0444135a5:0x26ad24d16140d887!8m2!3d51.4222798!4d-0.1984674"
-
-                                    class="footer__location_name" target="_blank">
-                                    <img src="./assets/pin.svg" alt="pin" class="footer__location_icon">
-                                    <span class="span_one_line">18 South Park, London</span>
-
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer__image"></div>
-                </div>
-            </div>
-        </footer> -->
         <footer class="footer">
             <div class="wrapper">
                 <div class="footer__wrapper">
@@ -188,10 +177,8 @@
         
     </div>
     <div id="scrollToTop">ᐱ</div>
-    <div id="addNews" onclick="openNewWin('https://docs.google.com/forms/d/e/1FAIpQLSednJ73x5PLCxBYIQm503RKnOCsh8_sQ_s4oYGk3G6seNBJsQ/viewform?usp=sf_link')">Додати новину</div>
-    <!-- <div id="addNews" onclick='window.location.href="https://docs.google.com/forms/d/e/1FAIpQLSednJ73x5PLCxBYIQm503RKnOCsh8_sQ_s4oYGk3G6seNBJsQ/viewform?usp=sf_link"'>Додати новину</div> -->
-    <script src="./js/data.js"></script>
-    <script src="./js/news.js"></script>
+
+    <script src="./js/documents.js"></script>
     
 </body>
 

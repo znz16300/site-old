@@ -16,7 +16,7 @@
                 <img src="./assets/icons/close_icon.png" class="modal_close_button" alt="close-button">
             </div>
             <div class="modal__image">
-                <img src="./assets/pets-jennifer-modal.png" alt="pets-jennifer">
+                <img src="" alt="pets-jennifer">
             </div>
             <div class="pet_info">
                 <div class="pet_info__name">Jennifer</div>
@@ -67,8 +67,8 @@
                             </li>
                             <li class="header__list_item">
                                 <a href="./news.html">Новини</a></li>
-                            <li class="header__list_item"><a href="javascript:void(0);">
-                                Діяльність
+                            <li class="header__list_item"><a href="./documents.html">
+                                Документи
                             </a>
                             </li>
                             <li class="header__list_item"><a href="javascript:void(0);">
@@ -121,9 +121,13 @@
                         </p>
                         <p class="about__text">Примірний перелік документів, що створюються під час діяльності закладів загальної середньої освіти, із зазначенням строків зберігання, наведено в додатку до листа-роз’яснення МОН України від 03.10.2018 № 1/9-596 щодо застосування окремих положень Інструкції з діловодства у закладах загальної середньої освіти.
                             </p>
-                            <button class="about__btn " 
-                            onclick='window.location.href="./pets.html"'>
-                            Читати</button>
+                            <span class="btn__span">
+                                <button class="about__btn "           
+                                    onclick='window.location.href="./documents.html"'>
+                                    Читати
+                                </button>
+                            </span>
+                            
                     </div>
                     
                 </div>
@@ -157,7 +161,7 @@
                     <div class="than__list">
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/5.png">
                                     <img src="./assets/icons/5.png" alt="pet-food">
@@ -167,7 +171,7 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/4.png">
                                     <img src="./assets/icons/4.png" alt="transportation">
@@ -177,7 +181,7 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)" 
                                     srcset="./assets/icons/11.png">
                                     <img src="./assets/icons/11.png" alt="toys">
@@ -187,7 +191,7 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/9.png">
                                     <img src="./assets/icons/9.png" alt="bowls">
@@ -199,7 +203,7 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/2.png">
                                     <img src="./assets/icons/2.png" alt="shampoos">
@@ -211,7 +215,7 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/6.png">
                                     <img src="./assets/icons/6.png" alt="vitamins">
@@ -223,19 +227,22 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/7.png">
-                                    <img src="./assets/icons/7.png" alt="medicines">
+                                    <img src="./assets/icons/7.png" 
+                                        alt="medicines" 
+                                        onclick="setPageKey(`Дистанційне навчання`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                        document.location.href = './page.html';">
                                 </picture>
                             </div>
 
-                            <div class="than__item_name">Дистанційне<br>  навчання</div>
+                            <div class="than__item_name">Дистанційне <br>навчання</div>
 
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/10.png">
                                     <img src="./assets/icons/10.png" alt="collars">
@@ -247,7 +254,7 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/11.png">
                                     <img src="./assets/icons/11.png" alt="sleeping">
@@ -257,8 +264,12 @@
                             <div class="than__item_name">Піклувальна<br>  рада</div>
 
                         </div>
-                    </div>
+                    </div>                    
                 </div>
+                <div class="wr__for_btn btn__span">
+                    <button id="act__button" onclick='window.location.href="./acts.html"'>Ознайомитися</button>
+                </div>
+                
             </div>
         </div>
         <div class="donation">
@@ -272,20 +283,23 @@
                     </div>
                     <div class="donation__article_item">
                         <h2 class="donation__caption">Коронавірусна інфекція COVID-19</h2>
-                        <div class="donation__text">Name of the bank / Type of bank account</div>
+                        <div class="donation__text">У зв'язку з світовою пандемією</div>
                         <div class="donation__account">
-                            <img src="./assets/images/1.png" alt=""
+                            <img src="" alt=""
                                 class="donation__account_image">
                             <div class="donation__account_number"><a href="index.html#">Бережіть себе та інших!</a></div>
                         </div>
-                        <div class="donation__note">Legal information and lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Maecenas a ipsum at libero sagittis dignissim sed ac diam. Praesent
-                            ultrices maximus tortor et vulputate. Interdum et malesuada fames ac ante ipsum primis in
-                            faucibus.
+                        <div class="donation__note">                            
+                            У разі переведення класу (класів) на дистанційне навчання,
+                            освітній процес в закладі забезпечується з використанням платформ:
+                            nz.ua (електронний щоденник);
+                            zoom та google meet (онлайн конференції);
+                            viber й telegram (програми обміну повідомленнями)
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
         <footer class="footer">
             <div class="wrapper">
@@ -341,6 +355,10 @@
     </div>
     <script src="./js/data.js"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/page.js"></script>
+
+
+
 </body>
 
 </html>
