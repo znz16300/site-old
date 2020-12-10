@@ -70,22 +70,24 @@ function readPage(){
                             text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
                         } else {
                             x = images[j].indexOf('/file/d/');
-                            if (x>-1){
+                            if (false){
+                            // if (x>-1){
                                 //Якщо малюнок з гугл диска
                                 //  https://drive.google.com/file/d/1trA3XhkNgZVNw9lwKVl59GBDf4r4ISgp/view?usp=sharing
-                                
+                                // let start = images[j].indexOf('/file/d/') + 8;
+                                // let endKey = images[j].indexOf('/view');
+                                // let length = endKey - start;
+                                // let ss = images[j].substr(start, length);
+                                // im = "https://drive.google.com/open?id="+ss;
+                                // text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
 
                             } else {
                                 //Якщо малюнок по посиланню з іншого ресурсу
-
+                                im = images[j];
+                                text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
                             }
-                        }                      
-                        
-
-                        
-
-
-                    }
+                        }               
+                     }
                 }
                 
             }
