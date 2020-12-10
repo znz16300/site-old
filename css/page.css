@@ -6,6 +6,7 @@
 
 .default_par {
     all: none;
+    text-decoration: none;
     font-family: Georgia;
     font-style: normal;
     font-weight: normal;

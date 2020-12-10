@@ -383,6 +383,8 @@
     line-height: 160%;
     margin-bottom: 40px;
   }
+ 
+  
   .header .header__nav .header__list .header__list_item:last-child {
     margin-bottom: 0;
   }
