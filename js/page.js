@@ -21,6 +21,7 @@ let title_st = '';
 function setPageKey(title, key){
     setStorage('keyPages', key);
     setStorage('titlePages', title);
+    document.location.href = './page.html';
 }
 
 //  https://docs.google.com/spreadsheets/d/e/2PACX-1vSdWcq5GQH0TNwLJKnx-MAjqzAXTxjJ7o5q5HTyN8K90bxYQS0hFWizoy-qsqzdetv5m5fHRpdqiY5p/pubhtml
