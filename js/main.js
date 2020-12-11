@@ -21,6 +21,8 @@ function toggleMenu() {
     changeOverflow();
 }
 
+
+
 function computeNumberItemsInSlider() {
     let width = window.innerWidth;
 
@@ -166,5 +168,25 @@ sliderItems.addEventListener('click', e => {
 modalWindow.addEventListener('click', e => {
     if (!e.target.closest('.modal') || e.target.closest('.modal_close')) toggleModalWindow();
 });
+
+function setStorage(name, value) {
+    window.localStorage.setItem(name, JSON.stringify(value));
+}
+  
+function getStorage(name, subst = null) {
+    return JSON.parse(window.localStorage.getItem(name) || subst);
+}
+  
+function delStorage(name) {
+    localStorage.removeItem(name);
+}
+  
+
+function setPageKey(title, key){
+    setStorage('keyPages', key);
+    setStorage('titlePages', title);
+    document.location.href = './page.html';
+}
+
 
 updateSlider();
