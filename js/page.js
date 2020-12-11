@@ -1,3 +1,17 @@
+const scroolBtn = document.getElementById("scrollToTop");
+var d1 = "";
+// let sheet = "1";
+let sheet1 = "default";
+
+var newsData = [];
+let title_st = '';
+var keyTableNews ="";
+var timeOut;
+var url ;
+const title = document.getElementById("title__id");
+const text = document.getElementById("paragraphs__id");
+
+
 function setStorage(name, value) {
     window.localStorage.setItem(name, JSON.stringify(value));
 }
@@ -10,13 +24,9 @@ function delStorage(name) {
     localStorage.removeItem(name);
 }
   
+// import storage from './storage.js';
 
-var d1 = "";
-// let sheet = "1";
-let sheet = "default";
 
-let newsData = [];
-let title_st = '';
 
 function setPageKey(title, key){
     setStorage('keyPages', key);
@@ -26,14 +36,10 @@ function setPageKey(title, key){
 
 //  https://docs.google.com/spreadsheets/d/e/2PACX-1vSdWcq5GQH0TNwLJKnx-MAjqzAXTxjJ7o5q5HTyN8K90bxYQS0hFWizoy-qsqzdetv5m5fHRpdqiY5p/pubhtml
 
-let keyTableNews ="";
 
-let url ;
-const title = document.getElementById("title__id");
-const text = document.getElementById("paragraphs__id");
 
 function readPage(){
-    url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json"
+    url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet1+"/public/values?alt=json"
     $.getJSON(url,
         
        function (data) {
@@ -110,7 +116,7 @@ window.onscroll = function() {
     }
  }
 
-var timeOut;
+
 function goUp() {
     // window.scrollBy(0,-2000);
     var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
@@ -120,7 +126,6 @@ function goUp() {
     } else clearTimeout(timeOut);
 }
 
-const scroolBtn = document.getElementById("scrollToTop");
 
 scroolBtn.addEventListener("click", ()=>{
     goUp();
