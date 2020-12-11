@@ -175,7 +175,7 @@
   width: 300px;
   height: 408px;
   margin-right: 120px;
-  background-image: url(./../assets/images/about.jpg);
+  /* background-image: url(./../assets/images/about.jpg); */
 }
 .about__wrapper .h2 {
   font-family: Georgia;
@@ -843,7 +843,7 @@
   .about__wrapper .about__image {
     width: 260px;
     height: 354px;
-    background-image: url(./assets/images/about.jpg);
+    /* background-image: url(./assets/images/about.jpg); */
   }
   .about__wrapper .about__article {
     display: flex;
