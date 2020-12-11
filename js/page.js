@@ -1,45 +1,12 @@
-const scroolBtn = document.getElementById("scrollToTop");
 var d1 = "";
-// let sheet = "1";
-let sheet1 = "default";
-
-var newsData = [];
+let sheet2 = "default";
 let title_st = '';
-var keyTableNews ="";
-var timeOut;
-var url ;
+
 const title = document.getElementById("title__id");
 const text = document.getElementById("paragraphs__id");
 
-
-function setStorage(name, value) {
-    window.localStorage.setItem(name, JSON.stringify(value));
-}
-  
-function getStorage(name, subst = null) {
-    return JSON.parse(window.localStorage.getItem(name) || subst);
-}
-  
-function delStorage(name) {
-    localStorage.removeItem(name);
-}
-  
-// import storage from './storage.js';
-
-
-
-function setPageKey(title, key){
-    setStorage('keyPages', key);
-    setStorage('titlePages', title);
-    document.location.href = './page.html';
-}
-
-//  https://docs.google.com/spreadsheets/d/e/2PACX-1vSdWcq5GQH0TNwLJKnx-MAjqzAXTxjJ7o5q5HTyN8K90bxYQS0hFWizoy-qsqzdetv5m5fHRpdqiY5p/pubhtml
-
-
-
-function readPage(){
-    url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet1+"/public/values?alt=json"
+function readPage(key){
+    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,
         
        function (data) {
@@ -116,7 +83,7 @@ window.onscroll = function() {
     }
  }
 
-
+var timeOut;
 function goUp() {
     // window.scrollBy(0,-2000);
     var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
@@ -126,15 +93,17 @@ function goUp() {
     } else clearTimeout(timeOut);
 }
 
-
-scroolBtn.addEventListener("click", ()=>{
+document.getElementById("scrollToTop").addEventListener("click", ()=>{
     goUp();
 });
 
-keyTableNews = getStorage('keyPages');
-if (keyTableNews !== undefined){
-    title_st = getStorage('titlePages');
+
+
+
+var keyT = JSON.parse(window.localStorage.getItem('keyPages') || null);
+if (keyT !== undefined){
+    title_st = JSON.parse(window.localStorage.getItem('titlePages') || null);
     const title_dom = document.getElementById('title__id');
     title_dom.innerHTML = title_st;
-    readPage();
+    readPage(keyT);
 }
