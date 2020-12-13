@@ -35,39 +35,39 @@ function toggleMenu() {
     changeOverflow();
 }
 
-function fillModalWindow(item) {
-    let petImage = document.querySelector('.modal__image img');
-    petImage.setAttribute('alt', item.name);
-    petImage.setAttribute('src', item.img);
+function fillModalWindow(title, item) {
+    // let petImage = document.querySelector('.modal__image img');
+    // petImage.setAttribute('alt', item.name);
+    // petImage.setAttribute('src', item.img);
 
     let petName = document.querySelector('.pet_info__name');
-    //petName.textContent = item.name;
-    petName.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
-
-    let petType = document.querySelector('.pet_info__type');
-    petType.textContent = `${item.type}`;
-    
-    // petType.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
+    petName.innerText = title;
 
     let petAbout = document.querySelector('.pet_info__about');
-    //petAbout.textContent = item.description;
-    petAbout.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.description}</a>`
+    //petName.textContent = item.name;
+    let i = 0;
+    item.forEach(link=>{
+        i++;
+        petAbout.innerHTML += `<p><a  class="docum__link" href="${link}" target="_blank">Документ ${i}</a></p><br>`
+    });
+    
 
+    
 
-    let petAge = document.querySelector('.pet__info__age .value');
-    petAge.textContent = item.age;
+    // let petAge = document.querySelector('.pet__info__age .value');
+    // petAge.textContent = item.age;
 
-    let petInoculations = document.querySelector('.pet_info__inoculations .value');
-    petInoculations.textContent = item.inoculations.join(', ');
+    // let petInoculations = document.querySelector('.pet_info__inoculations .value');
+    // petInoculations.textContent = item.inoculations.join(', ');
 
-    let petDiseases = document.querySelector('.pet_info__diseases .value');
-    petDiseases.textContent = item.diseases.join(', ');
+    // let petDiseases = document.querySelector('.pet_info__diseases .value');
+    // petDiseases.textContent = item.diseases.join(', ');
 
-    let petParasites = document.querySelector('.pet_info__parasites .value');
-    petParasites.textContent = item.parasites.join(', ');
+    // let petParasites = document.querySelector('.pet_info__parasites .value');
+    // petParasites.textContent = item.parasites.join(', ');
 
-    let btnLoad = document.getElementById('act__button');
-    btnLoad.setAttribute('onclick', `window.location.href="${item.description}"`);
+    // let btnLoad = document.getElementById('act__button');
+    // btnLoad.setAttribute('onclick', `window.location.href="${item.description}"`);
 
 
 
@@ -197,27 +197,31 @@ activeLink.addEventListener('click', e => {
 cards.addEventListener('click', e => {
     let card = e.target.closest('.cards__item');
     if (!card) return;
-
+    let listLinks = [];
     let itemId = card.dataset.id;
     let link = newsData.find(p => p.id == itemId)["description"];
     if (link !== "") {
         let links = link.split(',');
         links.forEach(e=>{
-            var a = window.open(e, '_blank');
-            a.blur();
-
+            listLinks.push(e);
         })
     } 
 
-    link = newsData.find(p => p.id == itemId)["type"];
+    let id_ = newsData.find(p => p.id == itemId);
+    link = id_["type"];
     if (link !== "") {
         let links = link.split(',');
         links.forEach(e=>{
-            var a = window.open(e, '_blank');
-            a.blur();
-
+            listLinks.push(e);
         })
     } 
+    if (listLinks.length === 1){
+        window.open(listLinks[0], '_blank');
+    } else {
+        //make modalwindow
+        fillModalWindow(id_['name'], listLinks);
+        toggleModalWindow();
+    }
 
 
     // fillModalWindow(newsData.find(p => p.id == itemId));
