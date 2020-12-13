@@ -35,6 +35,17 @@ function toggleMenu() {
     changeOverflow();
 }
 
+function getTitle(url){
+    $.ajax({
+        url : url,
+        type : "GET",
+        success : function(msg){
+            let res = msg.match(/<title>(.*?)<\/title>/);
+            return res[0];
+        }
+    });
+}
+
 function fillModalWindow(title, item) {
     // let petImage = document.querySelector('.modal__image img');
     // petImage.setAttribute('alt', item.name);
@@ -48,7 +59,8 @@ function fillModalWindow(title, item) {
     let i = 0;
     item.forEach(link=>{
         i++;
-        petAbout.innerHTML += `<p><a  class="docum__link" href="${link}" target="_blank">Документ ${i}</a></p><br>`
+        let ttle = getTitle(link);
+        petAbout.innerHTML += `<p><a  class="docum__link" href="${link}" target="_blank" title="${ttle}">Документ ${i}</a></p><br>`
     });
     
 
