@@ -199,9 +199,26 @@ cards.addEventListener('click', e => {
     if (!card) return;
 
     let itemId = card.dataset.id;
-    // console.log(itemId);
-    // console.log(newsData.find(p => p.id == itemId));
-    window.open(newsData.find(p => p.id == itemId)["description"]);
+    let link = newsData.find(p => p.id == itemId)["description"];
+    if (link !== "") {
+        let links = link.split(',');
+        links.forEach(e=>{
+            var a = window.open(e, '_blank');
+            a.blur();
+
+        })
+    } 
+
+    link = newsData.find(p => p.id == itemId)["type"];
+    if (link !== "") {
+        let links = link.split(',');
+        links.forEach(e=>{
+            var a = window.open(e, '_blank');
+            a.blur();
+
+        })
+    } 
+
 
     // fillModalWindow(newsData.find(p => p.id == itemId));
     // toggleModalWindow();
@@ -271,13 +288,14 @@ function loadDocuments(data, d){
             } else {
                 im = "http://drive.google.com/uc?export=view&id="+codeImages[0]
             }
+            // console.log(d1);
             let newsOne = {
                 "id": String(i+1),
                 "name": d1["gsx$назвадокументу"]["$t"],
                 "img": im,
-                "type": d1["gsx$посиланнянадокумент"]["$t"],
+                "type": d1["gsx$посиланнянадокументякщобільшеодноготочерезкому"]["$t"],
                 "breed": "",
-                "description": d1["gsx$файлдокументу"]["$t"],
+                "description": d1["gsx$файлидокументу"]["$t"],
                 "age": d1["gsx$позначкачасу"]["$t"],
                 "inoculations": ["none"],
                 "diseases": ["none"],
