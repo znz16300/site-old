@@ -41,21 +41,19 @@ function getTitle(url){
         type : "GET",
         success : function(msg){
             let res = msg.match(/<title>(.*?)<\/title>/);
-            return res[0];
+            console.log(res);
+            return res[1];
         }
     });
 }
 
 function fillModalWindow(title, item) {
-    // let petImage = document.querySelector('.modal__image img');
-    // petImage.setAttribute('alt', item.name);
-    // petImage.setAttribute('src', item.img);
 
     let petName = document.querySelector('.pet_info__name');
     petName.innerText = title;
 
     let petAbout = document.querySelector('.pet_info__about');
-    //petName.textContent = item.name;
+
     let i = 0;
     item.forEach(link=>{
         i++;
@@ -63,26 +61,6 @@ function fillModalWindow(title, item) {
         petAbout.innerHTML += `<p><a  class="docum__link" href="${link}" target="_blank" title="${ttle}">Документ ${i}</a></p><br>`
     });
     
-
-    
-
-    // let petAge = document.querySelector('.pet__info__age .value');
-    // petAge.textContent = item.age;
-
-    // let petInoculations = document.querySelector('.pet_info__inoculations .value');
-    // petInoculations.textContent = item.inoculations.join(', ');
-
-    // let petDiseases = document.querySelector('.pet_info__diseases .value');
-    // petDiseases.textContent = item.diseases.join(', ');
-
-    // let petParasites = document.querySelector('.pet_info__parasites .value');
-    // petParasites.textContent = item.parasites.join(', ');
-
-    // let btnLoad = document.getElementById('act__button');
-    // btnLoad.setAttribute('onclick', `window.location.href="${item.description}"`);
-
-
-
 }
 
 function toggleModalWindow() {
