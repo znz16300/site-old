@@ -19,6 +19,7 @@ let arrowToEnd = document.querySelector('.arrow_to_end');
 let currentPageBtn = document.querySelector('.page_number');
 let navigation = document.querySelector('.pages');
 let pages = [];
+let res = [];
 
 function changeOverflow() {
     let overflowY = document.body.style.overflowY;
@@ -34,36 +35,32 @@ function toggleMenu() {
     changeOverflow();
 }
 
-function fillModalWindow(item) {
-    let petImage = document.querySelector('.modal__image img');
-    petImage.setAttribute('alt', item.name);
-    petImage.setAttribute('src', item.img);
+function getTitle(url){
+    $.ajax({
+        url : url,
+        type : "GET",
+        success : function(msg){
+            let res = msg.match(/<title>(.*?)<\/title>/);
+            console.log(res);
+            return res[1];
+        }
+    });
+}
+
+function fillModalWindow(title, item) {
 
     let petName = document.querySelector('.pet_info__name');
-    //petName.textContent = item.name;
-    petName.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
-
-    let petType = document.querySelector('.pet_info__type');
-    petType.textContent = ``;
-    
-    // petType.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.name}</a>`
+    petName.innerText = title;
 
     let petAbout = document.querySelector('.pet_info__about');
-    //petAbout.textContent = item.description;
-    petAbout.innerHTML = `<a class="docum__link" href="${item.description}" target="_blank">${item.description}</a>`
 
-
-    let petAge = document.querySelector('.pet__info__age .value');
-    petAge.textContent = item.age;
-
-    let petInoculations = document.querySelector('.pet_info__inoculations .value');
-    petInoculations.textContent = item.inoculations.join(', ');
-
-    let petDiseases = document.querySelector('.pet_info__diseases .value');
-    petDiseases.textContent = item.diseases.join(', ');
-
-    let petParasites = document.querySelector('.pet_info__parasites .value');
-    petParasites.textContent = item.parasites.join(', ');
+    let i = 0;
+    item.forEach(link=>{
+        i++;
+        let ttle = getTitle(link);
+        petAbout.innerHTML += `<p><a  class="docum__link" href="${link}" target="_blank" title="${ttle}">Документ ${i}</a></p><br>`
+    });
+    
 }
 
 function toggleModalWindow() {
@@ -120,26 +117,40 @@ function calculatePages() {
     }
 }
 
+function find(id, list){
+    let f = false;
+    list.forEach(e=>{
+        if (e.id === id){
+            f = true;
+            return f;
+        }
+    })
+    return f;
+}
+
 function createCardItem(item) {
-    let cardItem = document.createElement('div');
-    cardItem.classList.add('cards__item');
-    cardItem.dataset.id = item.id;
-    let cardItemImage = document.createElement('div');
-    cardItemImage.classList.add('cards__item-image');
-    let image = document.createElement('img');
-    image.setAttribute('src', item.img);
-    image.setAttribute('alt', item.name);
-    image.setAttribute('width', "160px");
-    let cardItemName = document.createElement('div');
-    cardItemName.classList.add('cards__item-name');
-    cardItemName.innerText = item.name;
-    let button = document.createElement('button');
-    button.classList.add('cards__item-button');
-    button.innerText = 'Читати далі...';
-    // button.setAttribute('click', 'window.location.href="'+item.type+'"')  //item.type
-    cardItemImage.append(image);
-    cardItem.append(cardItemImage, cardItemName, button);
-    return cardItem;
+    if (true){
+        let cardItem = document.createElement('div');
+        cardItem.classList.add('cards__item');
+        cardItem.dataset.id = item.id;
+        let cardItemImage = document.createElement('div');
+        cardItemImage.classList.add('cards__item-image');
+        let image = document.createElement('img');
+        image.setAttribute('src', item.img);
+        image.setAttribute('alt', item.name);
+        image.setAttribute('width', "160px");
+        let cardItemName = document.createElement('div');
+        cardItemName.classList.add('cards__item-name');
+        cardItemName.innerText = item.name;
+        let button = document.createElement('button');
+        button.classList.add('cards__item-button');
+        button.innerText = 'Читати далі...';
+        // button.setAttribute('click', 'window.location.href="'+item.type+'"')  //item.type
+        cardItemImage.append(image);
+        cardItem.append(cardItemImage, cardItemName, button);
+        return cardItem;
+    }
+    
 }
 
 function drawPage(pageNumber) {
@@ -176,10 +187,35 @@ activeLink.addEventListener('click', e => {
 cards.addEventListener('click', e => {
     let card = e.target.closest('.cards__item');
     if (!card) return;
-
+    let listLinks = [];
     let itemId = card.dataset.id;
-    fillModalWindow(newsData.find(p => p.id == itemId));
-    toggleModalWindow();
+    let link = newsData.find(p => p.id == itemId)["description"];
+    if (link !== "") {
+        let links = link.split(',');
+        links.forEach(e=>{
+            listLinks.push(e);
+        })
+    } 
+
+    let id_ = newsData.find(p => p.id == itemId);
+    link = id_["type"];
+    if (link !== "") {
+        let links = link.split(',');
+        links.forEach(e=>{
+            listLinks.push(e);
+        })
+    } 
+    if (listLinks.length === 1){
+        window.open(listLinks[0], '_blank');
+    } else {
+        //make modalwindow
+        fillModalWindow(id_['name'], listLinks);
+        toggleModalWindow();
+    }
+
+
+    // fillModalWindow(newsData.find(p => p.id == itemId));
+    // toggleModalWindow();
 });
 
 modalWindow.addEventListener('click', e => {
@@ -187,12 +223,15 @@ modalWindow.addEventListener('click', e => {
 });
 
 window.addEventListener("resize", () => {
-    if (pages[0].length != computeNumberItemsOnPage()) {
-        calculatePages();
-        currentPageBtn.textContent = 1;
-        drawPage(currentPageBtn.textContent);
-        changeDisableStatus(currentPageBtn.textContent);
+    if (pages[0] !== undefined){
+        if (pages[0].length != computeNumberItemsOnPage()) {
+            calculatePages();
+            currentPageBtn.textContent = 1;
+            drawPage(currentPageBtn.textContent);
+            changeDisableStatus(currentPageBtn.textContent);
+        }
     }
+    
 });
 
 navigation.addEventListener('click', e => {
@@ -223,54 +262,61 @@ navigation.addEventListener('click', e => {
     changeDisableStatus(currentPageBtn.textContent);
 });
 
-function readNews(){
-    $.getJSON(url,
-       function (data) {
-            data = data['feed']['entry'];
-            for (let i=0; i<data.length;i++){
-                console.log("============");
-                console.log(data[i]);
-                if (data[i]["gsx$show"]["$t"] !== ""){
-                    d1 = data[i];
-                    // console.log(d1);
-                    let images = d1["gsx$фотонеобовязково"]["$t"].split(",");
-                    let codeImages = [] 
-                    let photoPath = ""
-                    for(let j=0; j<images.length; j++){
-                        let start = images[j].indexOf('?id=') + 4;
-                        // let end  = images[j].indexOf('/edit');
-                        // let l = end - start -1;
-                        let ss = images[j].substr(start);
-                        codeImages.push(ss);
-                    }
-                    
-                    let im = ""
-                    if (codeImages[0].length === 0) {
-                        im = './assets/images/docum.png';
-                    } else {
-                        im = "http://drive.google.com/uc?export=view&id="+codeImages[0]
-                    }
-                    // nophoto.png
-                    let newsOne = {
-                        "id": String(i+1),
-                        "name": d1["gsx$назвадокументу"]["$t"],
-                        "img": im,
-                        "type": d1["gsx$посиланнянадокумент"]["$t"],
-                        "breed": "",
-                        "description": d1["gsx$файлдокументу"]["$t"],
-                        "age": d1["gsx$позначкачасу"]["$t"],
-                        "inoculations": ["none"],
-                        "diseases": ["none"],
-                        "parasites": ["none"]
-                    }
+function loadDocuments(data, d){
+    data = data['feed']['entry'];
+    newsData = [];
+    for (let i=0; i<data.length;i++){
+        if (data[i]["gsx$show"]["$t"] !== ""){
+            d1 = data[i];
+            let images = d1["gsx$фотонеобовязково"]["$t"].split(",");
+            let codeImages = [] 
+            let photoPath = ""
+            for(let j=0; j<images.length; j++){
+                let start = images[j].indexOf('?id=') + 4;
+                let ss = images[j].substr(start);
+                codeImages.push(ss);
+            }                    
+            let im = ""
+            if (codeImages[0].length === 0) {
+                im = './assets/images/docum.png';
+            } else {
+                im = "http://drive.google.com/uc?export=view&id="+codeImages[0]
+            }
+            // console.log(d1);
+            let newsOne = {
+                "id": String(i+1),
+                "name": d1["gsx$назвадокументу"]["$t"],
+                "img": im,
+                "type": d1["gsx$посиланнянадокументякщобільшеодноготочерезкому"]["$t"],
+                "breed": "",
+                "description": d1["gsx$файлидокументу"]["$t"],
+                "age": d1["gsx$позначкачасу"]["$t"],
+                "inoculations": ["none"],
+                "diseases": ["none"],
+                "parasites": ["none"]
+            }
+            if (d){
+                newsData.push(newsOne);
+            } else {
+                if (find(newsOne.id,res)){
                     newsData.push(newsOne);
                 }
-                
             }
-            // console.log(newsData);   
+            
+        }
+
+    }
+    
+}
+
+function readNews(d){
+    $.getJSON(url,
+       function (data) {
+            loadDocuments(data, d);
             calculatePages();
+            changeDisableStatus(currentPageBtn.textContent); 
             drawPage(currentPageBtn.textContent);
-            changeDisableStatus(currentPageBtn.textContent);         
+                    
         }
 
         
@@ -303,8 +349,43 @@ scroolBtn.addEventListener("click", ()=>{
     goUp();
 });
 
+function Search(text){
+    console.log("Search");
+    readNews(true);
+    res = [];
 
-readNews();
+    if (text === ""){
+        newsData.forEach(e=>{
+            res.push(e.id);
+        })
+    } else {
+        newsData.forEach(e=>{
+            if (e.name.toUpperCase().indexOf(text.toUpperCase()) !== -1){
+                res.push(e);
+            }        
+        })
+    }
+    if (res.length>0){
+        readNews(false);
+    } else {
+        alert("Документа не знайдено")
+    }
+}
+
+let edtSearch = document.getElementById("searchEditId");
+let btnSearch = document.getElementById("searchButtonId");
+btnSearch.addEventListener("click", ()=>{
+    Search(edtSearch.value);
+    
+})
+
+edtSearch.addEventListener("keypress", (e)=>{
+    if (e.key === "Enter"){
+        Search(edtSearch.value);
+    }
+})
+
+readNews(true);
 
 
     

@@ -16,7 +16,7 @@
                 <img src="./assets/icons/close_icon.png" class="modal_close_button" alt="close-button">
             </div>
             <div class="modal__image">
-                <img src="./assets/pets-jennifer-modal.png" alt="pets-jennifer">
+                <img src="" alt="pets-jennifer">
             </div>
             <div class="pet_info">
                 <div class="pet_info__name">Jennifer</div>
@@ -71,8 +71,9 @@
                                 Документи
                             </a>
                             </li>
-                            <li class="header__list_item"><a href="javascript:void(0);">
-                                Гроші
+                            <li class="header__list_item"><a 
+                                href="./money.html"
+                                > Гроші
                             </a>
                             </li>
                             <li class="header__list_item">
@@ -121,10 +122,13 @@
                         </p>
                         <p class="about__text">Примірний перелік документів, що створюються під час діяльності закладів загальної середньої освіти, із зазначенням строків зберігання, наведено в додатку до листа-роз’яснення МОН України від 03.10.2018 № 1/9-596 щодо застосування окремих положень Інструкції з діловодства у закладах загальної середньої освіти.
                             </p>
-                            <button class="about__btn " 
-          
-                            onclick='window.location.href="./documents.html"'>
-                            Читати</button>
+                            <span class="btn__span">
+                                <button class="about__btn "           
+                                    onclick='window.location.href="./documents.html"'>
+                                    Читати
+                                </button>
+                            </span>
+                            
                     </div>
                     
                 </div>
@@ -158,40 +162,48 @@
                     <div class="than__list">
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/5.png">
-                                    <img src="./assets/icons/5.png" alt="pet-food">
+                                    <img src="./assets/icons/5.png" alt="Вчителі" 
+                                        onclick="setPageKey(`Вчителі`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                        ">
                                 </picture>
                             </div>
                             <div class="than__item_name">Вчителі</div>
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/4.png">
-                                    <img src="./assets/icons/4.png" alt="transportation">
+                                    <img src="./assets/icons/4.png" alt="Учні" 
+                                    onclick="setPageKey(`Учні`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    ">
                                 </picture>
                             </div>
                             <div class="than__item_name">Учні</div>
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)" 
                                     srcset="./assets/icons/11.png">
-                                    <img src="./assets/icons/11.png" alt="toys">
+                                    <img src="./assets/icons/11.png" alt="Самоврядування" 
+                                    onclick="setPageKey(`Самоврядування`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    ">
                                 </picture>
                             </div>
                             <div class="than__item_name">Самоврядування</div>
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/9.png">
-                                    <img src="./assets/icons/9.png" alt="bowls">
+                                    <img src="./assets/icons/9.png" alt="Бібліотека" 
+                                    onclick="setPageKey(`Бібліотека`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    ">
                                 </picture>
                             </div>
 
@@ -200,10 +212,11 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/2.png">
-                                    <img src="./assets/icons/2.png" alt="shampoos">
+                                    <img src="./assets/icons/2.png" alt="Методична робота" 
+                                    onclick="setPageKey(`Методична робота`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');">
                                 </picture>
                             </div>
 
@@ -212,10 +225,12 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/6.png">
-                                    <img src="./assets/icons/6.png" alt="vitamins">
+                                    <img src="./assets/icons/6.png" alt="Фінансова інформація" 
+                                    onclick="setPageKey(`Фінансова інформація`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    ">
                                 </picture>
                             </div>
 
@@ -224,22 +239,27 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/7.png">
-                                    <img src="./assets/icons/7.png" alt="medicines">
+                                    <img src="./assets/icons/7.png" 
+                                        alt="Дистанційне навчання" 
+                                        onclick="setPageKey(`Дистанційне навчання`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                        ">
                                 </picture>
                             </div>
 
-                            <div class="than__item_name">Дистанційне<br>  навчання</div>
+                            <div class="than__item_name">Дистанційне <br>навчання</div>
 
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/10.png">
-                                    <img src="./assets/icons/10.png" alt="collars">
+                                    <img src="./assets/icons/10.png" alt="Протидія булінгу" 
+                                        onclick="setPageKey(`Протидія булінгу`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                        ">
                                 </picture>
                             </div>
 
@@ -248,18 +268,25 @@
                         </div>
                         <div class="than__list_item">
                             <div class="than__item_image">
-                                <picture>
+                                <picture class="btn__span">
                                     <source media="(max-width:767px)"
-                                        srcset="./assets/icons/2.png">
-                                    <img src="./assets/icons/2.png" alt="sleeping">
+                                        srcset="./assets/icons/11.png">
+                                    <img src="./assets/icons/11.png" alt="Піклувальна рада" 
+                                    onclick="setPageKey(`Піклувальна рада`, 
+                                    '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    ">
                                 </picture>
                             </div>
 
                             <div class="than__item_name">Піклувальна<br>  рада</div>
 
                         </div>
-                    </div>
+                    </div>                    
                 </div>
+                <div class="wr__for_btn btn__span">
+                    <button id="act__button" onclick='window.location.href="./acts.html"'>Ознайомитися</button>
+                </div>
+                
             </div>
         </div>
         <div class="donation">
@@ -267,26 +294,29 @@
                 <div class="donation__wrapper">
                     <div class="donation__image_item">
                         <picture>
-                            <source media="(max-width:767px)" srcset="./assets/donation-dog.png">
+                            <source media="(max-width:767px)" srcset="./assets/images/covid.png">
                             <img src="./assets/images/covid.png" alt="covid">
                         </picture>
                     </div>
                     <div class="donation__article_item">
                         <h2 class="donation__caption">Коронавірусна інфекція COVID-19</h2>
-                        <div class="donation__text">Name of the bank / Type of bank account</div>
+                        <div class="donation__text">У зв'язку з світовою пандемією</div>
                         <div class="donation__account">
-                            <img src="./assets/images/1.png" alt=""
+                            <img src="" alt=""
                                 class="donation__account_image">
                             <div class="donation__account_number"><a href="index.html#">Бережіть себе та інших!</a></div>
                         </div>
-                        <div class="donation__note">Legal information and lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Maecenas a ipsum at libero sagittis dignissim sed ac diam. Praesent
-                            ultrices maximus tortor et vulputate. Interdum et malesuada fames ac ante ipsum primis in
-                            faucibus.
+                        <div class="donation__note">                            
+                            У разі переведення класу (класів) на дистанційне навчання,
+                            освітній процес в закладі забезпечується з використанням платформ:
+                            nz.ua (електронний щоденник);
+                            zoom та google meet (онлайн конференції);
+                            viber й telegram (програми обміну повідомленнями)
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
         <footer class="footer">
             <div class="wrapper">
@@ -342,6 +372,12 @@
     </div>
     <script src="./js/data.js"></script>
     <script src="./js/main.js"></script>
+    <!-- <script src="./js/common.js"></script> -->
+    <!-- <script src="./js/page.js"></script> -->
+    
+
+
+
 </body>
 
 </html>
