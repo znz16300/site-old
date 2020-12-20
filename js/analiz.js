@@ -1,10 +1,11 @@
 var d1 = "";
 let data_table = {};
-
+let teach =  new Set();
 
 let sheet2 = "default";
 let title_st = '';
 let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
+
 
 const text = document.getElementById("content");
 
@@ -87,6 +88,9 @@ function readPage(){
             });
 
             createTable(data);
+            createLists(data);
+
+
 
             // createCards(data);       
 
@@ -95,10 +99,66 @@ function readPage(){
 
 }
 
+//Створюємо списки для меню
+function createLists(data){
+    for(let i=2; i<data.length; i++){
+        teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
+    }
+    //Сврорюємо меню для фільтрації вчителів
+    let ul = document.getElementById("teach__menu__items_id");
+
+    for(value of teach){    
+        let li = document.createElement('li');
+        li.classList.add('context-menu__item');        
+        // let value0 = value.replace(/[\s.,%]/g, '')
+        li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"
+                        onclick="filtrClick();"
+                        >${value}`;
+        ul.append(li);
+    }
+
+}
+
+
 const btn_print = document.getElementById("btn__print_id");
 const btn_teach = document.getElementById("id_table_teach");
-btn_print.addEventListener("click", ()=>{
-    
+var menu = document.querySelector(".context-menu");
+
+var menuState = 0;
+var active = "context-menu--active";
+
+function filtrClick(e) {
+    console.log(e);
+}
+
+// function contextMenuListener(el) {
+//     el.addEventListener( "contextmenu", function(e) {
+//       e.preventDefault();
+//       toggleMenuOn();
+//     });
+//   }
+   
+  function toggleMenuOn() {
+    if ( menuState !== 1 ) {
+      menuState = 1;
+      menu.classList.add(active);
+    } else {
+        menuState = 0;
+        menu.classList.remove(active);
+    }
+  }
+
+btn_teach.addEventListener("click", (e)=>{
+    console.log(e.target.getBoundingClientRect());
+    let btn = e.target;
+    let pos = btn.getBoundingClientRect();
+    let x = parseInt(pos['x']);
+    let y = parseInt(pos['y']);
+    console.log(menu);
+    menu.style.setProperty('left', String(x+15)+'px')
+    menu.style.setProperty('top', String(y+40)+'px')
+    toggleMenuOn();
 });
 
 btn_print.addEventListener("click", ()=>{
@@ -143,7 +203,7 @@ function createTable(data){
             <input id="id_${String(i)}" type="checkbox">
         `;
 
-        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7)
+        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
         table.append(row);
 
     }

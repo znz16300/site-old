@@ -1,4 +1,5 @@
 header {
+    /* position: fixed; */
     margin-left:-5px;
     margin-top:-15px;
     margin-right:-5px;
@@ -65,11 +66,33 @@ header {
 .cel_def {
     padding: 5px;
 }
+.btn_div {
+    text-align: right;
+}
 
-.cel_h :hover {
+ .cel_h , .btn_div :hover {
     cursor: pointer;
+    background-color:#77a0df;
+    color: white;
     
 }
+
+.context-menu__item {
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    padding: 10px;
+  }
+   
+  .context-menu--active {
+    display: block;
+  }
 
 .cel_h {
     justify-content: space-around;
