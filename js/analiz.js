@@ -143,9 +143,9 @@ btn_close_menu.addEventListener("click", ()=>{
 })
 
 function filtrClick(e) {
-    console.log(e.getAttribute('id'));
-    console.log(e.getAttribute('data-1'));
-    console.log(e.checked);
+    // console.log(e.getAttribute('id'));
+    // console.log(e.getAttribute('data-1'));
+    // console.log(e.checked);
     t = e.getAttribute('data-1');
     ch = e.checked;
 
@@ -165,19 +165,36 @@ function filtrClick(e) {
             </tbody>
         </table>
     `;
+    let ul = document.querySelectorAll(".f_chb");
+    
+    for(inp of ul) {
+        let ch = inp.checked;
+        let t = inp.getAttribute('data-1');
+        let i = 0;
+        for(value of gl_data){
+            if (t === value['gsx$вчительурокякоговідвідують']['$t']){
+                if (ch){
+                    i++;
+                    console.log("--- ",i);
+                    fillTable(table, value['id_m'], value) 
+                }
+            }
+                
+        }
+
+    }
+
 
 
 
     for(value of gl_data){
-        console.log("value");
-        console.log(value);
         if (t === value['gsx$вчительурокякоговідвідують']['$t']){
             if (ch){
                 console.log(value['id_m']);
                 fillTable(table, value['id_m'], value) 
             }
         }
-        
+            
     }
 
     
