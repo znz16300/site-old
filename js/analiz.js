@@ -73,7 +73,7 @@ function createCard(dat){
 function createCards(data, num=-1){
     text.innerHTML = "";
     if (num === -1) {
-        for (let i=3; i<data.length;i++){
+        for (let i=2; i<data.length;i++){
             createCard(data[i]);
         }
     } else {
@@ -95,7 +95,7 @@ function readPage(){
                     data_table[key] = m;                   
                 }              
             });
-            for (let i=3; i<gl_data.length; i++){
+            for (let i=2; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;
             }
             createLists(gl_data);
@@ -144,25 +144,7 @@ btn_close_menu.addEventListener("click", ()=>{
 })
 
 function filtrClick(e) {
-    // t = e.getAttribute('data-1');
-    // ch = e.checked;
-
     const table = document.getElementById('table_id');
-    // table.innerHTML=`
-    //     <table id="table_id" class="table__cl">
-    //         <tbody id="table__id"  >
-    //             <tr class="cel_row">
-    //                 <th class="cel_h">Дата уроку <img id="id_table_date" src="./assets/icons/filter_btn.png" alt=""></th>
-    //                 <th class="cel_h">Хто відвідує<img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""></th>
-    //                 <th class="cel_h">Чий урок відвідує<img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""></th>
-    //                 <th class="cel_h">Клас<img id="id_table_class" src="./assets/icons/filter_btn.png" alt=""></th>
-    //                 <th class="cel_h">Предмет<img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""></th>
-    //                 <th class="cel_h">Тема уроку<img id="id_table_title" src="./assets/icons/filter_btn.png" alt=""></th>
-    //                 <th class="cel_h">Вивід<img id="id_table_output" src="./assets/icons/filter_btn.png" alt=""></th>
-    //             </tr>
-    //         </tbody>
-    //     </table>
-    // `;
     let ul = document.querySelectorAll(".f_chb");
     const rows = document.querySelectorAll(".row_cl");
     
@@ -178,9 +160,7 @@ function filtrClick(e) {
                 }
             }
         }
-    }
-
-   
+    } 
 
 }
 
@@ -213,7 +193,7 @@ function menuClick(e){
 
 btn_print.addEventListener("click", ()=>{
     text.innerText = "";
-    for (let i=3; i<gl_data.length; i++){
+    for (let i=2; i<gl_data.length; i++){
         let c = document.getElementById("id_"+String(i));
         if (c.checked){
             createCard(gl_data[i]);
@@ -270,9 +250,8 @@ function fillTable(table, i, d){
 
 function createTable(data){
     const table = document.getElementById("table__id");
-    for (let i=3; i<data.length; i++){
+    for (let i=2; i<data.length; i++){
         fillTable(table, i, data[i]);
-
     }
     
  
