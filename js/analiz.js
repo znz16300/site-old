@@ -100,11 +100,7 @@ function readPage(){
             }
             createLists(gl_data);
             createTable(gl_data);
-            
-
-
-
-            // createCards(data);       
+  
 
         }       
     );    
