@@ -6,6 +6,15 @@ let sheet2 = "default";
 let title_st = '';
 let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
 
+const btn_print = document.getElementById("btn__print_id");
+const btn_teach = document.getElementById("id_table_teach");
+var menu = document.querySelector(".context-menu");
+
+var menuState = 0;
+var active = "context-menu--active";
+
+const btn_close_menu = document.getElementById('btn_close_menu');
+
 
 const text = document.getElementById("content");
 
@@ -86,9 +95,12 @@ function readPage(){
                     data_table[key] = m;                   
                 }              
             });
+            for (let i=3; i<gl_data.length; i++){
+                gl_data[i]['id_m'] = i;
+            }
 
-            createTable(data);
-            createLists(data);
+            createTable(gl_data);
+            createLists(gl_data);
 
 
 
@@ -106,51 +118,88 @@ function createLists(data){
     }
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("teach__menu__items_id");
-
-    for(value of teach){    
+    let i = 0;
+    for(value of teach){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
         // let value0 = value.replace(/[\s.,%]/g, '')
         li.innerHTML=`<input class="f_chb" 
                         type="checkbox"
-                        onclick="filtrClick();"
+                        id="c${i}" 
+                        data-1="${value}"
+                        onclick="filtrClick(this);"
                         >${value}`;
         ul.append(li);
+        i++;
     }
 
 }
 
+btn_close_menu.addEventListener("click", ()=>{
+    menuState = 0;
+    menu.classList.remove(active);
 
-const btn_print = document.getElementById("btn__print_id");
-const btn_teach = document.getElementById("id_table_teach");
-var menu = document.querySelector(".context-menu");
-
-var menuState = 0;
-var active = "context-menu--active";
+    
+})
 
 function filtrClick(e) {
-    console.log(e);
+    console.log(e.getAttribute('id'));
+    console.log(e.getAttribute('data-1'));
+    console.log(e.checked);
+    t = e.getAttribute('data-1');
+    ch = e.checked;
+
+    const table = document.getElementById('table_id');
+    table.innerHTML=`
+        <table id="table_id" class="table__cl">
+            <tbody id="table__id"  >
+                <tr class="cel_row">
+                    <th class="cel_h">Дата уроку <img id="id_table_date" src="./assets/icons/filter_btn.png" alt=""></th>
+                    <th class="cel_h">Хто відвідує<img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""></th>
+                    <th class="cel_h">Чий урок відвідує<img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""></th>
+                    <th class="cel_h">Клас<img id="id_table_class" src="./assets/icons/filter_btn.png" alt=""></th>
+                    <th class="cel_h">Предмет<img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""></th>
+                    <th class="cel_h">Тема уроку<img id="id_table_title" src="./assets/icons/filter_btn.png" alt=""></th>
+                    <th class="cel_h">Вивід<img id="id_table_output" src="./assets/icons/filter_btn.png" alt=""></th>
+                </tr>
+            </tbody>
+        </table>
+    `;
+
+
+
+    for(value of gl_data){
+        console.log("value");
+        console.log(value);
+        if (t === value['gsx$вчительурокякоговідвідують']['$t']){
+            if (ch){
+                console.log(value['id_m']);
+                fillTable(table, value['id_m'], value) 
+            }
+        }
+        
+    }
+
+    
+
 }
 
-// function contextMenuListener(el) {
-//     el.addEventListener( "contextmenu", function(e) {
-//       e.preventDefault();
-//       toggleMenuOn();
-//     });
-//   }
    
-  function toggleMenuOn() {
+function toggleMenuOn() {
     if ( menuState !== 1 ) {
-      menuState = 1;
-      menu.classList.add(active);
+        menuState = 1;
+        menu.classList.add(active);
     } else {
         menuState = 0;
         menu.classList.remove(active);
     }
-  }
+}
 
 btn_teach.addEventListener("click", (e)=>{
-    console.log(e.target.getBoundingClientRect());
+    menuClick(e);
+});
+
+function menuClick(e){
     let btn = e.target;
     let pos = btn.getBoundingClientRect();
     let x = parseInt(pos['x']);
@@ -159,7 +208,8 @@ btn_teach.addEventListener("click", (e)=>{
     menu.style.setProperty('left', String(x+15)+'px')
     menu.style.setProperty('top', String(y+40)+'px')
     toggleMenuOn();
-});
+}
+
 
 btn_print.addEventListener("click", ()=>{
     text.innerText = "";
@@ -168,43 +218,44 @@ btn_print.addEventListener("click", ()=>{
         if (c.checked){
             createCard(gl_data[i]);
         }
-    }
-
-    
+    }    
 })
 
-function createTable(data){
-    console.log(data);
-    const table = document.getElementById("table__id");
-    for (let i=3; i<data.length; i++){
-        let row = document.createElement('tr');
-        let cel1 = document.createElement('td');
-        let cel2 = document.createElement('td');
-        let cel3 = document.createElement('td');
-        let cel4 = document.createElement('td');
-        let cel5 = document.createElement('td');
-        let cel6 = document.createElement('td');
-        let cel7 = document.createElement('td');
-        cel1.classList.add('cel_def');
-        cel2.classList.add('cel_def');
-        cel3.classList.add('cel_def');
-        cel4.classList.add('cel_def');
-        cel5.classList.add('cel_def');
-        cel6.classList.add('cel_def');
-        cel7.classList.add('cel_def');
-        
-        cel1.innerText=data[i]['gsx$датапроведенняуроку']['$t'];
-        cel2.innerText=data[i]['gsx$хтовідвідуєурок']['$t'];
-        cel3.innerText=data[i]['gsx$вчительурокякоговідвідують']['$t'];
-        cel4.innerText=data[i]['gsx$класгрупа']['$t'];
-        cel6.innerText=data[i]['gsx$темауроку']['$t'];
-        cel5.innerText=data[i]['gsx$предмет']['$t'];
-        cel7.innerHTML=`
-            <input id="id_${String(i)}" type="checkbox">
+function fillTable(table, i, d){
+    let cel1 = document.createElement('td');
+    let cel2 = document.createElement('td');
+    let cel3 = document.createElement('td');
+    let cel4 = document.createElement('td');
+    let cel5 = document.createElement('td');
+    let cel6 = document.createElement('td');
+    let cel7 = document.createElement('td');
+    cel1.classList.add('cel_def');
+    cel2.classList.add('cel_def');
+    cel3.classList.add('cel_def');
+    cel4.classList.add('cel_def');
+    cel5.classList.add('cel_def');
+    cel6.classList.add('cel_def');
+    cel7.classList.add('cel_def');
+    let row = document.createElement('tr');
+    cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
+    cel2.innerText=d['gsx$хтовідвідуєурок']['$t'];
+    cel3.innerText=d['gsx$вчительурокякоговідвідують']['$t'];
+    cel4.innerText=d['gsx$класгрупа']['$t'];
+    cel5.innerText=d['gsx$предмет']['$t'];
+    cel6.innerText=d['gsx$темауроку']['$t'];
+
+    cel7.innerHTML=`
+             <input id="id_${String(i)}" type="checkbox">
         `;
 
-        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-        table.append(row);
+    table.append(row);
+    row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+}
+
+function createTable(data){
+    const table = document.getElementById("table__id");
+    for (let i=3; i<data.length; i++){
+        fillTable(table, i, data[i]);
 
     }
     

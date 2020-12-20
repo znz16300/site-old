@@ -77,9 +77,16 @@ header {
     
 }
 
+
+
+.btn_menu {
+    text-align: right;
+}
+
 .context-menu__item {
     list-style-type: none;
     margin-left: -40px;
+    
 }
 
 .context-menu {
@@ -87,7 +94,10 @@ header {
     position: absolute;
     z-index: 10;
     background-color: white;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    
   }
    
   .context-menu--active {
