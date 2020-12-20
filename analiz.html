@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Reading google spreadsheet data via API</title>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script>
+<script src="./js/jquery-3.5.0.js"></script>
+<link rel="stylesheet" href="./css/analiz.css">
+
+</head>
+<body>
+<header class="head">
+    <p class="title__head">Виберіть записи для друку</p>
+    <div class="header__table">
+        <table class="table__cl">
+            <tbody id="table__id"  >
+                <tr class="cel_row">
+                <th class="cel_h">Дата уроку <img id="id_table_date" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">Хто відвідує<img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">Чий урок відвідує<img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">Клас<img id="id_table_class" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">Предмет<img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">Тема уроку<img id="id_table_title" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">Вивід<img id="id_table_output" src="./assets/icons/filter_btn.png" alt=""></th>
+                
+            </tr>
+
+            </tbody>
+        </table>
+        <button id="btn__print_id" 
+        class="btn">Вивести</button>
+    </div>
+    
+</header>
+
+<div id="content"></div>
+<script src="./js/analiz.js"></script>
+</body>
+</html>
