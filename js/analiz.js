@@ -7,6 +7,7 @@ let title_st = '';
 let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
 
 const btn_print = document.getElementById("btn__print_id");
+const btn__copy_id = document.getElementById("btn__copy_id");
 const btn_teach = document.getElementById("id_table_teach");
 var menu = document.querySelector(".context-menu");
 
@@ -139,10 +140,10 @@ btn_close_menu.addEventListener("click", ()=>{
     
 })
 
-function copytext() {
-    let el = document.getElementById("content");
-    var range = document.createRange();
-    range.selectNode(el); 
+btn__copy_id.addEventListener('click', ()=>{
+    // let el = document.getElementById("content");
+    let range = document.createRange();
+    range.selectNode(text); 
     window.getSelection().addRange(range); 
     try { 
       document.execCommand('copy'); 
@@ -150,7 +151,8 @@ function copytext() {
       console.log('Can`t copy, boss'); 
     } 
     window.getSelection().removeAllRanges();
-}
+})
+
 
 
 function filtrClick(e) {
