@@ -139,6 +139,20 @@ btn_close_menu.addEventListener("click", ()=>{
     
 })
 
+function copytext() {
+    let el = document.getElementById("content");
+    var range = document.createRange();
+    range.selectNode(el); 
+    window.getSelection().addRange(range); 
+    try { 
+      document.execCommand('copy'); 
+    } catch(err) { 
+      console.log('Can`t copy, boss'); 
+    } 
+    window.getSelection().removeAllRanges();
+}
+
+
 function filtrClick(e) {
     const table = document.getElementById('table_id');
     let ul = document.querySelectorAll(".f_chb");
