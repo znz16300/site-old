@@ -24,7 +24,7 @@ header {
 }
 
 .btn {
-    border: 2px solid #77a0df;
+    border: 1px solid #b0cefa;
     box-sizing: border-box;
     border-radius: 18px;
     background-color: #fafafa;
@@ -77,6 +77,9 @@ header {
     color: white;    
 }
 
+#btn__print_id {
+    margin-right: 10px;
+}
 
 .cel_chb {
     text-align: center;
