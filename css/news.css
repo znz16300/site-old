@@ -143,6 +143,7 @@
 }
 .cards .cards__item .cards__item-image {
   margin-bottom: 27px;
+  margin-top: 30px;
 }
 .cards__item {
   max-width: 280px;
@@ -750,4 +751,44 @@
 
 .img_on_modal img{
   width: 400px;
+}
+
+.cards__item {
+  
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.go-up,
+.go-down {
+  display:none;
+  position: fixed; /*РїРѕР·РёС†РёРѕРЅРёСЂСѓРµРј*/
+  right: 40px; /*СѓРєР°Р·С‹РІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ, РµСЃР»Рё СЃР»РµРІР° - left*/
+  z-index: 9999; /*РїРѕРєР°Р·С‹РІР°РµРј РїРѕРІРµСЂС… РІСЃРµ СЌР»РµРјРµРЅС‚РѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ*/
+  background: #4F4F4F;
+  border: 2px solid #ccc; /*С‚РѕР»С‰РёРЅР°, СЃС‚РёР»СЊ, С†РІРµС‚ СЂР°РјРєРё*/
+  box-shadow: 0 10px 0.3em -0.1em rgba(0,0,6,0.5); /*С‚РµРЅСЊ*/
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff; /*С†РІРµС‚ СЃС‚СЂРµР»РѕРє*/
+  font: 1em / 1.3em courier new, monospace;
+  font-weight: bold;
+  text-align: center; /*РІС‹СЂР°РІРЅРёРІР°РЅРёРµ*/
+  font-size: 42px; /*СЂР°Р·РјРµСЂ СЃС‚СЂРµР»РѕРє*/
+  text-shadow: 0 1px 2px #000, 0 0 10px #E0F1FF;
+  opacity: .7; /*РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ*/
+  padding: 5px 5px 5px 5px; /*РѕС‚СЃС‚СѓРїС‹ РІРЅСѓС‚СЂРё*/
+  margin-bottom: 5px; /*РѕС‚СЃС‚СѓРї СЃРЅРёР·Сѓ (РјРѕР¶РЅРѕ РЅРµ СѓРєР°Р·С‹РІР°С‚СЊ)*/
+  width: 38px; /*С€РёСЂРёРЅР° РєРЅРѕРїРєРё*/
+  height: 19px; /*РІС‹СЃРѕС‚Р° РєРЅРѕРїРєРё*/
+}
+
+.go-up {
+  bottom: 70px;
+}
+
+.go-down:hover,
+.go-up:hover {
+  opacity: 1;
 }

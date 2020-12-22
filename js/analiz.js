@@ -228,6 +228,7 @@ function fillTable(table, i, d){
     cel5.classList.add('cel_def');
     cel6.classList.add('cel_def');
     cel7.classList.add('cel_def');
+    cel7.classList.add('cel_chb');
     let row = document.createElement('tr');
     row.setAttribute('id','row_'+String(i));
     cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
@@ -237,25 +238,11 @@ function fillTable(table, i, d){
     cel5.innerText=d['gsx$предмет']['$t'];
     cel6.innerText=d['gsx$темауроку']['$t'];
     row.setAttribute('data-name', d['gsx$вчительурокякоговідвідують']['$t']);
-    //row.style.display = "none";
-    // row.style.display = "";
-    // row.style.display.remove;
-
     let ul = document.querySelectorAll(".f_chb");
-    
-    // for(inp of ul) {
-    //     let t = inp.getAttribute('data-1');
-    //     if (t === d['gsx$вчительурокякоговідвідують']['$t']){
-    //         row.style.display = "none"
-    //     } else {
-    //     }
-    // }
-
     row.classList.add('row_cl');
     cel7.innerHTML=`
              <input id="id_${String(i)}" type="checkbox">
         `;
-
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
 }
