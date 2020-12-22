@@ -162,3 +162,25 @@ header {
     /* padding-left: 10px; */
     font-size: 18.5px;
 }
+
+#Calendar {
+    position: absolute;
+    border-collapse: collapse;
+    background: #6dc0f0;
+    border: 1px solid #303030;
+    display: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    z-index: 9999999;
+    box-shadow: 0 0 15px#77a0df;
+}
+#Calendar_mns{
+    text-align:center;
+    margin: 0;
+    padding: 0;
+}
+#Calendar select,#Calendar option {
+    font-size: 11px;
+    padding: 0 2px
+}
