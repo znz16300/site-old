@@ -7,6 +7,7 @@ let title_st = '';
 let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
 
 const btn_print = document.getElementById("btn__print_id");
+const btn__copy_id = document.getElementById("btn__copy_id");
 const btn_teach = document.getElementById("id_table_teach");
 var menu = document.querySelector(".context-menu");
 
@@ -139,10 +140,10 @@ btn_close_menu.addEventListener("click", ()=>{
     
 })
 
-function copytext() {
-    let el = document.getElementById("content");
-    var range = document.createRange();
-    range.selectNode(el); 
+btn__copy_id.addEventListener('click', ()=>{
+    // let el = document.getElementById("content");
+    let range = document.createRange();
+    range.selectNode(text); 
     window.getSelection().addRange(range); 
     try { 
       document.execCommand('copy'); 
@@ -150,7 +151,8 @@ function copytext() {
       console.log('Can`t copy, boss'); 
     } 
     window.getSelection().removeAllRanges();
-}
+})
+
 
 
 function filtrClick(e) {
@@ -226,6 +228,7 @@ function fillTable(table, i, d){
     cel5.classList.add('cel_def');
     cel6.classList.add('cel_def');
     cel7.classList.add('cel_def');
+    cel7.classList.add('cel_chb');
     let row = document.createElement('tr');
     row.setAttribute('id','row_'+String(i));
     cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
@@ -235,25 +238,11 @@ function fillTable(table, i, d){
     cel5.innerText=d['gsx$предмет']['$t'];
     cel6.innerText=d['gsx$темауроку']['$t'];
     row.setAttribute('data-name', d['gsx$вчительурокякоговідвідують']['$t']);
-    //row.style.display = "none";
-    // row.style.display = "";
-    // row.style.display.remove;
-
     let ul = document.querySelectorAll(".f_chb");
-    
-    // for(inp of ul) {
-    //     let t = inp.getAttribute('data-1');
-    //     if (t === d['gsx$вчительурокякоговідвідують']['$t']){
-    //         row.style.display = "none"
-    //     } else {
-    //     }
-    // }
-
     row.classList.add('row_cl');
     cel7.innerHTML=`
              <input id="id_${String(i)}" type="checkbox">
         `;
-
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
 }

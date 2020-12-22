@@ -3,7 +3,7 @@ header {
     margin-left:-5px;
     margin-top:-15px;
     margin-right:-5px;
-    background-color: rgb(182, 191, 192);
+    background-color: rgb(222, 225, 228);
     /* height: 100px; */
     font-size: 18px;
     font-family: Georgia;
@@ -76,6 +76,9 @@ header {
     background-color:#77a0df;
     color: white;
     
+}
+.cel_chb {
+    text-align: center;
 }
 
 
