@@ -1,6 +1,7 @@
 var d1 = "";
 let data_table = {};
 let teach =  new Set();
+let clas =  new Set();
 
 let sheet2 = "default";
 let title_st = '';
@@ -9,12 +10,16 @@ let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
 const btn_print = document.getElementById("btn__print_id");
 const btn__copy_id = document.getElementById("btn__copy_id");
 const btn_teach = document.getElementById("id_table_teach");
-var menu = document.querySelector(".context-menu");
+const btn_clas = document.getElementById("id_table_clas");
+var menu = document.getElementById("context-menu-id");
+var menuClas = document.getElementById("context-menu-clas-id");
+const btn_close_menu = document.getElementById('btn_close_menu');
+const btn_close_menu_clas = document.getElementById('btn_close_menu_clas');
 
 var menuState = 0;
 var active = "context-menu--active";
 
-const btn_close_menu = document.getElementById('btn_close_menu');
+
 
 
 const text = document.getElementById("content");
@@ -108,8 +113,36 @@ function readPage(){
 
 }
 
-//Створюємо списки для меню
 function createLists(data){
+    createListsTeach(data);
+    createListsClas(data);
+}
+
+//Створюємо списки для меню
+function createListsClas(data){
+    for(let i=2; i<data.length; i++){
+        clas.add(data[i]['gsx$класгрупа']['$t'])
+    }
+    //Сврорюємо меню для фільтрації вчителів
+    let ul = document.getElementById("clas__menu__items_id");
+    let i = 0;
+    for(value of clas){            
+        let li = document.createElement('li');
+        li.classList.add('context-menu__item');        
+        // let value0 = value.replace(/[\s.,%]/g, '')
+        li.innerHTML=`<input class="f_chb_clas" 
+                        type="checkbox"
+                        id="c${i}" 
+                        data-1="${value}"
+                        checked
+                        onclick="filtrClick(this);"
+                        >${value}`;
+        ul.append(li);
+        i++;
+    }
+}
+//Створюємо списки для меню
+function createListsTeach(data){
     for(let i=2; i<data.length; i++){
         teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
     }
@@ -130,27 +163,16 @@ function createLists(data){
         ul.append(li);
         i++;
     }
-
 }
 
 btn_close_menu.addEventListener("click", ()=>{
     menuState = 0;
-    menu.classList.remove(active);
-
-    
+    menu.classList.remove(active);    
 })
 
-btn__copy_id.addEventListener('click', ()=>{
-    // let el = document.getElementById("content");
-    let range = document.createRange();
-    range.selectNode(text); 
-    window.getSelection().addRange(range); 
-    try { 
-      document.execCommand('copy'); 
-    } catch(err) { 
-      console.log('Can`t copy, boss'); 
-    } 
-    window.getSelection().removeAllRanges();
+btn_close_menu_clas.addEventListener("click", ()=>{
+    menuState = 0;
+    menuClas.classList.remove(active);    
 })
 
 
@@ -175,9 +197,29 @@ function filtrClick(e) {
     } 
 
 }
+function filtrClickClas(e) {
+    const table = document.getElementById('table_id');
+    let ul = document.querySelectorAll(".f_chb_clas");
+    const rows = document.querySelectorAll(".row_cl");
+    
+    for(inp of ul) {
+        let ch = inp.checked;
+        let t = inp.getAttribute('data-1');
+        for(row of rows){
+            if (t === row.getAttribute('data-name')){
+                if (ch){
+                    row.style.display = "" 
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+    } 
+
+}
 
    
-function toggleMenuOn() {
+function toggleMenuOnTeach() {
     if ( menuState !== 1 ) {
         menuState = 1;
         menu.classList.add(active);
@@ -186,21 +228,55 @@ function toggleMenuOn() {
         menu.classList.remove(active);
     }
 }
+function toggleMenuOnClas() {
+    if ( menuState !== 1 ) {
+        menuState = 1;
+        menuClas.classList.add(active);
+    } else {
+        menuState = 0;
+        menuClas.classList.remove(active);
+    }
+}
 
 btn_teach.addEventListener("click", (e)=>{
-    menuClick(e);
+    menuClick(e,'teach');
+});
+btn_clas.addEventListener("click", (e)=>{
+    menuClick(e, 'clas');
 });
 
-function menuClick(e){
+function menuClick(e, n){
     let btn = e.target;
     let pos = btn.getBoundingClientRect();
     let x = parseInt(pos['x']);
     let y = parseInt(pos['y']);
     console.log(menu);
-    menu.style.setProperty('left', String(x+15)+'px')
-    menu.style.setProperty('top', String(y+40)+'px')
-    toggleMenuOn();
+    
+    if (n == 'teach'){
+        menu.style.setProperty('left', String(x+15)+'px')
+        menu.style.setProperty('top', String(y+40)+'px')
+        toggleMenuOnTeach();
+    } else  if (n == 'clas'){
+        menuClas.style.setProperty('left', String(x+15)+'px')
+        menuClas.style.setProperty('top', String(y+40)+'px')
+        toggleMenuOnClas();
+    }
 }
+
+
+
+btn__copy_id.addEventListener('click', ()=>{
+    // let el = document.getElementById("content");
+    let range = document.createRange();
+    range.selectNode(text); 
+    window.getSelection().addRange(range); 
+    try { 
+      document.execCommand('copy'); 
+    } catch(err) { 
+      console.log('Can`t copy, boss'); 
+    } 
+    window.getSelection().removeAllRanges();
+})
 
 
 btn_print.addEventListener("click", ()=>{
