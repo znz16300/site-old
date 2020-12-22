@@ -71,20 +71,29 @@ header {
     text-align: right;
 }
 
- .cel_h , .btn_div :hover {
+ .btn_div :hover {
     cursor: pointer;
     background-color:#77a0df;
-    color: white;
-    
+    color: white;    
 }
+
+
 .cel_chb {
     text-align: center;
 }
 
+.btn_menu :hover {
+    cursor: pointer;
+}
 
+.cel_h :hover {
+    cursor: pointer;
+}
 
 .btn_menu {
     text-align: right;
+    /* margin-top: 0;
+    margin-right: 0; */
 }
 
 .context-menu__item {
