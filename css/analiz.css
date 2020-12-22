@@ -24,7 +24,7 @@ header {
 }
 
 .btn {
-    border: 2px solid #77a0df;
+    border: 1px solid #b0cefa;
     box-sizing: border-box;
     border-radius: 18px;
     background-color: #fafafa;
@@ -71,20 +71,32 @@ header {
     text-align: right;
 }
 
- .cel_h , .btn_div :hover {
+ .btn_div :hover {
     cursor: pointer;
     background-color:#77a0df;
-    color: white;
-    
+    color: white;    
 }
+
+#btn__print_id {
+    margin-right: 10px;
+}
+
 .cel_chb {
     text-align: center;
 }
 
+.btn_menu :hover {
+    cursor: pointer;
+}
 
+.cel_h :hover {
+    cursor: pointer;
+}
 
 .btn_menu {
     text-align: right;
+    /* margin-top: 0;
+    margin-right: 0; */
 }
 
 .context-menu__item {
