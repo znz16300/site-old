@@ -162,7 +162,7 @@ function createListsDate(data){
     li.classList.add('context-menu__item'); 
     li.innerHTML=`
         <div class="inp_data">
-            <span class="sp_0"> від </span> <input id="d1" type="date" 
+            <span class="sp_0"> Від </span> <input id="d1" type="date" 
             value="${min}"
             onchange="filtrClick(this);"
             >
@@ -173,7 +173,7 @@ function createListsDate(data){
     li2.classList.add('context-menu__item'); 
     li2.innerHTML=`
         <div class="inp_data">
-            <div  class="sp_0"> до&nbsp; </div>
+            <div  class="sp_0"> до&nbsp;&nbsp; </div>
             <div  class="sp_0">
                 <input 
                 class="input_data_cl" 

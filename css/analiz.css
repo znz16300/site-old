@@ -13,10 +13,14 @@ header {
 
 .inp_data {
     /* justify-content: baseline; */
+    margin-top: 10px;
+    margin-bottom: 0;
+    
 }
 
 .sp_0 {
     display: inline;
+
 
 }
 
@@ -126,7 +130,7 @@ header {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
-    
+    background-color: rgb(87, 130, 173);
   }
    
   .context-menu--active {
