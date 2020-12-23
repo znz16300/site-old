@@ -11,6 +11,19 @@ header {
     line-height: 150%;
 }
 
+.inp_data {
+    /* justify-content: baseline; */
+}
+
+.sp_0 {
+    display: inline;
+
+}
+
+/* .input_data_cl {
+   
+} */
+
 .title__head {
     padding-top: 10px;
     padding-left: 30px;
