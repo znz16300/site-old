@@ -23,6 +23,7 @@ function readPage(key){
                     const regex = String.fromCharCode(10);
                     text = text.replace(regex,'<br>');
                     console.log(text);
+                    // text_tmp += `${text}`
                     text_tmp += `<p class="default_par"> ${text} </p>`
                 
 
