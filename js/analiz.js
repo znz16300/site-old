@@ -4,6 +4,7 @@ let teach =  new Set();
 let clas =  new Set();
 let subj =  new Set();
 let who =  new Set();
+let date =  new Set();
 
 let sheet2 = "default";
 let title_st = '';
@@ -16,16 +17,19 @@ const btn_teach = document.getElementById("id_table_teach");
 const btn_clas = document.getElementById("id_table_clas");
 const btn_subj = document.getElementById("id_table_subj");
 const btn_who = document.getElementById("id_table_who");
+const btn_date = document.getElementById("id_table_date");
 
 var menu = document.getElementById("context-menu-id");
 var menuClas = document.getElementById("context-menu-clas-id");
 var menuSubj = document.getElementById("context-menu-subj-id");
 var menuWho = document.getElementById("context-menu-who-id");
+var menuDate = document.getElementById("context-menu-date-id");
 
 const btn_close_menu = document.getElementById('btn_close_menu');
 const btn_close_menu_clas = document.getElementById('btn_close_menu_clas');
 const btn_close_menu_subj = document.getElementById('btn_close_menu_subj');
 const btn_close_menu_who = document.getElementById('btn_close_menu_who');
+const btn_close_menu_date = document.getElementById('btn_close_menu_date');
 
 var menuState = 0;
 var active = "context-menu--active";
@@ -129,8 +133,60 @@ function createLists(data){
     createListsClas(data);
     createListsSubj(data);
     createListsWho(data);
+    createListsDate(data);
 }
 
+//Створюємо списки для меню
+function createListsDate(data){
+    for(let i=2; i<data.length; i++){
+        //TODO
+        let s = data[i]['gsx$датапроведенняуроку']['$t'];
+        let day = s.substr(0,2);
+        let month = s.substr(3,2);
+        let year = s.substr(6,4);
+        let d = `${year}-${month}-${day}`;
+        date.add(d);
+    }
+    let max = '2000-01-01';
+    let min = '2100-01-01';
+    for (d of date){
+        if (d<min) min = d;
+        if (d>max) max = d;
+    }
+
+    console.log(min);
+    console.log(max);
+    let ul = document.getElementById("date__menu__items_id");
+    let i = 0;
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item'); 
+    li.innerHTML=`
+        <div class="inp_data">
+            <span class="sp_0"> Від </span> <input id="d1" type="date" 
+            value="${min}"
+            onchange="filtrClick(this);"
+            >
+        </div>
+    `;
+
+    let li2 = document.createElement('li');
+    li2.classList.add('context-menu__item'); 
+    li2.innerHTML=`
+        <div class="inp_data">
+            <div  class="sp_0"> до&nbsp;&nbsp; </div>
+            <div  class="sp_0">
+                <input 
+                class="input_data_cl" 
+                id="d2" 
+                type="date" 
+                value="${max}"
+                onchange="filtrClick(this);"
+                >
+            </div>
+        </div>
+    `;
+    ul.append(li, li2);
+}
 //Створюємо списки для меню
 function createListsWho(data){
     for(let i=2; i<data.length; i++){
@@ -240,6 +296,10 @@ btn_close_menu_who.addEventListener("click", ()=>{
     menuState = 0;
     menuWho.classList.remove(active);    
 })
+btn_close_menu_date.addEventListener("click", ()=>{
+    menuState = 0;
+    menuDate.classList.remove(active);    
+})
 
 
 
@@ -249,6 +309,8 @@ function filtrClick(e) {
     let ulClas = document.querySelectorAll(".f_chb_clas");
     let ulSubj = document.querySelectorAll(".f_chb_subj");
     let ulWho = document.querySelectorAll(".f_chb_who");
+    let d1 = document.getElementById("d1");
+    let d2 = document.getElementById("d2");
 
     const rows = document.querySelectorAll(".row_cl");
     for(row of rows){
@@ -256,6 +318,7 @@ function filtrClick(e) {
         let clas = row.getAttribute('data-clas');
         let subj = row.getAttribute('data-subj');
         let who = row.getAttribute('data-who');
+        let date = row.getAttribute('data-date');
         let fTeach = false;
         for(inp of ulTeach) {
             let ch = inp.checked;
@@ -288,7 +351,12 @@ function filtrClick(e) {
                 fWho = ch;
             }
         }
-        let f = fTeach && fClas && fSubj && fWho;
+        console.log(d1);
+        console.log(d2);
+        let s1 = d1.value;
+        let s2 = d2.value;
+        let fDate = (date >= s1 && date <= s2);
+        let f = fTeach && fClas && fSubj && fWho && fDate;
         if (f){
             row.style.display = "" 
         } else {
@@ -300,26 +368,6 @@ function filtrClick(e) {
     
     
 }
-// function filtrClickClas(e) {
-//     const table = document.getElementById('table_id');
-//     let ul = document.querySelectorAll(".f_chb_clas");
-//     const rows = document.querySelectorAll(".row_cl");
-    
-//     for(inp of ul) {
-//         let ch = inp.checked;
-//         let t = inp.getAttribute('data-1');
-//         for(row of rows){
-//             if (t === row.getAttribute('data-name')){
-//                 if (ch){
-//                     row.style.display = "" 
-//                 } else {
-//                     row.style.display = "none";
-//                 }
-//             }
-//         }
-//     } 
-
-// }
 
    
 function toggleMenuOnTeach() {
@@ -358,6 +406,15 @@ function toggleMenuOnWho() {
         menuWho.classList.remove(active);
     }
 }
+function toggleMenuOnDate() {
+    if ( menuState !== 1 ) {
+        menuState = 1;
+        menuDate.classList.add(active);
+    } else {
+        menuState = 0;
+        menuDate.classList.remove(active);
+    }
+}
 
 btn_teach.addEventListener("click", (e)=>{
     menuClick(e,'teach');
@@ -370,6 +427,9 @@ btn_subj.addEventListener("click", (e)=>{
 });
 btn_who.addEventListener("click", (e)=>{
     menuClick(e, 'who');
+});
+btn_date.addEventListener("click", (e)=>{
+    menuClick(e, 'date');
 });
 
 function menuClick(e, n){
@@ -395,6 +455,10 @@ function menuClick(e, n){
         menuWho.style.setProperty('left', String(x+15)+'px')
         menuWho.style.setProperty('top', String(y+40)+'px')
         toggleMenuOnWho();
+    } else  if (n == 'date'){
+        menuDate.style.setProperty('left', String(x+15)+'px')
+        menuDate.style.setProperty('top', String(y+40)+'px')
+        toggleMenuOnDate();
     }
 }
 
@@ -453,6 +517,12 @@ function fillTable(table, i, d){
     row.setAttribute('data-clas', d['gsx$класгрупа']['$t']);
     row.setAttribute('data-subj', d['gsx$предмет']['$t']);
     row.setAttribute('data-who', d['gsx$хтовідвідуєурок']['$t']);
+    let s = d['gsx$датапроведенняуроку']['$t'];
+    let day = s.substr(0,2);
+    let year = s.substr(6,4);
+    let month = s.substr(3,2);
+    s = `${year}-${month}-${day}`;
+    row.setAttribute('data-date', s);
 
     let ul = document.querySelectorAll(".f_chb");
     row.classList.add('row_cl');
