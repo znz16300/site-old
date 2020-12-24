@@ -6,7 +6,9 @@
     <title>Гроші</title>
 </head>
 <body>
+    <script src="./js/data.js"></script>
     <script>
+
         function setStorage(name, value) {
             window.localStorage.setItem(name, JSON.stringify(value));
         }
@@ -25,7 +27,7 @@
             document.location.href = './page.html';
         }
 
-        setPageKey(`Контакти`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+        setPageKey(`Контакти`, keyTablePages);
     </script>
     
 </body>
