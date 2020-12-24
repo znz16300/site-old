@@ -3,8 +3,8 @@ let sheet = "1";
 
 let newsData = [];
 
-const keyTableNews ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
-var url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
+// const keyTableNews ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
+var url  = "https://spreadsheets.google.com/feeds/list/"+keyTableDocs+"/"+sheet+"/public/values?alt=json";
 
 let burgerItem = document.querySelector('.header__burger');
 let menu = document.querySelector('.header__nav');

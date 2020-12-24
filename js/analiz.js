@@ -8,7 +8,8 @@ let date =  new Set();
 
 let sheet2 = "default";
 let title_st = '';
-let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
+let key;
+// let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
 
 const btn_print = document.getElementById("btn__print_id");
 const btn__copy_id = document.getElementById("btn__copy_id");
@@ -543,6 +544,20 @@ function createTable(data){
 
 
 }
+
+function readStorage(){
+    key = window.localStorage.getItem("keyTableForAnaliz");
+    if (key === null) {
+        let s = prompt("Уведіть ключ", "");
+        if (s !== null){
+            key = s;
+            window.localStorage.setItem("keyTableForAnaliz", s);
+        }            
+    }    
+}
+
+readStorage();
+// url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 
 readPage();
 // createCards(data);

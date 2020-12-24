@@ -3,7 +3,10 @@ let sheet = "1";
 
 let newsData = [];
 
-const keyTableNews ="1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+// var keyTableNews;
+// const keyTableNews ="1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+
+// var url;
 var url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 
 let burgerItem = document.querySelector('.header__burger');
@@ -306,6 +309,20 @@ scroolBtn.addEventListener("click", ()=>{
 });
 
 
+
+// function readStorage(){
+//     keyTableNews = window.localStorage.getItem("keyTableForNews");
+//     if (keyTableNews === null) {
+//         let s = prompt("Уведіть ключ для новин", "");
+//         if (s !== null){
+//             keyTableNews = s;
+//             window.localStorage.setItem("keyTableForNews", s);
+//         }            
+//     }    
+// }
+
+// readStorage();
+// url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 readNews();
 
 function openNewWin(url) {
