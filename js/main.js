@@ -6,7 +6,17 @@ let btnLeft = document.querySelector('.arrow_left');
 let btnRight = document.querySelector('.arrow_right');
 let sliderItems = document.querySelector('.pet_slider__items');
 let modalWindow = document.querySelector('.modal__wrapper');
+
+const m_teach = document.getElementById("m_teach");
+m_teach.addEventListener("click",()=>{
+    setPageKey(`Вчителі`, keyTablePages);
+})
+
+
 let currentPetNumbers = [];
+
+
+
 
 function changeOverflow() {
     let overflowY = document.body.style.overflowY;
@@ -183,6 +193,24 @@ function updateStorage(){
             window.localStorage.setItem("keyTableForNews", s); 
         }            
     }    
+}
+
+function setStorage(name, value) {
+    window.localStorage.setItem(name, JSON.stringify(value));
+}
+
+function getStorage(name, subst = null) {
+    return JSON.parse(window.localStorage.getItem(name) || subst);
+}
+
+function delStorage(name) {
+    localStorage.removeItem(name);
+}
+
+function setPageKey(title, key){
+    setStorage('keyPages', key);
+    setStorage('titlePages', title);
+    document.location.href = './page.html';
 }
  
 
