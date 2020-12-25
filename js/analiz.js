@@ -47,8 +47,9 @@ function sortById(arr) {
 function print_my(data){
     data.push({'id':111111111, 'title':" ", 'value':" "});
     text.innerHTML +=`<br><hr><br><div class="title1">АНАЛІЗ УРОКУ</div>`;
+    let isBoldForTitle = true;
     for(let i=0; i<data.length; i++){
-        if (data[i]['value'] !== "" && data[i]['id'] >= 0){
+        if (data[i]['value'] !== "" && data[i]['id'] >= 0  ){
             // text.innerHTML += `<span class="title">${data[i]['title']}</span> 
             //                    <span class="value">${data[i]['value']}</span><br>`;
             let tag1 = 'span';
@@ -58,20 +59,80 @@ function print_my(data){
             if (data[i+1] !== undefined){
                  let sym1 =(data[i+1]['title'] +" ")[0];
                  let sym2 =(data[i]['title'] +" ")[0];
-                 if (sym2.toUpperCase() === sym2){
+                 if (sym2.toUpperCase() === sym2 && sym2 !== ')' && sym2 !== '(' && sym2 !== ','){
                      tag2 = 'span';
                     sep = "<br>";
                  }
-            }
-            
-
+            }            
+            data[i]['title'] = (data[i]['title']).trim();
+            data[i]['value'] = (data[i]['value']).replace('_', '').trim();
             text.innerHTML += `${sep}<${tag1} class="title">${data[i]['title']}</${tag1}> 
                                 <${tag2} class="value">${data[i]['value']}</${tag2}>`;
         }                 
     }
+    text.innerHTML = text.innerHTML.replace('\xa0',' ');
+    console.log(text.innerHTML);
+    if (!isBoldForTitle){
+        text.innerHTML = text.innerHTML.replace('<span class="title">','');
+        text.innerHTML = text.innerHTML.replace('<span class="value">','');
+        text.innerHTML = text.innerHTML.replace('</span>','');
+        text.innerHTML = text.innerHTML.replace('  ',' ');
+        // text.innerHTML = text.innerHTML.replace('(\xa0\x20','(');
+        // text.innerHTML = text.innerHTML.replace('\xb0\x20)',')');
+        text.innerHTML = text.innerHTML.replace('( ','(');
+        text.innerHTML = text.innerHTML.replace(' )',')');
+    }
     text.innerHTML +=`<br> 
                       <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
 }
+
+// function print_my(data){
+//      data.push({'id':111111111, 'title':" ", 'value':" "});
+//      text.innerHTML +=`<br<div class="title1">АНАЛІЗ УРОКУ</div>`;
+//      let isBoldForTitle = true;
+//      let sep = '';
+//      for(let i=0; i<data.length; i++){
+//          if (isBoldForTitle) {
+//              if (data[i]['value'] !== "" && data[i]['id'] >= 0){
+//                  let tag1 = 'span';
+//                  let tag2 = 'span';
+                
+//                  if (data[i+1] !== undefined){
+//                       let sym1 =(data[i+1]['title'] +" ").trim()[0];
+//                       let sym2 =(data[i]['title'] +" ").trim()[0];
+//                       if (sym2.toUpperCase() === sym2 && sym2 !== ')' && sym2 !== '(' && sym2 !== ',' ){
+//                           tag2 = 'span';
+//                          sep = ".<br>";
+//                       }
+//                  }
+//                  data[i]['title'] = (data[i]['title']).trim();
+//                  data[i]['value'] = (data[i]['value']).replace('_', '').trim();
+//                  text.innerHTML += `${sep}<${tag1} class="title">${data[i]['title']}</${tag1}> 
+//                                      <${tag2} class="value">${data[i]['value']}</${tag2}>`;
+//              } 
+//          } else {
+//              if (data[i]['value'] !== "" && data[i]['id'] >= 0){
+//                  if (data[i+1] !== undefined){
+//                      let sym1 =(data[i+1]['title'] +" ").trim()[0];
+//                      let sym2 =(data[i]['title'] +" ").trim()[0];
+//                      if (sym2.toUpperCase() === sym2 && sym2 !== ')' && sym2 !== '(' && sym2 !== ',' ){
+//                          sep = ".<br>";
+//                      } else {
+//                          sep = ". ";
+//                      }
+//                  }
+//              }
+//          }
+//          data[i]['title'] = (data[i]['title']).trim();
+//          data[i]['value'] = (data[i]['value']).replace('_', '').trim();
+//          text.innerHTML += `${sep}${data[i]['title']}
+//                                 ${data[i]['value']}`;
+        
+                        
+//      }
+//      text.innerHTML +=`<br> 
+//                        <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
+// }
 
 let num = 4
 
