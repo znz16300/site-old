@@ -72,18 +72,33 @@ function print_my(data){
     let clasV = ' class="value" ';
     let form_at = 3;
     let sep = '';
-    if ( data[6]['value'] === "Аналіз уроку на високому методичному рівні (схема/текст)"){
+    let dd = idToDate(data, 6);
+    //console.log(dd['value']);
+    if (dd !== null && (dd['value'] === "Аналіз уроку на високому методичному рівні (схема/текст)" || 
+        dd['value'] === "урок іноземної мови")){
         form_at = 3;
     } else {
         form_at = 0;
     }
+    let partPrint = false;
+    //console.log(data);
     for(let i=0; i<data.length-1; i++){
+        let id = data[i]['id'];
+        if (id === 91){
+            //console.log(111);
+        }
+        let symEnd = '';
+        if (parseInt(id + 0.5) === (id + 0.5) && data[i+1]['value']!== ""){
+            partPrint = true;
+            symEnd = '';
+        } else {
+            partPrint = false;
+            symEnd = ':';
+        }
         next_title=(data[i+1]['title']).trim();
-        if (data[i]['value'] !== "" && data[i]['id'] >= 0  ){
+        if ((data[i]['value'] !== "" || partPrint) && data[i]['id'] >= 0  ){
             if (form_at === 3){
-                if (data[i]['value'] === "13"){
-                    console.log(111);
-                }
+                
                 let sym2 =(data[i]['title']).trim()[0];
                 let sym3 =(data[i+1]['title']).trim()[0];
                 if (sym2.toUpperCase() === sym2){
@@ -100,7 +115,8 @@ function print_my(data){
                                 (data[i]['value']).replace('_', '').trim(), 
                                 next_title=next_title,  
                                 format=form_at, 
-                                sep=sep,                           
+                                sep=sep, 
+                                symEnd=symEnd,                          
                                 );
 
         }                 
@@ -119,11 +135,11 @@ function print_my(data){
                       <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
 }
 
-function format_Aa(title, value, next_title=' ', format=0, sep=' '){
+function format_Aa(title, value, next_title=' ', format=0, sep=' ',symEnd=''){
     let par = '';
     switch (format){
         case 0:
-            par = `<p class="value">${title}: ${value}</p>`;
+            par = `<p class="value">${title}${symEnd} ${value}</p>`;
             break;
         case 1:
             par = `<p class="title">${title}</p><p class="value">${value}</p>`;
@@ -154,6 +170,15 @@ function format_Aa(title, value, next_title=' ', format=0, sep=' '){
      }
      return tex;
  }
+
+function idToDate(dat, id){
+    for (d of dat){
+        if (d['id'] === id){
+            return d;
+        }
+    }
+    return null;
+}
 
 function format_2(allText, clasT, clasV){
     // allText = allText.replace('<br>',' ');
@@ -200,7 +225,7 @@ function readPage(){
     $.getJSON(url,
         
        function (data) {
-            console.log(data);
+            //console.log(data);
             data = data['feed']['entry'];
             gl_data = data;
             $.each(data[0],function(key,value){
@@ -247,8 +272,8 @@ function createListsDate(data){
         if (d>max) max = d;
     }
 
-    console.log(min);
-    console.log(max);
+    //console.log(min);
+    //console.log(max);
     let ul = document.getElementById("date__menu__items_id");
     let i = 0;
     let li = document.createElement('li');
@@ -444,8 +469,8 @@ function filtrClick(e) {
                 fWho = ch;
             }
         }
-        console.log(d1);
-        console.log(d2);
+        //console.log(d1);
+        //console.log(d2);
         let s1 = d1.value;
         let s2 = d2.value;
         let fDate = (date >= s1 && date <= s2);
@@ -530,7 +555,7 @@ function menuClick(e, n){
     let pos = btn.getBoundingClientRect();
     let x = parseInt(pos['x']);
     let y = parseInt(pos['y']);
-    console.log(menu);
+    //console.log(menu);
     
     if (n == 'teach'){
         menu.style.setProperty('left', String(x+15)+'px')
@@ -565,7 +590,7 @@ btn__copy_id.addEventListener('click', ()=>{
     try { 
       document.execCommand('copy'); 
     } catch(err) { 
-      console.log('Can`t copy, boss'); 
+      //console.log('Can`t copy, boss'); 
     } 
     window.getSelection().removeAllRanges();
 })
