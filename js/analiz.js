@@ -44,95 +44,126 @@ function sortById(arr) {
     arr.sort((a, b) => a.id > b.id ? 1 : -1);
 }
 
+function refactorText(text) {
+    while (text.indexOf('  ') > -1){
+        text = text.replace('  ',' ');
+    }
+    while (text.indexOf('( ') > -1){
+        text = text.replace('( ','(');
+    }
+    while (text.indexOf(' )') > -1){
+        text = text.replace(' )',')');
+    }
+    while (text.indexOf(' .') > -1){
+        text = text.replace(' .','.');
+    }
+    while (text.indexOf('..') > -1){
+        text = text.replace('..','.');
+    }
+    return text;
+}
+
 function print_my(data){
     data.push({'id':111111111, 'title':" ", 'value':" "});
-    text.innerHTML +=`<br><hr><br><div class="title1">АНАЛІЗ УРОКУ</div>`;
+    text.innerHTML +=`<p></p><div class="title1">АНАЛІЗ УРОКУ</div>`;
     let isBoldForTitle = true;
-    for(let i=0; i<data.length; i++){
+    let allPar = '';
+    let clasT = ' class="title" ';
+    let clasV = ' class="value" ';
+    let form_at = 3;
+    let sep = '';
+    if ( data[6]['value'] === "Аналіз уроку на високому методичному рівні (схема/текст)"){
+        form_at = 3;
+    } else {
+        form_at = 0;
+    }
+    for(let i=0; i<data.length-1; i++){
+        next_title=(data[i+1]['title']).trim();
         if (data[i]['value'] !== "" && data[i]['id'] >= 0  ){
-            // text.innerHTML += `<span class="title">${data[i]['title']}</span> 
-            //                    <span class="value">${data[i]['value']}</span><br>`;
-            let tag1 = 'span';
-            let tag2 = 'span';
-            let sep = ' '
-            // console.log(data[i+1]);
-            if (data[i+1] !== undefined){
-                 let sym1 =(data[i+1]['title'] +" ")[0];
-                 let sym2 =(data[i]['title'] +" ")[0];
-                 if (sym2.toUpperCase() === sym2 && sym2 !== ')' && sym2 !== '(' && sym2 !== ','){
-                     tag2 = 'span';
-                    sep = "<br>";
-                 }
-            }            
-            data[i]['title'] = (data[i]['title']).trim();
-            data[i]['value'] = (data[i]['value']).replace('_', '').trim();
-            text.innerHTML += `${sep}<${tag1} class="title">${data[i]['title']}</${tag1}> 
-                                <${tag2} class="value">${data[i]['value']}</${tag2}>`;
+            if (form_at === 3){
+                if (data[i]['value'] === "13"){
+                    console.log(111);
+                }
+                let sym2 =(data[i]['title']).trim()[0];
+                let sym3 =(data[i+1]['title']).trim()[0];
+                if (sym2.toUpperCase() === sym2){
+                    if (sym2 !== ')' && sym2 !== '(' && sym2 !== ','){
+                        sep = "<br>";
+                    } else {
+                        sep = " ";
+                    }
+                } else {
+                    sep = " ";
+                }
+            }
+            allPar += format_Aa((data[i]['title']).trim(), 
+                                (data[i]['value']).replace('_', '').trim(), 
+                                next_title=next_title,  
+                                format=form_at, 
+                                sep=sep,                           
+                                );
+
         }                 
     }
-    text.innerHTML = text.innerHTML.replace('\xa0',' ');
-    console.log(text.innerHTML);
-    if (!isBoldForTitle){
-        text.innerHTML = text.innerHTML.replace('<span class="title">','');
-        text.innerHTML = text.innerHTML.replace('<span class="value">','');
-        text.innerHTML = text.innerHTML.replace('</span>','');
-        text.innerHTML = text.innerHTML.replace('  ',' ');
-        // text.innerHTML = text.innerHTML.replace('(\xa0\x20','(');
-        // text.innerHTML = text.innerHTML.replace('\xb0\x20)',')');
-        text.innerHTML = text.innerHTML.replace('( ','(');
-        text.innerHTML = text.innerHTML.replace(' )',')');
-    }
-    text.innerHTML +=`<br> 
+    
+
+    //Варіант з ... виведенням
+    allPar = format_2(allPar, clasT, clasV);
+
+    text.innerHTML += allPar;
+    // text.innerHTML += format_2(allPar, clasT, clasV);
+
+    text.innerHTML = refactorText(text.innerHTML);
+
+    text.innerHTML +=`<p></p> 
                       <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
 }
 
-// function print_my(data){
-//      data.push({'id':111111111, 'title':" ", 'value':" "});
-//      text.innerHTML +=`<br<div class="title1">АНАЛІЗ УРОКУ</div>`;
-//      let isBoldForTitle = true;
-//      let sep = '';
-//      for(let i=0; i<data.length; i++){
-//          if (isBoldForTitle) {
-//              if (data[i]['value'] !== "" && data[i]['id'] >= 0){
-//                  let tag1 = 'span';
-//                  let tag2 = 'span';
-                
-//                  if (data[i+1] !== undefined){
-//                       let sym1 =(data[i+1]['title'] +" ").trim()[0];
-//                       let sym2 =(data[i]['title'] +" ").trim()[0];
-//                       if (sym2.toUpperCase() === sym2 && sym2 !== ')' && sym2 !== '(' && sym2 !== ',' ){
-//                           tag2 = 'span';
-//                          sep = ".<br>";
-//                       }
-//                  }
-//                  data[i]['title'] = (data[i]['title']).trim();
-//                  data[i]['value'] = (data[i]['value']).replace('_', '').trim();
-//                  text.innerHTML += `${sep}<${tag1} class="title">${data[i]['title']}</${tag1}> 
-//                                      <${tag2} class="value">${data[i]['value']}</${tag2}>`;
-//              } 
-//          } else {
-//              if (data[i]['value'] !== "" && data[i]['id'] >= 0){
-//                  if (data[i+1] !== undefined){
-//                      let sym1 =(data[i+1]['title'] +" ").trim()[0];
-//                      let sym2 =(data[i]['title'] +" ").trim()[0];
-//                      if (sym2.toUpperCase() === sym2 && sym2 !== ')' && sym2 !== '(' && sym2 !== ',' ){
-//                          sep = ".<br>";
-//                      } else {
-//                          sep = ". ";
-//                      }
-//                  }
-//              }
-//          }
-//          data[i]['title'] = (data[i]['title']).trim();
-//          data[i]['value'] = (data[i]['value']).replace('_', '').trim();
-//          text.innerHTML += `${sep}${data[i]['title']}
-//                                 ${data[i]['value']}`;
-        
-                        
-//      }
-//      text.innerHTML +=`<br> 
-//                        <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
-// }
+function format_Aa(title, value, next_title=' ', format=0, sep=' '){
+    let par = '';
+    switch (format){
+        case 0:
+            par = `<p class="value">${title}: ${value}</p>`;
+            break;
+        case 1:
+            par = `<p class="title">${title}</p><p class="value">${value}</p>`;
+            break;
+        case 2:
+            par = `${title} ${value}`;
+            break;
+        case 3:            
+            par = `${sep} ${title} ${value}`;
+            break;
+    }
+    
+
+    return par;
+}
+
+ function format_1(allText, clasT, clasV){
+     let ss =  allText.split('<br>');
+     let i=0;
+     let tex ='';
+     for (t of ss) {
+         i++;
+         if (i%2 === 0){
+             tex += `<p${clasT}>${t}</p>` 
+         } else {
+             tex += `<p${clasV}>${t}</p>` 
+         }        
+     }
+     return tex;
+ }
+
+function format_2(allText, clasT, clasV){
+    // allText = allText.replace('<br>',' ');
+    let ss =  allText.split('<br>');
+    let tex ='';
+    for (t of ss) {
+        tex += `<p${clasV}>${t}</p>`     
+    }
+    return tex;
+}
 
 let num = 4
 
