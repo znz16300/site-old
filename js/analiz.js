@@ -32,28 +32,29 @@ const btn_close_menu_subj = document.getElementById('btn_close_menu_subj');
 const btn_close_menu_who = document.getElementById('btn_close_menu_who');
 const btn_close_menu_date = document.getElementById('btn_close_menu_date');
 const text = document.getElementById("content");
+const btn_close_modal = document.getElementById("btn_close_modal");
 
 var menuState = 0;
+var madalState = 0;
 var active = "context-menu--active";
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
-
-function toggleModalWindow() {
-    modalWindow.classList.toggle('modal__wrapper_active');
-    changeOverflow();
-}
 
 function changeOverflow() {
     let overflowY = document.body.style.overflowY;
     document.body.style.overflowY = overflowY != 'hidden' ? 'hidden' : 'visible';
 }
 
+function toggleModalWindow() {
+    modalWindow.classList.toggle('modal__wrapper_active');
+    changeOverflow();
+}
+
 
 modalWindow.addEventListener('click', e => {
     if (!e.target.closest('.modal') || e.target.closest('.modal_close')) toggleModalWindow();
 });
-
 
 
 function sortById(arr) {

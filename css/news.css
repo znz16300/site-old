@@ -536,15 +536,18 @@
   align-items: center; 
 }
 .modal__wrapper:hover .modal_close {
-  /* transform: rotate(360deg); */
+  transform: rotate(360deg);
   background-color: #fddcc4;
-  /* transition: all 0.5s; */
+  transition: all 0.5s;
 }
 
 .modal {
-  overflow: scroll;
+  
   max-height: 500px;
   
+}
+.pet_info {
+  overflow: scroll;
 }
 
 .imgs_on_modal {
@@ -566,7 +569,7 @@
 }
 
 .modal__wrapper .modal:hover .modal_close {
-  /* transform: rotate(0deg); */
+  transform: rotate(0deg);
   background: rgba(41, 41, 41, 0);
 }
 .modal__wrapper .modal .modal_close {
@@ -586,9 +589,9 @@
   display: block;
 }
 .modal__wrapper .modal .modal_close:hover {
-  /* transform: rotate(360deg); */
+  transform: rotate(360deg);
   background-color: #fddcc4;
-  /* transition: all 2s; */
+  transition: all 2s;
 }
 .modal__wrapper .modal .modal__image img {
   display: block;
