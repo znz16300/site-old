@@ -31,14 +31,30 @@ const btn_close_menu_clas = document.getElementById('btn_close_menu_clas');
 const btn_close_menu_subj = document.getElementById('btn_close_menu_subj');
 const btn_close_menu_who = document.getElementById('btn_close_menu_who');
 const btn_close_menu_date = document.getElementById('btn_close_menu_date');
+const text = document.getElementById("content");
 
 var menuState = 0;
 var active = "context-menu--active";
 
 
+const modalWindow = document.querySelector('.modal__wrapper');
+
+function toggleModalWindow() {
+    modalWindow.classList.toggle('modal__wrapper_active');
+    changeOverflow();
+}
+
+function changeOverflow() {
+    let overflowY = document.body.style.overflowY;
+    document.body.style.overflowY = overflowY != 'hidden' ? 'hidden' : 'visible';
+}
 
 
-const text = document.getElementById("content");
+modalWindow.addEventListener('click', e => {
+    if (!e.target.closest('.modal') || e.target.closest('.modal_close')) toggleModalWindow();
+});
+
+
 
 function sortById(arr) {
     arr.sort((a, b) => a.id > b.id ? 1 : -1);
@@ -64,8 +80,13 @@ function refactorText(text) {
 }
 
 function print_my(data){
+    text.innerHTML += print_atom (data);
+}
+
+function print_atom(data){
+    let dist = "";
     data.push({'id':111111111, 'title':" ", 'value':" "});
-    text.innerHTML +=`<p></p><div class="title1">АНАЛІЗ УРОКУ</div>`;
+    dist +=`<p></p><div class="title1">АНАЛІЗ УРОКУ</div>`;
     let isBoldForTitle = true;
     let allPar = '';
     let clasT = ' class="title" ';
@@ -126,13 +147,14 @@ function print_my(data){
     //Варіант з ... виведенням
     allPar = format_2(allPar, clasT, clasV);
 
-    text.innerHTML += allPar;
+    dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
 
-    text.innerHTML = refactorText(text.innerHTML);
+    dist = refactorText(dist);
 
-    text.innerHTML +=`<p></p> 
+    dist +=`<p></p> 
                       <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
+    return dist;
 }
 
 function format_Aa(title, value, next_title=' ', format=0, sep=' ',symEnd=''){
@@ -194,8 +216,7 @@ let num = 4
 
 function createCard(dat){
     let data_report = []
-    if (num === -1) {
-        
+    if (num === -1) {        
     }
     $.each(dat,function(key, value){
         if (value['title'] !== "" && data_table[key] !== undefined){
@@ -206,6 +227,11 @@ function createCard(dat){
                     
     });
     sortById(data_report);
+    return data_report;
+}
+
+function createCardAll(dat){
+    let data_report = createCard(dat);
     print_my(data_report);
 }
 
@@ -213,10 +239,10 @@ function createCards(data, num=-1){
     text.innerHTML = "";
     if (num === -1) {
         for (let i=2; i<data.length;i++){
-            createCard(data[i]);
+            createCardAll(data[i]);
         }
     } else {
-        createCard(data[num]);
+        createCardAll(data[num]);
     }
 }
 var gl_data;
@@ -601,7 +627,7 @@ btn_print.addEventListener("click", ()=>{
     for (let i=2; i<gl_data.length; i++){
         let c = document.getElementById("id_"+String(i));
         if (c.checked){
-            createCard(gl_data[i]);
+            createCardAll(gl_data[i]);
         }
     }    
 })
@@ -644,11 +670,14 @@ function fillTable(table, i, d){
 
     let ul = document.querySelectorAll(".f_chb");
     row.classList.add('row_cl');
-    cel7.innerHTML=`
-             <input id="id_${String(i)}" type="checkbox">
-        `;
+    cel7.innerHTML=`<div class="print_col_all">        
+            <div class="print_col_chb"><input id="id_${String(i)}" type="checkbox"></div>
+            <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
+        </div>`;
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+    
+    
 }
 
 function createTable(data){
@@ -656,11 +685,27 @@ function createTable(data){
     for (let i=2; i<data.length; i++){
         fillTable(table, i, data[i]);
     }
+    let print_col_imges = document.querySelectorAll(".print_col_img");
+    print_col_imges.forEach(function(el) {
+        el.addEventListener('click', (e)=>{
+            let a = createCard (data.find(p => "img_"+String(p['id_m']) == e.target.id));
+            let b = print_atom(a);
+            fillModalWindow(b);
+            toggleModalWindow();
+        })
+    });
+
     
  
 
 
 }
+
+function fillModalWindow(item) {
+    let petAbout = document.querySelector('.pet_info__about');
+    petAbout.innerHTML = item;
+}
+
 
 function readStorage(){
     key = window.localStorage.getItem("keyTableForAnaliz");

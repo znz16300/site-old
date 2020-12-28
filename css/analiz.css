@@ -34,6 +34,20 @@ header {
 
 }
 
+.print_col_all {
+    display: flex;
+}
+
+.print_col_i {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.print_col_all :hover {
+    cursor: pointer;
+}
+
+
 /* .input_data_cl {
    
 } */
@@ -232,4 +246,109 @@ li {
 
 .btn_div :active {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 0 0 rgba(0,0,0,0.22);
+}
+
+/* =================================== Modal window ======================================= */
+
+.modal__wrapper {
+  position: fixed;
+  /* top: -100%; */
+
+  width: 100%;
+  height: 400px;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(41, 41, 41, 0.6);
+  display: flex;
+
+  justify-content: center;
+  align-items: center; 
+}
+
+.modal__wrapper:hover .modal_close {
+  transform: rotate(360deg);
+  background-color: #fddcc4;
+  transition: all 0.5s;
+}
+
+.pet_info {
+  overflow: scroll;
+}
+
+.modal {  
+  max-height: 500px;  
+}
+
+
+.modal__wrapper .modal {
+  width: 900px;
+  background: #fafafa;
+  border-radius: 9px;
+  display: flex;
+  position: fixed;
+  padding: 5px;
+  
+}
+
+.modal__wrapper .modal:hover .modal_close {
+  transform: rotate(0deg);
+  background: rgba(41, 41, 41, 0);
+}
+
+.modal__wrapper .modal .modal_close {
+  position: absolute;
+  left: calc(100% - 10px);
+  top: -52px;
+  width: 52px;
+  height: 52px;
+  border: 2px solid #f1cdb3;
+  box-sizing: border-box;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal__wrapper .modal .modal_close img {
+  display: block;
+}
+.modal__wrapper .modal .modal_close:hover {
+  transform: rotate(360deg);
+  background-color: #fddcc4;
+  transition: all 2s;
+}
+
+
+.modal__wrapper .modal .pet_info {
+  padding: 50px 20px 0 29px;
+}
+.modal__wrapper .modal .pet_info .pet_info__name {
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.modal__wrapper .modal .pet_info .pet_info__type {
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  margin-bottom: 40px;
+}
+.modal__wrapper .modal .pet_info .pet_info__about {
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 116%;
+  letter-spacing: 0.06em;
+  margin-bottom: 40px;
+}
+
+.modal__wrapper_active {
+  top: 0;
 }
