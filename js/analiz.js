@@ -31,54 +31,193 @@ const btn_close_menu_clas = document.getElementById('btn_close_menu_clas');
 const btn_close_menu_subj = document.getElementById('btn_close_menu_subj');
 const btn_close_menu_who = document.getElementById('btn_close_menu_who');
 const btn_close_menu_date = document.getElementById('btn_close_menu_date');
+const text = document.getElementById("content");
+const btn_close_modal = document.getElementById("btn_close_modal");
 
 var menuState = 0;
+var madalState = 0;
 var active = "context-menu--active";
 
 
+const modalWindow = document.querySelector('.modal__wrapper');
+
+function changeOverflow() {
+    let overflowY = document.body.style.overflowY;
+    document.body.style.overflowY = overflowY != 'hidden' ? 'hidden' : 'visible';
+}
+
+function toggleModalWindow() {
+    modalWindow.classList.toggle('modal__wrapper_active');
+    changeOverflow();
+}
 
 
-const text = document.getElementById("content");
+modalWindow.addEventListener('click', e => {
+    if (!e.target.closest('.modal') || e.target.closest('.modal_close')) toggleModalWindow();
+});
+
 
 function sortById(arr) {
     arr.sort((a, b) => a.id > b.id ? 1 : -1);
 }
 
-function print_my(data){
-    data.push({'id':111111111, 'title':" ", 'value':" "});
-    text.innerHTML +=`<br><hr><br><div class="title1">АНАЛІЗ УРОКУ</div>`;
-    for(let i=0; i<data.length; i++){
-        if (data[i]['value'] !== "" && data[i]['id'] >= 0){
-            // text.innerHTML += `<span class="title">${data[i]['title']}</span> 
-            //                    <span class="value">${data[i]['value']}</span><br>`;
-            let tag1 = 'span';
-            let tag2 = 'span';
-            let sep = ' '
-            // console.log(data[i+1]);
-            if (data[i+1] !== undefined){
-                 let sym1 =(data[i+1]['title'] +" ")[0];
-                 let sym2 =(data[i]['title'] +" ")[0];
-                 if (sym2.toUpperCase() === sym2){
-                     tag2 = 'span';
-                    sep = "<br>";
-                 }
-            }
-            
+function refactorText(text) {
+    while (text.indexOf('  ') > -1){
+        text = text.replace('  ',' ');
+    }
+    while (text.indexOf('( ') > -1){
+        text = text.replace('( ','(');
+    }
+    while (text.indexOf(' )') > -1){
+        text = text.replace(' )',')');
+    }
+    while (text.indexOf(' .') > -1){
+        text = text.replace(' .','.');
+    }
+    while (text.indexOf('..') > -1){
+        text = text.replace('..','.');
+    }
+    return text;
+}
 
-            text.innerHTML += `${sep}<${tag1} class="title">${data[i]['title']}</${tag1}> 
-                                <${tag2} class="value">${data[i]['value']}</${tag2}>`;
+function print_my(data){
+    text.innerHTML += print_atom (data);
+}
+
+function print_atom(data){
+    let dist = "";
+    data.push({'id':111111111, 'title':" ", 'value':" "});
+    dist +=`<p></p><div class="title1">АНАЛІЗ УРОКУ</div>`;
+    let isBoldForTitle = true;
+    let allPar = '';
+    let clasT = ' class="title" ';
+    let clasV = ' class="value" ';
+    let form_at = 3;
+    let sep = '';
+    let dd = idToDate(data, 6);
+    //console.log(dd['value']);
+    if (dd !== null && (dd['value'] === "Аналіз уроку на високому методичному рівні (схема/текст)" || 
+        dd['value'] === "урок іноземної мови")){
+        form_at = 3;
+    } else {
+        form_at = 0;
+    }
+    let partPrint = false;
+    //console.log(data);
+    for(let i=0; i<data.length-1; i++){
+        let id = data[i]['id'];
+        if (id === 91){
+            //console.log(111);
+        }
+        let symEnd = '';
+        if (parseInt(id + 0.5) === (id + 0.5) && data[i+1]['value']!== ""){
+            partPrint = true;
+            symEnd = '';
+        } else {
+            partPrint = false;
+            symEnd = ':';
+        }
+        next_title=(data[i+1]['title']).trim();
+        if ((data[i]['value'] !== "" || partPrint) && data[i]['id'] >= 0  ){
+            if (form_at === 3){
+                
+                let sym2 =(data[i]['title']).trim()[0];
+                let sym3 =(data[i+1]['title']).trim()[0];
+                if (sym2.toUpperCase() === sym2){
+                    if (sym2 !== ')' && sym2 !== '(' && sym2 !== ','){
+                        sep = "<br>";
+                    } else {
+                        sep = " ";
+                    }
+                } else {
+                    sep = " ";
+                }
+            }
+            allPar += format_Aa((data[i]['title']).trim(), 
+                                (data[i]['value']).replace('_', '').trim(), 
+                                next_title=next_title,  
+                                format=form_at, 
+                                sep=sep, 
+                                symEnd=symEnd,                          
+                                );
+
         }                 
     }
-    text.innerHTML +=`<br> 
+    
+
+    //Варіант з ... виведенням
+    allPar = format_2(allPar, clasT, clasV);
+
+    dist += allPar;
+    // text.innerHTML += format_2(allPar, clasT, clasV);
+
+    dist = refactorText(dist);
+
+    dist +=`<p></p> 
                       <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
+    return dist;
+}
+
+function format_Aa(title, value, next_title=' ', format=0, sep=' ',symEnd=''){
+    let par = '';
+    switch (format){
+        case 0:
+            par = `<p class="value">${title}${symEnd} ${value}</p>`;
+            break;
+        case 1:
+            par = `<p class="title">${title}</p><p class="value">${value}</p>`;
+            break;
+        case 2:
+            par = `${title} ${value}`;
+            break;
+        case 3:            
+            par = `${sep} ${title} ${value}`;
+            break;
+    }
+    
+
+    return par;
+}
+
+ function format_1(allText, clasT, clasV){
+     let ss =  allText.split('<br>');
+     let i=0;
+     let tex ='';
+     for (t of ss) {
+         i++;
+         if (i%2 === 0){
+             tex += `<p${clasT}>${t}</p>` 
+         } else {
+             tex += `<p${clasV}>${t}</p>` 
+         }        
+     }
+     return tex;
+ }
+
+function idToDate(dat, id){
+    for (d of dat){
+        if (d['id'] === id){
+            return d;
+        }
+    }
+    return null;
+}
+
+function format_2(allText, clasT, clasV){
+    // allText = allText.replace('<br>',' ');
+    let ss =  allText.split('<br>');
+    let tex ='';
+    for (t of ss) {
+        tex += `<p${clasV}>${t}</p>`     
+    }
+    return tex;
 }
 
 let num = 4
 
 function createCard(dat){
     let data_report = []
-    if (num === -1) {
-        
+    if (num === -1) {        
     }
     $.each(dat,function(key, value){
         if (value['title'] !== "" && data_table[key] !== undefined){
@@ -89,6 +228,11 @@ function createCard(dat){
                     
     });
     sortById(data_report);
+    return data_report;
+}
+
+function createCardAll(dat){
+    let data_report = createCard(dat);
     print_my(data_report);
 }
 
@@ -96,10 +240,10 @@ function createCards(data, num=-1){
     text.innerHTML = "";
     if (num === -1) {
         for (let i=2; i<data.length;i++){
-            createCard(data[i]);
+            createCardAll(data[i]);
         }
     } else {
-        createCard(data[num]);
+        createCardAll(data[num]);
     }
 }
 var gl_data;
@@ -108,7 +252,7 @@ function readPage(){
     $.getJSON(url,
         
        function (data) {
-            console.log(data);
+            //console.log(data);
             data = data['feed']['entry'];
             gl_data = data;
             $.each(data[0],function(key,value){
@@ -155,8 +299,8 @@ function createListsDate(data){
         if (d>max) max = d;
     }
 
-    console.log(min);
-    console.log(max);
+    //console.log(min);
+    //console.log(max);
     let ul = document.getElementById("date__menu__items_id");
     let i = 0;
     let li = document.createElement('li');
@@ -352,8 +496,8 @@ function filtrClick(e) {
                 fWho = ch;
             }
         }
-        console.log(d1);
-        console.log(d2);
+        //console.log(d1);
+        //console.log(d2);
         let s1 = d1.value;
         let s2 = d2.value;
         let fDate = (date >= s1 && date <= s2);
@@ -438,7 +582,7 @@ function menuClick(e, n){
     let pos = btn.getBoundingClientRect();
     let x = parseInt(pos['x']);
     let y = parseInt(pos['y']);
-    console.log(menu);
+    //console.log(menu);
     
     if (n == 'teach'){
         menu.style.setProperty('left', String(x+15)+'px')
@@ -473,7 +617,7 @@ btn__copy_id.addEventListener('click', ()=>{
     try { 
       document.execCommand('copy'); 
     } catch(err) { 
-      console.log('Can`t copy, boss'); 
+      //console.log('Can`t copy, boss'); 
     } 
     window.getSelection().removeAllRanges();
 })
@@ -484,7 +628,7 @@ btn_print.addEventListener("click", ()=>{
     for (let i=2; i<gl_data.length; i++){
         let c = document.getElementById("id_"+String(i));
         if (c.checked){
-            createCard(gl_data[i]);
+            createCardAll(gl_data[i]);
         }
     }    
 })
@@ -527,11 +671,14 @@ function fillTable(table, i, d){
 
     let ul = document.querySelectorAll(".f_chb");
     row.classList.add('row_cl');
-    cel7.innerHTML=`
-             <input id="id_${String(i)}" type="checkbox">
-        `;
+    cel7.innerHTML=`<div class="print_col_all">        
+            <div class="print_col_chb"><input id="id_${String(i)}" type="checkbox"></div>
+            <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
+        </div>`;
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+    
+    
 }
 
 function createTable(data){
@@ -539,11 +686,27 @@ function createTable(data){
     for (let i=2; i<data.length; i++){
         fillTable(table, i, data[i]);
     }
+    let print_col_imges = document.querySelectorAll(".print_col_img");
+    print_col_imges.forEach(function(el) {
+        el.addEventListener('click', (e)=>{
+            let a = createCard (data.find(p => "img_"+String(p['id_m']) == e.target.id));
+            let b = print_atom(a);
+            fillModalWindow(b);
+            toggleModalWindow();
+        })
+    });
+
     
  
 
 
 }
+
+function fillModalWindow(item) {
+    let petAbout = document.querySelector('.pet_info__about');
+    petAbout.innerHTML = item;
+}
+
 
 function readStorage(){
     key = window.localStorage.getItem("keyTableForAnaliz");

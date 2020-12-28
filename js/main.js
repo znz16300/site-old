@@ -8,6 +8,7 @@ let sliderItems = document.querySelector('.pet_slider__items');
 let modalWindow = document.querySelector('.modal__wrapper');
 
 const m_teach = document.getElementById("m_teach");
+
 m_teach.addEventListener("click",()=>{
     setPageKey(`Вчителі`, keyTablePages);
 })
@@ -99,14 +100,6 @@ function fillModalWindow(item) {
     let petAge = document.querySelector('.pet__info__age .value');
     petAge.textContent = item.age;
 
-    // let petInoculations = document.querySelector('.pet_info__inoculations .value');
-    // petInoculations.textContent = item.inoculations.join(', ');
-
-    // let petDiseases = document.querySelector('.pet_info__diseases .value');
-    // petDiseases.textContent = item.diseases.join(', ');
-
-    // let petParasites = document.querySelector('.pet_info__parasites .value');
-    // petParasites.textContent = item.parasites.join(', ');
 }
 
 function updateSlider(classForAnimation) {
@@ -129,7 +122,6 @@ function updateSlider(classForAnimation) {
 
 function toggleModalWindow() {
     modalWindow.classList.toggle('modal__wrapper_active');
-
     changeOverflow();
 }
 
