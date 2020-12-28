@@ -30,7 +30,7 @@ header {
 
 .sp_0 {
     display: inline;
-     color: white; 
+     color: rgb(12, 12, 12); 
 
 }
 
@@ -166,6 +166,7 @@ li {
     z-index: 10;
     background-color: whitesmoke;
     padding: 5px;
+   
     /* padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px; */
