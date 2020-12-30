@@ -134,7 +134,7 @@ function createCardItem(item) {
     let image = document.createElement('img');
     image.setAttribute('src', item.img);
     image.setAttribute('alt', item.name);
-    image.setAttribute('width', "160px");
+    image.setAttribute('height', "160px");
     let cardItemName = document.createElement('div');
     cardItemName.classList.add('cards__item-name');
     cardItemName.innerText = item.name;
