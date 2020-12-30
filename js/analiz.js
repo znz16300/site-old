@@ -86,22 +86,31 @@ function print_my(data){
 
 function print_atom(data){
     let dist = "";
-    data.push({'id':111111111, 'title':" ", 'value':" "});
-    dist +=`<p></p><div class="title1">АНАЛІЗ УРОКУ</div>`;
-    let isBoldForTitle = true;
-    let allPar = '';
-    let clasT = ' class="title" ';
-    let clasV = ' class="value" ';
     let form_at = 3;
-    let sep = '';
     let dd = idToDate(data, 6);
-    //console.log(dd['value']);
     if (dd !== null && (dd['value'] === "Аналіз уроку на високому методичному рівні (схема/текст)" || 
         dd['value'] === "урок іноземної мови")){
         form_at = 3;
     } else {
         form_at = 0;
     }
+    let ttl = "АНАЛІЗ УРОКУ";
+    let t_les = "УРОК";
+    if (dd !== null && (dd['value'] === "Аналіз виховного заходу")){
+        ttl = "АНАЛІЗ ВИХОВНОГО ЗАХОДУ";
+        t_les = "ЗАХІД";
+    } 
+    data.push({'id':111111111, 'title':" ", 'value':" "});
+    dist +=`<p></p><div class="title1">${ttl}</div>`;
+    let isBoldForTitle = true;
+    let allPar = '';
+    let clasT = ' class="title" ';
+    let clasV = ' class="value" ';
+    
+    let sep = '';
+    
+    //console.log(dd['value']);
+
     let partPrint = false;
     //console.log(data);
     for(let i=0; i<data.length-1; i++){
@@ -155,6 +164,16 @@ function print_atom(data){
 
     dist +=`<p></p> 
                       <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
+    
+    if (t_les == "ЗАХІД"){
+        dist = dist.replaceAll('УРОК', 'ЗАХІД');
+        dist = dist.replaceAll('урок', 'захід');
+        dist = dist.replaceAll('західу', 'заходу');
+        dist = dist.replaceAll('західом', 'заходом');
+        dist = dist.replaceAll('ЗАХІДУ', 'ЗАХОДУ');
+        dist = dist.replaceAll('ЗАХІДОМ', 'ЗАХОДОМ');
+    }   
+                      
     return dist;
 }
 
@@ -252,8 +271,9 @@ function readPage(){
     $.getJSON(url,
         
        function (data) {
-            //console.log(data);
+            console.log(data);
             data = data['feed']['entry'];
+
             gl_data = data;
             $.each(data[0],function(key,value){
                 if (key.indexOf('gsx$') === 0){
