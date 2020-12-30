@@ -5,11 +5,26 @@ let clas =  new Set();
 let subj =  new Set();
 let who =  new Set();
 let date =  new Set();
+let rozd = {
+    94: "ТИП І СТРУКТУРА УРОКУ",
+    98: "ЗМІСТ ТА МЕТОДИКА ПОВТОРЕННЯ ВИВЧЕНОГО",
+    103: "ВИВЧЕННЯ НОВОГО МАТЕРІАЛУ",
+    106: "МЕТОДИ НАВЧАННЯ",
+    113: "ЗАСВОЄННЯ НОВОГО",
+    116: "ЗАВДАННЯ ДОДОМУ",
+    120: "ХАРАКТЕР ДІЯЛЬНОСТІ ВЧИТЕЛЯ",
+    125: "ХАРАКТЕР ДІЯЛЬНОСТІ УЧНІВ",
+    129: "РЕЗУЛЬТАТИ УРОКУ",
+    // 129: "РЕЗУЛЬТАТИ УРОКУ",
+    400: "ЗАГАЛЬНИЙ ВИСНОВОК ТА РЕКОМЕНДАЦІЇ",
+  
+  }
 
 let sheet2 = "default";
 let title_st = '';
 let key;
 // let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
+// let key = '10mvPaSWj5GEguZ41Ahka56_VF8_0emYV30tmSIzObEU'; v2
 
 const btn_print = document.getElementById("btn__print_id");
 const btn__copy_id = document.getElementById("btn__copy_id");
@@ -84,6 +99,8 @@ function print_my(data){
     text.innerHTML += print_atom (data);
 }
 
+
+
 function print_atom(data){
     let dist = "";
     let form_at = 3;
@@ -118,15 +135,31 @@ function print_atom(data){
         if (id === 91){
             //console.log(111);
         }
+
+
         let symEnd = '';
-        if (parseInt(id + 0.5) === (id + 0.5) && data[i+1]['value']!== ""){
-            partPrint = true;
-            symEnd = '';
+        // if (parseInt(id + 0.5) === (id + 0.5) && data[i+1]['value']!== ""){
+        //     partPrint = true;
+        //     symEnd = '';
+        // } else {
+        //     partPrint = false;
+        //     symEnd = ':';
+        // }
+
+        let rozdTitle = rozd[id];
+        if (rozdTitle === undefined || (data[id+1]['value']).trim() === "")  {
+        // if (rozdTitle === undefined || (data[i+1]['value']).trim() === "")  {
+            rozdTitle = "";
         } else {
-            partPrint = false;
-            symEnd = ':';
+            console.log('111');
         }
+        allPar += rozdTitle;
+
+        // console.log(rozdTitle);
+
         next_title=(data[i+1]['title']).trim();
+
+
         if ((data[i]['value'] !== "" || partPrint) && data[i]['id'] >= 0  ){
             if (form_at === 3){
                 
@@ -242,11 +275,13 @@ function createCard(dat){
         if (value['title'] !== "" && data_table[key] !== undefined){
             let id = data_table[key]['id'];
             let title = data_table[key]['title'];
-            data_report.push({'id':id, 'title':title, 'value':value['$t']})
+            data_report.push({'id':id, 'title':title, 'value':value['$t'], 'key':key})
         }            
                     
     });
     sortById(data_report);
+    // Розкоментовуємо для отримання інформації про зміну файлу data_analiz.js
+    //tmp__ (data_report);
     return data_report;
 }
 
@@ -271,13 +306,23 @@ function readPage(){
     $.getJSON(url,
         
        function (data) {
-            console.log(data);
+            
             data = data['feed']['entry'];
 
             gl_data = data;
             $.each(data[0],function(key,value){
+                //Вилучаємо числа на початку value
+                let v = value['$t'];
+                if (v !== undefined){
+                    while ((v[0] >="0" && v[0] <="9") ||  v[0] ==="."){
+                        v = v.slice(1);
+                    }
+                    v = v.trim();
+                }
+                
+
                 if (key.indexOf('gsx$') === 0){
-                    let m = {'id': parseFloat(data[1][key]['$t']), 'title':value['$t']};
+                    let m = {'id': parseFloat(data[1][key]['$t']), 'title':v};
                     data_table[key] = m;                   
                 }              
             });
@@ -286,10 +331,30 @@ function readPage(){
             }
             createLists(gl_data);
             createTable(gl_data);
-  
+            console.log('data_table');
+            console.log(data_table);
+            
+            
 
         }       
     );    
+
+}
+
+function tmp__ (data_report) {
+
+    text.innerText ='';
+    console.log(data_report);
+    
+    $.each(data_report,function(key,value){
+        // text.innerText += `<br> key="${key}" value="${value}"`;
+        // console.log(key);
+        value = '';
+        
+    });
+    let jSON = JSON.stringify(data_report, null, 2);
+    console.log(jSON);
+    console.log('===============');
 
 }
 

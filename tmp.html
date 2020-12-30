@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <script src="./js/jquery-3.5.0.js"></script>
+<body>
+
+</body>
+<script>
+
+let sheet2 = "default";
+let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
+
+function readPage(){
+    let url  = "https://spreadsheets.google.com/feeds/list/"+key+
+                "/"+sheet2+"/public/values?alt=json";
+    $.getJSON(url,
+        
+       function (data) {
+            
+            console.log( data);   
+            //let jSON = JSON.stringify(data, null, 2); 
+            // console.log( jSON);         
+
+        }       
+    );    
+
+}
+readPage();
+
+</script>
+
+</html> 
