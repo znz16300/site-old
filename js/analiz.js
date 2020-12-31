@@ -10,8 +10,7 @@ let date =  new Set();
 let sheet2 = "default";
 let title_st = '';
 let key;
-// let key = '1VQq2KHHgf_rLtNMzyh9LETjbdSSmkpZRjAvbr9kdkjY';
-// let key = '10mvPaSWj5GEguZ41Ahka56_VF8_0emYV30tmSIzObEU'; v2
+
 
 const btn_print = document.getElementById("btn__print_id");
 const btn__copy_id = document.getElementById("btn__copy_id");
