@@ -9,6 +9,7 @@ let date =  new Set();
 
 let sheet2 = "default";
 let title_st = '';
+var key_map = {};
 let key;
 
 
@@ -34,6 +35,8 @@ const btn_close_menu_who = document.getElementById('btn_close_menu_who');
 const btn_close_menu_date = document.getElementById('btn_close_menu_date');
 const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
+const sel_all_id = document.getElementById("sel_all_id");
+const sel_no_id = document.getElementById("sel_no_id");
 
 var menuState = 0;
 var madalState = 0;
@@ -85,7 +88,17 @@ function print_my(data){
     text.innerHTML += print_atom (data);
 }
 
-
+function reformatString(text) {
+    text = text.trim();
+    while (text[text.length - 1] === "." || text[text.length - 1] === ":" || text[text.length - 1] === ","){
+        text = text.slice(0, text.length - 1);
+    }
+    while ((text[0] >= "0" && text[0] <= "9") || text[0] === "."){
+        text = text.slice(1);
+    }
+        
+    return text.trim();
+}
 
 function print_atom(data){
     let dist = "";
@@ -132,12 +145,18 @@ function print_atom(data){
         //     symEnd = ':';
         // }
 
-        let rozdTitle = rozd[id];
-        if (rozdTitle === undefined || (data[id+1]['value']).trim() === "")  {
-        // if (rozdTitle === undefined || (data[i+1]['value']).trim() === "")  {
+        //let rozdTitle = rozd[id];
+        let a = reformatString(data[id]['title']);
+        let rozdTitle = rozd_v2[a];
+        // console.log(data);
+      
+
+
+        if (rozdTitle === undefined || (data[id]['value']).trim() === "")  {
+        // if (rozdTitle === undefined || (data[id+1]['value']).trim() === "")  {
             rozdTitle = "";
         } else {
-            console.log('111');
+            
         }
         allPar += rozdTitle;
 
@@ -286,16 +305,25 @@ function createCards(data, num=-1){
         createCardAll(data[num]);
     }
 }
+
+
+
 var gl_data;
 function readPage(){
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,
         
        function (data) {
-            
+           
+            // let sss = JSON.stringify(data, null, 2); 
+            // console.log(data);
+            // console.log(sss);
             data = data['feed']['entry'];
 
-            gl_data = data;
+            
+
+            gl_data = data; 
+            let i = -6;
             $.each(data[0],function(key,value){
                 //Вилучаємо числа на початку value
                 let v = value['$t'];
@@ -305,20 +333,28 @@ function readPage(){
                     }
                     v = v.trim();
                 }
+                // console.log(key);
+                // key_map[i] = key;
                 
 
                 if (key.indexOf('gsx$') === 0){
-                    let m = {'id': parseFloat(data[1][key]['$t']), 'title':v};
+                    let m = {'id': i, 'title':v};
+                    // let m = {'id': parseFloat(data[1][key]['$t']), 'title':v};
                     data_table[key] = m;                   
-                }              
+                }       
+                i++;       
             });
-            for (let i=2; i<gl_data.length; i++){
+            // console.log(key_map);
+            // console.log(data_table);
+            // console.log(gl_data);
+
+            for (let i=1; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;
             }
             createLists(gl_data);
             createTable(gl_data);
-            console.log('data_table');
-            console.log(data_table);
+            // console.log('data_table');
+            // console.log(data_table);
             
             
 
@@ -354,7 +390,7 @@ function createLists(data){
 
 //Створюємо списки для меню
 function createListsDate(data){
-    for(let i=2; i<data.length; i++){
+    for(let i=1; i<data.length; i++){
         //TODO
         let s = data[i]['gsx$датапроведенняуроку']['$t'];
         let day = s.substr(0,2);
@@ -405,7 +441,7 @@ function createListsDate(data){
 }
 //Створюємо списки для меню
 function createListsWho(data){
-    for(let i=2; i<data.length; i++){
+    for(let i=1; i<data.length; i++){
         who.add(data[i]['gsx$хтовідвідуєурок']['$t'])
     }
     //Сврорюємо меню для фільтрації вчителів
@@ -428,7 +464,7 @@ function createListsWho(data){
 }
 //Створюємо списки для меню
 function createListsClas(data){
-    for(let i=2; i<data.length; i++){
+    for(let i=1; i<data.length; i++){
         clas.add(data[i]['gsx$класгрупа']['$t'])
     }
     //Сврорюємо меню для фільтрації вчителів
@@ -450,7 +486,7 @@ function createListsClas(data){
     }
 }
 function createListsSubj(data){
-    for(let i=2; i<data.length; i++){
+    for(let i=1; i<data.length; i++){
         subj.add(data[i]['gsx$предмет']['$t'])
     }
     //Сврорюємо меню для фільтрації вчителів
@@ -473,7 +509,7 @@ function createListsSubj(data){
 }
 //Створюємо списки для меню
 function createListsTeach(data){
-    for(let i=2; i<data.length; i++){
+    for(let i=1; i<data.length; i++){
         teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
     }
     //Сврорюємо меню для фільтрації вчителів
@@ -647,6 +683,22 @@ btn_who.addEventListener("click", (e)=>{
 btn_date.addEventListener("click", (e)=>{
     menuClick(e, 'date');
 });
+sel_all_id.addEventListener("change", (e)=>{
+    //Виділяємо всі елементи в таблиці для виводу
+   // $('.sel_table_id_cl').attr('checked', true);
+    //$.each("sel_table_id_cl")
+
+    $(".sel_table_id_cl").each(function(i,elem) {
+        console.log(elem);
+    });
+
+
+})
+sel_no_id.addEventListener("change", (e)=>{
+    //Знімаємо виділення елементів в таблиці для виводу
+    $('.sel_table_id_cl').removeAttr('checked');
+})
+
 
 function menuClick(e, n){
     let btn = e.target;
@@ -696,7 +748,7 @@ btn__copy_id.addEventListener('click', ()=>{
 
 btn_print.addEventListener("click", ()=>{
     text.innerText = "";
-    for (let i=2; i<gl_data.length; i++){
+    for (let i=1; i<gl_data.length; i++){
         let c = document.getElementById("id_"+String(i));
         if (c.checked){
             createCardAll(gl_data[i]);
@@ -743,18 +795,19 @@ function fillTable(table, i, d){
     let ul = document.querySelectorAll(".f_chb");
     row.classList.add('row_cl');
     cel7.innerHTML=`<div class="print_col_all">        
-            <div class="print_col_chb"><input id="id_${String(i)}" type="checkbox"></div>
+            <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
             <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
         </div>`;
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-    
+
+   
     
 }
 
 function createTable(data){
     const table = document.getElementById("table__id");
-    for (let i=2; i<data.length; i++){
+    for (let i=1; i<data.length; i++){
         fillTable(table, i, data[i]);
     }
     let print_col_imges = document.querySelectorAll(".print_col_img");
