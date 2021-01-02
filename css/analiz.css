@@ -93,6 +93,12 @@ header {
     
 }
 
+.btn_sel {
+  border: none;
+  background-color: #77A0DF;
+  margin-bottom: 4px;
+}
+
 .header__table {
     margin: 20px;
     margin-top: 0;

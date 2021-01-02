@@ -148,21 +148,20 @@ function print_atom(data){
         //let rozdTitle = rozd[id];
         let a = reformatString(data[id]['title']);
         let rozdTitle = rozd_v2[a];
-        // console.log(data);
-      
+        if (data[id]['title'] === "Позначка часу") {
+            continue;
+        }
+
 
 
         if (rozdTitle === undefined || (data[id]['value']).trim() === "")  {
-        // if (rozdTitle === undefined || (data[id+1]['value']).trim() === "")  {
             rozdTitle = "";
         } else {
             
         }
         allPar += rozdTitle;
 
-        // console.log(rozdTitle);
-
-        next_title=(data[i+1]['title']).trim();
+        next_title=(data[i+1]['title']).trim().toUpperCase();
 
 
         if ((data[i]['value'] !== "" || partPrint) && data[i]['id'] >= 0  ){
@@ -316,8 +315,9 @@ function readPage(){
        function (data) {
            
             // let sss = JSON.stringify(data, null, 2); 
-            // console.log(data);
+            //console.log(data);
             // console.log(sss);
+            //2_ABaOnuf9EjL6c1ign6b2guYhxwhKeDLd-lRV88TlKoa_QVjRn2ZiIU2HMwm_mzrPjUFqREU
             data = data['feed']['entry'];
 
             
