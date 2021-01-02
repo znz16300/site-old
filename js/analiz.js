@@ -157,7 +157,7 @@ function print_atom(data){
         if (rozdTitle === undefined || (data[id]['value']).trim() === "")  {
             rozdTitle = "";
         } else {
-            
+            rozdTitle = `<strong> ${rozdTitle.toUpperCase()} </strong>`;
         }
         allPar += rozdTitle;
 
@@ -315,7 +315,7 @@ function readPage(){
        function (data) {
            
             // let sss = JSON.stringify(data, null, 2); 
-            //console.log(data);
+            // console.log(data);
             // console.log(sss);
             //2_ABaOnuf9EjL6c1ign6b2guYhxwhKeDLd-lRV88TlKoa_QVjRn2ZiIU2HMwm_mzrPjUFqREU
             data = data['feed']['entry'];
@@ -794,9 +794,10 @@ function fillTable(table, i, d){
 
     let ul = document.querySelectorAll(".f_chb");
     row.classList.add('row_cl');
-    cel7.innerHTML=`<div class="print_col_all">        
-            <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
+    cel7.innerHTML=`<div class="print_col_all">      
             <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
+            <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
+            
         </div>`;
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
