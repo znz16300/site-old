@@ -5,7 +5,7 @@ header {
     margin-right:-5px;
     background-color: rgb(222, 225, 228);
     /* height: 100px; */
-    font-size: 18px;
+    font-size: 14px;
     font-family: Georgia;
     font-style: normal;
     /* line-height: 150%; */
@@ -36,6 +36,7 @@ header {
 
 .print_col_all {
     display: flex;
+    margin-left: 20px;
 }
 
 .print_col_i {
@@ -93,6 +94,12 @@ header {
     
 }
 
+.btn_sel {
+  border: none;
+  background-color: #77A0DF;
+  margin-bottom: 4px;
+}
+
 .header__table {
     margin: 20px;
     margin-top: 0;
@@ -129,7 +136,6 @@ header {
 }
 
 .sp_2 {
-    /* border: 2px solid #b0cefa; */
     box-sizing: border-box;
     margin-left: 5px;
     
@@ -138,41 +144,19 @@ header {
 .sp_2 :hover {
     cursor: pointer;
     border: 0px solid #b0cefa;
-    /* box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1); */
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 
-
-.sp_2 ::before {
-    /* border: 1px; */
-}
-
-
-
-/* .btn_menu :hover {
-    cursor: pointer;
-} */
-/* 
-.cel_h :hover {
-    cursor: pointer;
-    
-} */
-
 .btn_menu {
     text-align: right;
-    /* margin-top: 0;
-    margin-right: 0; */
 }
 
 .context-menu__item {
     list-style-type: none;
-    margin-left: -40px;
-    
+    margin-left: -40px;    
 }
-li {
-   
-}
+
 
 .context-menu {
     display: none;
@@ -180,12 +164,7 @@ li {
     z-index: 10;
     background-color: whitesmoke;
     padding: 5px;
-   
-    /* padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px; */
     border-radius: 5px;
-    /* background-color: rgb(87, 130, 173); */
   }
    
   .context-menu--active {
@@ -193,21 +172,19 @@ li {
   }
 
 .cel_h {
-    /* display: inline-block; */
-    /* display: flex; */
     text-align: left;
     justify-content: space-between;
-    /* justify-content: space-around; */
-    /* background-color: rgb(45, 17, 110); */
-    /* color:white; */
     min-width: 50px;
-   
     border: 4px solid #77a0df;
     box-sizing: border-box;
     border-radius: 2px;
     background-color: #77a0df;
-    /* color:white */
+    padding:5px;
 
+}
+
+.cel_def {
+  max-width: 150px;
 }
 
 
