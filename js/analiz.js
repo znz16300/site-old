@@ -308,6 +308,7 @@ function createCards(data, num=-1){
 
 
 var gl_data;
+
 function readPage(){
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,
@@ -683,20 +684,25 @@ btn_who.addEventListener("click", (e)=>{
 btn_date.addEventListener("click", (e)=>{
     menuClick(e, 'date');
 });
-sel_all_id.addEventListener("change", (e)=>{
+sel_all_id.addEventListener("click", (e)=>{
     //Виділяємо всі елементи в таблиці для виводу
-   // $('.sel_table_id_cl').attr('checked', true);
-    //$.each("sel_table_id_cl")
-
     $(".sel_table_id_cl").each(function(i,elem) {
-        console.log(elem);
+        let rowId = "row_"+elem.id.slice(3);
+        let chbId = elem.id;
+        if (document.getElementById(rowId).style.display === ""){
+            document.getElementById(chbId).setAttribute("checked", "true");
+        }        
     });
-
-
 })
-sel_no_id.addEventListener("change", (e)=>{
+sel_no_id.addEventListener("click", (e)=>{
     //Знімаємо виділення елементів в таблиці для виводу
-    $('.sel_table_id_cl').removeAttr('checked');
+    $(".sel_table_id_cl").each(function(i,elem) {
+        let rowId = "row_"+elem.id.slice(3);
+        let chbId = elem.id;
+        if (document.getElementById(rowId).style.display === ""){
+            document.getElementById(chbId).removeAttribute("checked");
+        }        
+    });
 })
 
 
@@ -748,13 +754,29 @@ btn__copy_id.addEventListener('click', ()=>{
 
 btn_print.addEventListener("click", ()=>{
     text.innerText = "";
-    for (let i=1; i<gl_data.length; i++){
-        let c = document.getElementById("id_"+String(i));
-        if (c.checked){
-            createCardAll(gl_data[i]);
-        }
-    }    
+
+    $(".sel_table_id_cl").each(function(i,elem) {
+        let rowId = "row_"+elem.id.slice(3);
+        if (document.getElementById(rowId).style.display === "" && elem.checked){
+            createCardAll(gl_data[parseInt(elem.id.slice(3))]);
+        }        
+    });
+
+  
 })
+
+// btn_print.addEventListener("click", ()=>{
+//     text.innerText = "";
+
+
+
+//     for (let i=1; i<gl_data.length; i++){
+//         let c = document.getElementById("id_"+String(i));
+//         if (c.checked){
+//             createCardAll(gl_data[i]);
+//         }
+//     }    
+// })
 
 function fillTable(table, i, d){
     let cel1 = document.createElement('td');
