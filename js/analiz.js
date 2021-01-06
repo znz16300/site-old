@@ -180,7 +180,8 @@ function print_atom(data){
                     sep = " ";
                 }
             }
-            allPar += format_Aa((data[i]['title']).trim(), 
+            let title_0 = reformatString((data[i]['title']).trim());
+            allPar += format_Aa(title_0, 
                                 (data[i]['value']).replace('_', '').trim(), 
                                 next_title=next_title,  
                                 format=form_at, 
