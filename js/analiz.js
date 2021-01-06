@@ -866,6 +866,43 @@ function readStorage(){
     }    
 }
 
+// window.onscroll = function() {
+//     var scrollElemTop = document.getElementById("scrollToTop");
+//     var scrollElemBottom = document.getElementById("scrollToBottom");
+//     if (document.body.scrollTop > document.documentElement.clientHeight / 2) {
+//         scrollElemTop.style.opacity = "1";
+//         scrollElemBottom.style.opacity = "1";
+//     } else {
+//         scrollElemTop.style.opacity = "0.5";
+//         scrollElemBottom.style.opacity = "0.5";
+//     }
+//  }
+
+$(function(){
+	$(window).scroll(function(){
+		if($(window).scrollTop() > 100) {
+			$('#scroll_top').show();
+			$('#scroll_bottom').show();
+		} else {
+			$('#scroll_top').hide();
+			$('#scroll_bottom').hide();
+		}
+	});
+ 
+	$('#scroll_top').click(function(){
+		$('html, body').animate({scrollTop: 0}, 600);
+		return false;
+    });
+    
+    $('#scroll_bottom').click(function(){
+		$('html, body').animate({scrollTop: $(document).height() - $(window).height()}, 600);
+		return false;
+	});
+});
+
+
+
+
 readStorage();
 // url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 
