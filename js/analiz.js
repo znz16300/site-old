@@ -200,7 +200,9 @@ function print_atom(data){
     dist = refactorText(dist);
 
     dist +=`<p></p> 
-                      <div class="footer">З аналізом ознайомлений(на) _______________________ </div>`;
+                      <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+                      <p></p> <p></p> <p></p> 
+                      `;
     
     if (t_les == "ЗАХІД"){
         dist = dist.replaceAll('УРОК', 'ЗАХІД');
