@@ -36,11 +36,12 @@ const btn_close_menu_date = document.getElementById('btn_close_menu_date');
 const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
 const sel_all_id = document.getElementById("sel_all_id");
-const sel_no_id = document.getElementById("sel_no_id");
+// const sel_no_id = document.getElementById("sel_no_id");
 
 var menuState = 0;
 var madalState = 0;
 var active = "context-menu--active";
+var selected_all_head_table = false;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
@@ -687,24 +688,20 @@ btn_date.addEventListener("click", (e)=>{
     menuClick(e, 'date');
 });
 sel_all_id.addEventListener("click", (e)=>{
-    //Виділяємо всі елементи в таблиці для виводу
+    //Виділяємо (знімаємо виділення) всі елементи в таблиці для виводу
     $(".sel_table_id_cl").each(function(i,elem) {
         let rowId = "row_"+elem.id.slice(3);
         let chbId = elem.id;
         if (document.getElementById(rowId).style.display === ""){
-            document.getElementById(chbId).setAttribute("checked", "true");
+            if (!selected_all_head_table){
+                document.getElementById(chbId).setAttribute("checked", "true");
+            } else {
+                document.getElementById(chbId).removeAttribute("checked");
+            }
+            
         }        
     });
-})
-sel_no_id.addEventListener("click", (e)=>{
-    //Знімаємо виділення елементів в таблиці для виводу
-    $(".sel_table_id_cl").each(function(i,elem) {
-        let rowId = "row_"+elem.id.slice(3);
-        let chbId = elem.id;
-        if (document.getElementById(rowId).style.display === ""){
-            document.getElementById(chbId).removeAttribute("checked");
-        }        
-    });
+    selected_all_head_table = !selected_all_head_table;
 })
 
 
