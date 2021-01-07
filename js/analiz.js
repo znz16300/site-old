@@ -42,6 +42,11 @@ var menuState = 0;
 var madalState = 0;
 var active = "context-menu--active";
 var selected_all_head_table = false;
+var teachSelBtnAll = true;
+var clasSelBtnAll = true;
+var subjSelBtnAll = true;
+var whoSelBtnAll = true;
+var filters = null;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
@@ -318,14 +323,8 @@ function readPage(){
     $.getJSON(url,
         
        function (data) {
-           
-            // let sss = JSON.stringify(data, null, 2); 
-            // console.log(data);
-            // console.log(sss);
-            //2_ABaOnuf9EjL6c1ign6b2guYhxwhKeDLd-lRV88TlKoa_QVjRn2ZiIU2HMwm_mzrPjUFqREU
-            data = data['feed']['entry'];
-
-            
+            data = data['feed']['entry'];       
+            // sortByTeach(data);    
 
             gl_data = data; 
             let i = -6;
@@ -338,8 +337,6 @@ function readPage(){
                     }
                     v = v.trim();
                 }
-                // console.log(key);
-                // key_map[i] = key;
                 
 
                 if (key.indexOf('gsx$') === 0){
@@ -349,23 +346,28 @@ function readPage(){
                 }       
                 i++;       
             });
-            // console.log(key_map);
-            // console.log(data_table);
-            // console.log(gl_data);
 
             for (let i=1; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;
+                gl_data[i]['normDate'] = (dateReformat(gl_data[i]['gsx$датапроведенняуроку']['$t']));
             }
+            
+            sortByDate(gl_data); 
             createLists(gl_data);
             createTable(gl_data);
-            // console.log('data_table');
-            // console.log(data_table);
-            
-            
 
         }       
     );    
 
+}
+
+function dateReformat(date){
+    //Переформатування дати з формату DD.MM.YYYY в yyyy-MM-dd
+    let d = date.slice(0,2);
+    let m = date.slice(3,5);
+    let y = date.slice(6,10);
+    date = y + '-' + m + '-' + d;
+    return date;
 }
 
 function tmp__ (data_report) {
@@ -402,17 +404,23 @@ function createListsDate(data){
         let month = s.substr(3,2);
         let year = s.substr(6,4);
         let d = `${year}-${month}-${day}`;
-        date.add(d);
+        if (d[0] >= '0' && d[0] <= '9' ) {
+            date.add(d);
+        }
+        
     }
     let max = '2000-01-01';
     let min = '2100-01-01';
-    for (d of date){
-        if (d<min) min = d;
-        if (d>max) max = d;
+    if (filters === null) {
+        for (d of date){
+            if (d<min) min = d;
+            if (d>max) max = d;
+        }
+    } else {
+        min = filters['menuDate']['start'];
+        max = filters['menuDate']['finish'];
     }
 
-    //console.log(min);
-    //console.log(max);
     let ul = document.getElementById("date__menu__items_id");
     let i = 0;
     let li = document.createElement('li');
@@ -447,20 +455,41 @@ function createListsDate(data){
 //Створюємо списки для меню
 function createListsWho(data){
     for(let i=1; i<data.length; i++){
-        who.add(data[i]['gsx$хтовідвідуєурок']['$t'])
+        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+                who.add(data[i]['gsx$хтовідвідуєурок']['$t'])
+        }        
     }
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("who__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="who_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
     for(value of who){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
-        // let value0 = value.replace(/[\s.,%]/g, '')
+        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+        let x = 'checked'; //checked
+        if (filters !== null){
+            if (filters['menuWho'].find(element => element === value) !== undefined){
+                x = 'checked';
+            } else {
+                x = ''
+            }
+        }
         li.innerHTML=`<input class="f_chb_who" 
                         type="checkbox"
                         id="c${i}" 
                         data-1="${value}"
-                        checked
+                        ${x}
                         onclick="filtrClick(this);"
                         >${value}`;
         ul.append(li);
@@ -470,20 +499,42 @@ function createListsWho(data){
 //Створюємо списки для меню
 function createListsClas(data){
     for(let i=1; i<data.length; i++){
-        clas.add(data[i]['gsx$класгрупа']['$t'])
+        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+                clas.add(data[i]['gsx$класгрупа']['$t'])
+        } 
+        
     }
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("clas__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="clas_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
     for(value of clas){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
-        // let value0 = value.replace(/[\s.,%]/g, '')
+        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+        let x = 'checked'; //checked
+        if (filters !== null){
+            if (filters['menuClas'].find(element => element === value) !== undefined){
+                x = 'checked';
+            } else {
+                x = ''
+            }
+        } 
         li.innerHTML=`<input class="f_chb_clas" 
                         type="checkbox"
                         id="c${i}" 
                         data-1="${value}"
-                        checked
+                        ${x}
                         onclick="filtrClick(this);"
                         >${value}`;
         ul.append(li);
@@ -492,20 +543,43 @@ function createListsClas(data){
 }
 function createListsSubj(data){
     for(let i=1; i<data.length; i++){
-        subj.add(data[i]['gsx$предмет']['$t'])
+        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+                subj.add(data[i]['gsx$предмет']['$t'])
+        }        
     }
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("subj__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="subj_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
     for(value of subj){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
-        // let value0 = value.replace(/[\s.,%]/g, '')
+
+        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+        let x = 'checked'; //checked
+        if (filters !== null){
+            if (filters['menuSubj'].find(element => element === value) !== undefined){
+                x = 'checked';
+            } else {
+                x = ''
+            }
+        }  
+                
         li.innerHTML=`<input class="f_chb_subj" 
                         type="checkbox"
                         id="c${i}" 
                         data-1="${value}"
-                        checked
+                        ${x}
                         onclick="filtrClick(this);"
                         >${value}`;
         ul.append(li);
@@ -514,26 +588,87 @@ function createListsSubj(data){
 }
 //Створюємо списки для меню
 function createListsTeach(data){
-    for(let i=1; i<data.length; i++){
-        teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
+    for(let i=0; i<data.length; i++){
+        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+            teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
+        }
     }
-    //Сврорюємо меню для фільтрації вчителів
+    //Створюємо меню для фільтрації вчителів
     let ul = document.getElementById("teach__menu__items_id");
     let i = 0;
+    //create btn select
+    
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="teach_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
+
     for(value of teach){            
         let li = document.createElement('li');
-        li.classList.add('context-menu__item');        
-        // let value0 = value.replace(/[\s.,%]/g, '')
+        li.classList.add('context-menu__item');  
+
+        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+        let x = 'checked'; //checked
+        if (filters !== null){
+            if (filters['menuTeach'].find(element => element === value) !== undefined){
+                x = 'checked';
+            } else {
+                x = ''
+            }
+        }       
+
         li.innerHTML=`<input class="f_chb" 
                         type="checkbox"
                         id="c${i}" 
                         data-1="${value}"
-                        checked
+                        ${x}
                         onclick="filtrClick(this);"
                         >${value}`;
         ul.append(li);
         i++;
     }
+}
+
+function filtrSelAllClick(e) {    
+    
+    switch (e.id) {
+        case "teach_selAll_id":
+            teachSelBtnAll = !teachSelBtnAll;
+            let ulTeach = document.querySelectorAll(".f_chb");
+            for(let inp of ulTeach) {
+                inp.checked = teachSelBtnAll;                
+            }            
+            break;
+        case "clas_selAll_id":
+            clasSelBtnAll = !clasSelBtnAll;
+            let ulClas = document.querySelectorAll(".f_chb_clas");
+            for(let inp of ulClas) {
+                inp.checked = clasSelBtnAll;                
+            }              
+            break;
+        case "subj_selAll_id":
+            subjSelBtnAll = !subjSelBtnAll;
+            let ulSubj = document.querySelectorAll(".f_chb_subj");
+            for(let inp of ulSubj) {
+                inp.checked = subjSelBtnAll;                
+            }    
+            break;
+        case "who_selAll_id":
+            whoSelBtnAll = !whoSelBtnAll;
+            let ulWho = document.querySelectorAll(".f_chb_who");
+            for(let inp of ulWho) {
+                inp.checked = whoSelBtnAll;                
+            }    
+            break;
+    }
+
+    filtrClick(null);
 }
 
 btn_close_menu.addEventListener("click", ()=>{
@@ -621,9 +756,72 @@ function filtrClick(e) {
         }
 
     }
-    
-    
-    
+    saveFilter();
+}
+
+function loadFilters(){
+    filters = JSON.parse(window.localStorage.getItem('filters') || null);
+}
+
+function saveFilter(){
+    //TODO Запам'ятовуємо всі фільтри в LocalStorage
+    let ulTeach = document.querySelectorAll(".f_chb");
+    let ulClas = document.querySelectorAll(".f_chb_clas");
+    let ulSubj = document.querySelectorAll(".f_chb_subj");
+    let ulWho = document.querySelectorAll(".f_chb_who");
+    let d1 = document.getElementById("d1");
+    let d2 = document.getElementById("d2");
+    let teachList = [];
+    for(inp of ulTeach) {
+        let ch = inp.checked;
+        let t = inp.getAttribute('data-1');
+        if (t !== null){
+            if (ch){
+                teachList.push(t)
+            } 
+        }        
+    }
+    let whoList = [];
+    for(inp of ulWho) {
+        let ch = inp.checked;
+        let t = inp.getAttribute('data-1');
+        if (t !== null){
+            if (ch){
+                whoList.push(t)
+            } 
+        }        
+    }
+    let clasList = [];
+    for(inp of ulClas) {
+        let ch = inp.checked;
+        let t = inp.getAttribute('data-1');
+        if (t !== null){
+            if (ch){
+                clasList.push(t)
+            } 
+        }        
+    }
+    let subjList = [];
+    for(inp of ulSubj) {
+        let ch = inp.checked;
+        let t = inp.getAttribute('data-1');
+        if (t !== null){
+            if (ch){
+                subjList.push(t)
+            } 
+        }        
+    }
+
+
+    let filter = {
+        'menuDate': {'start':d1.value, 'finish':d2.value},
+        'menuWho': whoList, 
+        'menuTeach': teachList, 
+        'menuClas': clasList, 
+        'menuSubj': subjList,
+    };
+
+    window.localStorage.setItem('filters', JSON.stringify(filter));
 }
 
    
@@ -765,87 +963,95 @@ btn_print.addEventListener("click", ()=>{
   
 })
 
-// btn_print.addEventListener("click", ()=>{
-//     text.innerText = "";
 
-
-
-//     for (let i=1; i<gl_data.length; i++){
-//         let c = document.getElementById("id_"+String(i));
-//         if (c.checked){
-//             createCardAll(gl_data[i]);
-//         }
-//     }    
-// })
 
 function fillTable(table, i, d){
-    let cel1 = document.createElement('td');
-    let cel2 = document.createElement('td');
-    let cel3 = document.createElement('td');
-    let cel4 = document.createElement('td');
-    let cel5 = document.createElement('td');
-    let cel6 = document.createElement('td');
-    let cel7 = document.createElement('td');
-    cel1.classList.add('cel_def');
-    cel2.classList.add('cel_def');
-    cel3.classList.add('cel_def');
-    cel4.classList.add('cel_def');
-    cel5.classList.add('cel_def');
-    cel6.classList.add('cel_def');
-    cel7.classList.add('cel_def');
-    cel7.classList.add('cel_chb');
-    let row = document.createElement('tr');
-    row.setAttribute('id','row_'+String(i));
-    cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
-    cel2.innerText=d['gsx$хтовідвідуєурок']['$t'];
-    cel3.innerText=d['gsx$вчительурокякоговідвідують']['$t'];
-    cel4.innerText=d['gsx$класгрупа']['$t'];
-    cel5.innerText=d['gsx$предмет']['$t'];
-    cel6.innerText=d['gsx$темауроку']['$t'];
-
-    row.setAttribute('data-teach', d['gsx$вчительурокякоговідвідують']['$t']);
-    row.setAttribute('data-clas', d['gsx$класгрупа']['$t']);
-    row.setAttribute('data-subj', d['gsx$предмет']['$t']);
-    row.setAttribute('data-who', d['gsx$хтовідвідуєурок']['$t']);
-    let s = d['gsx$датапроведенняуроку']['$t'];
-    let day = s.substr(0,2);
-    let year = s.substr(6,4);
-    let month = s.substr(3,2);
-    s = `${year}-${month}-${day}`;
-    row.setAttribute('data-date', s);
-
-    let ul = document.querySelectorAll(".f_chb");
-    row.classList.add('row_cl');
-    cel7.innerHTML=`<div class="print_col_all">      
-            <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
-            <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
-            
-        </div>`;
-    table.append(row);
-    row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-
+    if (d['gsx$датапроведенняуроку']['$t'][0] >= '0' && d['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+        let cel1 = document.createElement('td');
+        let cel2 = document.createElement('td');
+        let cel3 = document.createElement('td');
+        let cel4 = document.createElement('td');
+        let cel5 = document.createElement('td');
+        let cel6 = document.createElement('td');
+        let cel7 = document.createElement('td');
+        cel1.classList.add('cel_def');
+        cel2.classList.add('cel_def');
+        cel3.classList.add('cel_def');
+        cel4.classList.add('cel_def');
+        cel5.classList.add('cel_def');
+        cel6.classList.add('cel_def');
+        cel7.classList.add('cel_def');
+        cel7.classList.add('cel_chb');
+        let row = document.createElement('tr');
+        row.setAttribute('id','row_'+String(i));
+        cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
+        cel2.innerText=d['gsx$хтовідвідуєурок']['$t'];
+        cel3.innerText=d['gsx$вчительурокякоговідвідують']['$t'];
+        cel4.innerText=d['gsx$класгрупа']['$t'];
+        cel5.innerText=d['gsx$предмет']['$t'];
+        cel6.innerText=d['gsx$темауроку']['$t'];
+    
+        row.setAttribute('data-teach', d['gsx$вчительурокякоговідвідують']['$t']);
+        row.setAttribute('data-clas', d['gsx$класгрупа']['$t']);
+        row.setAttribute('data-subj', d['gsx$предмет']['$t']);
+        row.setAttribute('data-who', d['gsx$хтовідвідуєурок']['$t']);
+        let s = d['gsx$датапроведенняуроку']['$t'];
+        let day = s.substr(0,2);
+        let year = s.substr(6,4);
+        let month = s.substr(3,2);
+        s = `${year}-${month}-${day}`;
+        row.setAttribute('data-date', s);
+    
+        let ul = document.querySelectorAll(".f_chb");
+        row.classList.add('row_cl');
+        cel7.innerHTML=`<div class="print_col_all">      
+                <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
+                <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
+                
+            </div>`;
+        table.append(row);
+        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+    
+    }   
    
     
 }
 
-function createTable(data){
+function sortByDate(arr) {
+    // arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
+    arr.sort((a, b) =>  Date.parse(a['normDate']) > Date.parse(b['normDate']) ? 1 : -1);
+
+}
+
+function sortByTeach(arr) {
+    arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
+
+}
+
+function createTable(gl_data){
+    
     const table = document.getElementById("table__id");
-    for (let i=1; i<data.length; i++){
-        fillTable(table, i, data[i]);
+    
+
+    // console.log(data);
+    // //Упорядковуємо по даті перед заповненням таблиці
+    // sortByDate(data);
+    // console.log('==================');
+    // console.log(data);
+
+    for (let i=1; i<gl_data.length; i++){
+        fillTable(table, gl_data[i]['id_m'], gl_data[i]);
     }
     let print_col_imges = document.querySelectorAll(".print_col_img");
     print_col_imges.forEach(function(el) {
         el.addEventListener('click', (e)=>{
-            let a = createCard (data.find(p => "img_"+String(p['id_m']) == e.target.id));
+            let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
             let b = print_atom(a);
             fillModalWindow(b);
             toggleModalWindow();
         })
     });
-
-    
- 
-
+    filtrClick(null); 
 
 }
 
@@ -864,19 +1070,10 @@ function readStorage(){
             window.localStorage.setItem("keyTableForAnaliz", s);
         }            
     }    
+    loadFilters();
 }
 
-// window.onscroll = function() {
-//     var scrollElemTop = document.getElementById("scrollToTop");
-//     var scrollElemBottom = document.getElementById("scrollToBottom");
-//     if (document.body.scrollTop > document.documentElement.clientHeight / 2) {
-//         scrollElemTop.style.opacity = "1";
-//         scrollElemBottom.style.opacity = "1";
-//     } else {
-//         scrollElemTop.style.opacity = "0.5";
-//         scrollElemBottom.style.opacity = "0.5";
-//     }
-//  }
+
 
 $(function(){
 	$(window).scroll(function(){
