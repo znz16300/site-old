@@ -45,6 +45,7 @@ var selected_all_head_table = false;
 var teachSelBtnAll = true;
 var clasSelBtnAll = true;
 var subjSelBtnAll = true;
+var whoSelBtnAll = true;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
@@ -455,6 +456,16 @@ function createListsWho(data){
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("who__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="who_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
     for(value of who){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
@@ -592,6 +603,13 @@ function filtrSelAllClick(e) {
             let ulSubj = document.querySelectorAll(".f_chb_subj");
             for(let inp of ulSubj) {
                 inp.checked = subjSelBtnAll;                
+            }    
+            break;
+        case "who_selAll_id":
+            whoSelBtnAll = !whoSelBtnAll;
+            let ulWho = document.querySelectorAll(".f_chb_who");
+            for(let inp of ulWho) {
+                inp.checked = whoSelBtnAll;                
             }    
             break;
     }
