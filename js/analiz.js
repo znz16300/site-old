@@ -466,7 +466,7 @@ function createListsWho(data){
     //create btn select
     let li = document.createElement('li');
     li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb" 
+    li.innerHTML=`<input class="f_chb_all" 
                         type="checkbox"  
                         id="who_selAll_id"                      
                         checked
@@ -511,7 +511,7 @@ function createListsClas(data){
     //create btn select
     let li = document.createElement('li');
     li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb" 
+    li.innerHTML=`<input class="f_chb_all" 
                         type="checkbox"  
                         id="clas_selAll_id"                      
                         checked
@@ -554,7 +554,7 @@ function createListsSubj(data){
     //create btn select
     let li = document.createElement('li');
     li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb" 
+    li.innerHTML=`<input class="f_chb_all" 
                         type="checkbox"  
                         id="subj_selAll_id"                      
                         checked
@@ -601,7 +601,7 @@ function createListsTeach(data){
     
     let li = document.createElement('li');
     li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb" 
+    li.innerHTML=`<input class="f_chb_all" 
                         type="checkbox"  
                         id="teach_selAll_id"                      
                         checked
@@ -757,13 +757,38 @@ function filtrClick(e) {
 
     }
     saveFilter();
+
+    let mm = [
+        {0: document.querySelectorAll('.f_chb'), 1: document.getElementById ('id_table_teach')},
+        {0: document.querySelectorAll('.f_chb_clas'), 1: document.getElementById ('id_table_clas')},
+        {0: document.querySelectorAll('.f_chb_who'), 1: document.getElementById ('id_table_who')},
+        {0: document.querySelectorAll('.f_chb_subj'), 1: document.getElementById ('id_table_subj')},
+    ];
+    for (m of mm){
+        showFilter(m[0], m[1]);
+    }
+    
 }
 
-function loadFilters(){
+let showFilter = (a, img) => {    
+    let f = true;
+    for (t of a){
+        f &= t.checked;
+    }
+    if (f) {
+        img.setAttribute('src',"./assets/icons/filter_btn.png");
+    } else {
+        img.setAttribute('src',"./assets/icons/filter_btn_on.png");
+    }
+
+
+}
+
+let loadFilters = () =>{
     filters = JSON.parse(window.localStorage.getItem('filters') || null);
 }
 
-function saveFilter(){
+let saveFilter = () => {
     //TODO Запам'ятовуємо всі фільтри в LocalStorage
     let ulTeach = document.querySelectorAll(".f_chb");
     let ulClas = document.querySelectorAll(".f_chb_clas");
