@@ -42,6 +42,9 @@ var menuState = 0;
 var madalState = 0;
 var active = "context-menu--active";
 var selected_all_head_table = false;
+var teachSelBtnAll = true;
+var clasSelBtnAll = true;
+var subjSelBtnAll = true;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
@@ -475,6 +478,16 @@ function createListsClas(data){
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("clas__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="clas_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
     for(value of clas){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
@@ -497,6 +510,16 @@ function createListsSubj(data){
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("subj__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="subj_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
     for(value of subj){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
@@ -520,6 +543,17 @@ function createListsTeach(data){
     //Сврорюємо меню для фільтрації вчителів
     let ul = document.getElementById("teach__menu__items_id");
     let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb" 
+                        type="checkbox"  
+                        id="teach_selAll_id"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
+
     for(value of teach){            
         let li = document.createElement('li');
         li.classList.add('context-menu__item');        
@@ -534,6 +568,35 @@ function createListsTeach(data){
         ul.append(li);
         i++;
     }
+}
+
+function filtrSelAllClick(e) {    
+    
+    switch (e.id) {
+        case "teach_selAll_id":
+            teachSelBtnAll = !teachSelBtnAll;
+            let ulTeach = document.querySelectorAll(".f_chb");
+            for(let inp of ulTeach) {
+                inp.checked = teachSelBtnAll;                
+            }            
+            break;
+        case "clas_selAll_id":
+            clasSelBtnAll = !clasSelBtnAll;
+            let ulClas = document.querySelectorAll(".f_chb_clas");
+            for(let inp of ulClas) {
+                inp.checked = clasSelBtnAll;                
+            }              
+            break;
+        case "subj_selAll_id":
+            subjSelBtnAll = !subjSelBtnAll;
+            let ulSubj = document.querySelectorAll(".f_chb_subj");
+            for(let inp of ulSubj) {
+                inp.checked = subjSelBtnAll;                
+            }    
+            break;
+    }
+
+    filtrClick(null);
 }
 
 btn_close_menu.addEventListener("click", ()=>{
@@ -621,6 +684,7 @@ function filtrClick(e) {
         }
 
     }
+    //TODO Запам'ятовуємо всі фільтри в LocalStorage
     
     
     
@@ -765,18 +829,7 @@ btn_print.addEventListener("click", ()=>{
   
 })
 
-// btn_print.addEventListener("click", ()=>{
-//     text.innerText = "";
 
-
-
-//     for (let i=1; i<gl_data.length; i++){
-//         let c = document.getElementById("id_"+String(i));
-//         if (c.checked){
-//             createCardAll(gl_data[i]);
-//         }
-//     }    
-// })
 
 function fillTable(table, i, d){
     let cel1 = document.createElement('td');
@@ -866,17 +919,7 @@ function readStorage(){
     }    
 }
 
-// window.onscroll = function() {
-//     var scrollElemTop = document.getElementById("scrollToTop");
-//     var scrollElemBottom = document.getElementById("scrollToBottom");
-//     if (document.body.scrollTop > document.documentElement.clientHeight / 2) {
-//         scrollElemTop.style.opacity = "1";
-//         scrollElemBottom.style.opacity = "1";
-//     } else {
-//         scrollElemTop.style.opacity = "0.5";
-//         scrollElemBottom.style.opacity = "0.5";
-//     }
-//  }
+
 
 $(function(){
 	$(window).scroll(function(){
