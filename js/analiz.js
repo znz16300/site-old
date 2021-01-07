@@ -322,14 +322,8 @@ function readPage(){
     $.getJSON(url,
         
        function (data) {
-           
-            // let sss = JSON.stringify(data, null, 2); 
-            // console.log(data);
-            // console.log(sss);
-            //2_ABaOnuf9EjL6c1ign6b2guYhxwhKeDLd-lRV88TlKoa_QVjRn2ZiIU2HMwm_mzrPjUFqREU
-            data = data['feed']['entry'];
-
-            
+            data = data['feed']['entry'];       
+            // sortByTeach(data);    
 
             gl_data = data; 
             let i = -6;
@@ -342,8 +336,6 @@ function readPage(){
                     }
                     v = v.trim();
                 }
-                // console.log(key);
-                // key_map[i] = key;
                 
 
                 if (key.indexOf('gsx$') === 0){
@@ -353,23 +345,31 @@ function readPage(){
                 }       
                 i++;       
             });
-            // console.log(key_map);
-            // console.log(data_table);
-            // console.log(gl_data);
 
             for (let i=1; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;
+                gl_data[i]['normDate'] = (dateReformat(gl_data[i]['gsx$датапроведенняуроку']['$t']));
             }
+            console.log(gl_data);
+            sortByDate(gl_data); 
+            console.log(gl_data);
             createLists(gl_data);
             createTable(gl_data);
-            // console.log('data_table');
-            // console.log(data_table);
-            
+          
             
 
         }       
     );    
 
+}
+
+function dateReformat(date){
+    //Переформатування дати з формату DD.MM.YYYY в yyyy-MM-dd
+    let d = date.slice(0,2);
+    let m = date.slice(3,5);
+    let y = date.slice(6,10);
+    date = y + '-' + m + '-' + d;
+    return date;
 }
 
 function tmp__ (data_report) {
@@ -406,7 +406,10 @@ function createListsDate(data){
         let month = s.substr(3,2);
         let year = s.substr(6,4);
         let d = `${year}-${month}-${day}`;
-        date.add(d);
+        if (d[0] >= '0' && d[0] <= '9' ) {
+            date.add(d);
+        }
+        
     }
     let max = '2000-01-01';
     let min = '2100-01-01';
@@ -850,64 +853,86 @@ btn_print.addEventListener("click", ()=>{
 
 
 function fillTable(table, i, d){
-    let cel1 = document.createElement('td');
-    let cel2 = document.createElement('td');
-    let cel3 = document.createElement('td');
-    let cel4 = document.createElement('td');
-    let cel5 = document.createElement('td');
-    let cel6 = document.createElement('td');
-    let cel7 = document.createElement('td');
-    cel1.classList.add('cel_def');
-    cel2.classList.add('cel_def');
-    cel3.classList.add('cel_def');
-    cel4.classList.add('cel_def');
-    cel5.classList.add('cel_def');
-    cel6.classList.add('cel_def');
-    cel7.classList.add('cel_def');
-    cel7.classList.add('cel_chb');
-    let row = document.createElement('tr');
-    row.setAttribute('id','row_'+String(i));
-    cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
-    cel2.innerText=d['gsx$хтовідвідуєурок']['$t'];
-    cel3.innerText=d['gsx$вчительурокякоговідвідують']['$t'];
-    cel4.innerText=d['gsx$класгрупа']['$t'];
-    cel5.innerText=d['gsx$предмет']['$t'];
-    cel6.innerText=d['gsx$темауроку']['$t'];
-
-    row.setAttribute('data-teach', d['gsx$вчительурокякоговідвідують']['$t']);
-    row.setAttribute('data-clas', d['gsx$класгрупа']['$t']);
-    row.setAttribute('data-subj', d['gsx$предмет']['$t']);
-    row.setAttribute('data-who', d['gsx$хтовідвідуєурок']['$t']);
-    let s = d['gsx$датапроведенняуроку']['$t'];
-    let day = s.substr(0,2);
-    let year = s.substr(6,4);
-    let month = s.substr(3,2);
-    s = `${year}-${month}-${day}`;
-    row.setAttribute('data-date', s);
-
-    let ul = document.querySelectorAll(".f_chb");
-    row.classList.add('row_cl');
-    cel7.innerHTML=`<div class="print_col_all">      
-            <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
-            <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
-            
-        </div>`;
-    table.append(row);
-    row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-
+    if (d['gsx$датапроведенняуроку']['$t'][0] >= '0' && d['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+        let cel1 = document.createElement('td');
+        let cel2 = document.createElement('td');
+        let cel3 = document.createElement('td');
+        let cel4 = document.createElement('td');
+        let cel5 = document.createElement('td');
+        let cel6 = document.createElement('td');
+        let cel7 = document.createElement('td');
+        cel1.classList.add('cel_def');
+        cel2.classList.add('cel_def');
+        cel3.classList.add('cel_def');
+        cel4.classList.add('cel_def');
+        cel5.classList.add('cel_def');
+        cel6.classList.add('cel_def');
+        cel7.classList.add('cel_def');
+        cel7.classList.add('cel_chb');
+        let row = document.createElement('tr');
+        row.setAttribute('id','row_'+String(i));
+        cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
+        cel2.innerText=d['gsx$хтовідвідуєурок']['$t'];
+        cel3.innerText=d['gsx$вчительурокякоговідвідують']['$t'];
+        cel4.innerText=d['gsx$класгрупа']['$t'];
+        cel5.innerText=d['gsx$предмет']['$t'];
+        cel6.innerText=d['gsx$темауроку']['$t'];
+    
+        row.setAttribute('data-teach', d['gsx$вчительурокякоговідвідують']['$t']);
+        row.setAttribute('data-clas', d['gsx$класгрупа']['$t']);
+        row.setAttribute('data-subj', d['gsx$предмет']['$t']);
+        row.setAttribute('data-who', d['gsx$хтовідвідуєурок']['$t']);
+        let s = d['gsx$датапроведенняуроку']['$t'];
+        let day = s.substr(0,2);
+        let year = s.substr(6,4);
+        let month = s.substr(3,2);
+        s = `${year}-${month}-${day}`;
+        row.setAttribute('data-date', s);
+    
+        let ul = document.querySelectorAll(".f_chb");
+        row.classList.add('row_cl');
+        cel7.innerHTML=`<div class="print_col_all">      
+                <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
+                <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
+                
+            </div>`;
+        table.append(row);
+        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+    
+    }   
    
     
 }
 
-function createTable(data){
+function sortByDate(arr) {
+    // arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
+    arr.sort((a, b) =>  Date.parse(a['normDate']) > Date.parse(b['normDate']) ? 1 : -1);
+
+}
+
+function sortByTeach(arr) {
+    arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
+
+}
+
+function createTable(gl_data){
+    
     const table = document.getElementById("table__id");
-    for (let i=1; i<data.length; i++){
-        fillTable(table, i, data[i]);
+    
+
+    // console.log(data);
+    // //Упорядковуємо по даті перед заповненням таблиці
+    // sortByDate(data);
+    // console.log('==================');
+    // console.log(data);
+
+    for (let i=1; i<gl_data.length; i++){
+        fillTable(table, gl_data[i]['id_m'], gl_data[i]);
     }
     let print_col_imges = document.querySelectorAll(".print_col_img");
     print_col_imges.forEach(function(el) {
         el.addEventListener('click', (e)=>{
-            let a = createCard (data.find(p => "img_"+String(p['id_m']) == e.target.id));
+            let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
             let b = print_atom(a);
             fillModalWindow(b);
             toggleModalWindow();
