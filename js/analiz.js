@@ -32,7 +32,7 @@ const btn_close_menu = document.getElementById('btn_close_menu');
 const btn_close_menu_clas = document.getElementById('btn_close_menu_clas');
 const btn_close_menu_subj = document.getElementById('btn_close_menu_subj');
 const btn_close_menu_who = document.getElementById('btn_close_menu_who');
-const btn_close_menu_date = document.getElementById('btn_close_menu_date');
+// const btn_close_menu_date = document.getElementById('btn_close_menu_date');
 const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
 const sel_all_id = document.getElementById("sel_all_id");
@@ -517,7 +517,30 @@ let createListsDate = (data)=>{
             </div>
         </div>
     `;
-    ul.append(li, li2);
+    let li3 = document.createElement('li');
+    li3.classList.add('context-menu__item'); 
+    li3.innerHTML=`
+    <div class="inp_data">
+        <div  class="sp_0"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+        <div  class="sp_0">
+            <button id="date_reset_id">Скинути фільтр</button>
+            <button id="date_close_id">x</button>
+        </div>
+    </div>`;
+    ul.append(li, li2, li3);
+    const date_reset_id = document.getElementById('date_reset_id');
+    date_reset_id.addEventListener('click', (e)=>{
+        const d1 = document.getElementById('d1');
+        const d2 = document.getElementById('d2');
+        d1.value = d1.getAttribute('data-lim');    
+        d2.value = d2.getAttribute('data-lim'); 
+        filtrClick(null);   
+    })
+    const date_close_id = document.getElementById('date_close_id');
+    date_close_id.addEventListener('click', (e)=>{
+        menuState = 0;
+        menuDate.classList.remove(active);    
+    })
 }
 
 function filtrSelAllClick(e) {    
@@ -584,10 +607,10 @@ btn_close_menu_who.addEventListener("click", ()=>{
     menuState = 0;
     menuWho.classList.remove(active);    
 })
-btn_close_menu_date.addEventListener("click", ()=>{
-    menuState = 0;
-    menuDate.classList.remove(active);    
-})
+// btn_close_menu_date.addEventListener("click", ()=>{
+//     menuState = 0;
+//     menuDate.classList.remove(active);    
+// })
 
 
 
