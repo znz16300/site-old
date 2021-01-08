@@ -364,15 +364,9 @@ function tmp__ (data_report) {
 }
 
 function createLists(data){
-    createList(data, 'who');
-    createList(data, 'clas');
-    createList(data, 'subj');
-    createList(data, 'teach');
-
-    // createListsTeach(data);
-    // createListsClas(data);
-    // createListsSubj(data);
-    // createListsWho(data);
+    for (x of ['who', 'clas', 'subj', 'teach']){
+        createList(data, x);
+    }
     createListsDate(data);
 }
 
@@ -420,7 +414,7 @@ let createList =(data, m)=>{
                 mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
         }        
     }
-    //Сврорюємо меню для фільтрації вчителів
+    //Сврорюємо меню для фільтрації obj
     let ul = document.getElementById(mCL[m]['ulId']);
     let i = 0;
     //create btn select
@@ -699,8 +693,7 @@ function createListsDate(data){
 //     }
 // }
 
-function filtrSelAllClick(e) {    
-    
+function filtrSelAllClick(e) {       
     switch (e.id) {
         case "teach_selAll_id":
             teachSelBtnAll = !teachSelBtnAll;
@@ -731,7 +724,6 @@ function filtrSelAllClick(e) {
             }    
             break;
     }
-
     filtrClick(null);
 }
 
@@ -759,7 +751,7 @@ btn_close_menu_date.addEventListener("click", ()=>{
 
 
 
-function filtrClick(e) {
+let filtrClick = (e)=>{
     const table = document.getElementById('table_id');
     let ulTeach = document.querySelectorAll(".f_chb");
     let ulClas = document.querySelectorAll(".f_chb_clas");
@@ -807,8 +799,6 @@ function filtrClick(e) {
                 fWho = ch;
             }
         }
-        //console.log(d1);
-        //console.log(d2);
         let s1 = d1.value;
         let s2 = d2.value;
         let fDate = (date >= s1 && date <= s2);
@@ -818,10 +808,8 @@ function filtrClick(e) {
         } else {
             row.style.display = "none";
         }
-
     }
     saveFilter();
-
     let mm = [
         {0: document.querySelectorAll('.f_chb'), 1: document.getElementById ('id_table_teach')},
         {0: document.querySelectorAll('.f_chb_clas'), 1: document.getElementById ('id_table_clas')},
@@ -830,8 +818,7 @@ function filtrClick(e) {
     ];
     for (m of mm){
         showFilter(m[0], m[1]);
-    }
-    
+    }    
 }
 
 let showFilter = (a, img) => {    
@@ -844,8 +831,6 @@ let showFilter = (a, img) => {
     } else {
         img.setAttribute('src',"./assets/icons/filter_btn_on.png");
     }
-
-
 }
 
 let loadFilters = () =>{
@@ -914,7 +899,17 @@ let saveFilter = () => {
 }
 
    
-function toggleMenuOnTeach() {
+let toggleMenu = (m)=>{
+    if ( menuState !== 1 ) {
+        menuState = 1;
+        m.classList.add(active);
+    } else {
+        menuState = 0;
+        m.classList.remove(active);
+    }
+}
+
+let toggleMenuOnTeach = ()=>{
     if ( menuState !== 1 ) {
         menuState = 1;
         menu.classList.add(active);
@@ -923,42 +918,43 @@ function toggleMenuOnTeach() {
         menu.classList.remove(active);
     }
 }
-function toggleMenuOnClas() {
-    if ( menuState !== 1 ) {
-        menuState = 1;
-        menuClas.classList.add(active);
-    } else {
-        menuState = 0;
-        menuClas.classList.remove(active);
-    }
-}
-function toggleMenuOnSubj() {
-    if ( menuState !== 1 ) {
-        menuState = 1;
-        menuSubj.classList.add(active);
-    } else {
-        menuState = 0;
-        menuSubj.classList.remove(active);
-    }
-}
-function toggleMenuOnWho() {
-    if ( menuState !== 1 ) {
-        menuState = 1;
-        menuWho.classList.add(active);
-    } else {
-        menuState = 0;
-        menuWho.classList.remove(active);
-    }
-}
-function toggleMenuOnDate() {
-    if ( menuState !== 1 ) {
-        menuState = 1;
-        menuDate.classList.add(active);
-    } else {
-        menuState = 0;
-        menuDate.classList.remove(active);
-    }
-}
+
+// function toggleMenuOnClas() {
+//     if ( menuState !== 1 ) {
+//         menuState = 1;
+//         menuClas.classList.add(active);
+//     } else {
+//         menuState = 0;
+//         menuClas.classList.remove(active);
+//     }
+// }
+// function toggleMenuOnSubj() {
+//     if ( menuState !== 1 ) {
+//         menuState = 1;
+//         menuSubj.classList.add(active);
+//     } else {
+//         menuState = 0;
+//         menuSubj.classList.remove(active);
+//     }
+// }
+// function toggleMenuOnWho() {
+//     if ( menuState !== 1 ) {
+//         menuState = 1;
+//         menuWho.classList.add(active);
+//     } else {
+//         menuState = 0;
+//         menuWho.classList.remove(active);
+//     }
+// }
+// function toggleMenuOnDate() {
+//     if ( menuState !== 1 ) {
+//         menuState = 1;
+//         menuDate.classList.add(active);
+//     } else {
+//         menuState = 0;
+//         menuDate.classList.remove(active);
+//     }
+// }
 
 btn_teach.addEventListener("click", (e)=>{
     menuClick(e,'teach');
@@ -998,28 +994,33 @@ function menuClick(e, n){
     let pos = btn.getBoundingClientRect();
     let x = parseInt(pos['x']);
     let y = parseInt(pos['y']);
-    //console.log(menu);
+    
     
     if (n == 'teach'){
         menu.style.setProperty('left', String(x+15)+'px')
         menu.style.setProperty('top', String(y+40)+'px')
-        toggleMenuOnTeach();
+        toggleMenu(menu);
+        // toggleMenuOnTeach();
     } else  if (n == 'clas'){
         menuClas.style.setProperty('left', String(x+15)+'px')
         menuClas.style.setProperty('top', String(y+40)+'px')
-        toggleMenuOnClas();
+        toggleMenu(menuClas);
+        // toggleMenuOnClas();
     }  else  if (n == 'subj'){
         menuSubj.style.setProperty('left', String(x+15)+'px')
         menuSubj.style.setProperty('top', String(y+40)+'px')
-        toggleMenuOnSubj();
+        toggleMenu(menuSubj);
+        // toggleMenuOnSubj();
     } else  if (n == 'who'){
         menuWho.style.setProperty('left', String(x+15)+'px')
         menuWho.style.setProperty('top', String(y+40)+'px')
-        toggleMenuOnWho();
+        toggleMenu(menuWho);
+        // toggleMenuOnWho();
     } else  if (n == 'date'){
         menuDate.style.setProperty('left', String(x+15)+'px')
         menuDate.style.setProperty('top', String(y+40)+'px')
-        toggleMenuOnDate();
+        toggleMenu(menuDate);
+        // toggleMenuOnDate();
     }
 }
 
