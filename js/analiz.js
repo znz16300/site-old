@@ -364,12 +364,101 @@ function tmp__ (data_report) {
 }
 
 function createLists(data){
-    createListsTeach(data);
-    createListsClas(data);
-    createListsSubj(data);
-    createListsWho(data);
+    createList(data, 'who');
+    createList(data, 'clas');
+    createList(data, 'subj');
+    createList(data, 'teach');
+
+    // createListsTeach(data);
+    // createListsClas(data);
+    // createListsSubj(data);
+    // createListsWho(data);
     createListsDate(data);
 }
+
+//Створюємо списки для меню
+let createList =(data, m)=>{
+    const mCL ={             //menuCreateList
+        'who': {
+            'field': 'gsx$хтовідвідуєурок', 
+            'setName': who, 
+            'ulId': 'who__menu__items_id', 
+            'inputIdSelAll': 'who_selAll_id', 
+            'menu': 'menuWho', 
+            'inputId': 'f_chb_who', 
+        },
+        'clas': {
+            'field': 'gsx$класгрупа', 
+            'setName': clas, 
+            'ulId': 'clas__menu__items_id', 
+            'inputIdSelAll': 'clas_selAll_id', 
+            'menu': 'menuClas', 
+            'inputId': 'f_chb_clas', 
+        },
+        'subj': {
+            'field': 'gsx$предмет', 
+            'setName': subj, 
+            'ulId': 'subj__menu__items_id', 
+            'inputIdSelAll': 'subj_selAll_id', 
+            'menu': 'menuSubj', 
+            'inputId': 'f_chb_subj', 
+        },
+        'teach': {
+            'field': 'gsx$вчительурокякоговідвідують', 
+            'setName': teach, 
+            'ulId': 'teach__menu__items_id', 
+            'inputIdSelAll': 'teach_selAll_id', 
+            'menu': 'menuTeach', 
+            'inputId': 'f_chb', 
+        },
+
+    };
+
+    for(let i=1; i<data.length; i++){
+        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+                mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
+        }        
+    }
+    //Сврорюємо меню для фільтрації вчителів
+    let ul = document.getElementById(mCL[m]['ulId']);
+    let i = 0;
+    //create btn select
+    let li = document.createElement('li');
+    li.classList.add('context-menu__item');
+    li.innerHTML=`<input class="f_chb_all" 
+                        type="checkbox"  
+                        id="${mCL[m]['inputIdSelAll']}"                      
+                        checked
+                        onclick="filtrSelAllClick(this);"
+                        >  ------`;
+    ul.append(li);
+    for(value of mCL[m]['setName']){            
+        let li = document.createElement('li');
+        li.classList.add('context-menu__item');        
+        // Якщо obj є в списку filters встановимо x = 'checked' інакше x = ''
+        let x = 'checked'; //checked
+        if (filters !== null){
+            if (filters[mCL[m]['menu']].find(element => element === value) !== undefined){
+                x = 'checked';
+            } else {
+                x = ''
+            }
+        }
+        li.innerHTML=`<input class="${mCL[m]['inputId']}" 
+                        type="checkbox"
+                        id="c${i}" 
+                        data-1="${value}"
+                        ${x}
+                        onclick="filtrClick(this);"
+                        >${value}`;
+        ul.append(li);
+        i++;
+    }
+
+
+}
+
 
 //Створюємо списки для меню
 function createListsDate(data){
@@ -429,187 +518,186 @@ function createListsDate(data){
     ul.append(li, li2);
 }
 //Створюємо списки для меню
-function createListsWho(data){
-    for(let i=1; i<data.length; i++){
-        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
-            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
-                who.add(data[i]['gsx$хтовідвідуєурок']['$t'])
-        }        
-    }
-    //Сврорюємо меню для фільтрації вчителів
-    let ul = document.getElementById("who__menu__items_id");
-    let i = 0;
-    //create btn select
-    let li = document.createElement('li');
-    li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb_all" 
-                        type="checkbox"  
-                        id="who_selAll_id"                      
-                        checked
-                        onclick="filtrSelAllClick(this);"
-                        >  ------`;
-    ul.append(li);
-    for(value of who){            
-        let li = document.createElement('li');
-        li.classList.add('context-menu__item');        
-        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
-        let x = 'checked'; //checked
-        if (filters !== null){
-            if (filters['menuWho'].find(element => element === value) !== undefined){
-                x = 'checked';
-            } else {
-                x = ''
-            }
-        }
-        li.innerHTML=`<input class="f_chb_who" 
-                        type="checkbox"
-                        id="c${i}" 
-                        data-1="${value}"
-                        ${x}
-                        onclick="filtrClick(this);"
-                        >${value}`;
-        ul.append(li);
-        i++;
-    }
-}
-//Створюємо списки для меню
-function createListsClas(data){
-    for(let i=1; i<data.length; i++){
-        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
-            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
-                clas.add(data[i]['gsx$класгрупа']['$t'])
-        } 
-        
-    }
-    //Сврорюємо меню для фільтрації вчителів
-    let ul = document.getElementById("clas__menu__items_id");
-    let i = 0;
-    //create btn select
-    let li = document.createElement('li');
-    li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb_all" 
-                        type="checkbox"  
-                        id="clas_selAll_id"                      
-                        checked
-                        onclick="filtrSelAllClick(this);"
-                        >  ------`;
-    ul.append(li);
-    for(value of clas){            
-        let li = document.createElement('li');
-        li.classList.add('context-menu__item');        
-        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
-        let x = 'checked'; //checked
-        if (filters !== null){
-            if (filters['menuClas'].find(element => element === value) !== undefined){
-                x = 'checked';
-            } else {
-                x = ''
-            }
-        } 
-        li.innerHTML=`<input class="f_chb_clas" 
-                        type="checkbox"
-                        id="c${i}" 
-                        data-1="${value}"
-                        ${x}
-                        onclick="filtrClick(this);"
-                        >${value}`;
-        ul.append(li);
-        i++;
-    }
-}
-function createListsSubj(data){
-    for(let i=1; i<data.length; i++){
-        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
-            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
-                subj.add(data[i]['gsx$предмет']['$t'])
-        }        
-    }
-    //Сврорюємо меню для фільтрації вчителів
-    let ul = document.getElementById("subj__menu__items_id");
-    let i = 0;
-    //create btn select
-    let li = document.createElement('li');
-    li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb_all" 
-                        type="checkbox"  
-                        id="subj_selAll_id"                      
-                        checked
-                        onclick="filtrSelAllClick(this);"
-                        >  ------`;
-    ul.append(li);
-    for(value of subj){            
-        let li = document.createElement('li');
-        li.classList.add('context-menu__item');        
+// function createListsWho(data){
+//     for(let i=1; i<data.length; i++){
+//         if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+//             data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+//                 who.add(data[i]['gsx$хтовідвідуєурок']['$t'])
+//         }        
+//     }
+//     //Сврорюємо меню для фільтрації вчителів
+//     let ul = document.getElementById("who__menu__items_id");
+//     let i = 0;
+//     //create btn select
+//     let li = document.createElement('li');
+//     li.classList.add('context-menu__item');
+//     li.innerHTML=`<input class="f_chb_all" 
+//                         type="checkbox"  
+//                         id="who_selAll_id"                      
+//                         checked
+//                         onclick="filtrSelAllClick(this);"
+//                         >  ------`;
+//     ul.append(li);
+//     for(value of who){            
+//         let li = document.createElement('li');
+//         li.classList.add('context-menu__item');        
+//         // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+//         let x = 'checked'; //checked
+//         if (filters !== null){
+//             if (filters['menuWho'].find(element => element === value) !== undefined){
+//                 x = 'checked';
+//             } else {
+//                 x = ''
+//             }
+//         }
+//         li.innerHTML=`<input class="f_chb_who" 
+//                         type="checkbox"
+//                         id="c${i}" 
+//                         data-1="${value}"
+//                         ${x}
+//                         onclick="filtrClick(this);"
+//                         >${value}`;
+//         ul.append(li);
+//         i++;
+//     }
+// }
+// //Створюємо списки для меню
+// function createListsClas(data){
+//     for(let i=1; i<data.length; i++){
+//         if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+//             data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+//                 clas.add(data[i]['gsx$класгрупа']['$t'])
+//         }         
+//     }
+//     //Сврорюємо меню для фільтрації вчителів
+//     let ul = document.getElementById("clas__menu__items_id");
+//     let i = 0;
+//     //create btn select
+//     let li = document.createElement('li');
+//     li.classList.add('context-menu__item');
+//     li.innerHTML=`<input class="f_chb_all" 
+//                         type="checkbox"  
+//                         id="clas_selAll_id"                      
+//                         checked
+//                         onclick="filtrSelAllClick(this);"
+//                         >  ------`;
+//     ul.append(li);
+//     for(value of clas){            
+//         let li = document.createElement('li');
+//         li.classList.add('context-menu__item');        
+//         // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+//         let x = 'checked'; //checked
+//         if (filters !== null){
+//             if (filters['menuClas'].find(element => element === value) !== undefined){
+//                 x = 'checked';
+//             } else {
+//                 x = ''
+//             }
+//         } 
+//         li.innerHTML=`<input class="f_chb_clas" 
+//                         type="checkbox"
+//                         id="c${i}" 
+//                         data-1="${value}"
+//                         ${x}
+//                         onclick="filtrClick(this);"
+//                         >${value}`;
+//         ul.append(li);
+//         i++;
+//     }
+// }
+// function createListsSubj(data){
+//     for(let i=1; i<data.length; i++){
+//         if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+//             data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+//                 subj.add(data[i]['gsx$предмет']['$t'])
+//         }        
+//     }
+//     //Сврорюємо меню для фільтрації вчителів
+//     let ul = document.getElementById("subj__menu__items_id");
+//     let i = 0;
+//     //create btn select
+//     let li = document.createElement('li');
+//     li.classList.add('context-menu__item');
+//     li.innerHTML=`<input class="f_chb_all" 
+//                         type="checkbox"  
+//                         id="subj_selAll_id"                      
+//                         checked
+//                         onclick="filtrSelAllClick(this);"
+//                         >  ------`;
+//     ul.append(li);
+//     for(value of subj){            
+//         let li = document.createElement('li');
+//         li.classList.add('context-menu__item');        
 
-        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
-        let x = 'checked'; //checked
-        if (filters !== null){
-            if (filters['menuSubj'].find(element => element === value) !== undefined){
-                x = 'checked';
-            } else {
-                x = ''
-            }
-        }  
+//         // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+//         let x = 'checked'; //checked
+//         if (filters !== null){
+//             if (filters['menuSubj'].find(element => element === value) !== undefined){
+//                 x = 'checked';
+//             } else {
+//                 x = ''
+//             }
+//         }  
                 
-        li.innerHTML=`<input class="f_chb_subj" 
-                        type="checkbox"
-                        id="c${i}" 
-                        data-1="${value}"
-                        ${x}
-                        onclick="filtrClick(this);"
-                        >${value}`;
-        ul.append(li);
-        i++;
-    }
-}
-//Створюємо списки для меню
-function createListsTeach(data){
-    for(let i=0; i<data.length; i++){
-        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
-            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
-            teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
-        }
-    }
-    //Створюємо меню для фільтрації вчителів
-    let ul = document.getElementById("teach__menu__items_id");
-    let i = 0;
-    //create btn select
+//         li.innerHTML=`<input class="f_chb_subj" 
+//                         type="checkbox"
+//                         id="c${i}" 
+//                         data-1="${value}"
+//                         ${x}
+//                         onclick="filtrClick(this);"
+//                         >${value}`;
+//         ul.append(li);
+//         i++;
+//     }
+// }
+// //Створюємо списки для меню
+// function createListsTeach(data){
+//     for(let i=0; i<data.length; i++){
+//         if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
+//             data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+//             teach.add(data[i]['gsx$вчительурокякоговідвідують']['$t'])
+//         }
+//     }
+//     //Створюємо меню для фільтрації вчителів
+//     let ul = document.getElementById("teach__menu__items_id");
+//     let i = 0;
+//     //create btn select
     
-    let li = document.createElement('li');
-    li.classList.add('context-menu__item');
-    li.innerHTML=`<input class="f_chb_all" 
-                        type="checkbox"  
-                        id="teach_selAll_id"                      
-                        checked
-                        onclick="filtrSelAllClick(this);"
-                        >  ------`;
-    ul.append(li);
+//     let li = document.createElement('li');
+//     li.classList.add('context-menu__item');
+//     li.innerHTML=`<input class="f_chb_all" 
+//                         type="checkbox"  
+//                         id="teach_selAll_id"                      
+//                         checked
+//                         onclick="filtrSelAllClick(this);"
+//                         >  ------`;
+//     ul.append(li);
 
-    for(value of teach){            
-        let li = document.createElement('li');
-        li.classList.add('context-menu__item');  
+//     for(value of teach){            
+//         let li = document.createElement('li');
+//         li.classList.add('context-menu__item');  
 
-        // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
-        let x = 'checked'; //checked
-        if (filters !== null){
-            if (filters['menuTeach'].find(element => element === value) !== undefined){
-                x = 'checked';
-            } else {
-                x = ''
-            }
-        }       
+//         // Якщо вчитель є в списку filters встановимо x = 'checked' інакше x = ''
+//         let x = 'checked'; //checked
+//         if (filters !== null){
+//             if (filters['menuTeach'].find(element => element === value) !== undefined){
+//                 x = 'checked';
+//             } else {
+//                 x = ''
+//             }
+//         }       
 
-        li.innerHTML=`<input class="f_chb" 
-                        type="checkbox"
-                        id="c${i}" 
-                        data-1="${value}"
-                        ${x}
-                        onclick="filtrClick(this);"
-                        >${value}`;
-        ul.append(li);
-        i++;
-    }
-}
+//         li.innerHTML=`<input class="f_chb" 
+//                         type="checkbox"
+//                         id="c${i}" 
+//                         data-1="${value}"
+//                         ${x}
+//                         onclick="filtrClick(this);"
+//                         >${value}`;
+//         ul.append(li);
+//         i++;
+//     }
+// }
 
 function filtrSelAllClick(e) {    
     
@@ -965,30 +1053,12 @@ btn_print.addEventListener("click", ()=>{
         if (elem.style.display === "" && elem.checked){
             let rowId = "row_"+elem.id.slice(3);
             let id_m = parseInt(rowId.slice(4));
-
-
-            // console.log('id_m');
-            // console.log(id_m);
-            // console.log(i);
-            // console.log(gl_data);
-
             createCardAll(gl_data[i]);
 
         } 
         i++;
     }
-    
-    // $(".sel_table_id_cl").each(function(i,elem) {
-    //     console.log('--');
-        
-    //     let rowId = "row_"+elem.id.slice(3);
-    //     if (elem.style.display === "" && elem.checked){
-    //         createCardAll(gl_data[parseInt(elem.id.slice(3))]);
-    //         console.log(gl_data[parseInt(elem.id.slice(3))]);
-    //     }        
-    // });
-
-  
+ 
 })
 
 
