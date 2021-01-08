@@ -919,58 +919,23 @@ let toggleMenuOnTeach = ()=>{
     }
 }
 
-// function toggleMenuOnClas() {
-//     if ( menuState !== 1 ) {
-//         menuState = 1;
-//         menuClas.classList.add(active);
-//     } else {
-//         menuState = 0;
-//         menuClas.classList.remove(active);
-//     }
-// }
-// function toggleMenuOnSubj() {
-//     if ( menuState !== 1 ) {
-//         menuState = 1;
-//         menuSubj.classList.add(active);
-//     } else {
-//         menuState = 0;
-//         menuSubj.classList.remove(active);
-//     }
-// }
-// function toggleMenuOnWho() {
-//     if ( menuState !== 1 ) {
-//         menuState = 1;
-//         menuWho.classList.add(active);
-//     } else {
-//         menuState = 0;
-//         menuWho.classList.remove(active);
-//     }
-// }
-// function toggleMenuOnDate() {
-//     if ( menuState !== 1 ) {
-//         menuState = 1;
-//         menuDate.classList.add(active);
-//     } else {
-//         menuState = 0;
-//         menuDate.classList.remove(active);
-//     }
-// }
 
 btn_teach.addEventListener("click", (e)=>{
-    menuClick(e,'teach');
+    menuClick(e,menu);
 });
 btn_clas.addEventListener("click", (e)=>{
-    menuClick(e, 'clas');
+    menuClick(e, menuClas);
 });
 btn_subj.addEventListener("click", (e)=>{
-    menuClick(e, 'subj');
+    menuClick(e, menuSubj);
 });
 btn_who.addEventListener("click", (e)=>{
-    menuClick(e, 'who');
+    menuClick(e, menuWho);
 });
 btn_date.addEventListener("click", (e)=>{
-    menuClick(e, 'date');
+    menuClick(e, menuDate);
 });
+
 sel_all_id.addEventListener("click", (e)=>{
     //Виділяємо (знімаємо виділення) всі елементи в таблиці для виводу
     $(".sel_table_id_cl").each(function(i,elem) {
@@ -989,45 +954,18 @@ sel_all_id.addEventListener("click", (e)=>{
 })
 
 
-function menuClick(e, n){
+function menuClick(e, m){
     let btn = e.target;
     let pos = btn.getBoundingClientRect();
     let x = parseInt(pos['x']);
     let y = parseInt(pos['y']);
-    
-    
-    if (n == 'teach'){
-        menu.style.setProperty('left', String(x+15)+'px')
-        menu.style.setProperty('top', String(y+40)+'px')
-        toggleMenu(menu);
-        // toggleMenuOnTeach();
-    } else  if (n == 'clas'){
-        menuClas.style.setProperty('left', String(x+15)+'px')
-        menuClas.style.setProperty('top', String(y+40)+'px')
-        toggleMenu(menuClas);
-        // toggleMenuOnClas();
-    }  else  if (n == 'subj'){
-        menuSubj.style.setProperty('left', String(x+15)+'px')
-        menuSubj.style.setProperty('top', String(y+40)+'px')
-        toggleMenu(menuSubj);
-        // toggleMenuOnSubj();
-    } else  if (n == 'who'){
-        menuWho.style.setProperty('left', String(x+15)+'px')
-        menuWho.style.setProperty('top', String(y+40)+'px')
-        toggleMenu(menuWho);
-        // toggleMenuOnWho();
-    } else  if (n == 'date'){
-        menuDate.style.setProperty('left', String(x+15)+'px')
-        menuDate.style.setProperty('top', String(y+40)+'px')
-        toggleMenu(menuDate);
-        // toggleMenuOnDate();
-    }
+    m.style.setProperty('left', String(x+15)+'px')
+    m.style.setProperty('top', String(y+40)+'px')
+    toggleMenu(m);   
 }
 
 
-
 btn__copy_id.addEventListener('click', ()=>{
-    // let el = document.getElementById("content");
     let range = document.createRange();
     range.selectNode(text); 
     window.getSelection().addRange(range); 
