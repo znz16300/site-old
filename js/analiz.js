@@ -107,9 +107,14 @@ function reformatString(text) {
 }
 
 function print_atom(data){
+    // if (data['title'] === data['value']){
+    //     return false;
+    // }
     let dist = "";
     let form_at = 3;
-    let dd = idToDate(data, 8);
+    //TODO 
+    let dd = idToData(data, 8);
+    // console.log(data);
     if (dd !== null && (dd['value'] === "Аналіз уроку на високому методичному рівні (схема/текст)" || 
         dd['value'] === "урок іноземної мови")){
         form_at = 3;
@@ -128,51 +133,28 @@ function print_atom(data){
     let allPar = '';
     let clasT = ' class="title" ';
     let clasV = ' class="value" ';
-    
     let sep = ': ';
-    
-    //console.log(dd['value']);
-
     let partPrint = false;
-    //console.log(data);
     for(let i=0; i<data.length-1; i++){
         let id = data[i]['id'];
         if (id === 91){
             //console.log(111);
         }
-
-
         let symEnd = '';
-        // if (parseInt(id + 0.5) === (id + 0.5) && data[i+1]['value']!== ""){
-        //     partPrint = true;
-        //     symEnd = '';
-        // } else {
-        //     partPrint = false;
-        //     symEnd = ':';
-        // }
-
-        //let rozdTitle = rozd[id];
         let a = reformatString(data[id]['title']);
         let rozdTitle = rozd_v2[a];
         if (data[id]['title'] === "Позначка часу") {
             continue;
         }
-
-
-
-        if (rozdTitle === undefined || (data[id]['value']).trim() === "")  {
+         if (rozdTitle === undefined || (data[id]['value']).trim() === "")  {
             rozdTitle = "";
         } else {
             rozdTitle = `<strong> ${rozdTitle.toUpperCase()} </strong>`;
         }
         allPar += rozdTitle;
-
-        next_title=(data[i+1]['title']).trim().toUpperCase();
-
-
-        if ((data[i]['value'] !== "" || partPrint) && data[i]['id'] >= 0  ){
+         next_title=(data[i+1]['title']).trim().toUpperCase();
+         if ((data[i]['value'] !== "" || partPrint) && data[i]['id'] >= 0  ){
             if (form_at === 3){
-                
                 let sym2 =(data[i]['title']).trim()[0];
                 let sym3 =(data[i+1]['title']).trim()[0];
                 if (sym2.toUpperCase() === sym2){
@@ -193,23 +175,18 @@ function print_atom(data){
                                 sep=sep, 
                                 symEnd=symEnd,                          
                                 );
-
-        }                 
+         }                 
     }
     
-
-    //Варіант з ... виведенням
+     //Варіант з ... виведенням
     allPar = format_2(allPar, clasT, clasV);
-
-    dist += allPar;
+     dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
-
-    dist = refactorText(dist);
-
-    dist +=`<p></p> 
-                      <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
-                      <p></p> <p></p> <p></p> 
-                      `;
+     dist = refactorText(dist);
+     dist +=`<p></p> 
+                    <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+                    <p style="margin-bottom: 100px;"></p> 
+                    `;
     
     if (t_les == "ЗАХІД"){
         dist = dist.replaceAll('УРОК', 'ЗАХІД');
@@ -219,10 +196,9 @@ function print_atom(data){
         dist = dist.replaceAll('ЗАХІДУ', 'ЗАХОДУ');
         dist = dist.replaceAll('ЗАХІДОМ', 'ЗАХОДОМ');
     }   
-                      
+                           
     return dist;
 }
-
 function format_Aa(title, value, next_title=' ', format=0, sep=' ',symEnd=''){
     let par = '';
     switch (format){
@@ -259,7 +235,7 @@ function format_Aa(title, value, next_title=' ', format=0, sep=' ',symEnd=''){
      return tex;
  }
 
-function idToDate(dat, id){
+function idToData(dat, id){
     for (d of dat){
         if (d['id'] === id){
             return d;
@@ -974,16 +950,43 @@ btn__copy_id.addEventListener('click', ()=>{
     window.getSelection().removeAllRanges();
 })
 
+let id_mToData = (id_m) => {
+
+
+    return d;
+};
 
 btn_print.addEventListener("click", ()=>{
     text.innerText = "";
 
-    $(".sel_table_id_cl").each(function(i,elem) {
-        let rowId = "row_"+elem.id.slice(3);
-        if (document.getElementById(rowId).style.display === "" && elem.checked){
-            createCardAll(gl_data[parseInt(elem.id.slice(3))]);
-        }        
-    });
+    const rows = document.querySelectorAll(".sel_table_id_cl");
+    let i = 1;
+    for (elem of rows){
+        if (elem.style.display === "" && elem.checked){
+            let rowId = "row_"+elem.id.slice(3);
+            let id_m = parseInt(rowId.slice(4));
+
+
+            // console.log('id_m');
+            // console.log(id_m);
+            // console.log(i);
+            // console.log(gl_data);
+
+            createCardAll(gl_data[i]);
+
+        } 
+        i++;
+    }
+    
+    // $(".sel_table_id_cl").each(function(i,elem) {
+    //     console.log('--');
+        
+    //     let rowId = "row_"+elem.id.slice(3);
+    //     if (elem.style.display === "" && elem.checked){
+    //         createCardAll(gl_data[parseInt(elem.id.slice(3))]);
+    //         console.log(gl_data[parseInt(elem.id.slice(3))]);
+    //     }        
+    // });
 
   
 })
@@ -1126,8 +1129,6 @@ $(function(){
 
 
 readStorage();
-// url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
-
 readPage();
-// createCards(data);
+
 

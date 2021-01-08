@@ -299,21 +299,9 @@ header {
   padding: 50px 20px 0 29px;
 }
 .modal__wrapper .modal .pet_info {
-  /* font-family: Georgia;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 35px;
-  line-height: 130%;
-  letter-spacing: 0.06em; */
   margin-bottom: 10px;
 }
 .modal__wrapper .modal .pet_info .pet_info__about {
-  /* font-family: Georgia;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 116%;
-  letter-spacing: 0.06em; */
   margin-bottom: 40px;
 }
 
@@ -335,8 +323,6 @@ header {
 }
 .modal__wrapper .modal .pet_info .pet_info__about {
   margin-bottom: 20px;
-  /* font-size: 13px; */
-  /* line-height: 110%; */
 }
 .modal__wrapper .modal .pet_info .pet__info__advantage li {
   margin-bottom: 5px;
