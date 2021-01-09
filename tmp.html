@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <script src="./js/jquery-3.5.0.js"></script>
+<body>
+
+</body>
+<script>
+
+// (1)
+var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+
+var xhr = new XHR();
+
+// (2) запрос на другой домен :)
+xhr.open('GET', 'http://anywhere.com/request', true);
+
+xhr.onload = function() {
+  alert( this.responseText );
+}
+
+xhr.onerror = function() {
+  alert( 'Ошибка ' + this.status );
+}
+
+xhr.send();
+
+</script>
+
+</html> 

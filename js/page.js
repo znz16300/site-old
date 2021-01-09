@@ -5,6 +5,7 @@ let title_st = '';
 const title = document.getElementById("title__id");
 const text = document.getElementById("paragraphs__id");
 
+
 function readPage(key){
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,
@@ -23,6 +24,7 @@ function readPage(key){
                     const regex = String.fromCharCode(10);
                     text = text.replace(regex,'<br>');
                     console.log(text);
+                    // text_tmp += `${text}`
                     text_tmp += `<p class="default_par"> ${text} </p>`
                 
 
@@ -62,16 +64,12 @@ function readPage(key){
                             }
                         }               
                      }
-                }
-                
-            }
-            
-            text.innerHTML = text_tmp;      
-        }
-
-        
-    );
-    
+                }                
+            }        
+            if (text !== null)    
+                text.innerHTML = text_tmp;      
+        }        
+    );    
 }
 
 window.onscroll = function() {
@@ -98,12 +96,12 @@ document.getElementById("scrollToTop").addEventListener("click", ()=>{
 });
 
 
-
-
 var keyT = JSON.parse(window.localStorage.getItem('keyPages') || null);
 if (keyT !== undefined){
     title_st = JSON.parse(window.localStorage.getItem('titlePages') || null);
+    const title_ = document.getElementById('title__');
     const title_dom = document.getElementById('title__id');
+    title_.innerText = title_st;
     title_dom.innerHTML = title_st;
     readPage(keyT);
 }

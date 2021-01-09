@@ -2,23 +2,62 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Reading google spreadsheet data via API</title>
+<title>Аналіз відвіданих уроків</title>
 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script>
 <script src="./js/jquery-3.5.0.js"></script>
 <link rel="stylesheet" href="./css/analiz.css">
 
+
 </head>
 <body>
+    <div class="modal__wrapper">
+        <div class="modal">
+            <div class="modal_close">
+                <img id="btn_close_modal" 
+                     src="./assets/icons/close_icon.png" 
+                     class="modal_close_button" alt="close-button">
+            </div>
+
+            <div class="pet_info">
+                
+                <div class="pet_info__about"></div>
+            </div>
+                
+
+        </div>
+    </div>
+
     <nav id="context-menu-id" class="context-menu">
         <ul id="teach__menu__items_id" class="context-menu__items">
-
         </ul>
         <div class="btn_menu">
-            <button id="btn_close_menu">Ok</button>
-        </div>
+            <button id="btn_close_menu">x</button>
+        </div>        
+    </nav>
+    <nav id="context-menu-who-id" class="context-menu">
+        <ul id="who__menu__items_id" class="context-menu__items">
+        </ul>
+        <div class="btn_menu">
+            <button id="btn_close_menu_who">x</button>
+        </div>        
+    </nav>
+    <nav id="context-menu-subj-id" class="context-menu">
+        <ul id="subj__menu__items_id" class="context-menu__items">
+        </ul>
+        <div class="btn_menu">
+            <button id="btn_close_menu_subj">x</button>
+        </div>        
+    </nav>
+    <nav id="context-menu-clas-id" class="context-menu">
         
-      </nav>
+        <ul id="clas__menu__items_id" class="context-menu__items"> </ul>     
+        <div class="btn_menu"><button id="btn_close_menu_clas">x</button></div>           
+    </nav>
+    <nav id="context-menu-date-id" class="context-menu">      
+        <ul id="date__menu__items_id" class="context-menu__items"> </ul>  
+        <!-- <div class="btn_menu"><button id="btn_close_menu_date">x</button></div>    -->
+    </nav>
 
 <header class="head">
     <p class="title__head">Виберіть записи</p>
@@ -29,13 +68,49 @@
         <table id="table_id" class="table__cl">
             <tbody id="table__id"  >
                 <tr class="cel_row">
-                <th class="cel_h"><span>Дата уроку</span> <span><img id="id_table_date" src="./assets/icons/filter_btn.png" alt=""></span> </th>
-                <th class="cel_h">Хто відвідує<img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""></th>
-                <th class="cel_h">Чий урок відвідує<img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""></th>
-                <th class="cel_h">Клас<img id="id_table_class" src="./assets/icons/filter_btn.png" alt=""></th>
-                <th class="cel_h">Предмет<img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""></th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Дата уроку</div> <div class="sp_2"><img id="id_table_date" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                    </div>
+                </th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Хто відвідує</div> <div class="sp_2"><img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                    </div>
+                </th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Чий урок відвідує</div> <div class="sp_2"><img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                    </div>
+                </th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Клас</div> <div class="sp_2">
+                            <img id="id_table_clas" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр">
+                        </div>
+                    </div>
+                </th>
+                <th class="cel_h" >
+                    <div class="cel_div">
+                        <div class="sp_1">Предмет</div> <div class="sp_2"><img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                        
+                    </div>
+                </th>
+                <!-- <th class="cel_h">Хто відвідує<img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <!-- <th class="cel_h">Чий урок відвідує<img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <!-- <th class="cel_h">Клас<img id="id_table_clas" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <!-- <th class="cel_h">Предмет<img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""></th> -->
                 <th class="cel_h">Тема уроку</th>
-                <th class="cel_h">Вивід</th>                
+                <th class="cel_h" >
+                    <div class="cel_div">Вивід
+                    <!-- <div class="cel_div">
+                        <div class="sp_2"> -->
+                            <input class="btn_sel" id="sel_all_id" type="button" title="Виділити всі" value="&#128505;"> 
+                            <!-- <input class="btn_sel" id="sel_no_id"type="button" title="Відмінити виділення всіх" value="⃞">  -->
+                        <!-- </div>
+                    </div> -->
+                    </div>
+                </th>                
             </tr>
 
             </tbody>
@@ -55,6 +130,15 @@
 </header>
 
 <div id="content"></div>
+
+
+<a href="#" id="scroll_top" title="Вгору"></a>
+<a href="#" id="scroll_bottom" title="Вниз"></a>
+
+
+
+<script src="./js/data_analiz.js"></script>
 <script src="./js/analiz.js"></script>
+
 </body>
 </html>

@@ -77,7 +77,7 @@
                             </a>
                             </li>
                             <li class="header__list_item">
-                                <a href="javascript:void(0);">
+                                <a href="./contacts.html">
                                     Контакти
                                 </a>
                             </li>
@@ -96,16 +96,15 @@
                             <p>
                                 Комунальний опорний заклад "Куликівський заклад загальної середньої освіти І-ІІІ ступенів" Куликівської селищної ради.
                             </p>
-                            Навчальний заклад, де працюють довсвідчені та креативні вчителі, де навчаються
+                            Навчальний заклад, де працюють досвідчені та креативні вчителі, де навчаються
                             розумні та творчі учні. Де кожен учень має доступ до освіти.
 
                         </div>
                         <button class="start_screen__button" onclick='window.location.href="./news.html"'>
                             Останні новини
                         </button>
-
                     </div>
-                    <!-- <div class="start_screen__image"><img src="./assets/images/photo_2.png" alt="puppy"> -->
+                    
                     <div class="start_screen__image"><img src="./assets/images/photo_2020-11-26_22-25-37.jpg" alt="puppy">
                     </div>
                 </div>
@@ -166,8 +165,8 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/5.png">
                                     <img src="./assets/icons/5.png" alt="Вчителі" 
-                                        onclick="setPageKey(`Вчителі`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
-                                        ">
+                                        id="m_teach"                     
+                                        >
                                 </picture>
                             </div>
                             <div class="than__item_name">Вчителі</div>
@@ -178,8 +177,8 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/4.png">
                                     <img src="./assets/icons/4.png" alt="Учні" 
-                                    onclick="setPageKey(`Учні`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
-                                    ">
+                                    onclick="setPageKey(`Учні`, keyTablePages);"
+                                    >
                                 </picture>
                             </div>
                             <div class="than__item_name">Учні</div>
@@ -190,7 +189,7 @@
                                     <source media="(max-width:767px)" 
                                     srcset="./assets/icons/11.png">
                                     <img src="./assets/icons/11.png" alt="Самоврядування" 
-                                    onclick="setPageKey(`Самоврядування`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    onclick="setPageKey(`Самоврядування`, keyTablePages);
                                     ">
                                 </picture>
                             </div>
@@ -202,7 +201,7 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/9.png">
                                     <img src="./assets/icons/9.png" alt="Бібліотека" 
-                                    onclick="setPageKey(`Бібліотека`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    onclick="setPageKey(`Бібліотека`, keyTablePages);
                                     ">
                                 </picture>
                             </div>
@@ -216,7 +215,7 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/2.png">
                                     <img src="./assets/icons/2.png" alt="Методична робота" 
-                                    onclick="setPageKey(`Методична робота`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');">
+                                    onclick="setPageKey(`Методична робота`, keyTablePages);">
                                 </picture>
                             </div>
 
@@ -229,7 +228,7 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/6.png">
                                     <img src="./assets/icons/6.png" alt="Фінансова інформація" 
-                                    onclick="setPageKey(`Фінансова інформація`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    onclick="setPageKey(`Фінансова інформація`, keyTablePages);
                                     ">
                                 </picture>
                             </div>
@@ -244,7 +243,7 @@
                                         srcset="./assets/icons/7.png">
                                     <img src="./assets/icons/7.png" 
                                         alt="Дистанційне навчання" 
-                                        onclick="setPageKey(`Дистанційне навчання`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                        onclick="setPageKey(`Дистанційне навчання`, keyTablePages);
                                         ">
                                 </picture>
                             </div>
@@ -258,7 +257,7 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/10.png">
                                     <img src="./assets/icons/10.png" alt="Протидія булінгу" 
-                                        onclick="setPageKey(`Протидія булінгу`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                        onclick="setPageKey(`Протидія булінгу`, keyTablePages);
                                         ">
                                 </picture>
                             </div>
@@ -273,7 +272,7 @@
                                         srcset="./assets/icons/11.png">
                                     <img src="./assets/icons/11.png" alt="Піклувальна рада" 
                                     onclick="setPageKey(`Піклувальна рада`, 
-                                    '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+                                    keyTablePages);
                                     ">
                                 </picture>
                             </div>
@@ -304,7 +303,7 @@
                         <div class="donation__account">
                             <img src="" alt=""
                                 class="donation__account_image">
-                            <div class="donation__account_number"><a href="index.html#">Бережіть себе та інших!</a></div>
+                            <div class="donation__account_number"><a href="https://phc.org.ua/kontrol-zakhvoryuvan/inshi-infekciyni-zakhvoryuvannya/koronavirusna-infekciya-covid-19">Бережіть себе та інших!</a></div>
                         </div>
                         <div class="donation__note">                            
                             У разі переведення класу (класів) на дистанційне навчання,
@@ -370,8 +369,15 @@
             </div>
         </footer>
     </div>
+    <!-- <script src="./js/storage.js"></script> -->
     <script src="./js/data.js"></script>
     <script src="./js/main.js"></script>
+
+    <script>
+        
+
+    </script>
+
     <!-- <script src="./js/common.js"></script> -->
     <!-- <script src="./js/page.js"></script> -->
     

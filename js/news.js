@@ -3,7 +3,10 @@ let sheet = "1";
 
 let newsData = [];
 
-const keyTableNews ="1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+// var keyTableNews;
+// const keyTableNews ="1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+
+// var url;
 var url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 
 let burgerItem = document.querySelector('.header__burger');
@@ -131,7 +134,7 @@ function createCardItem(item) {
     let image = document.createElement('img');
     image.setAttribute('src', item.img);
     image.setAttribute('alt', item.name);
-    image.setAttribute('width', "160px");
+    image.setAttribute('height', "160px");
     let cardItemName = document.createElement('div');
     cardItemName.classList.add('cards__item-name');
     cardItemName.innerText = item.name;
@@ -306,6 +309,20 @@ scroolBtn.addEventListener("click", ()=>{
 });
 
 
+
+// function readStorage(){
+//     keyTableNews = window.localStorage.getItem("keyTableForNews");
+//     if (keyTableNews === null) {
+//         let s = prompt("Уведіть ключ для новин", "");
+//         if (s !== null){
+//             keyTableNews = s;
+//             window.localStorage.setItem("keyTableForNews", s);
+//         }            
+//     }    
+// }
+
+// readStorage();
+// url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 readNews();
 
 function openNewWin(url) {

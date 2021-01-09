@@ -18,6 +18,6 @@
 // import {storage} from './storage.js';
 
 // function openFinInfo(){
-//     storage.setPageKey(`Фінансова інформація`, '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI');
+//     storage.setPageKey(`Фінансова інформація`, keyTablePages);
     
 // }

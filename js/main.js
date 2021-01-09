@@ -6,7 +6,18 @@ let btnLeft = document.querySelector('.arrow_left');
 let btnRight = document.querySelector('.arrow_right');
 let sliderItems = document.querySelector('.pet_slider__items');
 let modalWindow = document.querySelector('.modal__wrapper');
+
+const m_teach = document.getElementById("m_teach");
+
+m_teach.addEventListener("click",()=>{
+    setPageKey(`Вчителі`, keyTablePages);
+})
+
+
 let currentPetNumbers = [];
+
+
+
 
 function changeOverflow() {
     let overflowY = document.body.style.overflowY;
@@ -89,14 +100,6 @@ function fillModalWindow(item) {
     let petAge = document.querySelector('.pet__info__age .value');
     petAge.textContent = item.age;
 
-    // let petInoculations = document.querySelector('.pet_info__inoculations .value');
-    // petInoculations.textContent = item.inoculations.join(', ');
-
-    // let petDiseases = document.querySelector('.pet_info__diseases .value');
-    // petDiseases.textContent = item.diseases.join(', ');
-
-    // let petParasites = document.querySelector('.pet_info__parasites .value');
-    // petParasites.textContent = item.parasites.join(', ');
 }
 
 function updateSlider(classForAnimation) {
@@ -119,7 +122,6 @@ function updateSlider(classForAnimation) {
 
 function toggleModalWindow() {
     modalWindow.classList.toggle('modal__wrapper_active');
-
     changeOverflow();
 }
 
@@ -173,20 +175,36 @@ function setStorage(name, value) {
     window.localStorage.setItem(name, JSON.stringify(value));
 }
   
+
+
+function updateStorage(){
+    let keyNews = window.localStorage.getItem("keyTableForNews");
+    if (keyNews === null) {
+        let s = prompt("Уведіть ключ для новин", "");
+        if (s !== null){
+            window.localStorage.setItem("keyTableForNews", s); 
+        }            
+    }    
+}
+
+function setStorage(name, value) {
+    window.localStorage.setItem(name, JSON.stringify(value));
+}
+
 function getStorage(name, subst = null) {
     return JSON.parse(window.localStorage.getItem(name) || subst);
 }
-  
+
 function delStorage(name) {
     localStorage.removeItem(name);
 }
-  
 
 function setPageKey(title, key){
     setStorage('keyPages', key);
     setStorage('titlePages', title);
     document.location.href = './page.html';
 }
+ 
 
-
+// updateStorage();
 updateSlider();
