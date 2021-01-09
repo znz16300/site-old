@@ -32,7 +32,6 @@ const btn_close_menu = document.getElementById('btn_close_menu');
 const btn_close_menu_clas = document.getElementById('btn_close_menu_clas');
 const btn_close_menu_subj = document.getElementById('btn_close_menu_subj');
 const btn_close_menu_who = document.getElementById('btn_close_menu_who');
-// const btn_close_menu_date = document.getElementById('btn_close_menu_date');
 const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
 const sel_all_id = document.getElementById("sel_all_id");
@@ -107,9 +106,6 @@ function reformatString(text) {
 }
 
 function print_atom(data){
-    // if (data['title'] === data['value']){
-    //     return false;
-    // }
     let dist = "";
     let form_at = 3;
     //TODO 
@@ -323,7 +319,7 @@ let readPage = ()=>{
                 i++;       
             });
 
-            for (let i=1; i<gl_data.length; i++){
+            for (let i=0; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;
                 gl_data[i]['normDate'] = (dateReformat(gl_data[i]['gsx$датапроведенняуроку']['$t']));
             }
@@ -409,7 +405,7 @@ let createList =(data, m)=>{
 
     };
 
-    for(let i=1; i<data.length; i++){
+    for(let i=0; i<data.length; i++){
         if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
             data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
                 mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
@@ -457,7 +453,7 @@ let createList =(data, m)=>{
 
 //Створюємо списки для меню
 let createListsDate = (data)=>{
-    for(let i=1; i<data.length; i++){
+    for(let i=0; i<data.length; i++){
         //TODO
         let s = data[i]['gsx$датапроведенняуроку']['$t'];
         let day = s.substr(0,2);
@@ -549,18 +545,6 @@ function filtrSelAllClick(e) {
     const ulSubj = document.querySelectorAll(".f_chb_subj");
     const ulWho = document.querySelectorAll(".f_chb_who");
 
-    // let ll = {};
-    // ll['teach_selAll_id'] = {'var': teachSelBtnAll, 'x': ulTeach};
-    // ll['clas_selAll_id'] = {'var': clasSelBtnAll,'x': ulClas};
-    // ll['subj_selAll_id'] = {'var': subjSelBtnAll,'x': ulSubj};
-    // ll['who_selAll_id'] = {'var': whoSelBtnAll, 'x': ulWho};
-
-    // let m = ll[e.id];
-    // m['var'] = !m['var'];            
-    // for(let inp of m['x']) {
-    //     inp.checked = m['var'];     
-    // }
-
     switch (e.id) {
         case "teach_selAll_id":
             teachSelBtnAll = !teachSelBtnAll;            
@@ -607,11 +591,6 @@ btn_close_menu_who.addEventListener("click", ()=>{
     menuState = 0;
     menuWho.classList.remove(active);    
 })
-// btn_close_menu_date.addEventListener("click", ()=>{
-//     menuState = 0;
-//     menuDate.classList.remove(active);    
-// })
-
 
 
 let filtrClick = (e)=>{
@@ -703,8 +682,7 @@ let showFilter = (a, img) => {
         img.setAttribute('src',"./assets/icons/filter_btn.png");
     } else {
         img.setAttribute('src',"./assets/icons/filter_btn_on.png");
-    }
-      
+    }      
 }
 
 
@@ -855,7 +833,6 @@ btn__copy_id.addEventListener('click', ()=>{
 
 btn_print.addEventListener("click", ()=>{
     text.innerText = "";
-
     const rows = document.querySelectorAll(".sel_table_id_cl");
     let i = 1;
     for (elem of rows){
@@ -863,11 +840,9 @@ btn_print.addEventListener("click", ()=>{
             let rowId = "row_"+elem.id.slice(3);
             let id_m = parseInt(rowId.slice(4));
             createCardAll(gl_data[i]);
-
         } 
         i++;
-    }
- 
+    } 
 })
 
 
@@ -914,7 +889,6 @@ let fillTable = (table, i, d)=>{
         cel7.innerHTML=`<div class="print_col_all">      
                 <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
                 <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
-                
             </div>`;
         table.append(row);
         row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
@@ -934,7 +908,7 @@ let sortByTeach = (arr)=>{
 
 let createTable = (gl_data)=>{    
     const table = document.getElementById("table__id");
-    for (let i=1; i<gl_data.length; i++){
+    for (let i=0; i<gl_data.length; i++){
         fillTable(table, gl_data[i]['id_m'], gl_data[i]);
     }
     let print_col_imges = document.querySelectorAll(".print_col_img");
@@ -990,8 +964,6 @@ $(function(){
 		return false;
 	});
 });
-
-
 
 
 readStorage();
