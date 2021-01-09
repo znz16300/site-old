@@ -278,7 +278,7 @@ function createCardAll(dat){
 function createCards(data, num=-1){
     text.innerHTML = "";
     if (num === -1) {
-        for (let i=2; i<data.length;i++){
+        for (let i=0; i<data.length;i++){
             createCardAll(data[i]);
         }
     } else {
