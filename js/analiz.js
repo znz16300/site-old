@@ -1,5 +1,5 @@
 var d1 = "";
-let data_table = {};
+// let data_table = {};
 let teach =  new Set();
 let clas =  new Set();
 let subj =  new Set();
@@ -106,8 +106,66 @@ function reformatString(text) {
 }
 
 function print_atom(data){
+    let allPar = '';
+    let clasT = ' class="title" ';
+    let clasV = ' class="value" ';
+    let sep = ': ';
+    let form_at = 0;
+    let t_les = "УРОК";
+
+    let ttl = "АНАЛІЗ УРОКУ";
+    dist =`<p></p><div class="title1">${ttl}</div>`;
+    data.push({'id':111111111, 'title':" ", 'value':" "});
+    // console.log(data);
+    for(let i=0; i<data.length-1; i++){
+        if (data[i].key === titleToKey('Позначка часу')) {
+            continue;
+        }
+        let symEnd = '';
+        let a = reformatString(data[i].title);
+        let rozdTitle = rozd_v2[a];
+        if (rozdTitle === undefined){
+            rozdTitle = "";
+        } else {
+            rozdTitle = rozdTitle.toUpperCase();
+        }
+        next_title=(data[i+1].title).trim().toUpperCase();
+        allPar += rozdTitle;
+        let title_0 = reformatString((data[i]['title']).trim());
+        allPar += format_Aa(title_0, 
+                            (data[i].value).replace('_', '').trim(), 
+                            next_title=next_title,  
+                            format=form_at, 
+                            sep=sep, 
+                            symEnd=symEnd,                          
+                            );
+    }
+    allPar = format_2(allPar, clasT, clasV);
+     dist += allPar;
+    // text.innerHTML += format_2(allPar, clasT, clasV);
+     dist = refactorText(dist);
+     dist +=`<p></p> 
+                    <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+                    <p style="margin-bottom: 100px;"></p> 
+                    `;
+    
+    if (t_les == "ЗАХІД"){
+        dist = dist.replaceAll('УРОК', 'ЗАХІД');
+        dist = dist.replaceAll('урок', 'захід');
+        dist = dist.replaceAll('західу', 'заходу');
+        dist = dist.replaceAll('західом', 'заходом');
+        dist = dist.replaceAll('ЗАХІДУ', 'ЗАХОДУ');
+        dist = dist.replaceAll('ЗАХІДОМ', 'ЗАХОДОМ');
+    }   
+                           
+    return dist;
+
+}
+
+function __print_atom(data){
+    console.log(data);
     let dist = "";
-    let form_at = 3;
+    let form_at = 0;
     //TODO 
     let dd = idToData(data, 8);
     // console.log(data);
@@ -131,12 +189,15 @@ function print_atom(data){
     let clasV = ' class="value" ';
     let sep = ': ';
     let partPrint = false;
+    // console.log(data);
     for(let i=0; i<data.length-1; i++){
         let id = data[i]['id'];
-        if (id === 91){
-            //console.log(111);
-        }
         let symEnd = '';
+        console.log(data[id]);
+        console.log(id);
+        if (data[id]===undefined){
+            continue;
+        }
         let a = reformatString(data[id]['title']);
         let rozdTitle = rozd_v2[a];
         if (data[id]['title'] === "Позначка часу") {
@@ -254,19 +315,27 @@ let num = 4
 
 function createCard(dat){
     let data_report = []
-    if (num === -1) {        
-    }
-    $.each(dat,function(key, value){
-        if (value['title'] !== "" && data_table[key] !== undefined){
-            let id = data_table[key]['id'];
-            let title = data_table[key]['title'];
-            data_report.push({'id':id, 'title':title, 'value':value['$t'], 'key':key})
-        }            
-                    
-    });
+    $.each(fieldNames,function(key, val){
+        let value = dat[val.key];
+
+        if (dat[val.key] !== undefined){
+            if (value['$t'] !== ""){
+                let id = parseInt(key);
+                let title = val.title;
+                let valUE = value['$t'];
+                let kEy = val.key;
+                // console.log('title', title);
+                // console.log('value', valUE);
+                // console.log('id', id);
+                data_report.push({'id':id, 'title':title, 'value': valUE, 'key':kEy})
+            }
+        }       
+
+    })
+    // console.log('data_report');
+    // console.log(data_report);
     sortById(data_report);
-    // Розкоментовуємо для отримання інформації про зміну файлу data_analiz.js
-    //tmp__ (data_report);
+    // console.log(data_report);
     return data_report;
 }
 
@@ -275,20 +344,51 @@ function createCardAll(dat){
     print_my(data_report);
 }
 
-function createCards(data, num=-1){
-    text.innerHTML = "";
-    if (num === -1) {
-        for (let i=0; i<data.length;i++){
-            createCardAll(data[i]);
-        }
-    } else {
-        createCardAll(data[num]);
-    }
-}
-
-
 
 var gl_data;
+var fieldNames = {};
+
+
+let setFields = (data)=>{
+    let i=0;
+    $.each(data[0],function(key,value){
+        if (key.slice(0,4) === 'gsx$'){
+            fieldNames[i] = {'key': key, 'title': value['$t']};
+            i++;
+        }        
+    })
+}
+
+function titleToKey (title){
+    let k;
+    $.each(fieldNames, function(key, value){
+        if (value['title'] === title){
+            k = value['key'];  
+            return k;        
+        }        
+    })
+    return k;
+}
+function keyToTitle (k){
+    let k_;
+    $.each(fieldNames, function(key, value){
+        if (value['key'] === k){
+            k_ = value['title'];  
+            return k_;        
+        }        
+    })
+    return k_;
+}
+function keyToId (k){
+    let k_;
+    $.each(fieldNames, function(key, value){
+        if (value['key'] === k){
+            k_ = key;  
+            return k_;        
+        }        
+    })
+    return k_;
+}
 
 let readPage = ()=>{
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
@@ -296,32 +396,35 @@ let readPage = ()=>{
         
        function (data) {
             data = data['feed']['entry'];       
-            // sortByTeach(data);    
+            // sortByTeach(data);  
+            setFields(data);
+            // let xx = titleToKey("Клас, група");
+            // console.log(fieldNames);
 
             gl_data = data; 
-            let i = -6;
-            $.each(data[0],function(key,value){
-                //Вилучаємо числа на початку value
-                let v = value['$t'];
-                if (v !== undefined){
-                    while ((v[0] >="0" && v[0] <="9") ||  v[0] ==="."){
-                        v = v.slice(1);
-                    }
-                    v = v.trim();
-                }
-                
+            // let i = -6;
+            // $.each(data[0],function(key,value){
+            //     //Вилучаємо числа на початку value
+            //     let v = value['$t'];
+            //     if (v !== undefined){
+            //         while ((v[0] >="0" && v[0] <="9") ||  v[0] ==="."){
+            //             v = v.slice(1);
+            //         }
+            //         v = v.trim();
+            //     }               
 
-                if (key.indexOf('gsx$') === 0){
-                    let m = {'id': i, 'title':v};
-                    // let m = {'id': parseFloat(data[1][key]['$t']), 'title':v};
-                    data_table[key] = m;                   
-                }       
-                i++;       
-            });
+            //     if (key.indexOf('gsx$') === 0){
+            //         let m = {'id': i, 'title':v};
+            //         // let m = {'id': parseFloat(data[1][key]['$t']), 'title':v};
+            //         data_table[key] = m;                   
+            //     }       
+            //     i++;       
+            // });
+
 
             for (let i=0; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;
-                gl_data[i]['normDate'] = (dateReformat(gl_data[i]['gsx$датапроведенняуроку']['$t']));
+                gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
             }
             
             sortByDate(gl_data); 
@@ -371,7 +474,7 @@ let createLists = (data)=>{
 let createList =(data, m)=>{
     const mCL ={             //menuCreateList
         'who': {
-            'field': 'gsx$хтовідвідуєурок', 
+            'field': titleToKey('Хто відвідує урок'), 
             'setName': who, 
             'ulId': 'who__menu__items_id', 
             'inputIdSelAll': 'who_selAll_id', 
@@ -379,7 +482,7 @@ let createList =(data, m)=>{
             'inputId': 'f_chb_who', 
         },
         'clas': {
-            'field': 'gsx$класгрупа', 
+            'field': titleToKey('Клас, група'), 
             'setName': clas, 
             'ulId': 'clas__menu__items_id', 
             'inputIdSelAll': 'clas_selAll_id', 
@@ -387,7 +490,7 @@ let createList =(data, m)=>{
             'inputId': 'f_chb_clas', 
         },
         'subj': {
-            'field': 'gsx$предмет', 
+            'field': titleToKey('Предмет'), 
             'setName': subj, 
             'ulId': 'subj__menu__items_id', 
             'inputIdSelAll': 'subj_selAll_id', 
@@ -395,7 +498,7 @@ let createList =(data, m)=>{
             'inputId': 'f_chb_subj', 
         },
         'teach': {
-            'field': 'gsx$вчительурокякоговідвідують', 
+            'field': titleToKey('Вчитель, урок якого відвідують'), 
             'setName': teach, 
             'ulId': 'teach__menu__items_id', 
             'inputIdSelAll': 'teach_selAll_id', 
@@ -406,8 +509,9 @@ let createList =(data, m)=>{
     };
 
     for(let i=0; i<data.length; i++){
-        if (data[i]['gsx$датапроведенняуроку']['$t'][0] >= '0' && 
-            data[i]['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+        let dpu = titleToKey('Дата проведення уроку');
+        if (data[i][dpu]['$t'][0] >= '0' && 
+            data[i][dpu]['$t'][0] <= '3' ){
                 mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
         }        
     }
@@ -455,7 +559,7 @@ let createList =(data, m)=>{
 let createListsDate = (data)=>{
     for(let i=0; i<data.length; i++){
         //TODO
-        let s = data[i]['gsx$датапроведенняуроку']['$t'];
+        let s = data[i][titleToKey('Дата проведення уроку')]['$t'];
         let day = s.substr(0,2);
         let month = s.substr(3,2);
         let year = s.substr(6,4);
@@ -848,7 +952,10 @@ btn_print.addEventListener("click", ()=>{
 
 
 let fillTable = (table, i, d)=>{
-    if (d['gsx$датапроведенняуроку']['$t'][0] >= '0' && d['gsx$датапроведенняуроку']['$t'][0] <= '3' ){
+    // (d['gsx$датапроведенняуроку']['$t'][0] >= '0' && d['gsx$датапроведенняуроку']['$t'][0] <= '3' )
+    let dpu = titleToKey('Дата проведення уроку');
+    if (d[dpu]['$t'][0] >= '0' && 
+        d[dpu]['$t'][0] <= '3' ){
         let cel1 = document.createElement('td');
         let cel2 = document.createElement('td');
         let cel3 = document.createElement('td');
@@ -866,18 +973,18 @@ let fillTable = (table, i, d)=>{
         cel7.classList.add('cel_chb');
         let row = document.createElement('tr');
         row.setAttribute('id','row_'+String(i));
-        cel1.innerText=d['gsx$датапроведенняуроку']['$t'];    
-        cel2.innerText=d['gsx$хтовідвідуєурок']['$t'];
-        cel3.innerText=d['gsx$вчительурокякоговідвідують']['$t'];
-        cel4.innerText=d['gsx$класгрупа']['$t'];
-        cel5.innerText=d['gsx$предмет']['$t'];
-        cel6.innerText=d['gsx$темауроку']['$t'];
+        cel1.innerText=d[titleToKey('Дата проведення уроку')]['$t'];    
+        cel2.innerText=d[titleToKey('Хто відвідує урок')]['$t'];
+        cel3.innerText=d[titleToKey('Вчитель, урок якого відвідують')]['$t'];
+        cel4.innerText=d[titleToKey('Клас, група')]['$t'];
+        cel5.innerText=d[titleToKey('Предмет')]['$t'];
+        cel6.innerText=d[titleToKey('Тема уроку')]['$t'];
     
-        row.setAttribute('data-teach', d['gsx$вчительурокякоговідвідують']['$t']);
-        row.setAttribute('data-clas', d['gsx$класгрупа']['$t']);
-        row.setAttribute('data-subj', d['gsx$предмет']['$t']);
-        row.setAttribute('data-who', d['gsx$хтовідвідуєурок']['$t']);
-        let s = d['gsx$датапроведенняуроку']['$t'];
+        row.setAttribute('data-teach', d[titleToKey('Вчитель, урок якого відвідують')]['$t']);
+        row.setAttribute('data-clas', d[titleToKey('Клас, група')]['$t']);
+        row.setAttribute('data-subj', d[titleToKey('Предмет')]['$t']);
+        row.setAttribute('data-who', d[titleToKey('Хто відвідує урок')]['$t']);
+        let s = d[titleToKey('Дата проведення уроку')]['$t'];
         let day = s.substr(0,2);
         let year = s.substr(6,4);
         let month = s.substr(3,2);
@@ -901,10 +1008,7 @@ let sortByDate = (arr)=>{
 
 }
 
-let sortByTeach = (arr)=>{
-    arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
 
-}
 
 let createTable = (gl_data)=>{    
     const table = document.getElementById("table__id");
