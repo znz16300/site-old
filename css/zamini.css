@@ -27,6 +27,15 @@
  .sp_1{
     float: left;
     padding: 5px;
+    font-size: 12px;
+    
+}
+.s_1 {
+    font-size: 12px;
+    /* border: 1px solid black; */
+}
+.row_data {
+    border: 1px solid black; 
 }
 
 .table__cl {

@@ -42,7 +42,10 @@ add_miss_button.addEventListener('click', (e)=>{
             'reason': reason.value,
         })
         console.log(missing_teachers)
-        fillRowTable(miss_teach.value, date_start.value, date_finish.value, reason.value, '-')
+        let d1 = date_start.value.slice(8, 10) + '.' + date_start.value.slice(5, 7);
+        let d2 = date_finish.value.slice(8, 10) + '.' + date_finish.value.slice(5, 7);
+
+        fillRowTable(miss_teach.value, d1, d2, reason.value, '-')
 
         miss_teach.value = "";
         date_start.value = "";
@@ -84,6 +87,11 @@ let fillRowTable = (a,b,c,d,e)=>{
     let cel3 = document.createElement('td');
     let cel4 = document.createElement('td');
     let cel5 = document.createElement('td');
+    cel1.classList.add('s_1');
+    cel2.classList.add('s_1');
+    cel3.classList.add('s_1');
+    cel4.classList.add('s_1');
+    cel5.classList.add('s_1');
     cel1.innerText=a;
     cel2.innerText=b;
     cel3.innerText=c;
@@ -97,7 +105,10 @@ let fillRowTable = (a,b,c,d,e)=>{
 
 let fillTable = ()=>{
     for (teach of missing_teachers){
-        fillRowTable(teach.teach, teach.dateSt, teach.dateFin, teach.reason,'-')
+        let d1 = teach.dateSt.slice(8, 10) + '.' + teach.dateSt.slice(5, 7);
+        let d2 = teach.dateFin.slice(8, 10) + '.' + teach.dateFin.slice(5, 7);
+
+        fillRowTable(teach.teach, d1, d2, teach.reason,'-')
     }
 }
 
