@@ -96,7 +96,10 @@ let fillRowTable = (a,b,c,d,e)=>{
     cel2.innerText=b;
     cel3.innerText=c;
     cel4.innerText=d;
-    cel5.innerText=e;
+    cel5.innerHTML=`<div  id="">-</div>`;
+    cel5.addEventListener('click', ()=>{
+        console.log('dddddddd');
+    })
     let row = document.createElement('tr');
     row.classList.add('row_data');
     table.append(row);

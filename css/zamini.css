@@ -38,9 +38,14 @@
     border: 1px solid black; 
 }
 
+.table__cl :hover {
+    background-color: #759df5;
+}
+
 .table__cl {
     background-color: #91a3ca;
     width: 100%;
+    border: 1px solid black;
 }
 
 #table_id {
