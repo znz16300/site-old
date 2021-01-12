@@ -398,29 +398,8 @@ let readPage = ()=>{
             data = data['feed']['entry'];       
             // sortByTeach(data);  
             setFields(data);
-            // let xx = titleToKey("Клас, група");
-            // console.log(fieldNames);
 
             gl_data = data; 
-            // let i = -6;
-            // $.each(data[0],function(key,value){
-            //     //Вилучаємо числа на початку value
-            //     let v = value['$t'];
-            //     if (v !== undefined){
-            //         while ((v[0] >="0" && v[0] <="9") ||  v[0] ==="."){
-            //             v = v.slice(1);
-            //         }
-            //         v = v.trim();
-            //     }               
-
-            //     if (key.indexOf('gsx$') === 0){
-            //         let m = {'id': i, 'title':v};
-            //         // let m = {'id': parseFloat(data[1][key]['$t']), 'title':v};
-            //         data_table[key] = m;                   
-            //     }       
-            //     i++;       
-            // });
-
 
             for (let i=0; i<gl_data.length; i++){
                 gl_data[i]['id_m'] = i;

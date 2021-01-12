@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заміни пропущених уроків</title>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script> -->
+    <script src="./js/jquery-3.5.0.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./css/zamini.css">
+</head>
+<body>
+
+    <header>
+
+    </header>
+
+    <div class="main">
+        <div class="missing">
+            <div class="missing_item">
+                <label for="teach">Дані про відсутнього вчителя</label><br>
+                <select class="input_field" name="teach" id="miss_teach_id">
+                    <option >---------</option>
+                    <option >Труш Ольга Миколаївна</option>
+                    <option >Зеленський Олександр Станіславович</option>
+                    <option >Лапко Юлія Миколаївна</option>                
+                </select>              
+            </div>
+            <div class="missing_item">
+                <label for="date_start">від</label>
+                <input class="input_date_field" type="date" id="date_start">
+            </div>
+            <div class="missing_item">
+                <label for="date_finish">до</label>
+                <input class="input_date_field" type="date" id="date_finish"><br>
+            </div>
+            <div class="missing_item">
+                <label for="miss_reason">Причина відсутності</label><br>
+                <input type="text" id="reason_id"> 
+
+            </div>
+            <div class="missing_item">
+                <button id="add_miss_button_id">Додати</button>
+            </div>
+            <div class="missing_item">
+                <table id="table_id" class="table__cl">
+                    <tbody id="table__id"  >
+                        <tr class="cel_row">
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">Відсутній</div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">з </div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">по </div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">причина</div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1"></div> 
+                            </div>
+                        </th>
+            
+                    </tr>
+        
+                    </tbody>
+                </table>
+                <div class="manage">
+                    <button id="clear_all_miss_button_id">
+                        Очистити
+                    </button>
+                </div>
+            </div>
+   
+             
+
+        </div>
+
+    </div>    
+
+    <footer>
+
+    </footer>
+
+    <script src="./js/zamini.js"></script>
+</body>
+</html>

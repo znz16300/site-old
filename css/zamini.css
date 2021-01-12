@@ -1,0 +1,39 @@
+.missing {
+    display: block;
+    margin: 20px;
+    padding:10px;
+    width: 280px;
+    background-color: #aaaaaa;
+    /* float: left; */
+    justify-content: space-between;
+
+}
+
+.missing_item{
+    display: block;
+    margin-top: 10px;
+    
+}
+
+.input_field{
+    width: 100%;
+}
+
+.input_date_field{
+    width: 150px;
+    
+}
+
+ .sp_1{
+    float: left;
+    padding: 5px;
+}
+
+.table__cl {
+    background-color: #91a3ca;
+    width: 100%;
+}
+
+#table_id {
+    margin-bottom: 10px;
+}
