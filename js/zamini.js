@@ -1,7 +1,9 @@
 let key = "1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY";
+let sheet1 = "1";
 let sheet2 = "1";
 let sheetDate = "3";
 let data;
+let data_zn;
 let workDaysDate = [];
 
 let fields = {
@@ -42,34 +44,34 @@ let dateStr_to_numDay = (d)=>{
 let numDay_to_dateStr = (d)=>{
     return new Date(d*24*3600*1000);
 }
+let isInWorkDaysDate = (i)=>{
+    for (wd of workDaysDate){
+        if (wd.date === numDay_to_dateStr(i).toLocaleDateString("fr-CA") && wd.ch_zn !== ""){
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 calc_button.addEventListener('click', ()=>{
     saveSettings();
     let d1 = dateStr_to_numDay(date_out_start.value);
     let d2 = dateStr_to_numDay(date_out_finish.value);
     for (let i=d1; i<=d2; i++){
-        for (row of missing_teachers){
-            let t_d1 = dateStr_to_numDay(row['dateSt']);
-            let t_d2 = dateStr_to_numDay(row['dateFin']);
-        
-            
-            if (t_d1 <= i &&  i <= t_d2){
-                console.log(row.teach, numDay_to_dateStr(i));
+        if (isInWorkDaysDate(i)){
+            for (row of missing_teachers){
+                let t_d1 = dateStr_to_numDay(row['dateSt']);
+                let t_d2 = dateStr_to_numDay(row['dateFin']);            
+                
+                if (t_d1 <= i &&  i <= t_d2){
+                    console.log(row.teach, numDay_to_dateStr(i));
+                }
             }
 
         }
-
-        for (day of workDaysDate){    
-            
-            
-
-        }
-
-        
-
-
-        
-        
+     
 
     }
 })
@@ -139,7 +141,7 @@ let loadSettings = ()=>{
 }
 
 let readPage_this = ()=>{
-    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet1+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
             data = data['feed']['entry'];       
@@ -153,6 +155,12 @@ let readPage_this = ()=>{
                     miss_teach.append(cel1);
                 }                    
             }           
+        }       
+    );  
+    url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+    $.getJSON(url,        
+        function (data) {
+            data_zn = data['feed']['entry'];       
         }       
     );  
     url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheetDate+"/public/values?alt=json"
@@ -171,15 +179,8 @@ let readPage_this = ()=>{
                         })
                 }
             }
-
-            console.log(workDaysDate);
-         
         }       
     );   
-
-    
-
-
 }
 
 let fillRowTable = (a,b,c,d,e)=>{

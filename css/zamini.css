@@ -36,7 +36,7 @@
     /* border: 1px solid black; */
 }
 .row_data {
-    border: 1px solid black; 
+    /* border: 1px solid black;  */
 }
 
 .table__cl :hover {
@@ -46,7 +46,7 @@
 .table__cl {
     background-color: #91a3ca;
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #table_id {
