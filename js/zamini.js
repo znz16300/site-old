@@ -1,5 +1,8 @@
 let key = "1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY";
 let sheet2 = "1";
+let sheetDate = "3";
+let data;
+let workDaysDate = [];
 
 let fields = {
     0: 'gsx$_cn6ca',
@@ -9,9 +12,12 @@ let allTeachers = []
 
 const add_miss_button = document.getElementById("add_miss_button_id");
 const clear_all_miss_button = document.getElementById("clear_all_miss_button_id");
+const calc_button = document.getElementById("calc_button_id");
 const miss_teach = document.getElementById("miss_teach_id");
 const date_start = document.getElementById("date_start");
 const date_finish = document.getElementById("date_finish");
+const date_out_start = document.getElementById("date_out_start");
+const date_out_finish = document.getElementById("date_out_finish");
 const reason = document.getElementById("reason_id");
 const table = document.getElementById("table_id");
 
@@ -30,6 +36,44 @@ clear_all_miss_button.addEventListener('click', (e)=>{
     
 })
 
+let dateStr_to_numDay = (d)=>{
+    return Date.parse(d)/24/3600/1000;
+}
+let numDay_to_dateStr = (d)=>{
+    return new Date(d*24*3600*1000);
+}
+
+calc_button.addEventListener('click', ()=>{
+    saveSettings();
+    let d1 = dateStr_to_numDay(date_out_start.value);
+    let d2 = dateStr_to_numDay(date_out_finish.value);
+    for (let i=d1; i<=d2; i++){
+        for (row of missing_teachers){
+            let t_d1 = dateStr_to_numDay(row['dateSt']);
+            let t_d2 = dateStr_to_numDay(row['dateFin']);
+        
+            
+            if (t_d1 <= i &&  i <= t_d2){
+                console.log(row.teach, numDay_to_dateStr(i));
+            }
+
+        }
+
+        for (day of workDaysDate){    
+            
+            
+
+        }
+
+        
+
+
+        
+        
+
+    }
+})
+
 add_miss_button.addEventListener('click', (e)=>{
     if (miss_teach.value !== "" &&
         date_start.value !== "" &&
@@ -46,19 +90,55 @@ add_miss_button.addEventListener('click', (e)=>{
         let d2 = date_finish.value.slice(8, 10) + '.' + date_finish.value.slice(5, 7);
 
         fillRowTable(miss_teach.value, d1, d2, reason.value, '-')
+        saveSettings();
 
         miss_teach.value = "";
         date_start.value = "";
         date_finish.value = "";
         reason.value = "";
         window.localStorage.setItem('missing_teachers',
-        JSON.stringify(missing_teachers));        
+        JSON.stringify(missing_teachers));   
+             
     }
     
 
 })
 
-let readPage = ()=>{
+let saveSettings = ()=>{
+    let d1 = date_start.value;
+    let d2 = date_finish.value;
+    let d3 = date_out_start.value;
+    let d4 = date_out_finish.value;
+    window.localStorage.setItem('d1', d1);
+    window.localStorage.setItem('d2', d2);
+    window.localStorage.setItem('d3', d3);
+    window.localStorage.setItem('d4', d4);
+}
+let loadSettings = ()=>{
+    let d1 = window.localStorage.getItem('d1');
+    let d2 = window.localStorage.getItem('d2');
+    let d3 = window.localStorage.getItem('d3');
+    let d4 = window.localStorage.getItem('d4');
+    if (d1 === null){
+        d1 = '2000-01-01';
+    }
+    if (d2 === null){
+        d2 = '2000-01-01';
+    }
+    if (d3 === null){
+        d3 = '2000-01-01';
+    }
+    if (d4 === null){
+        d4 = '2000-01-01';
+    }
+    date_start.value = d1;
+    date_finish.value = d2;
+    date_out_start.value = d3;
+    date_out_finish.value = d4;
+
+}
+
+let readPage_this = ()=>{
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
@@ -75,6 +155,27 @@ let readPage = ()=>{
             }           
         }       
     );  
+    url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheetDate+"/public/values?alt=json"
+    $.getJSON(url,        
+        function (data) {
+            data = data['feed']['entry'];
+                 
+            for (let i=1; i<500; i++){
+                let x = data[0]['gsx$day'+parseInt(i)];
+                let ch_zn = data[2]['gsx$day'+parseInt(i)];
+                if (x !== null && ch_zn !== undefined){
+                    workDaysDate.push(
+                        {
+                            'date': x['$t'],
+                            'ch_zn': ch_zn['$t'],                         
+                        })
+                }
+            }
+
+            console.log(workDaysDate);
+         
+        }       
+    );   
 
     
 
@@ -130,12 +231,13 @@ let fillTable = ()=>{
 let readStorage = ()=>{    
     k = window.localStorage.getItem("missing_teachers");
     if (k !== null) {
-        missing_teachers = JSON.parse(k);    
-        
+        missing_teachers = JSON.parse(k);            
     }    
     fillTable();
 }
 
+
+loadSettings();
 readStorage();
-readPage();
+readPage_this();
 

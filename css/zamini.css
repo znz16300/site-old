@@ -3,6 +3,7 @@
     margin: 20px;
     padding:10px;
     width: 280px;
+    border-radius: 5px;
     background-color: #aaaaaa;
     /* float: left; */
     justify-content: space-between;
@@ -54,4 +55,23 @@
 
 .btn_update_delete :hover {
     cursor: pointer;
+}
+
+.missing_list {
+    background-color: rgb(216, 160, 160);
+}
+
+.main {
+    display: flex;
+}
+
+.missing_item {
+    margin-top: 20px;
+    
+}
+
+#output_id {
+    width: 100%;
+    padding: 10px auto;
+    
 }
