@@ -51,3 +51,7 @@
 #table_id {
     margin-bottom: 10px;
 }
+
+.btn_update_delete :hover {
+    cursor: pointer;
+}

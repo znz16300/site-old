@@ -96,15 +96,27 @@ let fillRowTable = (a,b,c,d,e)=>{
     cel2.innerText=b;
     cel3.innerText=c;
     cel4.innerText=d;
-    cel5.innerHTML=`<div  id="">-</div>`;
-    cel5.addEventListener('click', ()=>{
-        console.log('dddddddd');
-    })
+    cel5.innerHTML=`
+    <div class="btn_update_delete">
+        <div  id="del_id"  title="вилучити">-</div>
+        <div  id="edit_id" title="редагувати">~</div>
+    </div>
+    `;
+
+
     let row = document.createElement('tr');
     row.classList.add('row_data');
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5);
+    // document.getElementById("del_id").addEventListener('click', ()=>{
+    //     console.log('dddddddd');
+    // })
+    // document.getElementById("edit_id").addEventListener('click', ()=>{
+    //     console.log('eeeeeeee');
+    // })
 }
+
+
 
 let fillTable = ()=>{
     for (teach of missing_teachers){
