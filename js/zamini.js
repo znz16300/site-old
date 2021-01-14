@@ -1,16 +1,25 @@
 let key = "1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY";
 let sheet1 = "1";
-let sheet2 = "1";
+let sheet2 = "2";
 let sheetDate = "3";
-let data;
-let data_zn;
+// let data_ch;
+// let data_zn;
+let timeTable = {1: undefined, 2: undefined}
+
 let workDaysDate = [];
 
 let fields = {
-    0: 'gsx$_cn6ca',
+    0: 'gsx$teach',
 }
 let missing_teachers = []
 let allTeachers = []
+const dWeek = {
+    '1': 'mo',
+    '2': 'tu',
+    '3': 'we',
+    '4': 'th',
+    '5': 'fr',
+}; 
 
 const add_miss_button = document.getElementById("add_miss_button_id");
 const clear_all_miss_button = document.getElementById("clear_all_miss_button_id");
@@ -53,6 +62,15 @@ let isInWorkDaysDate = (i)=>{
     return false;
 }
 
+let chZnFind = (nmDay)=>{
+    for (d of workDaysDate){
+        if (dateStr_to_numDay(d.date) === nmDay){
+            return d;
+        }
+    }
+    return '';
+}
+
 
 
 calc_button.addEventListener('click', ()=>{
@@ -63,15 +81,29 @@ calc_button.addEventListener('click', ()=>{
         if (isInWorkDaysDate(i)){
             for (row of missing_teachers){
                 let t_d1 = dateStr_to_numDay(row['dateSt']);
-                let t_d2 = dateStr_to_numDay(row['dateFin']);            
-                
+                let t_d2 = dateStr_to_numDay(row['dateFin']); 
+                //Визначаємо номер рядка з вчителем
+                let numRow;
+                for (t of allTeachers){
+                    if (t.teach === row.teach){
+                        numRow = t.numRow;
+                    }
+                }
                 if (t_d1 <= i &&  i <= t_d2){
                     console.log(row.teach, numDay_to_dateStr(i));
+                    let dd = chZnFind(i);
+                    let cz = dd.ch_zn;
+                    for (let j=0; j<11; j++){
+                        let k = 'gsx$'+dWeek[dd.week]+String(j);
+                        console.log(timeTable[cz][numRow][k]);
+                        console.log(timeTable[cz][numRow+1][k]);
+                    }
+
+
                 }
             }
 
-        }
-     
+        }    
 
     }
 })
@@ -144,23 +176,25 @@ let readPage_this = ()=>{
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet1+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
-            data = data['feed']['entry'];       
+            timeTable[1] = data['feed']['entry'];       
             // console.log(data);
-            for (row of data){
+            let i = 0;
+            for (row of timeTable[1]){
                 let k = row[fields[0]];
-                if (k !== undefined){
-                    allTeachers.push(k.$t);
+                if (k !== undefined && k['$t'] !== ""){
+                    allTeachers.push({'teach': k.$t, 'numRow': i});
                     let cel1 = document.createElement('option');
                     cel1.innerText=`${k.$t}`;
                     miss_teach.append(cel1);
-                }                    
+                }  
+                i++;
             }           
         }       
     );  
     url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
-            data_zn = data['feed']['entry'];       
+            timeTable[2] = data['feed']['entry'];       
         }       
     );  
     url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheetDate+"/public/values?alt=json"
@@ -170,11 +204,13 @@ let readPage_this = ()=>{
                  
             for (let i=1; i<500; i++){
                 let x = data[0]['gsx$day'+parseInt(i)];
+                let w = data[1]['gsx$day'+parseInt(i)];
                 let ch_zn = data[2]['gsx$day'+parseInt(i)];
                 if (x !== null && ch_zn !== undefined){
                     workDaysDate.push(
                         {
                             'date': x['$t'],
+                            'week': w['$t'],
                             'ch_zn': ch_zn['$t'],                         
                         })
                 }
