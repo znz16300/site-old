@@ -24,6 +24,7 @@ const dWeek = {
 const add_miss_button = document.getElementById("add_miss_button_id");
 const clear_all_miss_button = document.getElementById("clear_all_miss_button_id");
 const calc_button = document.getElementById("calc_button_id");
+const copy_button = document.getElementById("copy_button_id");
 const miss_teach = document.getElementById("miss_teach_id");
 const date_start = document.getElementById("date_start");
 const date_finish = document.getElementById("date_finish");
@@ -31,6 +32,7 @@ const date_out_start = document.getElementById("date_out_start");
 const date_out_finish = document.getElementById("date_out_finish");
 const reason = document.getElementById("reason_id");
 const table = document.getElementById("table_id");
+const output = document.getElementById("output_id");
 
 clear_all_miss_button.addEventListener('click', (e)=>{
     let p = confirm('Очистити всю таблицю,');
@@ -75,6 +77,7 @@ let chZnFind = (nmDay)=>{
 
 calc_button.addEventListener('click', ()=>{
     saveSettings();
+    let s = "";
     let d1 = dateStr_to_numDay(date_out_start.value);
     let d2 = dateStr_to_numDay(date_out_finish.value);
     for (let i=d1; i<=d2; i++){
@@ -93,32 +96,49 @@ calc_button.addEventListener('click', ()=>{
                     // console.log(row.teach, numDay_to_dateStr(i));
                     let dd = chZnFind(i);
                     let cz = dd.ch_zn;
-                    if (true){
-                    // if (timeTable[cz][numRow][k]['$t'] !== ""){
-                        for (let j=0; j<11; j++){
-                            let k = 'gsx$'+dWeek[dd.week]+String(j);
-                            if (timeTable[cz][numRow][k] !== undefined){
-                                if (timeTable[cz][numRow][k]['$t'] !== ""){
-                                    console.log(row.teach);
-                                    let dateOut = numDay_to_dateStr(i).toLocaleDateString("fr-CA");
-                                    console.log(dateOut.slice(8)+"."+dateOut.slice(5,7)+".");
-                                    console.log(timeTable[cz][numRow][k]['$t']);    //Предмет
-                                    console.log(timeTable[cz][numRow+1][k]['$t']);  //Клас
-                                    console.log(row.reason);
-                                    console.log(String(j)); //Номер урока
-                                }
-                            }
-                        }
+                    for (let j=0; j<11; j++){
+                       let k = 'gsx$'+dWeek[dd.week]+String(j);
+                       if (timeTable[cz][numRow][k] !== undefined){
+                           if (timeTable[cz][numRow][k]['$t'] !== ""){
+                                let dateOut = numDay_to_dateStr(i).toLocaleDateString("fr-CA");
+                                let teacher = row.teach;
+                                let date = dateOut.slice(8)+"."+dateOut.slice(5,7)+"."+dateOut.slice(0,4);
+                                let subj = timeTable[cz][numRow][k]['$t'];    //Предмет
+                                let clas = timeTable[cz][numRow+1][k]['$t'];  //Клас
+                                let reason = row.reason; //Причина
+                                let numLesson = String(j); //Номер урока
+                                s += "\t" + date + "\t" + fioToFin(teacher) + "\t" + reason + "\t" + subj + "\t" +
+                                    clas  + "\t\t\t\t" +  numLesson + "\n";
+                           }
+                       }
                     }
                     
-
-
                 }
             }
 
         }    
 
     }
+    output.innerText = s;
+})
+
+let fioToFin = (fio)=>{
+    let ss = fio.split(" ");
+    return ss[0] + ' ' + ss[1][0] + "." + ss[2][0] + ".";
+}
+
+copy_button.addEventListener("click", ()=>{
+    let range = document.createRange();
+    range.selectNode(output); 
+    window.getSelection().addRange(range); 
+    try { 
+      document.execCommand('copy'); 
+    } catch(err) { 
+      console.log('Can`t copy, boss'); 
+    } 
+    window.getSelection().removeAllRanges();
+    
+
 })
 
 add_miss_button.addEventListener('click', (e)=>{

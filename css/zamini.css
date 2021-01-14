@@ -73,5 +73,7 @@
 #output_id {
     width: 100%;
     padding: 10px auto;
+    font-size: 8px;
+    font-family: Arial, Helvetica, sans-serif;
     
 }
