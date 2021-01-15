@@ -52,29 +52,6 @@ clear_all_miss_button.addEventListener('click', (e)=>{
     
 })
 
-let dateStr_to_numDay = (d)=>{
-    return Date.parse(d)/24/3600/1000;
-}
-let numDay_to_dateStr = (d)=>{
-    return new Date(d*24*3600*1000);
-}
-let isInWorkDaysDate = (i)=>{
-    for (wd of workDaysDate){
-        if (wd.date === numDay_to_dateStr(i).toLocaleDateString("fr-CA") && wd.ch_zn !== ""){
-            return true;
-        }
-    }
-    return false;
-}
-
-let chZnFind = (nmDay)=>{
-    for (d of workDaysDate){
-        if (dateStr_to_numDay(d.date) === nmDay){
-            return d;
-        }
-    }
-    return '';
-}
 
 cancel_miss_button.addEventListener('click', ()=>{
     console.log(missing_teachers);
@@ -123,8 +100,9 @@ calc_button.addEventListener('click', ()=>{
                                 let clas = timeTable[cz][numRow+1][k]['$t'];  //Клас
                                 let reason = row.reason; //Причина
                                 let numLesson = String(j); //Номер урока
-                                s += "\t" + date + "\t" + fioToFin(teacher) + "\t" + reason + "\t" + subj + "\t" +
-                                    clas  + "\t\t\t\t" +  numLesson + "\n";
+                                s += "\t" + date + "\t" + fioToFin(teacher) + "\t" + 
+                                    reason + "\t" + subj + "\t" +
+                                    clas  + "\t\t\t\t" +  numLesson + '\n';
                            }
                        }
                     }
@@ -135,13 +113,9 @@ calc_button.addEventListener('click', ()=>{
         }    
 
     }
-    output.innerText = s;
+    output.innerHTML = s;
 })
 
-let fioToFin = (fio)=>{
-    let ss = fio.split(" ");
-    return ss[0] + ' ' + ss[1][0] + "." + ss[2][0] + ".";
-}
 
 copy_button.addEventListener("click", ()=>{
     let range = document.createRange();
@@ -168,21 +142,19 @@ add_miss_button.addEventListener('click', (e)=>{
         date_start.value !== "" &&
         date_finish.value !== "" &&
         reason.value !== ""){
-        missing_teachers.push({
-            'idTeach': numRow,
-            'teach': miss_teach.value,
-            'dateSt': date_start.value,
-            'dateFin': date_finish.value,
-            'reason': reason.value,
-        })
-        console.log('teachNum' );
-        console.log(teachNum);
         let d1 = date_start.value;
         let d2 = date_finish.value;
 
         
 
         if (rowEdit === undefined){
+            missing_teachers.push({
+                'idTeach': numRow,
+                'teach': miss_teach.value,
+                'dateSt': date_start.value,
+                'dateFin': date_finish.value,
+                'reason': reason.value,
+            })
             fillRowTable(miss_teach.value, d1, d2, reason.value, '-', numRow, missing_teachers.length - 1)
         } else {
             console.log(missing_teachers[teachNum]);
@@ -190,7 +162,8 @@ add_miss_button.addEventListener('click', (e)=>{
             missing_teachers[teachNum].dateSt = date_start.value;
             missing_teachers[teachNum].dateFin = date_finish.value;
             missing_teachers[teachNum].reason = reason.value;
-            rowEdit.childNodes[0].innerText = miss_teach.value;            
+
+            rowEdit.childNodes[0].innerText = miss_teach.value;                
             rowEdit.childNodes[1].innerText = dateToShort(date_start.value);
             rowEdit.childNodes[2].innerText = dateToShort(date_finish.value);
             rowEdit.childNodes[3].innerText = reason.value;
@@ -214,6 +187,35 @@ add_miss_button.addEventListener('click', (e)=>{
     
 
 })
+
+
+let fioToFin = (fio)=>{
+    let ss = fio.split(" ");
+    return ss[0] + ' ' + ss[1][0] + "." + ss[2][0] + ".";
+}
+let dateStr_to_numDay = (d)=>{
+    return Date.parse(d)/24/3600/1000;
+}
+let numDay_to_dateStr = (d)=>{
+    return new Date(d*24*3600*1000);
+}
+let isInWorkDaysDate = (i)=>{
+    for (wd of workDaysDate){
+        if (wd.date === numDay_to_dateStr(i).toLocaleDateString("fr-CA") && wd.ch_zn !== ""){
+            return true;
+        }
+    }
+    return false;
+}
+
+let chZnFind = (nmDay)=>{
+    for (d of workDaysDate){
+        if (dateStr_to_numDay(d.date) === nmDay){
+            return d;
+        }
+    }
+    return '';
+}
 
 let saveSettings = ()=>{
     let d1 = date_start.value;
@@ -315,8 +317,8 @@ let fillRowTable = (a,b,c,d,e,id, idMiss)=>{
     cel4.innerText=d;
     cel5.innerHTML=`
     <div class="btn_update_delete">
-        <div class="del__" id="del__${String(id)}"  title="вилучити">-</div>
-        <div class="edit_" id="edit_${String(id)}" title="редагувати">~</div>
+        <button class="del_edit" id="del__${String(id)}"  title="вилучити">-</button>
+        <button class="del_edit" id="edit_${String(id)}" title="редагувати">~</button>
     </div>
     `;
 

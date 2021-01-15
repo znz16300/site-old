@@ -2,7 +2,7 @@
     display: block;
     margin: 20px;
     padding:10px;
-    width: 280px;
+    width: 360px;
     border-radius: 5px;
     background-color: #aaaaaa;
     /* float: left; */
@@ -11,10 +11,12 @@
 }
 
 .wrapper {
-    width: 260px;
+    width: 360px;
     height: 180px;
     overflow: auto;
     margin-bottom: 10px;
+    border: 1px solid black;
+    background-color: #91a3ca;
 }
 
 .missing_item{
@@ -24,12 +26,21 @@
 }
 
 .input_field{
-    width: 100%;
+    /* width: 100%; */
 }
 
 .input_date_field{
-    width: 150px;
-    
+    width: 150px;    
+}
+
+.del_edit {
+    margin: 2px;
+    border: none;
+    background-color: #91a3ca;
+}
+
+.btn_update_delete {
+    display: flex;
 }
 
  .sp_1{
@@ -78,6 +89,7 @@
 }
 
 #output_id {
+ 
     width: 100%;
     padding: 10px auto;
     font-size: 8px;
