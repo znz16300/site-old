@@ -1,3 +1,8 @@
+
+.main {
+    display: flex;
+}
+
 .missing {
     display: block;
     margin: 20px;
