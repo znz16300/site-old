@@ -291,12 +291,20 @@ let fillRowTable = (a,b,c,d,e,id)=>{
     row.append(cel1, cel2, cel3, cel4, cel5);
     document.getElementById("del__"+String(id)).addEventListener('click', ()=>{
         console.log('dddddddd');
-        document.getElementById("row"+String(id)).style.backgroundColor = "red";
-        let cnf = confirm("Вилучити рядок?");
+        // document.getElementById("row"+String(id)).style.backgroundColor = "red";
+        let cnf = confirm(`Вилучити дані про ${a} за ${b}?`);
         if (cnf){
-
+            //Вилучеємо дані з missing_teachers
+            console.log(missing_teachers);
+            removeMiss(a);
+            console.log(missing_teachers);
+            //Вилучеємо дані з таблиці
+            document.getElementById("row"+String(id)).remove();
+            saveSettings();
+            window.localStorage.setItem('missing_teachers',
+                JSON.stringify(missing_teachers));
         }else {
-            document.getElementById("row"+String(id)).style.backgroundColor = "";
+            // document.getElementById("row"+String(id)).style.backgroundColor = "";
         }
     })
     document.getElementById("edit_"+String(id)).addEventListener('click', ()=>{
@@ -304,6 +312,17 @@ let fillRowTable = (a,b,c,d,e,id)=>{
     })
 }
 
+let removeMiss = (teacher)=>{
+    let i = 0;
+    for (t of missing_teachers){
+        if (t.teach === teacher){
+            missing_teachers.splice(i,1);
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
 
 
 let fillTable = ()=>{
