@@ -156,7 +156,14 @@ add_miss_button.addEventListener('click', (e)=>{
         let d1 = date_start.value.slice(8, 10) + '.' + date_start.value.slice(5, 7);
         let d2 = date_finish.value.slice(8, 10) + '.' + date_finish.value.slice(5, 7);
 
-        fillRowTable(miss_teach.value, d1, d2, reason.value, '-')
+        let numRow = '';
+        for (t of allTeachers){
+            if (t.teach ===miss_teach.value ){
+                numRow = t.numRow;
+            }
+        }
+
+        fillRowTable(miss_teach.value, d1, d2, reason.value, '-', numRow)
         saveSettings();
 
         miss_teach.value = "";
@@ -221,7 +228,8 @@ let readPage_this = ()=>{
                     miss_teach.append(cel1);
                 }  
                 i++;
-            }           
+            } 
+            fillTable();           
         }       
     );  
     url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
@@ -249,10 +257,11 @@ let readPage_this = ()=>{
                 }
             }
         }       
-    );   
+    );  
+    
 }
 
-let fillRowTable = (a,b,c,d,e)=>{
+let fillRowTable = (a,b,c,d,e,id)=>{
     let cel1 = document.createElement('td');
     let cel2 = document.createElement('td');
     let cel3 = document.createElement('td');
@@ -269,22 +278,30 @@ let fillRowTable = (a,b,c,d,e)=>{
     cel4.innerText=d;
     cel5.innerHTML=`
     <div class="btn_update_delete">
-        <div  id="del_id"  title="вилучити">-</div>
-        <div  id="edit_id" title="редагувати">~</div>
+        <div class="del__" id="del__${String(id)}"  title="вилучити">-</div>
+        <div class="edit_" id="edit_${String(id)}" title="редагувати">~</div>
     </div>
     `;
 
 
     let row = document.createElement('tr');
     row.classList.add('row_data');
+    row.setAttribute('id', 'row'+String(id))
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5);
-    // document.getElementById("del_id").addEventListener('click', ()=>{
-    //     console.log('dddddddd');
-    // })
-    // document.getElementById("edit_id").addEventListener('click', ()=>{
-    //     console.log('eeeeeeee');
-    // })
+    document.getElementById("del__"+String(id)).addEventListener('click', ()=>{
+        console.log('dddddddd');
+        document.getElementById("row"+String(id)).style.backgroundColor = "red";
+        let cnf = confirm("Вилучити рядок?");
+        if (cnf){
+
+        }else {
+            document.getElementById("row"+String(id)).style.backgroundColor = "";
+        }
+    })
+    document.getElementById("edit_"+String(id)).addEventListener('click', ()=>{
+        console.log('eeeeeeee');
+    })
 }
 
 
@@ -294,7 +311,13 @@ let fillTable = ()=>{
         let d1 = teach.dateSt.slice(8, 10) + '.' + teach.dateSt.slice(5, 7);
         let d2 = teach.dateFin.slice(8, 10) + '.' + teach.dateFin.slice(5, 7);
 
-        fillRowTable(teach.teach, d1, d2, teach.reason,'-')
+        let numRow = '';
+        for (t of allTeachers){
+            if (t.teach ===teach.teach ){
+                numRow = t.numRow;
+            }
+        }
+        fillRowTable(teach.teach, d1, d2, teach.reason,'-', numRow)
     }
 }
 
@@ -303,7 +326,7 @@ let readStorage = ()=>{
     if (k !== null) {
         missing_teachers = JSON.parse(k);            
     }    
-    fillTable();
+    
 }
 
 
