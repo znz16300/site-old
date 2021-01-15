@@ -153,8 +153,8 @@ add_miss_button.addEventListener('click', (e)=>{
             'reason': reason.value,
         })
         console.log(missing_teachers)
-        let d1 = date_start.value.slice(8, 10) + '.' + date_start.value.slice(5, 7);
-        let d2 = date_finish.value.slice(8, 10) + '.' + date_finish.value.slice(5, 7);
+        let d1 = date_start.value;
+        let d2 = date_finish.value;
 
         let numRow = '';
         for (t of allTeachers){
@@ -170,6 +170,7 @@ add_miss_button.addEventListener('click', (e)=>{
         date_start.value = "";
         date_finish.value = "";
         reason.value = "";
+        add_miss_button.innerText = "Додати";
         window.localStorage.setItem('missing_teachers',
         JSON.stringify(missing_teachers));   
              
@@ -273,8 +274,8 @@ let fillRowTable = (a,b,c,d,e,id)=>{
     cel4.classList.add('s_1');
     cel5.classList.add('s_1');
     cel1.innerText=a;
-    cel2.innerText=b;
-    cel3.innerText=c;
+    cel2.innerText=dateToShort(b);
+    cel3.innerText=dateToShort(c);
     cel4.innerText=d;
     cel5.innerHTML=`
     <div class="btn_update_delete">
@@ -309,6 +310,13 @@ let fillRowTable = (a,b,c,d,e,id)=>{
     })
     document.getElementById("edit_"+String(id)).addEventListener('click', ()=>{
         console.log('eeeeeeee');
+        document.getElementById("row"+String(id)).style.backgroundColor = "green";
+        add_miss_button.innerText = "Змінити";
+        miss_teach.value = a;
+        date_start.value = (b);
+        date_finish.value = (c);
+        reason.value = d;
+
     })
 }
 
@@ -324,11 +332,16 @@ let removeMiss = (teacher)=>{
     return 1;
 }
 
+let dateToShort = (d)=>{
+    return d.slice(8, 10) + '.' + d.slice(5, 7);
+}
 
 let fillTable = ()=>{
     for (teach of missing_teachers){
-        let d1 = teach.dateSt.slice(8, 10) + '.' + teach.dateSt.slice(5, 7);
-        let d2 = teach.dateFin.slice(8, 10) + '.' + teach.dateFin.slice(5, 7);
+        let d1 = teach.dateSt;
+        let d2 = teach.dateFin;
+        // let d1 = teach.dateSt.slice(8, 10) + '.' + teach.dateSt.slice(5, 7);
+        // let d2 = teach.dateFin.slice(8, 10) + '.' + teach.dateFin.slice(5, 7);
 
         let numRow = '';
         for (t of allTeachers){
