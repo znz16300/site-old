@@ -2,6 +2,8 @@ let key = "1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY";
 let sheet1 = "1";
 let sheet2 = "2";
 let sheetDate = "3";
+let rowEdit = undefined;
+let teachNum = undefined;
 // let data_ch;
 // let data_zn;
 let timeTable = {1: undefined, 2: undefined}
@@ -22,6 +24,7 @@ const dWeek = {
 }; 
 
 const add_miss_button = document.getElementById("add_miss_button_id");
+const cancel_miss_button = document.getElementById("cancel_miss_button_id");
 const clear_all_miss_button = document.getElementById("clear_all_miss_button_id");
 const calc_button = document.getElementById("calc_button_id");
 const copy_button = document.getElementById("copy_button_id");
@@ -73,7 +76,20 @@ let chZnFind = (nmDay)=>{
     return '';
 }
 
-
+cancel_miss_button.addEventListener('click', ()=>{
+    console.log(missing_teachers);
+    miss_teach.value = "";
+    date_start.value = "";
+    date_finish.value = "";
+    reason.value = "";
+    add_miss_button.innerText = "Додати";
+    // document.querySelectorAll(".row_data").forEach(el =>{
+    //     el.style.backgroundColor = "#91A3CA";
+    // })
+    document.getElementById("row"+String(rowEdit)).style.backgroundColor = "#91A3CA";
+    rowEdit === undefined;
+    teachNum === undefined;
+})
 
 calc_button.addEventListener('click', ()=>{
     saveSettings();
@@ -142,28 +158,46 @@ copy_button.addEventListener("click", ()=>{
 })
 
 add_miss_button.addEventListener('click', (e)=>{
+    let numRow = '';
+    for (t of allTeachers){
+        if (t.teach ===miss_teach.value ){
+            numRow = t.numRow;
+        }
+    }
     if (miss_teach.value !== "" &&
         date_start.value !== "" &&
         date_finish.value !== "" &&
         reason.value !== ""){
         missing_teachers.push({
+            'idTeach': numRow,
             'teach': miss_teach.value,
             'dateSt': date_start.value,
             'dateFin': date_finish.value,
             'reason': reason.value,
         })
-        console.log(missing_teachers)
+        console.log('teachNum' );
+        console.log(teachNum);
         let d1 = date_start.value;
         let d2 = date_finish.value;
 
-        let numRow = '';
-        for (t of allTeachers){
-            if (t.teach ===miss_teach.value ){
-                numRow = t.numRow;
-            }
+        
+
+        if (rowEdit === undefined){
+            fillRowTable(miss_teach.value, d1, d2, reason.value, '-', numRow, missing_teachers.length - 1)
+        } else {
+            console.log(missing_teachers[teachNum]);
+            missing_teachers[teachNum].teach = miss_teach.value;
+            missing_teachers[teachNum].dateSt = date_start.value;
+            missing_teachers[teachNum].dateFin = date_finish.value;
+            missing_teachers[teachNum].reason = reason.value;
+            rowEdit.childNodes[0].innerText = miss_teach.value;            
+            rowEdit.childNodes[1].innerText = dateToShort(date_start.value);
+            rowEdit.childNodes[2].innerText = dateToShort(date_finish.value);
+            rowEdit.childNodes[3].innerText = reason.value;
+            rowEdit.style.backgroundColor = "#91A3CA";
         }
 
-        fillRowTable(miss_teach.value, d1, d2, reason.value, '-', numRow)
+        
         saveSettings();
 
         miss_teach.value = "";
@@ -171,6 +205,8 @@ add_miss_button.addEventListener('click', (e)=>{
         date_finish.value = "";
         reason.value = "";
         add_miss_button.innerText = "Додати";
+        rowEdit = undefined;
+        teachNum = undefined;
         window.localStorage.setItem('missing_teachers',
         JSON.stringify(missing_teachers));   
              
@@ -262,7 +298,7 @@ let readPage_this = ()=>{
     
 }
 
-let fillRowTable = (a,b,c,d,e,id)=>{
+let fillRowTable = (a,b,c,d,e,id, idMiss)=>{
     let cel1 = document.createElement('td');
     let cel2 = document.createElement('td');
     let cel3 = document.createElement('td');
@@ -288,6 +324,7 @@ let fillRowTable = (a,b,c,d,e,id)=>{
     let row = document.createElement('tr');
     row.classList.add('row_data');
     row.setAttribute('id', 'row'+String(id))
+    row.setAttribute('data-num-row', String(idMiss))
     table.append(row);
     row.append(cel1, cel2, cel3, cel4, cel5);
     document.getElementById("del__"+String(id)).addEventListener('click', ()=>{
@@ -309,14 +346,15 @@ let fillRowTable = (a,b,c,d,e,id)=>{
         }
     })
     document.getElementById("edit_"+String(id)).addEventListener('click', ()=>{
-        console.log('eeeeeeee');
-        document.getElementById("row"+String(id)).style.backgroundColor = "green";
+        rowEdit = document.getElementById("row"+String(id));
+        rowEdit.style.backgroundColor = "green";
         add_miss_button.innerText = "Змінити";
         miss_teach.value = a;
         date_start.value = (b);
         date_finish.value = (c);
         reason.value = d;
-
+        
+        teachNum = parseInt(rowEdit.getAttribute('data-num-row'));
     })
 }
 
@@ -337,6 +375,7 @@ let dateToShort = (d)=>{
 }
 
 let fillTable = ()=>{
+    let i = 0;
     for (teach of missing_teachers){
         let d1 = teach.dateSt;
         let d2 = teach.dateFin;
@@ -349,7 +388,8 @@ let fillTable = ()=>{
                 numRow = t.numRow;
             }
         }
-        fillRowTable(teach.teach, d1, d2, teach.reason,'-', numRow)
+        fillRowTable(teach.teach, d1, d2, teach.reason,'-', numRow, i);
+        i++;
     }
 }
 

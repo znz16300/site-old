@@ -10,6 +10,13 @@
 
 }
 
+.wrapper {
+    width: 260px;
+    height: 180px;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
 .missing_item{
     display: block;
     margin-top: 10px;
