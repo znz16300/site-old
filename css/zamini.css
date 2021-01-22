@@ -1,0 +1,132 @@
+
+.main {
+    display: flex;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.missing {
+    display: block;
+    margin: 20px;
+    padding:10px;
+    width: 360px;
+    border-radius: 5px;
+    background-color: #f5b461;
+    /* float: left; */
+    justify-content: space-between;
+
+}
+
+.wrapper {
+    width: 92%;
+    height: 180px;
+    overflow: auto;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    background-color: #f3eac2;
+}
+
+.missing_item{
+    display: block;
+    margin-top: 10px;
+    
+}
+
+button {
+    background-color: #ebf3d7;
+}
+
+.input_field, .input_date_field{
+    /* width: 100%; */
+    background-color: #F3EAC2;
+}
+
+.input_date_field{
+    width: 150px;    
+}
+
+.del_edit {
+    margin: 2px;
+    border: none;
+    background-color: #f3eac2;
+}
+
+.btn_update_delete {
+    display: flex;
+}
+
+ .sp_1{
+    float: left;
+    padding: 5px;
+    font-size: 12px;
+    
+}
+.s_1 {
+    font-size: 12px;
+    /* border: 1px solid black; */
+}
+.row_data {
+    /* border: 1px solid black;  */
+}
+/* 
+.table__cl :hover {
+    background-color: #d3b83e;
+    
+} */
+
+.table__cl {
+    background-color: #f3eac2;
+    width: 100%;
+    /* border: none; */
+    border: 0px black;
+}
+button, .input_date_field, .input_field {
+    border-radius: 5px;
+    border: 0px black;
+    margin: 5px;
+    padding: 5px;
+    
+}
+
+.shadow :hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.width_all {
+    width: 100%;
+}
+
+#table_id {
+    margin-bottom: 10px;
+}
+
+.btn_update_delete :hover {
+    cursor: pointer;
+}
+
+.missing_list {
+    background-color: #ec524b;
+    color: white;
+}
+
+.pz {
+    background-color: #9ad3bc;
+    
+}
+
+.main {
+    display: flex;
+}
+
+.missing_item {
+    margin-top: 20px;
+    
+}
+
+#output_id {
+ 
+    width: 90%;
+    padding: 10px auto;
+    font-size: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
