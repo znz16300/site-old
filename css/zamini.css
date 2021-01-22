@@ -2,7 +2,9 @@
 .main {
     display: flex;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    justify-content:space-around;
 }
+
 
 .missing {
     display: block;
@@ -84,6 +86,8 @@ button, .input_date_field, .input_field {
     border: 0px black;
     margin: 5px;
     padding: 5px;
+    width: auto;
+    overflow: auto;
     
 }
 

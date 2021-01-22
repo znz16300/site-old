@@ -71,10 +71,10 @@ cancel_miss_button.addEventListener('click', ()=>{
     date_finish.value = "";
     reason.value = "";
     add_miss_button.innerText = "Додати";
-    // document.querySelectorAll(".row_data").forEach(el =>{
-    //     el.style.backgroundColor = "#91A3CA";
-    // })
-    document.getElementById("row"+String(rowEdit)).style.backgroundColor = "#91A3CA";
+    document.querySelectorAll(".row_data").forEach(el =>{
+        el.style.backgroundColor = "#f3eac2";
+    })
+    document.getElementById("row"+String(rowEdit)).style.backgroundColor = "#f3eac2";
     rowEdit === undefined;
     teachNum === undefined;
 })
@@ -269,6 +269,7 @@ let readPage_this = ()=>{
             timeTable[1] = data['feed']['entry'];       
             // console.log(data);
             let i = 0;
+            miss_teach.innerHTML = `<option ></option>`;
             for (row of timeTable[1]){
                 let k = row[fields[0]];
                 if (k !== undefined && k['$t'] !== ""){
