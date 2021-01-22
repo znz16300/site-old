@@ -20,7 +20,7 @@
         <div class="missing">
             <div class="missing_item">
                 <label for="teach">Дані про відсутнього вчителя</label><br>
-                <select class="input_field" name="teach" id="miss_teach_id">
+                <select class="input_field " name="teach" id="miss_teach_id">
                     <option > </option>
                     <!-- <option >Труш Ольга Миколаївна</option>
                     <option >Зеленський Олександр Станіславович</option>
@@ -38,19 +38,19 @@
             <div class="missing_item">
                 <label for="miss_reason">Причина відсутності</label>
                 <div>
-                    <input class="input_date"  type="text" id="reason_id"> 
+                    <input class="input_date input_field"  type="text" id="reason_id"> 
                 </div>
                 
 
             </div>
-            <div class="missing_item">
+            <div class="missing_item shadow">
                 <button id="add_miss_button_id">Додати</button>
                 <button id="cancel_miss_button_id">Скасувати</button>
             </div>
             <div class="missing_item">
                 
-                <div class="wrapper">
-                    <table id="table_id" class="table__cl">
+                <div class="wrapper input_field">
+                    <table id="table_id" class="table__cl shadow">
                     <tbody id="table__id"  >
                         <tr class="cel_row" hidden>
                         <th class="cel_h">
@@ -84,7 +84,7 @@
                     </tbody>
                     </table>
                 </div>
-                <div class="manage">
+                <div class="manage shadow">
                     <button id="clear_all_miss_button_id">
                         Очистити
                     </button>
@@ -98,6 +98,9 @@
                     <div>Вивід списку для журналу пропущених та замінених уроків</div>
                     
                 </div>
+                
+                <!-- <form action="http://zelenskiy.pythonanywhere.com/addblock" method="POST"> -->
+
                 <div class="missing_item">
                     <label for="date_start">від</label>
                     <input class="input_date_field" type="date" id="date_out_start">
@@ -106,28 +109,58 @@
                     <label for="date_finish">до</label>
                     <input class="input_date_field" type="date" id="date_out_finish"><br>
                 </div>
-
-                <div class="missing_item">
+                <div class="missing_item shadow">
                     <button id="calc_button_id">
                         Вивести
                     </button>
                 </div>
-
-                <div class="missing_item output_list">
-                    <textarea 
-                        name="" id="output_id" cols="40" rows="16">
-                    </textarea>
-                </div>
-
-                <div class="missing_item">
-                    <button id="copy_button_id">
-                        Скопіювати
-                    </button>
-                </div>
-
+                <form action="http://127.0.0.1:5000/addblock" method="POST">
+                    <div class="missing_item output_list">
+                        <textarea class="input_field"
+                            name="text" id="output_id" cols="30" rows="16">
+                        </textarea>
+                        <input type="text" name="url_client" id="url_client_id" hidden>
+                    </div>
+                
+                    <div class="missing_item shadow">
+                        <button id="copy_button_id">
+                            Скопіювати
+                        </button>
+                        <button id="post_button_id" type="submit">
+                            Надіслати
+                        </button>
+                        <button id="open_button_id" type="button">
+                            Відкрити таблицю
+                        </button>
+                    </div>
+                </form> 
             </div>
-            
-            
+        </div>
+        <div class="missing pz">
+            <div class="date_missing">
+                <div class="missing_item">
+                    <div>Формування пояснювальної записки</div>
+                    
+                </div>
+                
+                <!-- <form action="http://zelenskiy.pythonanywhere.com/addblock" method="POST"> -->
+                <form action="http://127.0.0.1:5000/addpz" method="POST">
+                    <div class="missing_item">
+                        <label for="date_start">від</label>
+                        <input class="input_date_field" type="date" id="date_pz_start">
+                    </div>
+                    <div class="missing_item">
+                        <label for="date_finish">до</label>
+                        <input class="input_date_field" type="date" id="date_pz_finish"><br>
+                    </div>
+                    <div class="missing_item shadow">
+                        <button id="pz_button_id" type="button">
+                            Вивести
+                        </button>
+                    </div>
+                
+                </form> 
+            </div>
         </div>
 
     </div>    

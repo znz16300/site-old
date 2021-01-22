@@ -1,6 +1,7 @@
 
 .main {
     display: flex;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .missing {
@@ -9,19 +10,19 @@
     padding:10px;
     width: 360px;
     border-radius: 5px;
-    background-color: #aaaaaa;
+    background-color: #f5b461;
     /* float: left; */
     justify-content: space-between;
 
 }
 
 .wrapper {
-    width: 360px;
+    width: 92%;
     height: 180px;
     overflow: auto;
     margin-bottom: 10px;
     border: 1px solid black;
-    background-color: #91a3ca;
+    background-color: #f3eac2;
 }
 
 .missing_item{
@@ -30,8 +31,13 @@
     
 }
 
-.input_field{
+button {
+    background-color: #ebf3d7;
+}
+
+.input_field, .input_date_field{
     /* width: 100%; */
+    background-color: #F3EAC2;
 }
 
 .input_date_field{
@@ -41,7 +47,7 @@
 .del_edit {
     margin: 2px;
     border: none;
-    background-color: #91a3ca;
+    background-color: #f3eac2;
 }
 
 .btn_update_delete {
@@ -61,15 +67,32 @@
 .row_data {
     /* border: 1px solid black;  */
 }
-
+/* 
 .table__cl :hover {
-    background-color: #759df5;
-}
+    background-color: #d3b83e;
+    
+} */
 
 .table__cl {
-    background-color: #91a3ca;
+    background-color: #f3eac2;
     width: 100%;
-    /* border: 1px solid black; */
+    /* border: none; */
+    border: 0px black;
+}
+button, .input_date_field, .input_field {
+    border-radius: 5px;
+    border: 0px black;
+    margin: 5px;
+    padding: 5px;
+    
+}
+
+.shadow :hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.width_all {
+    width: 100%;
 }
 
 #table_id {
@@ -81,7 +104,13 @@
 }
 
 .missing_list {
-    background-color: rgb(216, 160, 160);
+    background-color: #ec524b;
+    color: white;
+}
+
+.pz {
+    background-color: #9ad3bc;
+    
 }
 
 .main {
@@ -95,7 +124,7 @@
 
 #output_id {
  
-    width: 100%;
+    width: 90%;
     padding: 10px auto;
     font-size: 8px;
     font-family: Arial, Helvetica, sans-serif;

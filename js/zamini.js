@@ -4,6 +4,8 @@ let sheet2 = "2";
 let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
+
+let sheetIdMiss = 1520665800;
 // let data_ch;
 // let data_zn;
 let timeTable = {1: undefined, 2: undefined}
@@ -29,6 +31,7 @@ const clear_all_miss_button = document.getElementById("clear_all_miss_button_id"
 const calc_button = document.getElementById("calc_button_id");
 const copy_button = document.getElementById("copy_button_id");
 const miss_teach = document.getElementById("miss_teach_id");
+const open_button = document.getElementById("open_button_id");
 const date_start = document.getElementById("date_start");
 const date_finish = document.getElementById("date_finish");
 const date_out_start = document.getElementById("date_out_start");
@@ -36,6 +39,14 @@ const date_out_finish = document.getElementById("date_out_finish");
 const reason = document.getElementById("reason_id");
 const table = document.getElementById("table_id");
 const output = document.getElementById("output_id");
+const url_client = document.getElementById("url_client_id");
+
+open_button.addEventListener('click', (e)=>{
+    //https://docs.google.com/spreadsheets/d/1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY/edit#gid=1520665800&range=A893
+    let url = "https://docs.google.com/spreadsheets/d/" + key + 
+              "/edit#gid="+String(sheetIdMiss)+"&range=A893";
+    window.open(url);
+})
 
 clear_all_miss_button.addEventListener('click', (e)=>{
     let p = confirm('Очистити всю таблицю,');
@@ -403,7 +414,8 @@ let readStorage = ()=>{
     
 }
 
-
+url_client.value = window.location.href 
+console.log(window.location.href )
 loadSettings();
 readStorage();
 readPage_this();
