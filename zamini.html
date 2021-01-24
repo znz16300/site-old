@@ -19,7 +19,7 @@
     <div class="main">
         <div class="missing">
             <div class="missing_item">
-                <label for="teach">Дані про відсутнього вчителя</label><br>
+                <label for="teach" class="titl">Дані про відсутнього вчителя</label><br>
                 <select class="input_field " name="teach" id="miss_teach_id" 
                 >
                     <option >________________________________</option>
@@ -113,7 +113,8 @@
                         Вивести
                     </button>
                 </div>
-                <form action="http://127.0.0.1:5000/addblock" method="POST">
+                <form action="http://zelenskiy.pythonanywhere.com/addblock" method="POST">
+                <!-- <form action="http://127.0.0.1:5000/addblock" method="POST"> -->
                     <div class="missing_item output_list">
                         <textarea class="input_field"
                             name="text" id="output_id" cols="30" rows="28">
@@ -142,24 +143,45 @@
                     
                 </div>
                 
-                <!-- <form action="http://zelenskiy.pythonanywhere.com/addblock" method="POST"> -->
-                <form action="http://127.0.0.1:5000/addpz" method="POST">
+                <form action="http://zelenskiy.pythonanywhere.com/addblock" method="POST">
+                <!-- <form action="http://127.0.0.1:5000/createpz/" method="POST"> -->
                     <div class="missing_item">
                         <label for="date_start">від</label>
-                        <input class="input_date_field" type="date" id="date_pz_start">
+                        <input class="input_date_field" 
+                            name="date_start"
+                            type="date" 
+                            id="date_pz_start">
+                        <input 
+                            name="idmisstable"
+                            value="1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY"
+                            type="text" hidden>
+                        <input 
+                            name="namesheetmisstable"
+                            value="missingbook"
+                            type="text" hidden>
                     </div>
                     <div class="missing_item">
                         <label for="date_finish">до</label>
-                        <input class="input_date_field" type="date" id="date_pz_finish"><br>
+                        <input class="input_date_field" 
+                            name="date_finish"
+                            type="date" 
+                            id="date_pz_finish"><br>
                     </div>
+                    <div class="missing_item" id="sett_pz_id">
+
+                        preview
+                    </div>
+
                     <div class="missing_item shadow">
-                        <button id="pz_button_id" type="button">
+                        <button id="pz_button_id" type="submit">
                             Сформувати ПЗ
                         </button>
                     </div>
                 
                 </form> 
             </div>
+            
+
         </div>
 
     </div>    
