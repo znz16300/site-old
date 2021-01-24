@@ -1,4 +1,5 @@
 let key = "1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY";
+let idSheetMissTable = "missingbook";
 let sheet1 = "1";
 let sheet2 = "2";
 let sheetDate = "3";
@@ -36,10 +37,57 @@ const date_start = document.getElementById("date_start");
 const date_finish = document.getElementById("date_finish");
 const date_out_start = document.getElementById("date_out_start");
 const date_out_finish = document.getElementById("date_out_finish");
+const date_pz_start = document.getElementById("date_pz_start");
+const date_pz_finish = document.getElementById("date_pz_finish");
 const reason = document.getElementById("reason_id");
 const table = document.getElementById("table_id");
 const output = document.getElementById("output_id");
 const url_client = document.getElementById("url_client_id");
+const sett_pz = document.getElementById("sett_pz_id");
+const pz_button = document.getElementById("pz_button_id");
+
+
+
+pz_button.addEventListener("click", (e)=>{
+    let data = {}
+    data['date_start'] = date_pz_start.value;
+    data['date_finish'] = date_pz_finish.value;
+    data['idmisstable'] = key;
+    data['namesheetmisstable'] = idSheetMissTable;
+
+    // jQuery.ajax({
+    //     url: "http://127.0.0.1:5000/createpz/",
+    //     // url: "http://zelenskiy.pythonanywhere.com/createpz/",
+    //     type: "POST",
+    //     cache: false,
+    //     data: data,
+    //     error: function () {
+    //         console.log("Щось не те ... ");
+    //     },
+    //     success: function () {
+    //         console.log("success");
+    //     }
+    // });
+
+    saveSettings();
+})
+
+date_pz_start.addEventListener("change", (e)=>{
+
+    saveSettings();
+})
+date_pz_finish.addEventListener("change", (e)=>{
+
+    saveSettings();
+})
+date_out_start.addEventListener("change", (e)=>{
+
+    saveSettings();
+})
+date_out_finish.addEventListener("change", (e)=>{
+
+    saveSettings();
+})
 
 open_button.addEventListener('click', (e)=>{
     //https://docs.google.com/spreadsheets/d/1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY/edit#gid=1520665800&range=A893
@@ -233,32 +281,46 @@ let saveSettings = ()=>{
     let d2 = date_finish.value;
     let d3 = date_out_start.value;
     let d4 = date_out_finish.value;
+    let d5 = date_pz_start.value;
+    let d6 = date_pz_finish.value;
     window.localStorage.setItem('d1', d1);
     window.localStorage.setItem('d2', d2);
     window.localStorage.setItem('d3', d3);
     window.localStorage.setItem('d4', d4);
+    window.localStorage.setItem('d5', d5);
+    window.localStorage.setItem('d6', d6);
 }
 let loadSettings = ()=>{
     let d1 = window.localStorage.getItem('d1');
     let d2 = window.localStorage.getItem('d2');
     let d3 = window.localStorage.getItem('d3');
     let d4 = window.localStorage.getItem('d4');
+    let d5 = window.localStorage.getItem('d5');
+    let d6 = window.localStorage.getItem('d6');
     if (d1 === null){
-        d1 = '2000-01-01';
+        d1 = '2021-01-01';
     }
     if (d2 === null){
-        d2 = '2000-01-01';
+        d2 = '2021-01-01';
     }
     if (d3 === null){
-        d3 = '2000-01-01';
+        d3 = '2021-01-01';
     }
     if (d4 === null){
-        d4 = '2000-01-01';
+        d4 = '2021-01-01';
+    }
+    if (d5 === null){
+        d5 = '2021-01-01';
+    }
+    if (d6 === null){
+        d6 = '2021-01-01';
     }
     date_start.value = d1;
     date_finish.value = d2;
     date_out_start.value = d3;
     date_out_finish.value = d4;
+    date_pz_start.value = d5;
+    date_pz_finish.value = d6;
 
 }
 
