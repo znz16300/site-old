@@ -1,4 +1,4 @@
-let key = "1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY";
+let key = undefined;
 let idSheetMissTable = "missingbook";
 let sheet1 = "1";
 let sheet2 = "2";
@@ -6,9 +6,8 @@ let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
 
-let sheetIdMiss = 1520665800;
-// let data_ch;
-// let data_zn;
+// let sheetIdMiss = 1520665800;
+
 let timeTable = {1: undefined, 2: undefined}
 
 let workDaysDate = [];
@@ -45,6 +44,8 @@ const output = document.getElementById("output_id");
 const url_client = document.getElementById("url_client_id");
 const sett_pz = document.getElementById("sett_pz_id");
 const pz_button = document.getElementById("pz_button_id");
+const idmisstable = document.getElementById("idmisstable");
+const idmisstable0 = document.getElementById("idmisstable0");
 
 
 
@@ -90,9 +91,8 @@ date_out_finish.addEventListener("change", (e)=>{
 })
 
 open_button.addEventListener('click', (e)=>{
-    //https://docs.google.com/spreadsheets/d/1gIGSxWp-DQ6Cm5KiB-Z76gj4YyN0crjseQQgCetDCtY/edit#gid=1520665800&range=A893
-    let url = "https://docs.google.com/spreadsheets/d/" + key + 
-              "/edit#gid="+String(sheetIdMiss)+"&range=A893";
+    
+    let url = "https://docs.google.com/spreadsheets/d/" + key + "/edit";
     window.open(url);
 })
 
@@ -291,12 +291,23 @@ let saveSettings = ()=>{
     window.localStorage.setItem('d6', d6);
 }
 let loadSettings = ()=>{
+    key = window.localStorage.getItem('idspreadheet');
     let d1 = window.localStorage.getItem('d1');
     let d2 = window.localStorage.getItem('d2');
     let d3 = window.localStorage.getItem('d3');
     let d4 = window.localStorage.getItem('d4');
     let d5 = window.localStorage.getItem('d5');
     let d6 = window.localStorage.getItem('d6');
+
+    if (key === null){
+        key = prompt("Уведіть ключ таблиці з розкладом");
+        if (key !== undefined)
+            window.localStorage.setItem('idspreadheet', key)
+    }
+    idmisstable0.setAttribute('value', key)
+    idmisstable.setAttribute('value', key)
+    
+
     if (d1 === null){
         d1 = '2021-01-01';
     }
@@ -477,8 +488,7 @@ let readStorage = ()=>{
     
 }
 
-url_client.value = window.location.href 
-console.log(window.location.href )
+
 loadSettings();
 readStorage();
 readPage_this();
