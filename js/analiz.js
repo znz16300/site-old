@@ -35,6 +35,7 @@ const btn_close_menu_who = document.getElementById('btn_close_menu_who');
 const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
 const sel_all_id = document.getElementById("sel_all_id");
+const reset_btn = document.getElementById("reset_btn_id");
 
 
 var menuState = 0;
@@ -49,6 +50,14 @@ var filters = null;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
+
+reset_btn.addEventListener('click', ()=>{
+    let cnf = confirm(`Вилучити ключ таблиці?`);
+    if (cnf){
+        window.localStorage.removeItem("keyTableForAnaliz");
+        window.localStorage.removeItem("filters");
+    }
+})
 
 function changeOverflow() {
     let overflowY = document.body.style.overflowY;
