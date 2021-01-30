@@ -115,6 +115,10 @@ function reformatString(text) {
 }
 
 function print_atom(data){
+    if (data[0].title === data[0].value){
+        return undefined;
+    }
+    console.log(data);
     let allPar = '';
     let clasT = ' class="title" ';
     let clasV = ' class="value" ';
@@ -411,11 +415,15 @@ let readPage = ()=>{
             gl_data = data; 
 
             for (let i=0; i<gl_data.length; i++){
-                gl_data[i]['id_m'] = i;
+                // gl_data[i]['id_m'] = i;
                 gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
             }
             
             sortByDate(gl_data); 
+            for (let i=0; i<gl_data.length; i++){
+                gl_data[i]['id_m'] = i;
+                // gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
+            }
             
             createLists(gl_data);
             createTable(gl_data);
@@ -924,14 +932,16 @@ btn__copy_id.addEventListener('click', ()=>{
 
 
 btn_print.addEventListener("click", ()=>{
+    // console.log(gl_data);
     text.innerText = "";
     const rows = document.querySelectorAll(".sel_table_id_cl");
     let i = 1;
     for (elem of rows){
         if (elem.style.display === "" && elem.checked){
             let rowId = "row_"+elem.id.slice(3);
+            // console.log(rowId);
             let id_m = parseInt(rowId.slice(4));
-            createCardAll(gl_data[i]);
+            createCardAll(gl_data[id_m]);
         } 
         i++;
     } 
