@@ -1,4 +1,4 @@
-let key = undefined;
+let keyZamini = undefined;
 let idSheetMissTable = "missingbook";
 let sheet1 = "1";
 let sheet2 = "2";
@@ -53,7 +53,7 @@ pz_button.addEventListener("click", (e)=>{
     let data = {}
     data['date_start'] = date_pz_start.value;
     data['date_finish'] = date_pz_finish.value;
-    data['idmisstable'] = key;
+    data['idmisstable'] = keyZamini;
     data['namesheetmisstable'] = idSheetMissTable;
 
     // jQuery.ajax({
@@ -92,7 +92,7 @@ date_out_finish.addEventListener("change", (e)=>{
 
 open_button.addEventListener('click', (e)=>{
     
-    let url = "https://docs.google.com/spreadsheets/d/" + key + "/edit";
+    let url = "https://docs.google.com/spreadsheets/d/" + keyZamini + "/edit";
     window.open(url);
 })
 
@@ -290,8 +290,8 @@ let saveSettings = ()=>{
     window.localStorage.setItem('d5', d5);
     window.localStorage.setItem('d6', d6);
 }
-let loadSettings = ()=>{
-    key = window.localStorage.getItem('idspreadheet');
+let loadSettingsZamini = ()=>{
+    keyZamini = window.localStorage.getItem('idspreadheet');
     let d1 = window.localStorage.getItem('d1');
     let d2 = window.localStorage.getItem('d2');
     let d3 = window.localStorage.getItem('d3');
@@ -299,13 +299,13 @@ let loadSettings = ()=>{
     let d5 = window.localStorage.getItem('d5');
     let d6 = window.localStorage.getItem('d6');
 
-    if (key === null){
-        key = prompt("Уведіть ключ таблиці з розкладом");
-        if (key !== undefined)
-            window.localStorage.setItem('idspreadheet', key)
+    if (keyZamini === null){
+        keyZamini = prompt("Уведіть ключ таблиці з розкладом");
+        if (keyZamini !== undefined)
+            window.localStorage.setItem('idspreadheet', keyZamini)
     }
-    idmisstable0.setAttribute('value', key)
-    idmisstable.setAttribute('value', key)
+    idmisstable0.setAttribute('value', keyZamini)
+    idmisstable.setAttribute('value', keyZamini)
     
 
     if (d1 === null){
@@ -336,7 +336,7 @@ let loadSettings = ()=>{
 }
 
 let readPage_this = ()=>{
-    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet1+"/public/values?alt=json"
+    let url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheet1+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
             timeTable[1] = data['feed']['entry'];       
@@ -356,13 +356,13 @@ let readPage_this = ()=>{
             fillTable();           
         }       
     );  
-    url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+    url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
             timeTable[2] = data['feed']['entry'];       
         }       
     );  
-    url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheetDate+"/public/values?alt=json"
+    url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheetDate+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
             data = data['feed']['entry'];
@@ -489,7 +489,7 @@ let readStorage = ()=>{
 }
 
 
-loadSettings();
-readStorage();
+loadSettingsZamini();
+// readStorage();
 readPage_this();
 
