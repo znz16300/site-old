@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заміни пропущених уроків</title>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script> -->
+    <script src="./js/jquery-3.5.0.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./css/zamini.css">
+</head>
+<body>
+
+    <header>
+
+    </header>
+
+    <div class="main">
+        <div class="missing">
+            <div class="missing_item">
+                <label for="teach" class="titl">Дані про відсутнього вчителя</label><br>
+                <select class="input_field " name="teach" id="miss_teach_id" 
+                >
+                    <option >________________________________</option>
+                   <!--  <option >Лапко Юлія Миколаївна</option>                 -->
+                </select>              
+            </div>
+            <div class="missing_item">
+                <label for="date_start">від</label>
+                <input class="input_date_field" type="date" id="date_start">
+            </div>
+            <div class="missing_item">
+                <label for="date_finish">до</label>
+                <input class="input_date_field" type="date" id="date_finish"><br>
+            </div>
+            <div class="missing_item">
+                <label for="miss_reason">Причина відсутності</label>
+                <div>
+                    <input class="input_date input_field"  type="text" id="reason_id"> 
+                </div>
+                
+
+            </div>
+            <div class="missing_item shadow">
+                <button id="add_miss_button_id">Додати</button>
+                <button id="cancel_miss_button_id">Скасувати</button>
+            </div>
+            <div class="missing_item">
+                
+                <div class="wrapper input_field">
+                    <table id="table_id" class="table__cl shadow">
+                    <tbody id="table__id"  >
+                        <tr class="cel_row" hidden>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">Відсутній</div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">з </div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">по </div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1">причина</div> 
+                            </div>
+                        </th>
+                        <th class="cel_h">
+                            <div class="cel_div">
+                                <div class="sp_1"></div> 
+                            </div>
+                        </th>
+            
+                    </tr>
+        
+                    </tbody>
+                    </table>
+                </div>
+                <div class="manage shadow">
+                    <button id="clear_all_miss_button_id">
+                        Очистити
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="missing missing_list">
+            <div class="date_missing">
+                <div class="missing_item">
+                    <div>Вивід списку для журналу пропущених та замінених уроків</div>
+                    
+                </div>
+                
+                <!-- <form action="http://zelenskiy.pythonanywhere.com/addblock" method="POST"> -->
+
+                <div class="missing_item">
+                    <label for="date_start">від</label>
+                    <input class="input_date_field" type="date" id="date_out_start">
+                </div>
+                <div class="missing_item">
+                    <label for="date_finish">до</label>
+                    <input class="input_date_field" type="date" id="date_out_finish"><br>
+                </div>
+                <div class="missing_item shadow">
+                    <button id="calc_button_id">
+                        Вивести
+                    </button>
+                </div>
+                <form action="http://zelenskiy.pythonanywhere.com/addblock/" method="POST">
+                <!-- <form action="http://127.0.0.1:5000/addblock/" method="POST"> -->
+                    <div class="missing_item output_list">
+                        <textarea class="input_field"
+                            name="text" id="output_id" cols="30" rows="28">
+                        </textarea>
+                        <input type="text" name="url_client" id="url_client_id" hidden>
+                    </div>
+                    <div class="missing_item shadow">
+                        <input 
+                            id="idmisstable0"
+                            name="idmisstable0"
+                            
+                            type="text" hidden>
+
+                        <button id="copy_button_id" type="button">
+                            Скопіювати
+                        </button>
+                        <button id="post_button_id" type="submit">
+                            Надіслати
+                        </button>
+                        <button id="open_button_id" type="button">
+                            Відкрити таблицю
+                        </button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+        <div class="missing pz">
+            <div class="date_missing">
+                <div class="missing_item">
+                    <div>Формування пояснювальної записки</div>                    
+                </div>
+                
+                <form action="http://zelenskiy.pythonanywhere.com/createpz/" method="POST">
+                <!-- <form action="http://127.0.0.1:5000/createpz/" method="POST"> -->
+                    <div class="missing_item">
+                        <label for="date_start">від</label>
+                        <input class="input_date_field" 
+                            name="date_start"
+                            type="date" 
+                            id="date_pz_start">
+                        <input 
+                            id="idmisstable"
+                            name="idmisstable"
+                            
+                            type="text" hidden>
+                        <input 
+                            name="namesheetmisstable"
+                            value="missingbook"
+                            type="text" hidden>
+                    </div>
+                    <div class="missing_item">
+                        <label for="date_finish">до</label>
+                        <input class="input_date_field" 
+                            name="date_finish"
+                            type="date" 
+                            id="date_pz_finish"><br>
+                    </div>
+                    <div class="missing_item" id="sett_pz_id">
+
+                        
+                    </div>
+
+                    <div class="missing_item shadow">
+                        <button id="pz_button_id" type="submit">
+                            Сформувати ПЗ
+                        </button>
+                    </div>
+                
+                </form> 
+            </div>
+            
+
+        </div>
+
+    </div>    
+
+    <footer>
+
+    </footer>
+
+    <script src="./js/zamini.js"></script>
+</body>
+</html>
