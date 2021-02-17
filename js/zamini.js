@@ -480,7 +480,7 @@ let fillTable = ()=>{
     }
 }
 
-let readStorage = ()=>{    
+let readStorageZamini = ()=>{    
     k = window.localStorage.getItem("missing_teachers");
     if (k !== null) {
         missing_teachers = JSON.parse(k);            
@@ -490,6 +490,6 @@ let readStorage = ()=>{
 
 
 loadSettingsZamini();
-// readStorage();
+readStorageZamini();
 readPage_this();
 
