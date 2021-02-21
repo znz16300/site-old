@@ -46,8 +46,16 @@ const sett_pz = document.getElementById("sett_pz_id");
 const pz_button = document.getElementById("pz_button_id");
 const idmisstable = document.getElementById("idmisstable");
 const idmisstable0 = document.getElementById("idmisstable0");
+const reset_btn = document.getElementById("reset_btn_id");
 
-
+reset_btn.addEventListener('click', ()=>{
+    let cnf = confirm(`Вилучити ключ таблиці?`);
+    if (cnf){
+        window.localStorage.removeItem("missing_teachers");
+        window.localStorage.removeItem("idspreadheet");
+        location.reload();
+    }
+})
 
 pz_button.addEventListener("click", (e)=>{
     let data = {}
@@ -299,7 +307,7 @@ let loadSettingsZamini = ()=>{
     let d5 = window.localStorage.getItem('d5');
     let d6 = window.localStorage.getItem('d6');
 
-    if (keyZamini === null){
+    if (keyZamini === null || keyZamini === "null" ){
         keyZamini = prompt("Уведіть ключ таблиці з розкладом");
         if (keyZamini !== undefined)
             window.localStorage.setItem('idspreadheet', keyZamini)
@@ -482,11 +490,13 @@ let fillTable = ()=>{
 
 let readStorageZamini = ()=>{    
     k = window.localStorage.getItem("missing_teachers");
-    if (k !== null) {
+    if (k !== null && k != "null") {
         missing_teachers = JSON.parse(k);            
-    }    
+    }  
     
 }
+
+
 
 
 loadSettingsZamini();
