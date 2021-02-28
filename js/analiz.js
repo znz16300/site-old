@@ -45,6 +45,8 @@ const sel_all_id = document.getElementById("sel_all_id");
 const reset_btn = document.getElementById("reset_btn_id");
 const settings_btn = document.getElementById("settings_btn_id");
 const props_div = document.getElementById("props_div_id");
+const set_signature_teacher = document.getElementById("set_signature_teacher_id");
+const set_signature_boss = document.getElementById("set_signature_boss_id");
 
 
 var menuState = 0;
@@ -63,21 +65,20 @@ const modalWindow = document.querySelector('.modal__wrapper');
 settings_btn.addEventListener('click', ()=>{
     props_div.hidden = false
     let b = ``;
-    // <div>Налаштування</div>
-    // <div>Показувати місце для підпису</div> 
-
-    // <div class="props_items"> 
-    //     <div>вчителя</div> 
-    //     <input id="set_signature_teacher_id" type="checkbox"> , &nbsp;
-         
-    //     <div>директора</div>  
-    //     <input id="set_signature_boss_id" type="checkbox"> .
-    // </div> 
-    // `;
-
-
+    set_signature_teacher.checked = props['set_signature_teacher'];
+    set_signature_boss.checked = props['set_signature_boss'];
     fillModalWindow(b);
     toggleModalWindow();
+})
+
+set_signature_teacher.addEventListener('change', ()=> {
+    props['set_signature_teacher'] = set_signature_teacher.checked;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+
+set_signature_boss.addEventListener('change', ()=> {
+    props['set_signature_boss'] = set_signature_boss.checked;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
 })
 
 reset_btn.addEventListener('click', ()=>{
@@ -148,7 +149,7 @@ function print_atom(data){
     if (data[0].title === data[0].value){
         return undefined;
     }
-    console.log(data);
+
     let allPar = '';
     let clasT = ' class="title" ';
     let clasV = ' class="value" ';
