@@ -14,6 +14,7 @@ let key;
 let props = {
     'boss': '', 
     'boss_short': '', 
+    'boss_posada': 'Директор', 
     'title_school': '', 
     'set_signature_teacher': true,  
     'set_signature_boss': false, 
@@ -47,6 +48,8 @@ const settings_btn = document.getElementById("settings_btn_id");
 const props_div = document.getElementById("props_div_id");
 const set_signature_teacher = document.getElementById("set_signature_teacher_id");
 const set_signature_boss = document.getElementById("set_signature_boss_id");
+const name_boss = document.getElementById("name_boss_id");
+const posada_boss = document.getElementById("posada_boss_id");
 
 
 var menuState = 0;
@@ -67,6 +70,8 @@ settings_btn.addEventListener('click', ()=>{
     let b = ``;
     set_signature_teacher.checked = props['set_signature_teacher'];
     set_signature_boss.checked = props['set_signature_boss'];
+    name_boss.value = props['boss_short'];
+    posada_boss.value = props['boss_posada'];
     fillModalWindow(b);
     toggleModalWindow();
 })
@@ -78,6 +83,14 @@ set_signature_teacher.addEventListener('change', ()=> {
 
 set_signature_boss.addEventListener('change', ()=> {
     props['set_signature_boss'] = set_signature_boss.checked;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+name_boss.addEventListener('change', ()=> {
+    props['boss_short'] = name_boss.value;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+posada_boss.addEventListener('change', ()=> {
+    props['boss_posada'] = posada_boss.value;
     window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
 })
 
@@ -194,7 +207,7 @@ function print_atom(data){
     } else tmp = '';
     
     if (props['set_signature_boss'] === true){
-        tmp2 = 'Директор '+ sp_long + sp_long  + sp_long + sp_long + 
+        tmp2 = props['boss_posada'] + sp_long + sp_long  + sp_long + sp_long + 
                 ' _______________________ ' + sp_long + props['boss_short'];
     } else tmp2 = '';
 
