@@ -343,7 +343,6 @@ header {
   transition: all 2s;
 }
 
-
 .modal__wrapper .modal .pet_info {
   padding: 50px 20px 0 29px;
 }
@@ -357,7 +356,6 @@ header {
 .modal__wrapper_active {
   top: 0;
 }
-
 .modal__wrapper .modal {
   width: 630px;
 }
@@ -376,8 +374,6 @@ header {
 .modal__wrapper .modal .pet_info .pet__info__advantage li {
   margin-bottom: 5px;
 }
-
-
 #scroll_top {
 	display: none;
 	position: fixed;
