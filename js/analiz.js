@@ -50,6 +50,7 @@ const set_signature_teacher = document.getElementById("set_signature_teacher_id"
 const set_signature_boss = document.getElementById("set_signature_boss_id");
 const name_boss = document.getElementById("name_boss_id");
 const posada_boss = document.getElementById("posada_boss_id");
+const pet_info = document.getElementById("pet_info_id");
 
 
 var menuState = 0;
@@ -67,6 +68,7 @@ const modalWindow = document.querySelector('.modal__wrapper');
 
 settings_btn.addEventListener('click', ()=>{
     props_div.hidden = false
+    pet_info.hidden = true
     let b = ``;
     set_signature_teacher.checked = props['set_signature_teacher'];
     set_signature_boss.checked = props['set_signature_boss'];
@@ -203,12 +205,12 @@ function print_atom(data){
     dist = refactorText(dist);
     let sp_long = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
     if (props['set_signature_teacher'] === true){
-        tmp = 'З аналізом ознайомлений(на)  ' + sp_long + ' _______________________ '
+        tmp = 'З аналізом ознайомлений(на)  ' + sp_long + '  '
     } else tmp = '';
     
     if (props['set_signature_boss'] === true){
         tmp2 = props['boss_posada'] + sp_long + sp_long  + sp_long + sp_long + 
-                ' _______________________ ' + sp_long + props['boss_short'];
+                '  ' + sp_long + props['boss_short'];
     } else tmp2 = '';
 
     dist +=`<p></p> 
@@ -1081,6 +1083,7 @@ let createTable = (gl_data)=>{
             let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
             let b = print_atom(a);
             props_div.hidden = true
+            pet_info.hidden = false
             fillModalWindow(b);
             toggleModalWindow();
         })
