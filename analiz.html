@@ -60,7 +60,14 @@
     </nav>
 
 <header class="head">
-    <p class="title__head">Виберіть записи</p>
+    <div class="title__block">
+       <div class="title__head">Виберіть записи</div> 
+       <div class="toolbar__head">
+        <button class="btn_min">⚙</button>
+       </div> 
+    </div>
+    
+
     <div class="header__table">
         <div id="div_t">
 
@@ -135,10 +142,11 @@
 <a href="#" id="scroll_top" title="Вгору"></a>
 <a href="#" id="scroll_bottom" title="Вниз"></a>
 
-
-<button class="btn_min" id="reset_btn_id" title="Скинути налаштування">
-    ↻
-</button>
+<div class="toolbar__head">
+    <button class="btn_min" id="reset_btn_id" title="Скинути налаштування">
+        ↻
+    </button>
+</div>
 <script src="./js/data_analiz.js"></script>
 <script src="./js/analiz.js"></script>
 

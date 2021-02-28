@@ -17,12 +17,14 @@ let fields = {
 }
 let missing_teachers = []
 let allTeachers = []
+let les_count = 11;
 const dWeek = {
     '1': 'mo',
     '2': 'tu',
     '3': 'we',
     '4': 'th',
     '5': 'fr',
+    '6': 'st',
 }; 
 
 const add_miss_button = document.getElementById("add_miss_button_id");
@@ -156,7 +158,7 @@ calc_button.addEventListener('click', ()=>{
                     // console.log(row.teach, numDay_to_dateStr(i));
                     let dd = chZnFind(i);
                     let cz = dd.ch_zn;
-                    for (let j=0; j<11; j++){
+                    for (let j=0; j<les_count; j++){
                        let k = 'gsx$'+dWeek[dd.week]+String(j);
                        if (timeTable[cz][numRow][k] !== undefined){
                            if (timeTable[cz][numRow][k]['$t'] !== ""){
@@ -348,7 +350,16 @@ let readPage_this = ()=>{
     $.getJSON(url,        
         function (data) {
             timeTable[1] = data['feed']['entry'];       
-            // console.log(data);
+            // console.log(timeTable[1]);
+            //calc less_count
+            let lessons = timeTable[1][1]
+            let max = -1;
+            for (var item in lessons) {
+                if (item.slice(0,6) === 'gsx$mo'){ 
+                    let n = parseInt(lessons[item]['$t']);
+                    if (n > max){max = n};}
+            }
+            les_count = max;
             let i = 0;
             miss_teach.innerHTML = `<option ></option>`;
             for (row of timeTable[1]){
@@ -364,6 +375,10 @@ let readPage_this = ()=>{
             fillTable();           
         }       
     );  
+    
+    
+
+
     url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {

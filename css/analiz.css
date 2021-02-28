@@ -53,9 +53,30 @@ header {
    
 } */
 
+.toolbar__head :hover {
+  cursor: pointer;
+  background-color:#77a0df;
+  color: white;  
+}
+
+.title__block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.toolbar__head {
+  padding-top: 10px;
+    padding-left: 30px;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
 .title__head {
     padding-top: 10px;
     padding-left: 30px;
+    margin-top: 25px;
     margin-bottom: 0;
 
     font-family: Georgia;
@@ -98,7 +119,7 @@ header {
     font-family: Georgia;
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 32px;
     line-height: 19px;
     letter-spacing: 0.06em;
     text-align: center;

@@ -11,6 +11,13 @@ let sheet2 = "default";
 let title_st = '';
 var key_map = {};
 let key;
+let props = {
+    'boss': '', 
+    'boss_short': '', 
+    'title_school': '', 
+    'set_signature_teacher': true,  
+    'set_signature_boss': false, 
+};
 
 
 const btn_print = document.getElementById("btn__print_id");
@@ -156,11 +163,28 @@ function print_atom(data){
     allPar = format_2(allPar, clasT, clasV);
      dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
-     dist = refactorText(dist);
-     dist +=`<p></p> 
-                    <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
-                    <p style="margin-bottom: 100px;"></p> 
-                    `;
+    dist = refactorText(dist);
+    let sp_long = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    if (props['set_signature_teacher'] === true){
+        tmp = 'З аналізом ознайомлений(на)  ' + sp_long + ' _______________________ '
+    } else tmp = '';
+    
+    if (props['set_signature_boss'] === true){
+        tmp2 = 'Директор '+ sp_long + sp_long  + sp_long + sp_long + 
+                ' _______________________ ' + sp_long + props['boss_short'];
+    } else tmp2 = '';
+
+    dist +=`<p></p> 
+                   <div class="footer"> ${tmp} </div>
+                   <div class="footer"> ${tmp2} </div>
+                   <p style="margin-bottom: 100px;"></p> 
+
+                   `;
+
+    //  dist +=`<p></p> 
+    //                 <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+    //                 <p style="margin-bottom: 100px;"></p> 
+    //                 `;
     
     if (t_les == "ЗАХІД"){
         dist = dist.replaceAll('УРОК', 'ЗАХІД');
@@ -253,9 +277,18 @@ function __print_atom(data){
      dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
      dist = refactorText(dist);
+    if (props['set_signature_teacher'] === true){
+         tmp = 'З аналізом ознайомлений(на) _______________________ ';
+     } else tmp = '';
+     if (props['set_signature_boss'] === true){
+         tmp2 = 'Директор ' + '\t' + ' _______________________ ' + '\t' + props['boss_short'];
+     } else tmp2 = '';
+
      dist +=`<p></p> 
-                    <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+                    <div class="footer"> ${tmp} </div>
+                    <div class="footer"> ${tmp2} </div>
                     <p style="margin-bottom: 100px;"></p> 
+
                     `;
     
     if (t_les == "ЗАХІД"){
@@ -330,27 +363,21 @@ function createCard(dat){
     let data_report = []
     $.each(fieldNames,function(key, val){
         let value = dat[val.key];
-
         if (dat[val.key] !== undefined){
             if (value['$t'] !== ""){
                 let id = parseInt(key);
                 let title = val.title;
                 let valUE = value['$t'];
                 let kEy = val.key;
-                // console.log('title', title);
-                // console.log('value', valUE);
-                // console.log('id', id);
                 data_report.push({'id':id, 'title':title, 'value': valUE, 'key':kEy})
             }
         }       
-
     })
-    // console.log('data_report');
-    // console.log(data_report);
     sortById(data_report);
-    // console.log(data_report);
     return data_report;
 }
+
+
 
 function createCardAll(dat){
     let data_report = createCard(dat);
@@ -932,14 +959,12 @@ btn__copy_id.addEventListener('click', ()=>{
 
 
 btn_print.addEventListener("click", ()=>{
-    // console.log(gl_data);
     text.innerText = "";
     const rows = document.querySelectorAll(".sel_table_id_cl");
     let i = 1;
     for (elem of rows){
         if (elem.style.display === "" && elem.checked){
             let rowId = "row_"+elem.id.slice(3);
-            // console.log(rowId);
             let id_m = parseInt(rowId.slice(4));
             createCardAll(gl_data[id_m]);
         } 
@@ -1041,7 +1066,16 @@ let readStorage = ()=>{
         }            
     }    
     loadFilters();
+
+    s = window.localStorage.getItem("propsForAnaliz");
+    if (s === null) { 
+        window.localStorage.setItem("propsForAnaliz", JSON.stringify(props))
+    } else {
+        props = JSON.parse(s)
+    }
+
 }
+
 
 
 
