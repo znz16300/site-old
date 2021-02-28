@@ -19,8 +19,21 @@
                      class="modal_close_button" alt="close-button">
             </div>
 
-            <div class="pet_info">
+            
+                <div id="props_div_id">
+                    <div>Налаштування</div>
+                    <div>Показувати місце для підпису</div> 
+
+                    <div class="props_items"> 
+                        <div>вчителя</div> 
+                        <input id="set_signature_teacher_id" type="checkbox"> , &nbsp;
+                        
+                        <div>директора</div>  
+                        <input id="set_signature_boss_id" type="checkbox"> .
+                    </div> 
+                </div>
                 
+            <div class="pet_info">    
                 <div class="pet_info__about"></div>
             </div>
                 
@@ -63,7 +76,7 @@
     <div class="title__block">
        <div class="title__head">Виберіть записи</div> 
        <div class="toolbar__head">
-        <button class="btn_min">⚙</button>
+        <button id="settings_btn_id" class="btn_min">⚙</button>
        </div> 
     </div>
     

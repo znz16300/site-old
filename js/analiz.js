@@ -43,6 +43,8 @@ const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
 const sel_all_id = document.getElementById("sel_all_id");
 const reset_btn = document.getElementById("reset_btn_id");
+const settings_btn = document.getElementById("settings_btn_id");
+const props_div = document.getElementById("props_div_id");
 
 
 var menuState = 0;
@@ -57,6 +59,26 @@ var filters = null;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
+
+settings_btn.addEventListener('click', ()=>{
+    props_div.hidden = false
+    let b = ``;
+    // <div>Налаштування</div>
+    // <div>Показувати місце для підпису</div> 
+
+    // <div class="props_items"> 
+    //     <div>вчителя</div> 
+    //     <input id="set_signature_teacher_id" type="checkbox"> , &nbsp;
+         
+    //     <div>директора</div>  
+    //     <input id="set_signature_boss_id" type="checkbox"> .
+    // </div> 
+    // `;
+
+
+    fillModalWindow(b);
+    toggleModalWindow();
+})
 
 reset_btn.addEventListener('click', ()=>{
     let cnf = confirm(`Вилучити ключ таблиці?`);
@@ -122,6 +144,7 @@ function reformatString(text) {
 }
 
 function print_atom(data){
+    
     if (data[0].title === data[0].value){
         return undefined;
     }
@@ -1043,6 +1066,7 @@ let createTable = (gl_data)=>{
         el.addEventListener('click', (e)=>{
             let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
             let b = print_atom(a);
+            props_div.hidden = true
             fillModalWindow(b);
             toggleModalWindow();
         })

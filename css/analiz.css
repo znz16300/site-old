@@ -65,6 +65,12 @@ header {
   align-items: center;
   margin-right: 30px;
 }
+.props_items {
+  display: flex;
+  /* justify-content: space-between;
+  align-items: center;
+  margin-right: 30px; */
+}
 
 .toolbar__head {
   padding-top: 10px;
@@ -293,6 +299,7 @@ header {
 
 .pet_info {
   overflow: scroll;
+  width: 100%;
 }
 
 .modal {  
@@ -307,7 +314,6 @@ header {
   display: flex;
   position: fixed;
   padding: 5px;
-  
 }
 
 .modal__wrapper .modal:hover .modal_close {
@@ -371,9 +377,6 @@ header {
   margin-bottom: 5px;
 }
 
-.row_cl :hover {
-  
-}
 
 #scroll_top {
 	display: none;
