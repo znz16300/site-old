@@ -424,7 +424,7 @@ function createCardAll(dat){
 }
 
 
-var gl_data;
+var gl_data = [];
 var fieldNames = {};
 
 
@@ -469,8 +469,8 @@ function keyToId (k){
     return k_;
 }
 
-let readPage = ()=>{
-    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+let readPage = (s2)=>{
+    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
         
        function (data) {
@@ -478,7 +478,8 @@ let readPage = ()=>{
             // sortByTeach(data);  
             setFields(data);
 
-            gl_data = data; 
+            //gl_data = data; 
+            gl_data = gl_data.concat(data)
 
             for (let i=0; i<gl_data.length; i++){
                 // gl_data[i]['id_m'] = i;
@@ -494,7 +495,9 @@ let readPage = ()=>{
             createLists(gl_data);
             createTable(gl_data);
 
-        }       
+       }
+       
+       
     );    
 
 }
@@ -1144,6 +1147,7 @@ $(function(){
 
 
 readStorage();
-readPage();
+readPage(sheet2);
+
 
 
