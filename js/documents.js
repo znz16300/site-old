@@ -6,10 +6,10 @@ let newsData = [];
 // const keyTableNews ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
 var url  = "https://spreadsheets.google.com/feeds/list/"+keyTableDocs+"/"+sheet+"/public/values?alt=json";
 
-let burgerItem = document.querySelector('.header__burger');
-let menu = document.querySelector('.header__nav');
-let header = document.querySelector('.header');
-let activeLink = document.querySelector('.list-item_active');
+let burgerItem_2 = document.querySelector('.header__burger_2');
+let menu_2 = document.querySelector('.header__nav');
+let header_2 = document.querySelector('.header');
+let activeLink_2 = document.querySelector('.list-item_active');
 let modalWindow = document.querySelector('.modal__wrapper');
 let cards = document.querySelector('.cards');
 let arrowNext = document.querySelector('.arrow_next');
@@ -21,18 +21,18 @@ let navigation = document.querySelector('.pages');
 let pages = [];
 let res = [];
 
-function changeOverflow() {
+function changeOverflow_2() {
     let overflowY = document.body.style.overflowY;
     document.body.style.overflowY = overflowY != 'hidden' ? 'hidden' : 'visible';
-    document.body.style.paddingRight = overflowY != 'hidden' ? `${getScrollbarWidth()}px` : '0';
+    document.body.style.paddingRight = overflowY != 'hidden' ? `${getScrollbarWidth_2()}px` : '0';
 }
 
-function toggleMenu() {
-    menu.classList.toggle('header__nav-active');
-    burgerItem.classList.toggle('header__burger-active');
-    header.classList.toggle('header_active');
+function toggleMenu_2() {
+    menu_2.classList.toggle('header__nav-active');
+    burgerItem_2.classList.toggle('header__burger-active');
+    header_2.classList.toggle('header_active');
 
-    changeOverflow();
+    changeOverflow_2();
 }
 
 function getTitle(url){
@@ -66,10 +66,10 @@ function fillModalWindow(title, item) {
 function toggleModalWindow() {
     modalWindow.classList.toggle('modal__wrapper_active');
 
-    changeOverflow();
+    changeOverflow_2();
 }
 
-function getScrollbarWidth() {
+function getScrollbarWidth_2() {
     const outer = document.createElement('div');
     outer.style.visibility = 'hidden';
     outer.style.overflow = 'scroll';
@@ -171,16 +171,16 @@ function changeDisableStatus(pageNumber) {
     
 }
 
-burgerItem.addEventListener('click', () => toggleMenu());
+burgerItem_2.addEventListener('click', () => toggleMenu_2());
 
-menu.addEventListener('click', e => {
-    if (!e.target.closest('.header__list')) toggleMenu();
+menu_2.addEventListener('click', e => {
+    if (!e.target.closest('.header__list')) toggleMenu_2();
 });
 
-activeLink.addEventListener('click', e => {
+activeLink_2.addEventListener('click', e => {
     if (document.querySelector('.header__nav-active')) {
         e.preventDefault();
-        toggleMenu();
+        toggleMenu_2();
     }
 });
 
