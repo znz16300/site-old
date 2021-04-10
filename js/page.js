@@ -143,16 +143,29 @@ document.getElementById("scrollToTop").addEventListener("click", ()=>{
 });
 
 
-var keyT = JSON.parse(window.localStorage.getItem('keyPages') || null);
-if (keyT !== undefined){
-    title_st = JSON.parse(window.localStorage.getItem('titlePages') || null);
+
+if (true){
+//var keyT = JSON.parse(window.localStorage.getItem('keyPages') || null);    
+// if (keyT !== undefined){
+    // title_st = JSON.parse(window.localStorage.getItem('titlePages') || null);
     const title_ = document.getElementById('title__');
     const title_dom = document.getElementById('title__id');
+    // if (title_ !== null){
+    //     title_.innerText = title_st;
+    //     title_dom.innerHTML = title_st;
+    // }
+    let strGET = window.location.search.replace( '?', '').split('&'); 
+    let par_1 = strGET[0].split("=")
+    let par_2 = strGET[1].split("=")
+    // const title_ = decodeURI(par_1[1])
+    // const title_dom = decodeURI(par_1[1])
+    title_st = decodeURI(par_1[1])
+    const keyT = par_2[1]
     if (title_ !== null){
         title_.innerText = title_st;
         title_dom.innerHTML = title_st;
     }
-    
-    
+    console.log(keyT)
     readPage(keyT);
+
 }
