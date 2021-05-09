@@ -121,6 +121,30 @@ clear_all_miss_button.addEventListener('click', (e)=>{
     
 })
 
+const ajax_btn1 = document.getElementById("ajax_btn1_id");
+const form = document.getElementById("form1_id");
+
+
+ajax_btn1.addEventListener("click", function() {
+    var request = new XMLHttpRequest();
+    FD  = new FormData(form);
+    // FD[ 'text' ] ='aaaa';
+    // FD[ 'url_client' ] ='bbbb';
+    // FD[ 'idmisstable0' ] ='cccc';
+
+    console.log(FD);
+    request.open('POST','http://127.0.0.1:5000/addblock/',true);
+    // request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+    request.addEventListener('readystatechange', function() {
+      if ((request.readyState==4) && (request.status==200)) {
+        // var welcome = document.getElementById('welcome');
+        // welcome.innerHTML = request.responseText;
+        console.log("Ok");
+      }
+    });
+    request.send(FD);
+});
+
 
 cancel_miss_button.addEventListener('click', ()=>{
     console.log(missing_teachers);
