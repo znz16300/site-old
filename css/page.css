@@ -57,7 +57,7 @@
     color: #545454;
   }
   .header .header__list {
-    width: 443px;
+    width: 520px;
     height: 27px;
     display: flex;
     justify-content: space-between;
@@ -69,7 +69,7 @@
     margin-right: 0;
   }
   .header .header__list .header__list_item:first-child a {
-    color: #ffffff;
+    color: #545454;
   }
   .header .header__list .header__list_item a {
     font-family: Arial;
@@ -624,6 +624,7 @@
   
     .header {
       padding: 0 30px;
+      
     }
   
     .start-screen {

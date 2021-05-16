@@ -40,18 +40,18 @@ function toggleMenu_1() {
 }
 
 
-burgerItem_1.addEventListener('click', () => toggleMenu_1());
+// burgerItem_1.addEventListener('click', () => toggleMenu_1());
 
 menu_1.addEventListener('click', e => {
     if (!e.target.closest('.header__list')) toggleMenu_1();
 });
 
-activeLink_1.addEventListener('click', e => {
-    if (document.querySelector('.header__nav-active')) {
-        e.preventDefault();
-        toggleMenu_1();
-    }
-});
+// activeLink_1.addEventListener('click', e => {
+//     if (document.querySelector('.header__nav-active')) {
+//         e.preventDefault();
+//         toggleMenu_1();
+//     }
+// });
 
 function readPage(key){
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
@@ -71,8 +71,8 @@ function readPage(key){
                     const regex = String.fromCharCode(10);
                     text = text.replace(regex,'<br>');
                     console.log(text);
-                    // text_tmp += `${text}`
-                    text_tmp += `<p class="default_par"> ${text} </p>`
+                    text_tmp += `${text}`
+                    // text_tmp += `<p class="default_par"> ${text} </p>`
                 
 
                     // text.innerText = text_tmp;
