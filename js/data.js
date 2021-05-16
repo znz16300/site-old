@@ -1,6 +1,12 @@
 let keyTableNews = "1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
 let keyTableDocs ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
 let keyTablePages = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
+let titles = ['Чого б ти не вчився, ти вчишся для себе', 
+              'У нас мета одна-єдина: зростить людиною дитину',
+              'Школа - це основа, на якій будується все майбутнє життя',
+              'Школа робить дитину сильною та відповідальною',
+
+]
 
 let pets = [
     {
@@ -108,6 +114,30 @@ let pets = [
       "breed": "",
       "description": "",
       "age": "8 years",
+      "inoculations": ["none"],
+      "diseases": ["none"],
+      "parasites": ["none"],
+    },
+    {
+      "id": "10",
+      "name": "Їдальня",
+      "img": "./assets/images/k1.jpg",
+      "type": "",
+      "breed": "",
+      "description": "",
+      "age": "",
+      "inoculations": ["none"],
+      "diseases": ["none"],
+      "parasites": ["none"],
+    },
+    {
+      "id": "11",
+      "name": "Харчоблок",
+      "img": "./assets/images/k2.jpg",
+      "type": "",
+      "breed": "",
+      "description": "",
+      "age": "",
       "inoculations": ["none"],
       "diseases": ["none"],
       "parasites": ["none"],

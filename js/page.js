@@ -4,7 +4,54 @@ let title_st = '';
 
 const title = document.getElementById("title__id");
 const text = document.getElementById("paragraphs__id");
+let burgerItem_1 = document.querySelector('.header__burger');
+let menu_1 = document.querySelector('.header__nav');
+let header_1 = document.querySelector('.header');
+let activeLink_1 = document.querySelector('.list-item_active');
+// let modalWindow = document.querySelector('.modal__wrapper');
 
+
+function changeOverflow_1() {
+    let overflowY = document.body.style.overflowY;
+    document.body.style.overflowY = overflowY != 'hidden' ? 'hidden' : 'visible';
+    document.body.style.paddingRight = overflowY != 'hidden' ? `${getScrollbarWidth_1()}px` : '0';
+}
+
+
+function getScrollbarWidth_1() {
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll';
+    outer.style.msOverflowStyle = 'scrollbar';
+    document.body.appendChild(outer);
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+    return scrollbarWidth;
+}
+
+function toggleMenu_1() {
+    menu_1.classList.toggle('header__nav-active');
+    burgerItem_1.classList.toggle('header__burger-active');
+    header_1.classList.toggle('header_active');
+
+    changeOverflow_1();
+}
+
+
+// burgerItem_1.addEventListener('click', () => toggleMenu_1());
+
+menu_1.addEventListener('click', e => {
+    if (!e.target.closest('.header__list')) toggleMenu_1();
+});
+
+// activeLink_1.addEventListener('click', e => {
+//     if (document.querySelector('.header__nav-active')) {
+//         e.preventDefault();
+//         toggleMenu_1();
+//     }
+// });
 
 function readPage(key){
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
@@ -24,8 +71,8 @@ function readPage(key){
                     const regex = String.fromCharCode(10);
                     text = text.replace(regex,'<br>');
                     console.log(text);
-                    // text_tmp += `${text}`
-                    text_tmp += `<p class="default_par"> ${text} </p>`
+                    text_tmp += `${text}`
+                    // text_tmp += `<p class="default_par"> ${text} </p>`
                 
 
                     // text.innerText = text_tmp;
@@ -96,12 +143,29 @@ document.getElementById("scrollToTop").addEventListener("click", ()=>{
 });
 
 
-var keyT = JSON.parse(window.localStorage.getItem('keyPages') || null);
-if (keyT !== undefined){
-    title_st = JSON.parse(window.localStorage.getItem('titlePages') || null);
+
+if (true){
+//var keyT = JSON.parse(window.localStorage.getItem('keyPages') || null);    
+// if (keyT !== undefined){
+    // title_st = JSON.parse(window.localStorage.getItem('titlePages') || null);
     const title_ = document.getElementById('title__');
     const title_dom = document.getElementById('title__id');
-    title_.innerText = title_st;
-    title_dom.innerHTML = title_st;
+    // if (title_ !== null){
+    //     title_.innerText = title_st;
+    //     title_dom.innerHTML = title_st;
+    // }
+    let strGET = window.location.search.replace( '?', '').split('&'); 
+    let par_1 = strGET[0].split("=")
+    let par_2 = strGET[1].split("=")
+    // const title_ = decodeURI(par_1[1])
+    // const title_dom = decodeURI(par_1[1])
+    title_st = decodeURI(par_1[1])
+    const keyT = par_2[1]
+    if (title_ !== null){
+        title_.innerText = title_st;
+        title_dom.innerHTML = title_st;
+    }
+    console.log(keyT)
     readPage(keyT);
+
 }

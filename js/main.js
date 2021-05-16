@@ -9,9 +9,7 @@ let modalWindow = document.querySelector('.modal__wrapper');
 
 const m_teach = document.getElementById("m_teach");
 
-m_teach.addEventListener("click",()=>{
-    setPageKey(`Вчителі`, keyTablePages);
-})
+
 
 
 let currentPetNumbers = [];

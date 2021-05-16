@@ -11,6 +11,14 @@ let sheet2 = "default";
 let title_st = '';
 var key_map = {};
 let key;
+let props = {
+    'boss': '', 
+    'boss_short': '', 
+    'boss_posada': 'Директор', 
+    'title_school': '', 
+    'set_signature_teacher': true,  
+    'set_signature_boss': false, 
+};
 
 
 const btn_print = document.getElementById("btn__print_id");
@@ -36,6 +44,13 @@ const text = document.getElementById("content");
 const btn_close_modal = document.getElementById("btn_close_modal");
 const sel_all_id = document.getElementById("sel_all_id");
 const reset_btn = document.getElementById("reset_btn_id");
+const settings_btn = document.getElementById("settings_btn_id");
+const props_div = document.getElementById("props_div_id");
+const set_signature_teacher = document.getElementById("set_signature_teacher_id");
+const set_signature_boss = document.getElementById("set_signature_boss_id");
+const name_boss = document.getElementById("name_boss_id");
+const posada_boss = document.getElementById("posada_boss_id");
+const pet_info = document.getElementById("pet_info_id");
 
 
 var menuState = 0;
@@ -50,6 +65,36 @@ var filters = null;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
+
+settings_btn.addEventListener('click', ()=>{
+    props_div.hidden = false
+    pet_info.hidden = true
+    let b = ``;
+    set_signature_teacher.checked = props['set_signature_teacher'];
+    set_signature_boss.checked = props['set_signature_boss'];
+    name_boss.value = props['boss_short'];
+    posada_boss.value = props['boss_posada'];
+    fillModalWindow(b);
+    toggleModalWindow();
+})
+
+set_signature_teacher.addEventListener('change', ()=> {
+    props['set_signature_teacher'] = set_signature_teacher.checked;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+
+set_signature_boss.addEventListener('change', ()=> {
+    props['set_signature_boss'] = set_signature_boss.checked;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+name_boss.addEventListener('change', ()=> {
+    props['boss_short'] = name_boss.value;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+posada_boss.addEventListener('change', ()=> {
+    props['boss_posada'] = posada_boss.value;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
 
 reset_btn.addEventListener('click', ()=>{
     let cnf = confirm(`Вилучити ключ таблиці?`);
@@ -115,10 +160,11 @@ function reformatString(text) {
 }
 
 function print_atom(data){
+    
     if (data[0].title === data[0].value){
         return undefined;
     }
-    console.log(data);
+
     let allPar = '';
     let clasT = ' class="title" ';
     let clasV = ' class="value" ';
@@ -156,11 +202,28 @@ function print_atom(data){
     allPar = format_2(allPar, clasT, clasV);
      dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
-     dist = refactorText(dist);
-     dist +=`<p></p> 
-                    <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
-                    <p style="margin-bottom: 100px;"></p> 
-                    `;
+    dist = refactorText(dist);
+    let sp_long = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    if (props['set_signature_teacher'] === true){
+        tmp = 'З аналізом ознайомлений(на)  ' + sp_long + '  '
+    } else tmp = '';
+    
+    if (props['set_signature_boss'] === true){
+        tmp2 = props['boss_posada'] + sp_long + sp_long  + sp_long + sp_long + 
+                '  ' + sp_long + props['boss_short'];
+    } else tmp2 = '';
+
+    dist +=`<p></p> 
+                   <div class="footer"> ${tmp} </div>
+                   <div class="footer"> ${tmp2} </div>
+                   <p style="margin-bottom: 100px;"></p> 
+
+                   `;
+
+    //  dist +=`<p></p> 
+    //                 <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+    //                 <p style="margin-bottom: 100px;"></p> 
+    //                 `;
     
     if (t_les == "ЗАХІД"){
         dist = dist.replaceAll('УРОК', 'ЗАХІД');
@@ -253,9 +316,18 @@ function __print_atom(data){
      dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
      dist = refactorText(dist);
+    if (props['set_signature_teacher'] === true){
+         tmp = 'З аналізом ознайомлений(на) _______________________ ';
+     } else tmp = '';
+     if (props['set_signature_boss'] === true){
+         tmp2 = 'Директор ' + '\t' + ' _______________________ ' + '\t' + props['boss_short'];
+     } else tmp2 = '';
+
      dist +=`<p></p> 
-                    <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
+                    <div class="footer"> ${tmp} </div>
+                    <div class="footer"> ${tmp2} </div>
                     <p style="margin-bottom: 100px;"></p> 
+
                     `;
     
     if (t_les == "ЗАХІД"){
@@ -330,27 +402,21 @@ function createCard(dat){
     let data_report = []
     $.each(fieldNames,function(key, val){
         let value = dat[val.key];
-
         if (dat[val.key] !== undefined){
             if (value['$t'] !== ""){
                 let id = parseInt(key);
                 let title = val.title;
                 let valUE = value['$t'];
                 let kEy = val.key;
-                // console.log('title', title);
-                // console.log('value', valUE);
-                // console.log('id', id);
                 data_report.push({'id':id, 'title':title, 'value': valUE, 'key':kEy})
             }
         }       
-
     })
-    // console.log('data_report');
-    // console.log(data_report);
     sortById(data_report);
-    // console.log(data_report);
     return data_report;
 }
+
+
 
 function createCardAll(dat){
     let data_report = createCard(dat);
@@ -358,7 +424,7 @@ function createCardAll(dat){
 }
 
 
-var gl_data;
+var gl_data = [];
 var fieldNames = {};
 
 
@@ -403,8 +469,8 @@ function keyToId (k){
     return k_;
 }
 
-let readPage = ()=>{
-    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+let readPage = (s2)=>{
+    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
         
        function (data) {
@@ -412,7 +478,8 @@ let readPage = ()=>{
             // sortByTeach(data);  
             setFields(data);
 
-            gl_data = data; 
+            //gl_data = data; 
+            gl_data = gl_data.concat(data)
 
             for (let i=0; i<gl_data.length; i++){
                 // gl_data[i]['id_m'] = i;
@@ -428,7 +495,9 @@ let readPage = ()=>{
             createLists(gl_data);
             createTable(gl_data);
 
-        }       
+       }
+       
+       
     );    
 
 }
@@ -932,14 +1001,12 @@ btn__copy_id.addEventListener('click', ()=>{
 
 
 btn_print.addEventListener("click", ()=>{
-    // console.log(gl_data);
     text.innerText = "";
     const rows = document.querySelectorAll(".sel_table_id_cl");
     let i = 1;
     for (elem of rows){
         if (elem.style.display === "" && elem.checked){
             let rowId = "row_"+elem.id.slice(3);
-            // console.log(rowId);
             let id_m = parseInt(rowId.slice(4));
             createCardAll(gl_data[id_m]);
         } 
@@ -1018,6 +1085,8 @@ let createTable = (gl_data)=>{
         el.addEventListener('click', (e)=>{
             let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
             let b = print_atom(a);
+            props_div.hidden = true
+            pet_info.hidden = false
             fillModalWindow(b);
             toggleModalWindow();
         })
@@ -1041,7 +1110,16 @@ let readStorage = ()=>{
         }            
     }    
     loadFilters();
+
+    s = window.localStorage.getItem("propsForAnaliz");
+    if (s === null) { 
+        window.localStorage.setItem("propsForAnaliz", JSON.stringify(props))
+    } else {
+        props = JSON.parse(s)
+    }
+
 }
+
 
 
 
@@ -1069,6 +1147,7 @@ $(function(){
 
 
 readStorage();
-readPage();
+readPage(sheet2);
+
 
 

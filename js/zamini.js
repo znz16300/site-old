@@ -17,12 +17,14 @@ let fields = {
 }
 let missing_teachers = []
 let allTeachers = []
+let les_count = 11;
 const dWeek = {
     '1': 'mo',
     '2': 'tu',
     '3': 'we',
     '4': 'th',
     '5': 'fr',
+    '6': 'st',
 }; 
 
 const add_miss_button = document.getElementById("add_miss_button_id");
@@ -46,8 +48,16 @@ const sett_pz = document.getElementById("sett_pz_id");
 const pz_button = document.getElementById("pz_button_id");
 const idmisstable = document.getElementById("idmisstable");
 const idmisstable0 = document.getElementById("idmisstable0");
+const reset_btn = document.getElementById("reset_btn_id");
 
-
+reset_btn.addEventListener('click', ()=>{
+    let cnf = confirm(`Вилучити ключ таблиці?`);
+    if (cnf){
+        window.localStorage.removeItem("missing_teachers");
+        window.localStorage.removeItem("idspreadheet");
+        location.reload();
+    }
+})
 
 pz_button.addEventListener("click", (e)=>{
     let data = {}
@@ -111,6 +121,30 @@ clear_all_miss_button.addEventListener('click', (e)=>{
     
 })
 
+const ajax_btn1 = document.getElementById("ajax_btn1_id");
+const form = document.getElementById("form1_id");
+
+
+ajax_btn1.addEventListener("click", function() {
+    var request = new XMLHttpRequest();
+    FD  = new FormData(form);
+    // FD[ 'text' ] ='aaaa';
+    // FD[ 'url_client' ] ='bbbb';
+    // FD[ 'idmisstable0' ] ='cccc';
+
+    console.log(FD);
+    request.open('POST','http://127.0.0.1:5000/addblock/',true);
+    // request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+    request.addEventListener('readystatechange', function() {
+      if ((request.readyState==4) && (request.status==200)) {
+        // var welcome = document.getElementById('welcome');
+        // welcome.innerHTML = request.responseText;
+        console.log("Ok");
+      }
+    });
+    request.send(FD);
+});
+
 
 cancel_miss_button.addEventListener('click', ()=>{
     console.log(missing_teachers);
@@ -148,7 +182,7 @@ calc_button.addEventListener('click', ()=>{
                     // console.log(row.teach, numDay_to_dateStr(i));
                     let dd = chZnFind(i);
                     let cz = dd.ch_zn;
-                    for (let j=0; j<11; j++){
+                    for (let j=0; j<les_count; j++){
                        let k = 'gsx$'+dWeek[dd.week]+String(j);
                        if (timeTable[cz][numRow][k] !== undefined){
                            if (timeTable[cz][numRow][k]['$t'] !== ""){
@@ -299,7 +333,7 @@ let loadSettingsZamini = ()=>{
     let d5 = window.localStorage.getItem('d5');
     let d6 = window.localStorage.getItem('d6');
 
-    if (keyZamini === null){
+    if (keyZamini === null || keyZamini === "null" ){
         keyZamini = prompt("Уведіть ключ таблиці з розкладом");
         if (keyZamini !== undefined)
             window.localStorage.setItem('idspreadheet', keyZamini)
@@ -340,7 +374,16 @@ let readPage_this = ()=>{
     $.getJSON(url,        
         function (data) {
             timeTable[1] = data['feed']['entry'];       
-            // console.log(data);
+            // console.log(timeTable[1]);
+            //calc less_count
+            let lessons = timeTable[1][1]
+            let max = -1;
+            for (var item in lessons) {
+                if (item.slice(0,6) === 'gsx$mo'){ 
+                    let n = parseInt(lessons[item]['$t']);
+                    if (n > max){max = n};}
+            }
+            les_count = max;
             let i = 0;
             miss_teach.innerHTML = `<option ></option>`;
             for (row of timeTable[1]){
@@ -356,6 +399,10 @@ let readPage_this = ()=>{
             fillTable();           
         }       
     );  
+    
+    
+
+
     url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheet2+"/public/values?alt=json"
     $.getJSON(url,        
         function (data) {
@@ -482,11 +529,13 @@ let fillTable = ()=>{
 
 let readStorageZamini = ()=>{    
     k = window.localStorage.getItem("missing_teachers");
-    if (k !== null) {
+    if (k !== null && k != "null") {
         missing_teachers = JSON.parse(k);            
-    }    
+    }  
     
 }
+
+
 
 
 loadSettingsZamini();

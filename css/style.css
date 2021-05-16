@@ -57,7 +57,7 @@
   color: #ffffff;
 }
 .header .header__list {
-  width: 443px;
+  width: 520px;
   height: 27px;
   display: flex;
   justify-content: space-between;
@@ -116,7 +116,7 @@
   font-size: 44px;
   line-height: 130%;
   color: #ffffff;
-  width: 310px;
+  width: 510px;
   margin-bottom: 42px;
 }
 .start-screen .start_screen__article .start_screen__text {

@@ -113,7 +113,7 @@
                         Вивести
                     </button>
                 </div>
-                <form action="http://zelenskiy.pythonanywhere.com/addblock/" method="POST">
+                <form id="form1_id" action="http://zelenskiy.pythonanywhere.com/addblock/" method="POST">
                 <!-- <form action="http://127.0.0.1:5000/addblock/" method="POST"> -->
                     <div class="missing_item output_list">
                         <textarea class="input_field"
@@ -124,11 +124,9 @@
                     <div class="missing_item shadow">
                         <input 
                             id="idmisstable0"
-                            name="idmisstable0"
-                            
+                            name="idmisstable0"                            
                             type="text" hidden>
-
-                        <button id="copy_button_id" type="button">
+                        <button id="copy_button_id" type="button" hidden>
                             Скопіювати
                         </button>
                         <button id="post_button_id" type="submit">
@@ -136,6 +134,9 @@
                         </button>
                         <button id="open_button_id" type="button">
                             Відкрити таблицю
+                        </button>
+                        <button id="ajax_btn1_id" type="button">
+                            ajax_btn1_id
                         </button>
                     </div>
                 </form> 
@@ -192,9 +193,11 @@
     </div>    
 
     <footer>
-
+        <button class="btn_min" id="reset_btn_id" title="Скинути налаштування">
+            ↻
+        </button>
     </footer>
-
+    
     <script src="./js/zamini.js"></script>
 </body>
 </html>
