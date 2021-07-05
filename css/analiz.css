@@ -84,7 +84,7 @@ header {
     padding-left: 30px;
     margin-top: 25px;
     margin-bottom: 0;
-
+    
     font-family: Georgia;
     font-style: normal;
     font-weight: bold;
@@ -348,6 +348,7 @@ header {
 }
 .modal__wrapper .modal .pet_info {
   margin-bottom: 10px;
+  
 }
 .modal__wrapper .modal .pet_info .pet_info__about {
   margin-bottom: 40px;
