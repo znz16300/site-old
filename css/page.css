@@ -3,6 +3,11 @@
     outline-offset: 0;
   }
   
+  .pets {
+    padding-bottom: 20px;
+    background: #f6f6f6;
+  }
+
   
   .container {
     overflow-x: hidden;
@@ -1355,6 +1360,7 @@ h3 {
   padding: 10px;
   margin: 15px;
   /* display: inline-flex; */
+  background: #ffffff;
 
   border: 1px solid #e0dedb;
   border-radius: 5px;
@@ -1369,4 +1375,9 @@ a {
 
 .title__id {
   text-align: center;
+}
+
+#title__id {
+  text-align: center;
+  padding-top: 20px;
 }
