@@ -1365,19 +1365,27 @@ h3 {
   border: 1px solid #e0dedb;
   border-radius: 5px;
   width: 200px;
-  
+  font-family: Arial;
+  font-size: 15px;
+  color: #545454;
 } 
 
 a {
   text-decoration: none;
-  color: #1a1a1c;
+  color: #545454;
 }
 
-.title__id {
-  text-align: center;
-}
+
 
 #title__id {
   text-align: center;
   padding-top: 20px;
+}
+
+#paragraphs__id {
+  justify-content: space-around;
+}
+
+img {
+  padding-bottom: 10px;
 }
