@@ -46,12 +46,7 @@ menu_1.addEventListener('click', e => {
     if (!e.target.closest('.header__list')) toggleMenu_1();
 });
 
-// activeLink_1.addEventListener('click', e => {
-//     if (document.querySelector('.header__nav-active')) {
-//         e.preventDefault();
-//         toggleMenu_1();
-//     }
-// });
+
 
 function readPage(key){
     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
@@ -69,7 +64,7 @@ function readPage(key){
 
 
                     const regex = String.fromCharCode(10);
-                    text = text.replace(regex,'<br>');
+                    // text = text.replace(regex,'<br>');
                     console.log(text);
                     text_tmp += `${text}`
                     // text_tmp += `<p class="default_par"> ${text} </p>`
@@ -90,7 +85,7 @@ function readPage(key){
                             let ss = images[j].substr(start);
                             //codeImages.push(ss);
                             im = "http://drive.google.com/uc?export=view&id="+ss;
-                            text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
+                            text_tmp += `<img src="${im}" alt="" width = "95%">`
                         } else {
                             x = images[j].indexOf('/file/d/');
                             if (false){
@@ -107,7 +102,7 @@ function readPage(key){
                             } else {
                                 //Якщо малюнок по посиланню з іншого ресурсу
                                 im = images[j];
-                                text_tmp += `<br><p class="default_par"> <img src="${im}" alt="" width = "95%"> </p>`
+                                text_tmp += `<img src="${im}" alt="" width = "95%"> `
                             }
                         }               
                      }
