@@ -58,6 +58,7 @@ function readPage(key){
             let text_tmp = "";
             for (let i=0; i<data.length;i++){
                 if (title_st === data[i]["gsx$розділ"]["$t"]){
+                    
                     let text = data[i]["gsx$абзац"]["$t"];
                     let tip = data[i]["gsx$тип1-картки2-абзаци"]["$t"];
                     let link = data[i]["gsx$кнопказпосиланням"]["$t"];
@@ -65,7 +66,7 @@ function readPage(key){
                     let image = images[0];
 
                     if (tip === '1') {
-                        
+                        document.getElementById('paragraphs__id').style.display = 'flex';
                         text = `
                         <div class="sect-1 shake-hard" style="text-align: center; text-decoration: none;">
                         <a href="${link}"  target="_blank">
@@ -75,17 +76,10 @@ function readPage(key){
                                      ${text}</a>
                         </div>
                         `; 
-
-                    }
-       
-
-
-                    const regex = String.fromCharCode(10);
-
-                    text_tmp += `${text}`
-
-                    
-                    if (tip !== '1'){
+                        text_tmp += `${text}`
+                    } else {
+                        document.getElementById('paragraphs__id').style.display = 'block';
+                        text_tmp += `<p>${text}</p>` 
                         let codeImages = [] 
                         let photoPath = ""
                         for(let j=0; j<images.length; j++){
@@ -112,6 +106,11 @@ function readPage(key){
                             }               
                         }
                     }
+       
+
+
+                    const regex = String.fromCharCode(10);                   
+
                     
 
 
