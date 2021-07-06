@@ -4,9 +4,11 @@
   }
   
   .pets {
-    padding-bottom: 20px;
+    padding-bottom: 150px;
     background: #f6f6f6;
+
   }
+
 
   
   .container {
@@ -1383,7 +1385,9 @@ a {
 }
 
 #paragraphs__id {
+  display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 img {
