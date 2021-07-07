@@ -68,12 +68,12 @@ function readPage(key){
                     if (tip === '1') {
                         document.getElementById('paragraphs__id').style.display = 'flex';
                         text = `
-                        <div class="sect-1 shake-hard" style="text-align: center; text-decoration: none;">
+                        <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
                         <a href="${link}"  target="_blank">
-                                    <img
-                                        width="200px"
-                                     src="${image}" alt="">
-                                     ${text}</a>
+                                    <div class="item1"><img
+                                        height="160px"
+                                     src="${image}" alt=""></div>
+                                     <div class="item2">${text}</div></a>
                         </div>
                         `; 
                         text_tmp += `${text}`

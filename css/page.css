@@ -1370,7 +1370,25 @@ h3 {
   font-family: Arial;
   font-size: 15px;
   color: #545454;
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 100px;
+  grid-template-areas:
+  "a"
+  "b"  
+  ;
+  align-items: start; 
+
 } 
+.item1 {
+  grid-area: a;
+}
+.item2 {
+  grid-area: b;
+  align-self: end;
+}
 
 a {
   text-decoration: none;
