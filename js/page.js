@@ -54,7 +54,7 @@ function readPage(key){
         
        function (data) {
             data = data['feed']['entry'];
-            
+            console.log(data);
             let text_tmp = "";
             for (let i=0; i<data.length;i++){
                 if (title_st === data[i]["gsx$розділ"]["$t"]){
@@ -79,9 +79,15 @@ function readPage(key){
                         text_tmp += `${text}`
                     } else {
                         document.getElementById('paragraphs__id').style.display = 'block';
-                        text_tmp += `<p>${text}</p>` 
+                        if (tip === '3') {
+                            text_tmp += `<div style="width:500px;padding-top: 50px; font-size: 18px; color: #545454;">${text}</div>` 
+                        } else {
+                            text_tmp += `<div >${text}</div>`
+                        }
                         let codeImages = [] 
                         let photoPath = ""
+
+                        let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                         for(let j=0; j<images.length; j++){
                         
                             let x=images[j].indexOf('?id=');
@@ -92,7 +98,7 @@ function readPage(key){
                                 let ss = images[j].substr(start);
 
                                 im = "http://drive.google.com/uc?export=view&id="+ss;
-                                text_tmp += `<img src="${im}" alt="" width = "95%">`
+                                text_tmp = `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp
                             } else {
                                 x = images[j].indexOf('/file/d/');
                                 if (false){
@@ -101,12 +107,15 @@ function readPage(key){
                                 } else {
                                     //Якщо малюнок по посиланню з іншого ресурсу
                                     im = images[j];
-                                    text_tmp += `<img src="${im}" alt="" width = "95%"> `
+                                    text_tmp = `<img src="${im}" alt="" width = "${wImage}%"> ` + text_tmp
                                 }
                             }               
                         }
                     }
-       
+                    if (tip === '3') {
+                        document.getElementById('paragraphs__id').style.display = 'flex';
+                        // document.getElementById('rr').style.width[0] = 300;
+                    }
 
 
                     const regex = String.fromCharCode(10);                   

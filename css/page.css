@@ -1,3 +1,13 @@
+
+a {
+  text-decoration: none;
+  color: #545454;
+}
+
+li {
+  list-style-type: none;
+}
+
 :active, :hover, :focus {
     outline: 0;
     outline-offset: 0;
@@ -37,7 +47,8 @@
   }
   
   .header {
-    height: 120px;
+    margin-top: 10px;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1113,6 +1124,7 @@
     margin-bottom: 40px;
   }
   .modal__wrapper .modal .pet_info .pet__info__advantage li {
+    
     margin-bottom: 10px;
     /* background-image: url(./assets/dot.svg); */
     background-repeat: no-repeat;
@@ -1203,7 +1215,7 @@
 
 .default_par {
     all: none;
-    text-decoration: none;
+    /* text-decoration: none; */
     font-family: Georgia;
     font-style: normal;
     font-weight: normal;
@@ -1390,10 +1402,7 @@ h3 {
   align-self: end;
 }
 
-a {
-  text-decoration: none;
-  color: #545454;
-}
+
 
 
 
