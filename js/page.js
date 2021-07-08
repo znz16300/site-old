@@ -71,7 +71,7 @@ function readPage(key){
                         <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
                         <a href="${link}"  target="_blank">
                                     <div class="item1"><img
-                                        height="160px"
+                                        width="180px"
                                      src="${image}" alt=""></div>
                                      <div class="item2">${text}</div></a>
                         </div>
