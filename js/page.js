@@ -54,7 +54,7 @@ function readPage(key){
         
        function (data) {
             data = data['feed']['entry'];
-            console.log(data);
+            // console.log(data);
             let text_tmp = "";
             for (let i=0; i<data.length;i++){
                 if (title_st === data[i]["gsx$розділ"]["$t"]){
