@@ -39,8 +39,8 @@ function toggleMenu_1() {
     changeOverflow_1();
 }
 
+burgerItem_1.addEventListener('click', () => toggleMenu_1());
 
-// burgerItem_1.addEventListener('click', () => toggleMenu_1());
 
 menu_1.addEventListener('click', e => {
     if (!e.target.closest('.header__list')) toggleMenu_1();
