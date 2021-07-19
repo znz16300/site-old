@@ -128,6 +128,7 @@ function calculatePages() {
 function createCardItem(item) {
     let cardItem = document.createElement('div');
     cardItem.classList.add('cards__item');
+    cardItem.classList.add('shake-hard');
     cardItem.dataset.id = item.id;
     let cardItemImage = document.createElement('div');
     cardItemImage.classList.add('cards__item-image');
