@@ -146,7 +146,6 @@ function createCardItem(item) {
         let button = document.createElement('button');
         button.classList.add('cards__item-button');
         button.innerText = 'Читати далі...';
-        // button.setAttribute('click', 'window.location.href="'+item.type+'"')  //item.type
         cardItemImage.append(image);
         cardItem.append(cardItemImage, cardItemName, button);
         return cardItem;
