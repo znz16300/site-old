@@ -228,10 +228,13 @@ navigation.addEventListener('click', e => {
     changeDisableStatus(currentPageBtn.textContent);
 });
 
-function readNews(){
-    $.getJSON(url,
-       function (data) {
-            data = data['feed']['entry'];
+function readNews(){    
+    request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400){
+          data = JSON.parse(request.responseText);
+          data = data['feed']['entry'];
             for (let i=0; i<data.length;i++){
                 // console.log("============");
                 // console.log(data[i][gsx$show][$t] !== "");
@@ -276,13 +279,75 @@ function readNews(){
             // console.log(newsData);   
             calculatePages();
             drawPage(currentPageBtn.textContent);
-            changeDisableStatus(currentPageBtn.textContent);         
-        }
+            changeDisableStatus(currentPageBtn.textContent);    
+ 
+      } else {
+        // We reached our target server, but it returned an error
+        console.log('Upps');
+        readNews();
+      }
+    };
+    request.onerror = function() {
+      // There was a connection error of some sort
+    };
+    request.send();
+  };
+
+// function readNews(){
+//     $.getJSON(url,
+//        function (data) {
+//             data = data['feed']['entry'];
+//             for (let i=0; i<data.length;i++){
+//                 // console.log("============");
+//                 // console.log(data[i][gsx$show][$t] !== "");
+//                 if (data[i]["gsx$show"]["$t"] !== ""){
+//                     d1 = data[i];
+//                     // console.log(d1);
+//                     let images = d1["gsx$фото"]["$t"].split(",");
+//                     let codeImages = [] 
+//                     let photoPath = ""
+//                     for(let j=0; j<images.length; j++){
+//                         let start = images[j].indexOf('?id=') + 4;
+//                         // let end  = images[j].indexOf('/edit');
+//                         // let l = end - start -1;
+//                         let ss = images[j].substr(start);
+//                         codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
+//                     }
+                    
+//                     let im = ""
+//                     if (codeImages[0].length === 0) {
+//                         im = './assets/images/nophoto.png';
+//                     } else {
+//                         im = codeImages[0]
+//                     }
+//                     // nophoto.png
+//                     let newsOne = {
+//                         "id": String(i+1),
+//                         "name": d1["gsx$названовини"]["$t"],
+//                         "img": im,
+//                         "images": codeImages,
+//                         "type": "",
+//                         "breed": "",
+//                         "description": d1["gsx$текстновини"]["$t"],
+//                         "age": d1["gsx$позначкачасу"]["$t"],
+//                         "inoculations": ["none"],
+//                         "diseases": ["none"],
+//                         "parasites": ["none"]
+//                     }
+//                     newsData.push(newsOne);
+//                 }
+                
+//             }
+//             // console.log(newsData);   
+//             calculatePages();
+//             drawPage(currentPageBtn.textContent);
+//             changeDisableStatus(currentPageBtn.textContent);         
+//         }
 
         
-    );
+//     );
     
-}
+// }
 
 window.onscroll = function() {
     var scrollElem = document.getElementById("scrollToTop");
