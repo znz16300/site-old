@@ -309,20 +309,39 @@ function loadDocuments(data, d){
     
 }
 
-function readNews(d){
-    $.getJSON(url,
-       function (data) {
-            loadDocuments(data, d);
-            calculatePages();
-            changeDisableStatus(currentPageBtn.textContent); 
-            drawPage(currentPageBtn.textContent);
-                    
-        }
+function readNews(d){    
+    request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400){
+        data = JSON.parse(request.responseText);  
+        loadDocuments(data, d);
+        changeDisableStatus(currentPageBtn.textContent); 
+        calculatePages();
+        drawPage(currentPageBtn.textContent);
+      } else {
+        // We reached our target server, but it returned an error
+        console.log('Upps');
+        readNews(d);
+      }
+    };
+    request.onerror = function() {
+      // There was a connection error of some sort
+    };
+    request.send();
+  };
 
-        
-    );
-    
-}
+// function readNews(d){
+//     $.getJSON(url,
+//        function (data) {
+//             loadDocuments(data, d);
+//             calculatePages();
+//             changeDisableStatus(currentPageBtn.textContent); 
+//             drawPage(currentPageBtn.textContent);
+                    
+//         }        
+//     );    
+// }
 
 window.onscroll = function() {
     var scrollElem = document.getElementById("scrollToTop");
