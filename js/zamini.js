@@ -141,23 +141,6 @@ ajax_btn1.addEventListener("click", function() {
         }
     );
 
-    // var request = new XMLHttpRequest();
-    // FD  = new FormData(form);
-    // // FD[ 'text' ] ='aaaa';
-    // // FD[ 'url_client' ] ='bbbb';
-    // // FD[ 'idmisstable0' ] ='cccc';
-
-    // console.log(FD);
-    // request.open('POST','http://127.0.0.1:5000/addblockadj/',true);
-    // // request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-    // request.addEventListener('readystatechange', function() {
-    //   if ((request.readyState==4) && (request.status==200)) {
-    //     // var welcome = document.getElementById('welcome');
-    //     // welcome.innerHTML = request.responseText;
-    //     console.log("Ok");
-    //   }
-    // });
-    // request.send(FD);
 });
 
 
