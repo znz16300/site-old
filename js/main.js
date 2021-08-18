@@ -205,4 +205,5 @@ function setPageKey(title, key){
  
 
 // updateStorage();
+alert('Наразі функції сервісу обмежені. Просимо вибачення. Наші спеціалісти найближчим часом це виправлять.');
 updateSlider();
