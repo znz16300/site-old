@@ -228,6 +228,8 @@ navigation.addEventListener('click', e => {
     changeDisableStatus(currentPageBtn.textContent);
 });
 
+let step = 0;
+
 function readNews(){    
     request = new XMLHttpRequest();
     request.open('GET', url, true);
@@ -283,8 +285,9 @@ function readNews(){
  
       } else {
         // We reached our target server, but it returned an error
-        console.log('Upps');
-        readNews();
+        console.log('Upps ' + ++step);
+        if (step < 25)
+            readNews();
       }
     };
     request.onerror = function() {

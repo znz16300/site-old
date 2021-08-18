@@ -309,6 +309,8 @@ function loadDocuments(data, d){
     
 }
 
+let step = 0;
+
 function readNews(d){    
     request = new XMLHttpRequest();
     request.open('GET', url, true);
@@ -321,8 +323,9 @@ function readNews(d){
         drawPage(currentPageBtn.textContent);
       } else {
         // We reached our target server, but it returned an error
-        console.log('Upps');
-        readNews(d);
+        console.log('Upps ' + ++step);
+        if (step < 25)
+            readNews(d);
       }
     };
     request.onerror = function() {

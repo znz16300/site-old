@@ -46,7 +46,7 @@ menu_1.addEventListener('click', e => {
     if (!e.target.closest('.header__list')) toggleMenu_1();
 });
 
-
+let step = 0;
 
 function readPage(key){
   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
@@ -125,8 +125,9 @@ function readPage(key){
                 text.innerHTML = text_tmp;  
     } else {
       // We reached our target server, but it returned an error
-      console.log('Upps');
-      readPage(key);
+      console.log('Upps ' + ++step);
+      if (step < 25)
+        readPage(key);
     }
   };
   request.onerror = function() {
