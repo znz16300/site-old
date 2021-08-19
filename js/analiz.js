@@ -471,7 +471,7 @@ function keyToId (k){
 }
 
 let readAnaliz = (s2)=>{
-
+    let shName = 'Відповіді форми (1)';
     let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
     // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
