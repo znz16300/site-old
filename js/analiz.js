@@ -472,7 +472,7 @@ function keyToId (k){
 
 let readAnaliz = (s2)=>{
     let shName = 'FormAnsver1';
-    let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
+    let url = 'https://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
     // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
         
