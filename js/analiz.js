@@ -5,6 +5,7 @@ let clas =  new Set();
 let subj =  new Set();
 let who =  new Set();
 let date =  new Set();
+let shName = 'Відповіді форми (1)';
 
 
 let sheet2 = "default";
@@ -469,8 +470,10 @@ function keyToId (k){
     return k_;
 }
 
-let readPage = (s2)=>{
-    let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
+let readAnaliz = (s2)=>{
+
+    let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
+    // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
         
        function (data) {
@@ -1148,7 +1151,7 @@ $(function(){
 alert('Наразі функції сервісу обмежені. Просимо вибачення. Наші спеціалісти найближчим часом це виправлять.');
 
 readStorage();
-readPage(sheet2);
+readAnaliz(sheet2);
 
 
 

@@ -1,5 +1,6 @@
 var d1 = "";
 let sheet2 = "default";
+let shName = 'Відповіді форми (1)';
 let title_st = '';
 
 const title = document.getElementById("title__id");
@@ -50,6 +51,7 @@ let step = 0;
 
 function readPage(key){
   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+  //let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
   request = new XMLHttpRequest();
   request.open('GET', url, true);
   request.onload = function() {
@@ -126,8 +128,8 @@ function readPage(key){
     } else {
       // We reached our target server, but it returned an error
       console.log('Upps ' + ++step);
-      if (step < 25)
-        readPage(key);
+    //   if (step < 25)
+    //     readPage(key);
     }
   };
   request.onerror = function() {
@@ -135,12 +137,14 @@ function readPage(key){
   };
   request.send();
 };
-
 // function readPage(key){
-//     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
-//     $.getJSON(url,        
-//        function (data) {
-//             data = data['feed']['entry'];
+//   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+//   request = new XMLHttpRequest();
+//   request.open('GET', url, true);
+//   request.onload = function() {
+//     if (request.status >= 200 && request.status < 400){
+//         data = JSON.parse(request.responseText);
+//         data = data['feed']['entry'];
 //             // console.log(data);
 //             let text_tmp = "";
 //             for (let i=0; i<data.length;i++){
@@ -203,101 +207,25 @@ function readPage(key){
 //                         document.getElementById('paragraphs__id').style.display = 'flex';
 //                         // document.getElementById('rr').style.width[0] = 300;
 //                     }
-
-
-//                     const regex = String.fromCharCode(10);                   
-
-                    
-
-
+//                     const regex = String.fromCharCode(10);
 //                 }                
 //             }        
 //             if (text !== null)    
-//                 text.innerHTML = text_tmp;      
-//         }        
-//     );    
-// }
-// function readPage(key){
-//     let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
-//     $.getJSON(url,        
-//        function (data) {
-//             data = data['feed']['entry'];
-//             // console.log(data);
-//             let text_tmp = "";
-//             for (let i=0; i<data.length;i++){
-//                 if (title_st === data[i]["gsx$розділ"]["$t"]){
-                    
-//                     let text = data[i]["gsx$абзац"]["$t"];
-//                     let tip = data[i]["gsx$тип1-картки2-абзаци"]["$t"];
-//                     let link = data[i]["gsx$кнопказпосиланням"]["$t"];
-//                     let images = data[i]["gsx$фото"]["$t"].split(",");
-//                     let image = images[0];
-
-//                     if (tip === '1') {
-//                         document.getElementById('paragraphs__id').style.display = 'flex';
-//                         text = `
-//                         <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
-//                         <a href="${link}"  target="_blank">
-//                                     <div class="item1"><img
-//                                         width="180px"
-//                                      src="${image}" alt=""></div>
-//                                      <div class="item2">${text}</div></a>
-//                         </div>
-//                         `; 
-//                         text_tmp += `${text}`
-//                     } else {
-//                         document.getElementById('paragraphs__id').style.display = 'block';
-//                         if (tip === '3') {
-//                             text_tmp += `<div style="width:500px;padding-top: 50px; font-size: 18px; color: #545454;">${text}</div>` 
-//                         } else {
-//                             text_tmp += `<div >${text}</div>`
-//                         }
-//                         let codeImages = [] 
-//                         let photoPath = ""
-
-//                         let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
-//                         for(let j=0; j<images.length; j++){
-                        
-//                             let x=images[j].indexOf('?id=');
-//                             if (x>-1){
-//                                 //Це якщо малюнок відправлено формою
-
-//                                 let start = images[j].indexOf('?id=') + 4;
-//                                 let ss = images[j].substr(start);
-
-//                                 im = "http://drive.google.com/uc?export=view&id="+ss;
-//                                 text_tmp = `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp
-//                             } else {
-//                                 x = images[j].indexOf('/file/d/');
-//                                 if (false){
+//                 text.innerHTML = text_tmp;  
+//     } else {
+//       // We reached our target server, but it returned an error
+//       console.log('Upps ' + ++step);
+//       if (step < 25)
+//         readPage(key);
+//     }
+//   };
+//   request.onerror = function() {
+//     // There was a connection error of some sort
+//   };
+//   request.send();
+// };
 
 
-//                                 } else {
-//                                     //Якщо малюнок по посиланню з іншого ресурсу
-//                                     im = images[j];
-//                                     text_tmp = `<img src="${im}" alt="" width = "${wImage}%"> ` + text_tmp
-//                                 }
-//                             }               
-//                         }
-//                     }
-//                     if (tip === '3') {
-//                         document.getElementById('paragraphs__id').style.display = 'flex';
-//                         // document.getElementById('rr').style.width[0] = 300;
-//                     }
-
-
-//                     const regex = String.fromCharCode(10);                   
-
-                    
-
-
-//                 }                
-//             }        
-//             if (text !== null)    
-//                 text.innerHTML = text_tmp;      
-//         }        
-//     );    
-// }
 
 window.onscroll = function() {
     var scrollElem = document.getElementById("scrollToTop");
