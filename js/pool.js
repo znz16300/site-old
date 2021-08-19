@@ -1,35 +1,52 @@
-// http_request = new XMLHttpRequest();
+//https://stackoverflow.com/questions/20035101/why-does-my-javascript-code-receive-a-no-access-control-allow-origin-header-i
+//
+let idSS = '10mvPaSWj5GEguZ41Ahka56_VF8_0emYV30tmSIzObEU';
+let shName = 'Відповіді форми (1)';
 
-// http_request.onreadystatechange = function() {
-//     process_cellrw(http_request);
-// };
-// http_request.open('GET',
-// "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7phuDaJWPM-oZ2eb_Po4iCtGYZRmSET5l2m4kuK0wH9SqtA2ArLOcim637x2214BPXV-mGRG5cAE/pubhtml", 
-// true);
-// //http_request.setRequestHeader('Authorization','Bearer ' + strAccessToken);
-// http_request.send(null);
+//let url = 'http://127.0.0.1:5000/getblock/'+idSS+'/'+shName;
+let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+idSS+'/'+shName;
+// fetch(url,  {method: "GET"})
+//   .then((response) => {
+//     console.log(1111);
+//     return response.json();
+//    })
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch(err => console.error(err));
 
-// console.log(http_request);
+  
+  request = new XMLHttpRequest();
+  request.open('GET', url, true);
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400){
+        // data = JSON.parse(request.responseText);
+        // console.log((request.responseText));
+        let r = request.responseText;
+        // console.log(r);
+        // r = r.replace(/\\n/g, "\\n")  
+        //        .replace(/\\'/g, "\\'")
+        //        .replace(/\\"/g, '\\"')
+        //        .replace(/\\&/g, "\\&")
+        //        .replace(/\\r/g, "\\r")
+        //        .replace(/\\t/g, "\\t")
+        //        .replace(/\\b/g, "\\b")
+        //        .replace(/\\f/g, "\\f");
+        // // remove non-printable and other non-valid JSON chars
+        // r = r.replace(/[\u0000-\u0019]+/g,"");
+        // console.log(r);
+        let data = JSON.parse(r)
 
-const { extractSheets } = require("spreadsheet-to-json");
+        console.log(data);
+        // console.log(typeof data);
+    } else {
+      // We reached our target server, but it returned an error
+      console.log('Upps ');
 
-// optional custom format cell function
-const formatCell = (sheetTitle, columnTitle, value) => value.toUpperCase();
-
-extractSheets(
-  {
-    // your google spreadhsheet key
-    spreadsheetKey: "10mvPaSWj5GEguZ41Ahka56_VF8_0emYV30tmSIzObEU",
-    // your google oauth2 credentials or API_KEY
-    credentials: require("./project-fa0cf409504d.json"),
-    // optional: names of the sheets you want to extract
-    sheetsToExtract: ["Вчитель, урок якого відвідують", "Предмет"],
-    // optional: custom function to parse the cells
-    formatCell: formatCell
-  },
-  function(err, data) {
-    console.log(data);
-
-  }
-);
+    }
+  };
+  request.onerror = function() {
+    // There was a connection error of some sort
+  };
+  request.send();
 
