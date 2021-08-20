@@ -288,9 +288,9 @@ function readNews(){
  
       } else {
         // We reached our target server, but it returned an error
-        console.log('Upps ' + ++step);
-        if (step < 25)
-            readNews();
+        console.log('Upps ' );
+        // if (step < 25)
+        //     readNews();
       }
     };
     request.onerror = function() {
