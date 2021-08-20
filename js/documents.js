@@ -326,9 +326,9 @@ function readNews(d){
         drawPage(currentPageBtn.textContent);
       } else {
         // We reached our target server, but it returned an error
-        console.log('Upps ' + ++step);
-        if (step < 25)
-            readNews(d);
+        console.log('Upps ');
+        // if (step < 25)
+        //     readNews(d);
       }
     };
     request.onerror = function() {
