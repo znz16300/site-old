@@ -312,6 +312,9 @@ function loadDocuments(data, d){
 let step = 0;
 
 function readNews(d){    
+    let shName = 'Відповіді форми (1)';
+    // let url = 'http://127.0.0.1:5000/getdocument/'+keyTableDocs+'/'+shName;
+    let url = 'https://zelenskiy.pythonanywhere.com/getdocument/'+keyTableDocs+'/'+shName;
     request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function() {
