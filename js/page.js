@@ -50,7 +50,10 @@ menu_1.addEventListener('click', e => {
 let step = 0;
 
 function readPage(key){
-  let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+//   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
+ shName = "Аркуш1"
+ let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
+//  let url = 'http://127.0.0.1:5000/getpage/'+key+'/'+shName;
   //let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
   request = new XMLHttpRequest();
   request.open('GET', url, true);
