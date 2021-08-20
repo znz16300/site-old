@@ -231,6 +231,9 @@ navigation.addEventListener('click', e => {
 let step = 0;
 
 function readNews(){    
+    shName = "Аркуш1"
+    let url = 'http://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
+    // let url = 'http://127.0.0.1:5000/getnews/'+keyTableNews+'/'+shName;
     request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function() {
@@ -240,7 +243,7 @@ function readNews(){
             for (let i=0; i<data.length;i++){
                 // console.log("============");
                 // console.log(data[i][gsx$show][$t] !== "");
-                if (data[i]["gsx$show"]["$t"] !== ""){
+                if (data[i]["gsx$show"] !== undefined && data[i]["gsx$show"]["$t"] !== ""){
                     d1 = data[i];
                     // console.log(d1);
                     let images = d1["gsx$фото"]["$t"].split(",");
