@@ -232,7 +232,7 @@ let step = 0;
 
 function readNews(){    
     shName = "Аркуш1"
-    let url = 'http://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
+    let url = 'https://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
     // let url = 'http://127.0.0.1:5000/getnews/'+keyTableNews+'/'+shName;
     request = new XMLHttpRequest();
     request.open('GET', url, true);
