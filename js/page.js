@@ -130,7 +130,7 @@ function readPage(key){
                 text.innerHTML = text_tmp;  
     } else {
       // We reached our target server, but it returned an error
-      console.log('Upps ' + ++step);
+      console.log('Upps ');
     //   if (step < 25)
     //     readPage(key);
     }
