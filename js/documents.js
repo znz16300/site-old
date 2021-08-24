@@ -357,6 +357,7 @@ window.onscroll = function() {
     } else {
         scrollElem.style.opacity = "0.5";
     }
+    ScrollUpShow();
  }
 
 var timeOut;
@@ -410,6 +411,15 @@ edtSearch.addEventListener("keypress", (e)=>{
         Search(edtSearch.value);
     }
 })
+
+function ScrollUpShow(){
+    // const heightMainBlock2 = document.documentElement.clientHeight ;        
+    if (window.pageYOffset>=200){
+        document.getElementById("scrollToTop").style.display ='block';   
+    } else {
+        document.getElementById("scrollToTop").style.display =  'none';
+    }
+}
 
 readDocum(true);
 
