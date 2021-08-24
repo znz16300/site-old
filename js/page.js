@@ -52,7 +52,8 @@ let step = 0;
 function readPage(key){
 //   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
  shName = "Аркуш1"
- let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
+ let url = 'https://schooltools.pythonanywhere.com/getpage/'+key+'/'+shName;
+//  let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
 //  let url = 'http://127.0.0.1:5000/getpage/'+key+'/'+shName;
   //let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
   request = new XMLHttpRequest();
@@ -128,6 +129,7 @@ function readPage(key){
             }        
             if (text !== null)    
                 text.innerHTML = text_tmp;  
+        // ScrollUpShow()
     } else {
       // We reached our target server, but it returned an error
       console.log('Upps ');
@@ -237,6 +239,7 @@ window.onscroll = function() {
     } else {
         //scrollElem.style.opacity = "0.5";
     }
+    ScrollUpShow();
  }
 
 var timeOut;
@@ -277,6 +280,16 @@ if (true){
         title_dom.innerHTML = title_st;
     }
 
+    function ScrollUpShow(){
+        // const heightMainBlock2 = document.documentElement.clientHeight ;        
+        if (window.pageYOffset>=200){
+            document.getElementById("scrollToTop").style.display ='block';   
+        } else {
+            document.getElementById("scrollToTop").style.display =  'none';
+        }
+    }
+    
     readPage(keyT);
+
 
 }

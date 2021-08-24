@@ -287,7 +287,6 @@ function readNews(){
             calculatePages();
             drawPage(currentPageBtn.textContent);
             changeDisableStatus(currentPageBtn.textContent);    
- 
       } else {
         // We reached our target server, but it returned an error
         console.log('Upps ' );
@@ -364,6 +363,7 @@ window.onscroll = function() {
     } else {
         scrollElem.style.opacity = "0.5";
     }
+    ScrollUpShow();
  }
 
 var timeOut;
@@ -397,11 +397,28 @@ scroolBtn.addEventListener("click", ()=>{
 
 // readStorage();
 // url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
-readNews();
+
 
 function openNewWin(url) {
     myWin= open(url);
 }
+
+
+function ScrollUpShow(){
+    // const heightMainBlock2 = document.documentElement.clientHeight ;        
+    if (window.pageYOffset>=200){
+        document.getElementById("scrollToTop").style.display ='block';   
+    } else {
+        document.getElementById("scrollToTop").style.display =  'none';
+    }
+}
+
+readNews();
+
+
+
+
+
     
 
 
