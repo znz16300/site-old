@@ -198,7 +198,11 @@ calc_button.addEventListener('click', ()=>{
                 for (t of allTeachers){
                     if (t.teach === row.teach){
                         numRow = t.numRow;
+                        break;
                     }
+                }
+                if (numRow === undefined){
+                    continue;
                 }
                 if (t_d1 <= i &&  i <= t_d2){
                     // console.log(row.teach, numDay_to_dateStr(i));
@@ -206,6 +210,7 @@ calc_button.addEventListener('click', ()=>{
                     let cz = dd.ch_zn;
                     for (let j=0; j<les_count; j++){
                        let k = 'gsx$'+dWeek[dd.week]+String(j);
+
                        if (timeTable[cz][numRow][k] !== undefined){
                            if (timeTable[cz][numRow][k]['$t'] !== ""){
                                 let dateOut = numDay_to_dateStr(i).toLocaleDateString("fr-CA");
@@ -391,13 +396,20 @@ let loadSettingsZamini = ()=>{
 
 }
 
+const server = 'http://127.0.0.1:5000/';
+// const server = 'https://schooltools.pythonanywhere.com/';
+
 let readPage_this = ()=>{
-    let url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheet1+"/public/values?alt=json"
-    $.getJSON(url,        
-        function (data) {
-            timeTable[1] = data['feed']['entry'];       
-            // console.log(timeTable[1]);
-            //calc less_count
+    let shName = 'week1';
+    let url = server + 'gettimetable/'+keyZamini+'/'+shName;
+    
+    request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400){
+        data = JSON.parse(request.responseText);  
+        timeTable[1] = data['feed']['entry'];   
+        console.log(timeTable[1]);    
             let lessons = timeTable[1][1]
             let max = -1;
             for (var item in lessons) {
@@ -418,39 +430,91 @@ let readPage_this = ()=>{
                 }  
                 i++;
             } 
-            fillTable();           
-        }       
-    );  
-    
-    
+            fillTable();
+      } else {
+        console.log('Upps ');
+      }
+    };
+    request.onerror = function() {
+      // There was a connection error of some sort
+    };
+    request.send();
 
+    shName = 'week2';
+    url = server + 'gettimetable/'+keyZamini+'/'+shName;
+    request2 = new XMLHttpRequest();
+    request2.open('GET', url, true);
+    request2.onload = function() {
+    if (request2.status >= 200 && request2.status < 400){
+         data = JSON.parse(request2.responseText);  
+         timeTable[2] = data['feed']['entry'];   
+         console.log(timeTable[2]);    
+         let lessons = timeTable[2][1]
 
-    url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheet2+"/public/values?alt=json"
-    $.getJSON(url,        
-        function (data) {
-            timeTable[2] = data['feed']['entry'];       
-        }       
-    );  
-    url  = "https://spreadsheets.google.com/feeds/list/"+keyZamini+"/"+sheetDate+"/public/values?alt=json"
-    $.getJSON(url,        
-        function (data) {
-            data = data['feed']['entry'];
-                 
-            for (let i=1; i<500; i++){
-                let x = data[0]['gsx$day'+parseInt(i)];
-                let w = data[1]['gsx$day'+parseInt(i)];
-                let ch_zn = data[2]['gsx$day'+parseInt(i)];
-                if (x !== null && ch_zn !== undefined){
-                    workDaysDate.push(
-                        {
-                            'date': x['$t'],
-                            'week': w['$t'],
-                            'ch_zn': ch_zn['$t'],                         
-                        })
-                }
+         let max = -1;
+         for (var item in lessons) {
+             if (item.slice(0,6) === 'gsx$mo'){ 
+                 let n = parseInt(lessons[item]['$t']);
+                 if (n > max){max = n};
             }
-        }       
-    );  
+         }
+         les_count = max;
+         let i = 0;
+         miss_teach.innerHTML = `<option ></option>`;
+         for (row of timeTable[2]){
+             let k = row[fields[0]];
+            if (k !== undefined && k['$t'] !== ""){
+                allTeachers.push({'teach': k.$t, 'numRow': i});
+                let cel1 = document.createElement('option');
+                cel1.innerText=`${k.$t}`;
+                miss_teach.append(cel1);
+            }  
+            i++;
+        } 
+        fillTable();
+    } else {
+        console.log('Upps ');
+      }
+    };
+    request2.onerror = function() {
+      // There was a connection error of some sort
+    };
+    request2.send();
+
+    sheetDate = "workdays";
+    url = server + 'getwd/'+keyZamini+'/'+sheetDate;
+    request3 = new XMLHttpRequest();
+    request3.open('GET', url, true);
+    request3.onload = function() {
+      if (request3.status >= 200 && request3.status < 400){
+        data = JSON.parse(request3.responseText);  
+        data = data['feed']['entry']; 
+        //console.log(data);
+        for (let i=1; i<500; i++){
+            
+            let x = data[1]['gsx$day_'+parseInt(i)];
+            let w = data[2]['gsx$day_'+parseInt(i)];
+            let ch_zn = data[3]['gsx$day_'+parseInt(i)];
+            if (x !== null && ch_zn !== undefined){
+                workDaysDate.push(
+                    {
+                        'date': x['$t'],
+                        'week': w['$t'],
+                        'ch_zn': ch_zn['$t'],                         
+                    })
+            }
+        }
+
+
+      } else {
+        console.log('Upps ');
+      }
+    };
+    request3.onerror = function() {
+      // There was a connection error of some sort
+    };
+    request3.send();
+
     
 }
 
