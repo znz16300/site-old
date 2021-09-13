@@ -5,6 +5,8 @@ let sheet2 = "2";
 let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
+//const server = 'http://127.0.0.1:5000/';
+const server = 'https://schooltools.pythonanywhere.com/';
 
 // let sheetIdMiss = 1520665800;
 
@@ -396,8 +398,7 @@ let loadSettingsZamini = ()=>{
 
 }
 
-//const server = 'http://127.0.0.1:5000/';
-const server = 'https://schooltools.pythonanywhere.com/';
+
 
 let readPage_this = ()=>{
     let shName = 'week1';
