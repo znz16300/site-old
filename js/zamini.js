@@ -396,8 +396,8 @@ let loadSettingsZamini = ()=>{
 
 }
 
-const server = 'http://127.0.0.1:5000/';
-// const server = 'https://schooltools.pythonanywhere.com/';
+//const server = 'http://127.0.0.1:5000/';
+const server = 'https://schooltools.pythonanywhere.com/';
 
 let readPage_this = ()=>{
     let shName = 'week1';
