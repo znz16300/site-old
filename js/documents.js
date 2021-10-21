@@ -378,7 +378,7 @@ scroolBtn.addEventListener("click", ()=>{
 
 function Search(text){
     console.log("Search");
-    readNews(true);
+    readDocum(true);
     res = [];
 
     if (text === ""){
