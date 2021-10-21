@@ -393,7 +393,7 @@ function Search(text){
         })
     }
     if (res.length>0){
-        readNews(false);
+        readDocum(false);
     } else {
         alert("Документа не знайдено")
     }
@@ -421,7 +421,7 @@ function ScrollUpShow(){
     }
 }
 
-readDocum(true);
+readDocum(true);``
 
 
     
