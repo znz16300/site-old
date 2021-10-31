@@ -1,3 +1,6 @@
+//const url = "http://127.0.0.1:5000/";
+const url = "https://schooltools.pythonanywhere.com/";
+
 var d1 = "";
 // let data_table = {};
 let teach =  new Set();
@@ -5,10 +8,10 @@ let clas =  new Set();
 let subj =  new Set();
 let who =  new Set();
 let date =  new Set();
-let shName = 'Відповіді форми (1)';
+// constlet shName = 'Відповіді форми (1)';
+const shName = 'FormAnswer1';
 
-
-let sheet2 = "default";
+const sheet2 = "default";
 let title_st = '';
 var key_map = {};
 let key;
@@ -17,6 +20,7 @@ let props = {
     'boss_short': '', 
     'boss_posada': 'Директор', 
     'title_school': '', 
+    'title_school_r_v': '', 
     'set_signature_teacher': true,  
     'set_signature_boss': false, 
 };
@@ -51,18 +55,21 @@ const set_signature_teacher = document.getElementById("set_signature_teacher_id"
 const set_signature_boss = document.getElementById("set_signature_boss_id");
 const name_boss = document.getElementById("name_boss_id");
 const posada_boss = document.getElementById("posada_boss_id");
+const zaklad_name = document.getElementById("zaklad_name_id");
+const zaklad_name_r_v = document.getElementById("zaklad_name_r_v_id");
+
 const pet_info = document.getElementById("pet_info_id");
 // const sel_table_id_cl = document.querySelectorAll(".sel_table_id_cl");
 
-var menuState = 0;
-var madalState = 0;
-var active = "context-menu--active";
-var selected_all_head_table = false;
-var teachSelBtnAll = true;
-var clasSelBtnAll = true;
-var subjSelBtnAll = true;
-var whoSelBtnAll = true;
-var filters = null;
+let menuState = 0;
+let madalState = 0;
+let active = "context-menu--active";
+let selected_all_head_table = false;
+let teachSelBtnAll = true;
+let clasSelBtnAll = true;
+let subjSelBtnAll = true;
+let whoSelBtnAll = true;
+let filters = null;
 
 
 const modalWindow = document.querySelector('.modal__wrapper');
@@ -75,6 +82,8 @@ settings_btn.addEventListener('click', ()=>{
     set_signature_boss.checked = props['set_signature_boss'];
     name_boss.value = props['boss_short'];
     posada_boss.value = props['boss_posada'];
+    zaklad_name.value = props['zaklad_name'];
+    zaklad_name_r_v.value = props['zaklad_name_r_v'];
     fillModalWindow(b);
     toggleModalWindow();
 })
@@ -94,6 +103,14 @@ name_boss.addEventListener('change', ()=> {
 })
 posada_boss.addEventListener('change', ()=> {
     props['boss_posada'] = posada_boss.value;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+zaklad_name.addEventListener('change', ()=> {
+    props['zaklad_name'] = zaklad_name.value;
+    window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
+})
+zaklad_name_r_v.addEventListener('change', ()=> {
+    props['zaklad_name_r_v'] = zaklad_name_r_v.value;
     window.localStorage.setItem("propsForAnaliz", JSON.stringify(props));
 })
 
@@ -472,10 +489,10 @@ function keyToId (k){
 }
 
 let readAnaliz = (s2)=>{
-    let shName = 'FormAnsver1';
-    let url = 'https://schooltools.pythonanywhere.com/getblock/'+key+'/'+shName;
+    
+    // let url = 'https://schooltools.pythonanywhere.com/getblock/'+key+'/'+shName;
     // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
-    $.getJSON(url,
+    $.getJSON(url + 'getblock/'+key+'/'+shName,
         
        function (data) {
             data = data['feed']['entry'];       
@@ -513,7 +530,7 @@ let dwmlFunc = (btn)=>{
             let id_m = parseInt(btn.id.slice(9));
             let bal = 0
             let b;
-            let context = {'name_school': "Пробна школа"};
+            let context = {'name_school': props['zaklad_name']};
             dd_keys.forEach(key => {                 
                 let v = gl_data[id_m][key]["$t"]       
                 let vopros = hh_ww_d[key]
@@ -537,12 +554,12 @@ let dwmlFunc = (btn)=>{
             else riven = 'високий';
 
             context['riven'] = riven
-            context['posada'] = 'Заступник директора'
+            context['posada'] = 'Заступник директора \n' + props['zaklad_name_r_v']
       
 
 
             
-            let url = "http://127.0.0.1:5000/";
+            //let url = "http://127.0.0.1:5000/";
             //let url = "https://schooltools.pythonanywhere.com/";
             $.ajax({
                 type : "POST",
@@ -1074,7 +1091,7 @@ function titleToKey (title){
 }
 
 
-//Одсель грозить ми будем шведу
+
 //  https://docs.google.com/forms/d/e/1FAIpQLSfpGUsPl_xmtbwOtRj9H1oYLwcqEyAUnCzcWzDsm3ESL6C6Vw/viewform?usp=sf_link
 // 1fcFYlF6lz8Qf37Un_Q4dbx8H_36JTpm752m7AIRjHKI
 
@@ -1312,8 +1329,8 @@ let fillTable = (table, i, d)=>{
         let ul = document.querySelectorAll(".f_chb");
         row.classList.add('row_cl');
         cel7.innerHTML=`<div class="print_col_all">      
-                <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
-                <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png"></div>
+                <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+                <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
             </div>`;
         // cel7.innerHTML=`<div class="print_col_all">      
         //         <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>

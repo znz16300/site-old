@@ -64,9 +64,9 @@ header {
 
 .title__block {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
-  margin-right: 30px;
+  margin-right: 40px;
 }
 .props_items {
   display: flex;
@@ -410,3 +410,26 @@ header {
  	opacity: 1;
 } 
 
+.pole_config{
+  width: 550px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin-top: 5px;
+
+}
+
+.pib_dir {
+  margin-top: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.config_block{
+  padding: 10px;
+}
+
+.config_title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}

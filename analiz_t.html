@@ -21,20 +21,32 @@
             </div>
 
             
-                <div id="props_div_id">
-                    <div>Налаштування</div>
+                <div class="config_block" id="props_div_id">
+                    <div class="config_title">Налаштування</div>
                      
+                    <div class="pib_dir">
+                        <div class="title_boss">
+                            Назва закладу (називний відмінок)
+                        </div>                        
+                        <input class="pole_config" id="zaklad_name_id" type="text"> .
+                    </div>
+                    <div class="pib_dir">
+                        <div class="title_boss">
+                            Назва закладу (родовий відмінок)
+                        </div>                        
+                        <input class="pole_config" id="zaklad_name_r_v_id" type="text"> .
+                    </div>
                     <div class="pib_dir">
                         <div class="title_boss">
                             Посада керівника
                         </div>                        
-                        <input id="posada_boss_id" type="text"> .
+                        <input class="pole_config" id="posada_boss_id" type="text"> .
                     </div>
                     <div class="pib_dir">
                         <div class="title_boss">
                             Ініціали, прізвище керівника
                         </div>                        
-                        <input id="name_boss_id" type="text"> .
+                        <input class="pole_config" id="name_boss_id" type="text"> .
                     </div>
                     <div>Показувати місце для підпису</div> 
                     <div class="props_items"> 
@@ -86,10 +98,16 @@
 
 <header class="head">
     <div class="title__block">
-       <div class="title__head"></div> 
+       <!-- <div class="title__head"></div>  -->
        <div class="toolbar__head">
         <button id="settings_btn_id" class="btn_min" title="Налаштування">⚙</button>
        </div> 
+       <div class="toolbar__head">
+        <button class="btn_min" id="reset_btn_id" title="Вилучити ключ">
+            ↻
+        </button>
+        
+    </div>
     </div>
     
 
@@ -135,12 +153,10 @@
                 <th class="cel_h">Тема уроку</th>
                 <th class="cel_h" >
                     <div class="cel_div">Вивід
-                    <!-- <div class="cel_div">
-                        <div class="sp_2"> -->
-                            <input class="btn_sel" id="sel_all_id" type="button" title="Виділити всі" value="&#128505;"> 
-                            <!-- <input class="btn_sel" id="sel_no_id"type="button" title="Відмінити виділення всіх" value="⃞">  -->
-                        <!-- </div>
-                    </div> -->
+
+                            <input class="btn_sel" id="sel_all_id" type="button" title="Виділити всі" value=""> 
+
+
                     </div>
                 </th>                
             </tr>
@@ -167,11 +183,7 @@
 <a href="#" id="scroll_top" title="Вгору"></a>
 <a href="#" id="scroll_bottom" title="Вниз"></a>
 
-<div class="toolbar__head">
-    <button class="btn_min" id="reset_btn_id" title="Скинути налаштування">
-        ↻
-    </button>
-</div>
+
 <script src="./js/data_analiz.js"></script>
 <script src="./js/analiz_t.js"></script>
 
