@@ -52,7 +52,7 @@ const set_signature_boss = document.getElementById("set_signature_boss_id");
 const name_boss = document.getElementById("name_boss_id");
 const posada_boss = document.getElementById("posada_boss_id");
 const pet_info = document.getElementById("pet_info_id");
-
+// const sel_table_id_cl = document.querySelectorAll(".sel_table_id_cl");
 
 var menuState = 0;
 var madalState = 0;
@@ -473,7 +473,7 @@ function keyToId (k){
 
 let readAnaliz = (s2)=>{
     let shName = 'FormAnsver1';
-    let url = 'https://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
+    let url = 'https://schooltools.pythonanywhere.com/getblock/'+key+'/'+shName;
     // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
         
@@ -499,9 +499,69 @@ let readAnaliz = (s2)=>{
             createLists(gl_data);
             createTable(gl_data);
             mkHeader();
+            dwmlFunc();      
+     
        }    
        
     );   
+}
+
+let dwmlFunc = (btn)=>{
+    const dwnlds = document.querySelectorAll('.sel_table_id_dwnld');
+    dwnlds.forEach(function(btn) {        
+        btn.addEventListener('mouseup', function() {
+            let id_m = parseInt(btn.id.slice(9));
+            let bal = 0
+            let b;
+            let context = {'name_school': "Пробна школа"};
+            dd_keys.forEach(key => {                 
+                let v = gl_data[id_m][key]["$t"]       
+                let vopros = hh_ww_d[key]
+                context[ttlwddj[vopros]] = v
+                if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
+                    b = parseInt(gl_data[id_m][key]["$t"])
+                    bal += b;
+                    let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
+                    // console.log('nam ', nam)
+                    context[nam] = '✓'
+                }
+            });
+            
+            context['bal'] = bal
+            if (bal<93) 
+                riven = 'початковий';
+            else if (bal<133) 
+                riven = 'середній';
+            else if (bal<173) 
+                riven = 'достатній';
+            else riven = 'високий';
+
+            context['riven'] = riven
+            context['posada'] = 'Заступник директора'
+      
+
+
+            
+            let url = "http://127.0.0.1:5000/";
+            //let url = "https://schooltools.pythonanywhere.com/";
+            $.ajax({
+                type : "POST",
+                url : url+"getfileanalizt/",
+                data : context,
+                // contentType: false,
+                cache: false,
+                success: function(data){
+                    // console.log(data)
+                    //alert("Скачую файл. Натисніть Ok");
+                    document.location.href = url+"test/"+data+"/";
+
+                }
+            });
+
+
+            console.log(id_m);
+        });
+    });
 }
 
 function dateReformat(date){
@@ -961,6 +1021,7 @@ btn_date.addEventListener("click", (e)=>{
 });
 
 sel_all_id.addEventListener("click", (e)=>{
+    
     //Виділяємо (знімаємо виділення) всі елементи в таблиці для виводу
     $(".sel_table_id_cl").each(function(i,elem) {
         let rowId = "row_"+elem.id.slice(3);
@@ -1141,70 +1202,69 @@ function mkHeader(){
     // console.log(hh_ww_d)
 }
 
-btn_print.addEventListener("click", ()=>{
-    text.innerText = "";
-    const rows = document.querySelectorAll(".sel_table_id_cl");
-    let i = 1;
-    let hdr = {}
-    j = 0
-    let bal = 0
+// btn_print.addEventListener("click", ()=>{
+//     const rows = document.querySelectorAll(".sel_table_id_cl");
+//     text.innerText = "";
+//     let i = 1;
+//     let hdr = {}
+//     j = 0
+//     let bal = 0
+//     let b;
 
-    let b;
-
-    for (elem of rows){        
-        if (elem.style.display === "" && elem.checked){
-            let rowId = "row_"+elem.id.slice(3);
-            let id_m = parseInt(rowId.slice(4));
+//     for (elem of rows){        
+//         if (elem.style.display === "" && elem.checked){
+//             let rowId = "row_"+elem.id.slice(3);
+//             let id_m = parseInt(rowId.slice(4));
  
-            let context = {'name_school': "Пробна школа"};
-            dd_keys.forEach(key => {                 
-                let v = gl_data[id_m][key]["$t"]       
-                let vopros = hh_ww_d[key]
-                context[ttlwddj[vopros]] = v
-                if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
-                    b = parseInt(gl_data[id_m][key]["$t"])
-                    bal += b;
-                    let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
-                    // console.log('nam ', nam)
-                    context[nam] = '✓'
-                }
-            });
+//             let context = {'name_school': "Пробна школа"};
+//             dd_keys.forEach(key => {                 
+//                 let v = gl_data[id_m][key]["$t"]       
+//                 let vopros = hh_ww_d[key]
+//                 context[ttlwddj[vopros]] = v
+//                 if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
+//                     b = parseInt(gl_data[id_m][key]["$t"])
+//                     bal += b;
+//                     let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
+//                     // console.log('nam ', nam)
+//                     context[nam] = '✓'
+//                 }
+//             });
             
-            context['bal'] = bal
-            if (bal<93) 
-                riven = 'початковий';
-            else if (bal<133) 
-                riven = 'середній';
-            else if (bal<173) 
-                riven = 'достатній';
-            else riven = 'високий';
+//             context['bal'] = bal
+//             if (bal<93) 
+//                 riven = 'початковий';
+//             else if (bal<133) 
+//                 riven = 'середній';
+//             else if (bal<173) 
+//                 riven = 'достатній';
+//             else riven = 'високий';
 
-            context['riven'] = riven
-            context['posada'] = 'Заступник директора'
+//             context['riven'] = riven
+//             context['posada'] = 'Заступник директора'
       
 
 
             
-            let url = "http://127.0.0.1:5000/";
-            // let url = "https://zelenskiy.pythonanywhere.com/";
-            $.ajax({
-                type : "POST",
-                url : url+"getfileanalizt/",
-                data : context,
-                // contentType: false,
-                cache: false,
-                success: function(data){
-                    // console.log(data)
-                    // alert(data);
-                    document.location.href = url+"test/"+data+"/";
+//             //let url = "http://127.0.0.1:5000/";
+//             let url = "https://schooltools.pythonanywhere.com/";
+//             $.ajax({
+//                 type : "POST",
+//                 url : url+"getfileanalizt/",
+//                 data : context,
+//                 // contentType: false,
+//                 cache: false,
+//                 success: function(data){
+//                     // console.log(data)
+//                     //alert("Скачую файл. Натисніть Ok");
+//                     document.location.href = url+"test/"+data+"/";
 
-                }
-            }); 
+//                 }
+//             }); 
             
-        } 
-        i++;
-    } 
-})
+//         } 
+//         i++;
+//     } 
+// })
 
 
 
@@ -1253,12 +1313,21 @@ let fillTable = (table, i, d)=>{
         row.classList.add('row_cl');
         cel7.innerHTML=`<div class="print_col_all">      
                 <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
-                <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
+                <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png"></div>
             </div>`;
-        table.append(row);
+        // cel7.innerHTML=`<div class="print_col_all">      
+        //         <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
+        //         <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
+        //         <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png"></div>
+        //     </div>`;
+            // document.getElementById(`id_dwnld_${String(i)}`).addEventListener('mouseup', )
+            table.append(row);
         row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-     }   
+     } 
+     
 }
+
+
 
 let sortByDate = (arr)=>{
     // arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);

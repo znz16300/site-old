@@ -10,6 +10,9 @@ header {
     font-style: normal;
     /* line-height: 150%; */
 }
+.print_col_i{
+  margin-top: 5px;
+}
 
 .inp_data {
     /* justify-content: baseline; */
