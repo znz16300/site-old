@@ -1,5 +1,5 @@
-const url = "http://127.0.0.1:5000/";
-//const url = "https://schooltools.pythonanywhere.com/";
+//const url = "http://127.0.0.1:5000/";
+const url = "https://schooltools.pythonanywhere.com/";
 
 var d1 = "";
 // let data_table = {};
