@@ -15,6 +15,7 @@
   background: url(./../assets/images/noise_transparent@2x.png), 
       radial-gradient(100% 215.42% at 0% 0%, 
       #5b483a 0%, #262425 100%), #211f20;
+      height: 100vh;
 }
 
 .wrapper {
