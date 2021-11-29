@@ -1210,7 +1210,7 @@ li {
   .pets__wrapper {
     align-items:initial;
     margin-left: 30px;
-    
+    min-height: 100vh;
 }
 
 .default_par {
