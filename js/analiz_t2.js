@@ -1351,12 +1351,6 @@ function getCol(dat, numTable, name){
             return col
         }        
     }
-    //
-    // f = {
-    //     'Клас': 'Клас, група',
-    //     'Дата проведення': 'Дата проведення уроку',
-    //     'Вчитель': 'Вчитель, урок якого відвідують',
-    // }
     if (name == 'Клас'){
         return getCol(dat, numTable, 'Клас, група')
     } else
@@ -1374,62 +1368,53 @@ function getCol(dat, numTable, name){
 
 let fillTable = (table, dat, numTable, rrow, ii, d)=>{
     let dpu = titleToKey('Дата проведення');
-    let cel1 = document.createElement('td');
-    let cel2 = document.createElement('td');
-    let cel3 = document.createElement('td');
-    let cel4 = document.createElement('td');
-    let cel5 = document.createElement('td');
-    let cel6 = document.createElement('td');
-    let cel7 = document.createElement('td');
-    cel1.classList.add('cel_def');
-    cel2.classList.add('cel_def');
-    cel3.classList.add('cel_def');
-    cel4.classList.add('cel_def');
-    cel5.classList.add('cel_def');
-    cel6.classList.add('cel_def');
-    cel7.classList.add('cel_def');
-    cel7.classList.add('cel_chb');
+    
     let row = document.createElement('tr');
     row.setAttribute('id','ii_'+String(ii));
     row.setAttribute('id','row_'+String(rrow));
     row.setAttribute('id','table_'+String(numTable));
 
+    
     hHeader = ['Дата проведення', 'Хто відвідує урок', 'Вчитель', 'Клас', 'Предмет', 'Тема навчального заняття']
-    col = getCol(dat, numTable, hHeader[0])
-    cel1.innerText=d[col]; 
-    col = getCol(dat, numTable, hHeader[1])
-    cel2.innerText=d[col]; 
-    col = getCol(dat, numTable, hHeader[2])
-    cel3.innerText=d[col]; 
-    col = getCol(dat, numTable, hHeader[3])
-    cel4.innerText=d[col]; 
-    col = getCol(dat, numTable, hHeader[4])
-    cel5.innerText=d[col]; 
-    col = getCol(dat, numTable, hHeader[5])
-    cel6.innerText=d[col]; 
     
-    
-
-
-    // row.setAttribute('data-teach', d[titleToKey('Вчитель')]['$t']);
-    // row.setAttribute('data-clas', d[titleToKey('Клас')]['$t']);
-    // row.setAttribute('data-subj', d[titleToKey('Предмет')]['$t']);
-    // row.setAttribute('data-who', d[titleToKey('Хто відвідує урок')]['$t']);
-    // let s = d[titleToKey('Дата проведення')]['$t'];
-    // let day = s.substr(0,2);
-    // let year = s.substr(6,4);
-    // let month = s.substr(3,2);
-    // s = `${year}-${month}-${day}`;
-    // row.setAttribute('data-date', s);
-    //  let ul = document.querySelectorAll(".f_chb");
-    // row.classList.add('row_cl');
-    // cel7.innerHTML=`<div class="print_col_all">      
-    //         <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
-    //         <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
-    //     </div>`;
- 
     table.append(row);
-    row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+
+    for (let ci=0; ci<6; ci++){
+        let x = document.createElement('td');
+        x.classList.add('cel_def');
+        x.classList.add('cel_def');
+        col = getCol(dat, numTable, hHeader[ci])
+        x.innerText=d[col]; 
+        row.append(x);
+    } 
+
+    let cel7 = document.createElement('td');
+    cel7.classList.add('cel_def');
+    cel7.classList.add('cel_chb');
+   
+    
+
+
+    row.setAttribute('data-teach', d[getCol(dat, numTable, 'Вчитель')]);
+    row.setAttribute('data-clas', d[getCol(dat, numTable, 'Клас')]);
+    row.setAttribute('data-subj', d[getCol(dat, numTable, 'Предмет')]);
+    row.setAttribute('data-who', d[getCol(dat, numTable, 'Хто відвідує урок')]);
+
+    let s = d[getCol(dat, numTable, 'Дата проведення')];
+    let day = s.substr(0,2);
+    let year = s.substr(6,4);
+    let month = s.substr(3,2);
+    s = `${year}-${month}-${day}`;
+    row.setAttribute('data-date', s);
+    let ul = document.querySelectorAll(".f_chb");
+    row.classList.add('row_cl');
+    cel7.innerHTML=`<div class="print_col_all">      
+            <div class="print_col_i"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+            <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(ii)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
+        </div>`;
+ 
+
+    row.append(cel7);
  
      
 }
@@ -1437,9 +1422,7 @@ let fillTable = (table, dat, numTable, rrow, ii, d)=>{
 
 
 let sortByDate = (arr)=>{
-    // arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
     arr.sort((a, b) =>  Date.parse(a['normDate']) > Date.parse(b['normDate']) ? 1 : -1);
-
 }
 
 
