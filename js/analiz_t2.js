@@ -1,14 +1,15 @@
-//const url = "http://127.0.0.1:5000/";
-const url = "https://schooltools.pythonanywhere.com/";
+const url = "http://127.0.0.1:5000/";
+//const url = "https://schooltools.pythonanywhere.com/";
 
 var d1 = "";
-// let data_table = {};
+
 let teach =  new Set();
 let clas =  new Set();
 let subj =  new Set();
 let who =  new Set();
 let date =  new Set();
-// constlet shName = 'Відповіді форми (1)';
+let tema =  new Set();
+
 const shName = 'FormAnswer1';
 
 const sheet2 = "default";
@@ -456,16 +457,6 @@ let setFields = (data)=>{
     })
 }
 
-// function titleToKey (title){
-//     let k;
-//     $.each(fieldNames, function(key, value){
-//         if (value['title'] === title){
-//             k = value['key'];  
-//             return k;        
-//         }        
-//     })
-//     return k;
-// }
 
 function keyToTitle (k){
     let k_;
@@ -488,35 +479,31 @@ function keyToId (k){
     return k_;
 }
 
-let readAnaliz = (s2)=>{
-    
-    // let url = 'https://schooltools.pythonanywhere.com/getblock/'+key+'/'+shName;
-    // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
-    $.getJSON(url + 'getblock/'+key+'/'+shName,
+let readAnaliz = (s2)=>{    
+
+    $.getJSON(url + 'getmultiblock/'+key,
         
        function (data) {
-            data = data['feed']['entry'];       
-            // sortByTeach(data);  
-            setFields(data);
-
-            //gl_data = data; 
-            gl_data = gl_data.concat(data)
-
-            for (let i=0; i<gl_data.length; i++){
-                // gl_data[i]['id_m'] = i;
-                gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення')]['$t']));
-            }
+            console.log(data)      
+            createLists(data);
+            // sortByDate(gl_data);
+            createTable(data);
             
-            sortByDate(gl_data); 
-            for (let i=0; i<gl_data.length; i++){
-                gl_data[i]['id_m'] = i;
-                // gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
-            }
+
+            // for (let i=0; i<gl_data.length; i++){
+            //     gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення')]['$t']));
+            // }
             
-            createLists(gl_data);
-            createTable(gl_data);
-            mkHeader();
-            dwmlFunc();      
+             
+            // for (let i=0; i<gl_data.length; i++){
+            //     gl_data[i]['id_m'] = i;
+            //     // gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
+            // }
+            
+            
+            // 
+            // mkHeader();
+            // dwmlFunc();      
      
        }    
        
@@ -608,14 +595,31 @@ function tmp__ (data_report) {
 }
 
 let createLists = (data)=>{
-    for (x of ['who', 'clas', 'subj', 'teach']){
+    slist = ['who', 
+            'clas', 
+            'subj',         
+            'teach',
+            // 'tema',
+        ]
+    for (x of slist){
         createList(data, x);
     }
     createListsDate(data);
 }
 
+let getNumHeader = (t, s)=>{
+    let h = t.header[0]
+    for(let col=0; col<h.length; col++){
+        if (h[col] === s){
+            return col
+        }
+    }
+    return -1
+}
+
 //Створюємо списки для меню
-let createList =(data, m)=>{
+let createList =(d, m)=>{
+    // let h = d[numTable].header[0]
     const mCL ={             //menuCreateList
         'who': {
             'field': titleToKey('Хто відвідує урок'), 
@@ -624,6 +628,7 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'who_selAll_id', 
             'menu': 'menuWho', 
             'inputId': 'f_chb_who', 
+
         },
         'clas': {
             'field': titleToKey('Клас'), 
@@ -632,6 +637,7 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'clas_selAll_id', 
             'menu': 'menuClas', 
             'inputId': 'f_chb_clas', 
+
         },
         'subj': {
             'field': titleToKey('Предмет'), 
@@ -640,6 +646,7 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'subj_selAll_id', 
             'menu': 'menuSubj', 
             'inputId': 'f_chb_subj', 
+
         },
         'teach': {
             'field': titleToKey('Вчитель'), 
@@ -648,18 +655,66 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'teach_selAll_id', 
             'menu': 'menuTeach', 
             'inputId': 'f_chb', 
+
         },
+        // 'tema': {
+        //     'field': null, 
+        //     'setName': tema, 
+        //     'ulId': null, 
+        //     'inputIdSelAll': null, 
+        //     'menu': null, 
+        //     'inputId': null, 
+
+        // },
 
     };
 
-    for(let i=0; i<data.length; i++){
-        let dpu = titleToKey('Дата проведення');
-        if (data[i][dpu]['$t'][0] >= '0' && 
-            data[i][dpu]['$t'][0] <= '3' ){
-                mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
-        }        
+    for(let numTable=0; numTable<d.length; numTable++){
+        let header = d[numTable].header[0]
+        let dat = d[numTable].data
+        for(let col=0; col<header.length; col++){
+            if (header[col] === "Хто відвідує урок") {
+                for(let c=0; c<dat.length; c++){
+                    who.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Клас") {
+                for(let c=0; c<dat.length; c++){
+                    clas.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Предмет") {
+                for(let c=0; c<dat.length; c++){
+                    subj.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Вчитель") {
+                for(let c=0; c<dat.length; c++){
+                    teach.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Дата проведення") {
+                for(let c=0; c<dat.length; c++){
+                    let day = dat[c][col].substr(0,2);
+                    let month = dat[c][col].substr(3,2);
+                    let year = dat[c][col].substr(6,4);
+                    let dd = `${year}-${month}-${day}`;
+                    date.add(dd)
+                }
+            }
+        }
     }
+
+
+    // for(let i=0; i<data.length; i++){
+    //     let dpu = titleToKey('Дата проведення');
+    //     if (data[i][dpu]['$t'][0] >= '0' && 
+    //         data[i][dpu]['$t'][0] <= '3' ){
+    //             mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
+    //     }        
+    // }
     //Сврорюємо меню для фільтрації obj
+    // console.log(m)
     let ul = document.getElementById(mCL[m]['ulId']);
     let i = 0;
     //create btn select
@@ -701,17 +756,21 @@ let createList =(data, m)=>{
 
 //Створюємо списки для меню
 let createListsDate = (data)=>{
-    for(let i=0; i<data.length; i++){
-        //TODO
-        let s = data[i][titleToKey('Дата проведення')]['$t'];
-        let day = s.substr(0,2);
-        let month = s.substr(3,2);
-        let year = s.substr(6,4);
-        let d = `${year}-${month}-${day}`;
-        if (d[0] >= '0' && d[0] <= '9' ) {
-            date.add(d);
-        }        
+    for(n of date){
+        // console.log(n);
     }
+
+    // for(let i=0; i<data.length; i++){
+    //     //TODO
+    //     let s = data[i][titleToKey('Дата проведення')]['$t'];
+    //     let day = s.substr(0,2);
+    //     let month = s.substr(3,2);
+    //     let year = s.substr(6,4);
+    //     let d = `${year}-${month}-${day}`;
+    //     if (d[0] >= '0' && d[0] <= '9' ) {
+    //         date.add(d);
+    //     }        
+    // }
     let max = '2000-01-01';
     let min = '2100-01-01';
     let max_0 = '2000-01-01';
@@ -1283,64 +1342,95 @@ function mkHeader(){
 //     } 
 // })
 
+function getCol(dat, numTable, name){
+    header = dat[numTable].header[0]
+    console.log(header)
+    console.log(header.length)
+    for (let col=0; col<header.length; col++){
+        if (name === header[col]){
+            return col
+        }        
+    }
+    //
+    // f = {
+    //     'Клас': 'Клас, група',
+    //     'Дата проведення': 'Дата проведення уроку',
+    //     'Вчитель': 'Вчитель, урок якого відвідують',
+    // }
+    if (name == 'Клас'){
+        return getCol(dat, numTable, 'Клас, група')
+    } else
+    if (name == 'Дата проведення'){
+        return getCol(dat, numTable, 'Дата проведення уроку')
+    } else
+    if (name == 'Вчитель'){
+        return getCol(dat, numTable, 'Вчитель, урок якого відвідують')
+    } else
+    if (name == 'Тема навчального заняття'){
+        return getCol(dat, numTable, 'Тема уроку')
+    }
+}
 
 
-
-let fillTable = (table, i, d)=>{
-    // (d['gsx$датапроведенняуроку']['$t'][0] >= '0' && d['gsx$датапроведенняуроку']['$t'][0] <= '3' )
+let fillTable = (table, dat, numTable, rrow, ii, d)=>{
     let dpu = titleToKey('Дата проведення');
-    if (d[dpu]['$t'][0] >= '0' && 
-        d[dpu]['$t'][0] <= '3' ){
-        let cel1 = document.createElement('td');
-        let cel2 = document.createElement('td');
-        let cel3 = document.createElement('td');
-        let cel4 = document.createElement('td');
-        let cel5 = document.createElement('td');
-        let cel6 = document.createElement('td');
-        let cel7 = document.createElement('td');
-        cel1.classList.add('cel_def');
-        cel2.classList.add('cel_def');
-        cel3.classList.add('cel_def');
-        cel4.classList.add('cel_def');
-        cel5.classList.add('cel_def');
-        cel6.classList.add('cel_def');
-        cel7.classList.add('cel_def');
-        cel7.classList.add('cel_chb');
-        let row = document.createElement('tr');
-        row.setAttribute('id','row_'+String(i));
-        cel1.innerText=d[titleToKey('Дата проведення')]['$t'];    
-        cel2.innerText=d[titleToKey('Хто відвідує урок')]['$t'];
-        cel3.innerText=d[titleToKey('Вчитель')]['$t'];
-        cel4.innerText=d[titleToKey('Клас')]['$t'];
-        cel5.innerText=d[titleToKey('Предмет')]['$t'];
-        cel6.innerText=d[titleToKey('Тема навчального заняття')]['$t'];
+    let cel1 = document.createElement('td');
+    let cel2 = document.createElement('td');
+    let cel3 = document.createElement('td');
+    let cel4 = document.createElement('td');
+    let cel5 = document.createElement('td');
+    let cel6 = document.createElement('td');
+    let cel7 = document.createElement('td');
+    cel1.classList.add('cel_def');
+    cel2.classList.add('cel_def');
+    cel3.classList.add('cel_def');
+    cel4.classList.add('cel_def');
+    cel5.classList.add('cel_def');
+    cel6.classList.add('cel_def');
+    cel7.classList.add('cel_def');
+    cel7.classList.add('cel_chb');
+    let row = document.createElement('tr');
+    row.setAttribute('id','ii_'+String(ii));
+    row.setAttribute('id','row_'+String(rrow));
+    row.setAttribute('id','table_'+String(numTable));
+
+    hHeader = ['Дата проведення', 'Хто відвідує урок', 'Вчитель', 'Клас', 'Предмет', 'Тема навчального заняття']
+    col = getCol(dat, numTable, hHeader[0])
+    cel1.innerText=d[col]; 
+    col = getCol(dat, numTable, hHeader[1])
+    cel2.innerText=d[col]; 
+    col = getCol(dat, numTable, hHeader[2])
+    cel3.innerText=d[col]; 
+    col = getCol(dat, numTable, hHeader[3])
+    cel4.innerText=d[col]; 
+    col = getCol(dat, numTable, hHeader[4])
+    cel5.innerText=d[col]; 
+    col = getCol(dat, numTable, hHeader[5])
+    cel6.innerText=d[col]; 
     
-        row.setAttribute('data-teach', d[titleToKey('Вчитель')]['$t']);
-        row.setAttribute('data-clas', d[titleToKey('Клас')]['$t']);
-        row.setAttribute('data-subj', d[titleToKey('Предмет')]['$t']);
-        row.setAttribute('data-who', d[titleToKey('Хто відвідує урок')]['$t']);
-        let s = d[titleToKey('Дата проведення')]['$t'];
-        let day = s.substr(0,2);
-        let year = s.substr(6,4);
-        let month = s.substr(3,2);
-        s = `${year}-${month}-${day}`;
-        row.setAttribute('data-date', s);
     
-        let ul = document.querySelectorAll(".f_chb");
-        row.classList.add('row_cl');
-        cel7.innerHTML=`<div class="print_col_all">      
-                <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
-                <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
-            </div>`;
-        // cel7.innerHTML=`<div class="print_col_all">      
-        //         <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
-        //         <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
-        //         <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png"></div>
-        //     </div>`;
-            // document.getElementById(`id_dwnld_${String(i)}`).addEventListener('mouseup', )
-            table.append(row);
-        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-     } 
+
+
+    // row.setAttribute('data-teach', d[titleToKey('Вчитель')]['$t']);
+    // row.setAttribute('data-clas', d[titleToKey('Клас')]['$t']);
+    // row.setAttribute('data-subj', d[titleToKey('Предмет')]['$t']);
+    // row.setAttribute('data-who', d[titleToKey('Хто відвідує урок')]['$t']);
+    // let s = d[titleToKey('Дата проведення')]['$t'];
+    // let day = s.substr(0,2);
+    // let year = s.substr(6,4);
+    // let month = s.substr(3,2);
+    // s = `${year}-${month}-${day}`;
+    // row.setAttribute('data-date', s);
+    //  let ul = document.querySelectorAll(".f_chb");
+    // row.classList.add('row_cl');
+    // cel7.innerHTML=`<div class="print_col_all">      
+    //         <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+    //         <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
+    //     </div>`;
+ 
+    table.append(row);
+    row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+ 
      
 }
 
@@ -1354,23 +1444,38 @@ let sortByDate = (arr)=>{
 
 
 
-let createTable = (gl_data)=>{    
+let createTable = (d)=>{ 
     const table = document.getElementById("table__id");
-    for (let i=0; i<gl_data.length; i++){
-        fillTable(table, gl_data[i]['id_m'], gl_data[i]);
+    let ii = 0
+    for(let numTable=0; numTable<d.length; numTable++){
+        let header = d[numTable].header[0]
+        let dat = d[numTable].data
+        for(let row=0; row<dat.length; row++){
+            // let shifr = (numTable)+"_"+(row)
+            // console.log(shifr)
+            fillTable(table, d, numTable, row, ii, dat[row])
+            ii++
+            //create card
+
+        }
     }
-    let print_col_imges = document.querySelectorAll(".print_col_img");
-    print_col_imges.forEach(function(el) {
-        el.addEventListener('click', (e)=>{
-            let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
-            let b = print_atom(a);
-            props_div.hidden = true
-            pet_info.hidden = false
-            fillModalWindow(b);
-            toggleModalWindow();
-        })
-    });
-    filtrClick(null); 
+
+    
+    // for (let i=0; i<gl_data.length; i++){
+    //     fillTable(table, gl_data[i]['id_m'], gl_data[i]);
+    // }
+    // let print_col_imges = document.querySelectorAll(".print_col_img");
+    // print_col_imges.forEach(function(el) {
+    //     el.addEventListener('click', (e)=>{
+    //         let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
+    //         let b = print_atom(a);
+    //         props_div.hidden = true
+    //         pet_info.hidden = false
+    //         fillModalWindow(b);
+    //         toggleModalWindow();
+    //     })
+    // });
+    // filtrClick(null); 
 }
 
 let fillModalWindow = (item)=>{
@@ -1427,6 +1532,10 @@ $(function(){
 // alert('Наразі функції сервісу обмежені. Просимо вибачення. Наші спеціалісти найближчим часом це виправлять.');
 
 readStorage();
+
+//TODO ---- devmode
+key = "1uOV_IJaMbe41dOBiSeYHrwhOfR7kUix8b9QhFK2oBeE"
+
 readAnaliz(sheet2);
 
 
