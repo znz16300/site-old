@@ -9,6 +9,7 @@ let subj =  new Set();
 let who =  new Set();
 let date =  new Set();
 let tema =  new Set();
+let glData = {}
 
 const shName = 'FormAnswer1';
 
@@ -178,11 +179,8 @@ function reformatString(text) {
     return text.trim();
 }
 
-function print_atom(data){
-    
-    if (data[0].title === data[0].value){
-        return undefined;
-    }
+function print_atom(head, dat){    
+
 
     let allPar = '';
     let clasT = ' class="title" ';
@@ -193,32 +191,47 @@ function print_atom(data){
 
     let ttl = "АНАЛІЗ УРОКУ";
     dist =`<p></p><div class="title1">${ttl}</div>`;
-    data.push({'id':111111111, 'title':" ", 'value':" "});
+    // data.push({'id':111111111, 'title':" ", 'value':" "});
     // console.log(data);
-    for(let i=0; i<data.length-1; i++){
-        if (data[i].key === titleToKey('Позначка часу')) {
+    for(let i=0; i<head.length; i++){
+        if (head[i] === 'Позначка часу') {
             continue;
         }
-        let symEnd = '';
-        let a = reformatString(data[i].title);
-        let rozdTitle = rozd_v2[a];
-        if (rozdTitle === undefined){
-            rozdTitle = "";
-        } else {
-            rozdTitle = rozdTitle.toUpperCase();
-        }
-        next_title=(data[i+1].title).trim().toUpperCase();
-        allPar += rozdTitle;
-        let title_0 = reformatString((data[i]['title']).trim());
-        allPar += format_Aa(title_0, 
-                            (data[i].value).replace('_', '').trim(), 
-                            next_title=next_title,  
-                            format=form_at, 
-                            sep=sep, 
-                            symEnd=symEnd,                          
-                            );
+        allPar += '<p>';
+        let h = head[i].trim()
+        let v = dat[i].trim()
+        if (v === '') {
+            continue;
+        }        
+
+        if (h[h.length-1] === ';') h = h.slice(0, -1)
+        allPar += h;        
+        allPar += ': ';
+        
+        // if (v[v.length-1] === ';') v = v.slice(0, -1)
+        allPar += v;
+        allPar += '</p>';
+
+    //     let symEnd = '';
+    //     let a = reformatString(data[i].title);
+    //     let rozdTitle = rozd_v2[a];
+    //     if (rozdTitle === undefined){
+    //         rozdTitle = "";
+    //     } else {
+    //         rozdTitle = rozdTitle.toUpperCase();
+    //     }
+    //     next_title=(data[i+1].title).trim().toUpperCase();
+    //     allPar += rozdTitle;
+    //     let title_0 = reformatString((data[i]['title']).trim());
+    //     allPar += format_Aa(title_0, 
+    //                         (data[i].value).replace('_', '').trim(), 
+    //                         next_title=next_title,  
+    //                         format=form_at, 
+    //                         sep=sep, 
+    //                         symEnd=symEnd,                          
+    //                         );
     }
-    allPar = format_2(allPar, clasT, clasV);
+    // allPar = format_2(allPar, clasT, clasV);
      dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
     dist = refactorText(dist);
@@ -239,10 +252,7 @@ function print_atom(data){
 
                    `;
 
-    //  dist +=`<p></p> 
-    //                 <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
-    //                 <p style="margin-bottom: 100px;"></p> 
-    //                 `;
+
     
     if (t_les == "ЗАХІД"){
         dist = dist.replaceAll('УРОК', 'ЗАХІД');
@@ -417,7 +427,7 @@ function format_2(allText, clasT, clasV){
 
 let num = 4
 
-function createCard(dat){
+function createCard(dat) {
     let data_report = []
     $.each(fieldNames,function(key, val){
         let value = dat[val.key];
@@ -484,9 +494,11 @@ let readAnaliz = (s2)=>{
     $.getJSON(url + 'getmultiblock/'+key,
         
        function (data) {
-            console.log(data)      
+            console.log(data)   
+            glData = data   
             createLists(data);
             // sortByDate(gl_data);
+            
             createTable(data);
             
 
@@ -1344,8 +1356,8 @@ function mkHeader(){
 
 function getCol(dat, numTable, name){
     header = dat[numTable].header[0]
-    console.log(header)
-    console.log(header.length)
+    // console.log(header)
+    // console.log(header.length)
     for (let col=0; col<header.length; col++){
         if (name === header[col]){
             return col
@@ -1399,6 +1411,8 @@ let fillTable = (table, dat, numTable, rrow, ii, d)=>{
     row.setAttribute('data-clas', d[getCol(dat, numTable, 'Клас')]);
     row.setAttribute('data-subj', d[getCol(dat, numTable, 'Предмет')]);
     row.setAttribute('data-who', d[getCol(dat, numTable, 'Хто відвідує урок')]);
+    row.setAttribute('data-table', String(numTable));
+    row.setAttribute('data-row', String(rrow));
 
     let s = d[getCol(dat, numTable, 'Дата проведення')];
     let day = s.substr(0,2);
@@ -1444,21 +1458,28 @@ let createTable = (d)=>{
     }
 
     
-    // for (let i=0; i<gl_data.length; i++){
-    //     fillTable(table, gl_data[i]['id_m'], gl_data[i]);
-    // }
-    // let print_col_imges = document.querySelectorAll(".print_col_img");
-    // print_col_imges.forEach(function(el) {
-    //     el.addEventListener('click', (e)=>{
-    //         let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
-    //         let b = print_atom(a);
-    //         props_div.hidden = true
-    //         pet_info.hidden = false
-    //         fillModalWindow(b);
-    //         toggleModalWindow();
-    //     })
-    // });
-    // filtrClick(null); 
+
+    let print_col_imges = document.querySelectorAll(".print_col_img");
+    print_col_imges.forEach(function(el) {
+        el.addEventListener('click', (e)=>{
+            const iii = parseInt(e.target.id.slice(4))
+            
+            const parentRow = e.target.closest('tr');
+            const numTable = parseInt(parentRow.getAttribute('data-table')) 
+            const row = parseInt(parentRow.getAttribute('data-row')) 
+            const head = glData[numTable].header[0]
+            const dat = glData[numTable].data[row]
+  
+            console.log(head)
+            // let a = createCard (head, dat);
+            let b = print_atom(head, dat);
+            props_div.hidden = true
+            pet_info.hidden = false
+            fillModalWindow(b);
+            toggleModalWindow();
+        })
+    });
+    filtrClick(null); 
 }
 
 let fillModalWindow = (item)=>{
