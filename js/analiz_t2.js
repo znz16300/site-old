@@ -489,38 +489,6 @@ function keyToId (k){
     return k_;
 }
 
-let readAnaliz = (s2)=>{    
-
-    $.getJSON(url + 'getmultiblock/'+key,
-        
-       function (data) {
-            console.log(data)   
-            glData = data   
-            createLists(data);
-            // sortByDate(gl_data);
-            
-            createTable(data);
-            
-
-            // for (let i=0; i<gl_data.length; i++){
-            //     gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення')]['$t']));
-            // }
-            
-             
-            // for (let i=0; i<gl_data.length; i++){
-            //     gl_data[i]['id_m'] = i;
-            //     // gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
-            // }
-            
-            
-            // 
-            // mkHeader();
-            // dwmlFunc();      
-     
-       }    
-       
-    );   
-}
 
 let dwmlFunc = (btn)=>{
     const dwnlds = document.querySelectorAll('.sel_table_id_dwnld');
@@ -1402,10 +1370,7 @@ let fillTable = (table, dat, numTable, rrow, ii, d)=>{
 
     let cel7 = document.createElement('td');
     cel7.classList.add('cel_def');
-    cel7.classList.add('cel_chb');
-   
-    
-
+    cel7.classList.add('cel_chb'); 
 
     row.setAttribute('data-teach', d[getCol(dat, numTable, 'Вчитель')]);
     row.setAttribute('data-clas', d[getCol(dat, numTable, 'Клас')]);
@@ -1422,15 +1387,12 @@ let fillTable = (table, dat, numTable, rrow, ii, d)=>{
     row.setAttribute('data-date', s);
     let ul = document.querySelectorAll(".f_chb");
     row.classList.add('row_cl');
-    cel7.innerHTML=`<div class="print_col_all">      
-            <div class="print_col_i"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+    cel7.innerHTML=`<div class="print_col_all"> 
+    <div class="print_col_i"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+            <div class="print_col_edit"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/editbtn.png"  title="Редагувати" disabled></div>
             <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(ii)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
         </div>`;
- 
-
     row.append(cel7);
- 
-     
 }
 
 
@@ -1448,12 +1410,8 @@ let createTable = (d)=>{
         let header = d[numTable].header[0]
         let dat = d[numTable].data
         for(let row=0; row<dat.length; row++){
-            // let shifr = (numTable)+"_"+(row)
-            // console.log(shifr)
             fillTable(table, d, numTable, row, ii, dat[row])
             ii++
-            //create card
-
         }
     }
 
@@ -1534,6 +1492,19 @@ $(function(){
 });
 
 // alert('Наразі функції сервісу обмежені. Просимо вибачення. Наші спеціалісти найближчим часом це виправлять.');
+
+
+
+let readAnaliz = (s2)=>{    
+    $.getJSON(url + 'getmultiblock/'+key,        
+       function (data) {
+            console.log(data)  
+            glData = data   
+            createLists(data);   
+            createTable(data);   
+        }
+    );   
+}
 
 readStorage();
 
