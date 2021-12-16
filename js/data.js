@@ -142,5 +142,17 @@ let pets = [
       "diseases": ["none"],
       "parasites": ["none"],
     },
+    {
+      "id": "12",
+      "name": "Кабінет математики",
+      "img": "./assets/images/km2.jpg",
+      "type": "Завідувачка кабінетом",
+      "breed": "Долиненко В.А.",
+      "description": "",
+      "age": "2021 рік",
+      "inoculations": ["none"],
+      "diseases": ["none"],
+      "parasites": ["none"],
+    },
 
   ]
