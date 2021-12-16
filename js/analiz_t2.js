@@ -1,14 +1,16 @@
-//const url = "http://127.0.0.1:5000/";
-const url = "https://schooltools.pythonanywhere.com/";
+const url = "http://127.0.0.1:5000/";
+//const url = "https://schooltools.pythonanywhere.com/";
 
 var d1 = "";
-// let data_table = {};
+
 let teach =  new Set();
 let clas =  new Set();
 let subj =  new Set();
 let who =  new Set();
 let date =  new Set();
-// constlet shName = 'Відповіді форми (1)';
+let tema =  new Set();
+let glData = {}
+
 const shName = 'FormAnswer1';
 
 const sheet2 = "default";
@@ -177,11 +179,8 @@ function reformatString(text) {
     return text.trim();
 }
 
-function print_atom(data){
-    
-    if (data[0].title === data[0].value){
-        return undefined;
-    }
+function print_atom(head, dat){    
+
 
     let allPar = '';
     let clasT = ' class="title" ';
@@ -192,32 +191,47 @@ function print_atom(data){
 
     let ttl = "АНАЛІЗ УРОКУ";
     dist =`<p></p><div class="title1">${ttl}</div>`;
-    data.push({'id':111111111, 'title':" ", 'value':" "});
+    // data.push({'id':111111111, 'title':" ", 'value':" "});
     // console.log(data);
-    for(let i=0; i<data.length-1; i++){
-        if (data[i].key === titleToKey('Позначка часу')) {
+    for(let i=0; i<head.length; i++){
+        if (head[i] === 'Позначка часу') {
             continue;
         }
-        let symEnd = '';
-        let a = reformatString(data[i].title);
-        let rozdTitle = rozd_v2[a];
-        if (rozdTitle === undefined){
-            rozdTitle = "";
-        } else {
-            rozdTitle = rozdTitle.toUpperCase();
-        }
-        next_title=(data[i+1].title).trim().toUpperCase();
-        allPar += rozdTitle;
-        let title_0 = reformatString((data[i]['title']).trim());
-        allPar += format_Aa(title_0, 
-                            (data[i].value).replace('_', '').trim(), 
-                            next_title=next_title,  
-                            format=form_at, 
-                            sep=sep, 
-                            symEnd=symEnd,                          
-                            );
+        allPar += '<p>';
+        let h = head[i].trim()
+        let v = dat[i].trim()
+        if (v === '') {
+            continue;
+        }        
+
+        if (h[h.length-1] === ';') h = h.slice(0, -1)
+        allPar += h;        
+        allPar += ': ';
+        
+        // if (v[v.length-1] === ';') v = v.slice(0, -1)
+        allPar += v;
+        allPar += '</p>';
+
+    //     let symEnd = '';
+    //     let a = reformatString(data[i].title);
+    //     let rozdTitle = rozd_v2[a];
+    //     if (rozdTitle === undefined){
+    //         rozdTitle = "";
+    //     } else {
+    //         rozdTitle = rozdTitle.toUpperCase();
+    //     }
+    //     next_title=(data[i+1].title).trim().toUpperCase();
+    //     allPar += rozdTitle;
+    //     let title_0 = reformatString((data[i]['title']).trim());
+    //     allPar += format_Aa(title_0, 
+    //                         (data[i].value).replace('_', '').trim(), 
+    //                         next_title=next_title,  
+    //                         format=form_at, 
+    //                         sep=sep, 
+    //                         symEnd=symEnd,                          
+    //                         );
     }
-    allPar = format_2(allPar, clasT, clasV);
+    // allPar = format_2(allPar, clasT, clasV);
      dist += allPar;
     // text.innerHTML += format_2(allPar, clasT, clasV);
     dist = refactorText(dist);
@@ -238,10 +252,7 @@ function print_atom(data){
 
                    `;
 
-    //  dist +=`<p></p> 
-    //                 <div class="footer">З аналізом ознайомлений(на) _______________________ </div>
-    //                 <p style="margin-bottom: 100px;"></p> 
-    //                 `;
+
     
     if (t_les == "ЗАХІД"){
         dist = dist.replaceAll('УРОК', 'ЗАХІД');
@@ -416,7 +427,7 @@ function format_2(allText, clasT, clasV){
 
 let num = 4
 
-function createCard(dat){
+function createCard(dat) {
     let data_report = []
     $.each(fieldNames,function(key, val){
         let value = dat[val.key];
@@ -456,16 +467,6 @@ let setFields = (data)=>{
     })
 }
 
-// function titleToKey (title){
-//     let k;
-//     $.each(fieldNames, function(key, value){
-//         if (value['title'] === title){
-//             k = value['key'];  
-//             return k;        
-//         }        
-//     })
-//     return k;
-// }
 
 function keyToTitle (k){
     let k_;
@@ -488,40 +489,6 @@ function keyToId (k){
     return k_;
 }
 
-let readAnaliz = (s2)=>{
-    
-    // let url = 'https://schooltools.pythonanywhere.com/getblock/'+key+'/'+shName;
-    // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
-    $.getJSON(url + 'getblock/'+key+'/'+shName,
-        
-       function (data) {
-            data = data['feed']['entry'];       
-            // sortByTeach(data);  
-            setFields(data);
-
-            //gl_data = data; 
-            gl_data = gl_data.concat(data)
-
-            for (let i=0; i<gl_data.length; i++){
-                // gl_data[i]['id_m'] = i;
-                gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення')]['$t']));
-            }
-            
-            sortByDate(gl_data); 
-            for (let i=0; i<gl_data.length; i++){
-                gl_data[i]['id_m'] = i;
-                // gl_data[i]['normDate'] = (dateReformat(gl_data[i][titleToKey('Дата проведення уроку')]['$t']));
-            }
-            
-            createLists(gl_data);
-            createTable(gl_data);
-            mkHeader();
-            dwmlFunc();      
-     
-       }    
-       
-    );   
-}
 
 let dwmlFunc = (btn)=>{
     const dwnlds = document.querySelectorAll('.sel_table_id_dwnld');
@@ -608,14 +575,31 @@ function tmp__ (data_report) {
 }
 
 let createLists = (data)=>{
-    for (x of ['who', 'clas', 'subj', 'teach']){
+    slist = ['who', 
+            'clas', 
+            'subj',         
+            'teach',
+            // 'tema',
+        ]
+    for (x of slist){
         createList(data, x);
     }
     createListsDate(data);
 }
 
+let getNumHeader = (t, s)=>{
+    let h = t.header[0]
+    for(let col=0; col<h.length; col++){
+        if (h[col] === s){
+            return col
+        }
+    }
+    return -1
+}
+
 //Створюємо списки для меню
-let createList =(data, m)=>{
+let createList =(d, m)=>{
+    // let h = d[numTable].header[0]
     const mCL ={             //menuCreateList
         'who': {
             'field': titleToKey('Хто відвідує урок'), 
@@ -624,6 +608,7 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'who_selAll_id', 
             'menu': 'menuWho', 
             'inputId': 'f_chb_who', 
+
         },
         'clas': {
             'field': titleToKey('Клас'), 
@@ -632,6 +617,7 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'clas_selAll_id', 
             'menu': 'menuClas', 
             'inputId': 'f_chb_clas', 
+
         },
         'subj': {
             'field': titleToKey('Предмет'), 
@@ -640,6 +626,7 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'subj_selAll_id', 
             'menu': 'menuSubj', 
             'inputId': 'f_chb_subj', 
+
         },
         'teach': {
             'field': titleToKey('Вчитель'), 
@@ -648,18 +635,66 @@ let createList =(data, m)=>{
             'inputIdSelAll': 'teach_selAll_id', 
             'menu': 'menuTeach', 
             'inputId': 'f_chb', 
+
         },
+        // 'tema': {
+        //     'field': null, 
+        //     'setName': tema, 
+        //     'ulId': null, 
+        //     'inputIdSelAll': null, 
+        //     'menu': null, 
+        //     'inputId': null, 
+
+        // },
 
     };
 
-    for(let i=0; i<data.length; i++){
-        let dpu = titleToKey('Дата проведення');
-        if (data[i][dpu]['$t'][0] >= '0' && 
-            data[i][dpu]['$t'][0] <= '3' ){
-                mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
-        }        
+    for(let numTable=0; numTable<d.length; numTable++){
+        let header = d[numTable].header[0]
+        let dat = d[numTable].data
+        for(let col=0; col<header.length; col++){
+            if (header[col] === "Хто відвідує урок") {
+                for(let c=0; c<dat.length; c++){
+                    who.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Клас") {
+                for(let c=0; c<dat.length; c++){
+                    clas.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Предмет") {
+                for(let c=0; c<dat.length; c++){
+                    subj.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Вчитель") {
+                for(let c=0; c<dat.length; c++){
+                    teach.add(dat[c][col])
+                }
+            } else
+            if (header[col] === "Дата проведення") {
+                for(let c=0; c<dat.length; c++){
+                    let day = dat[c][col].substr(0,2);
+                    let month = dat[c][col].substr(3,2);
+                    let year = dat[c][col].substr(6,4);
+                    let dd = `${year}-${month}-${day}`;
+                    date.add(dd)
+                }
+            }
+        }
     }
+
+
+    // for(let i=0; i<data.length; i++){
+    //     let dpu = titleToKey('Дата проведення');
+    //     if (data[i][dpu]['$t'][0] >= '0' && 
+    //         data[i][dpu]['$t'][0] <= '3' ){
+    //             mCL[m]['setName'].add(data[i][mCL[m]['field']]['$t'])
+    //     }        
+    // }
     //Сврорюємо меню для фільтрації obj
+    // console.log(m)
     let ul = document.getElementById(mCL[m]['ulId']);
     let i = 0;
     //create btn select
@@ -701,17 +736,21 @@ let createList =(data, m)=>{
 
 //Створюємо списки для меню
 let createListsDate = (data)=>{
-    for(let i=0; i<data.length; i++){
-        //TODO
-        let s = data[i][titleToKey('Дата проведення')]['$t'];
-        let day = s.substr(0,2);
-        let month = s.substr(3,2);
-        let year = s.substr(6,4);
-        let d = `${year}-${month}-${day}`;
-        if (d[0] >= '0' && d[0] <= '9' ) {
-            date.add(d);
-        }        
+    for(n of date){
+        // console.log(n);
     }
+
+    // for(let i=0; i<data.length; i++){
+    //     //TODO
+    //     let s = data[i][titleToKey('Дата проведення')]['$t'];
+    //     let day = s.substr(0,2);
+    //     let month = s.substr(3,2);
+    //     let year = s.substr(6,4);
+    //     let d = `${year}-${month}-${day}`;
+    //     if (d[0] >= '0' && d[0] <= '9' ) {
+    //         date.add(d);
+    //     }        
+    // }
     let max = '2000-01-01';
     let min = '2100-01-01';
     let max_0 = '2000-01-01';
@@ -1096,94 +1135,94 @@ function titleToKey (title){
 // 1fcFYlF6lz8Qf37Un_Q4dbx8H_36JTpm752m7AIRjHKI
 
 let ttlwddj = {
-        'Хто відвідує урок'	:	"who"	,
-        'Дата проведення'	:	     "date"	,
-        'Клас'	:	     "cl"	,
-        'Предмет'	:	     "pr"	,
-        'Кількість учнів за списком'	:	     "klist"	,
-        'Кількість учнів присутніх'	:	     "kprez"	,
-        'Вчитель'	:	     "teacher"	,
-        'Тема навчального заняття'	:	     "tema"	,
-        'Обладнання'	:	     "obladn"	,
-        'Мета відвідування'	:	     "meta"	,
-        'Тип уроку'	:	     "tip"	,
-        'Примітка2'	:	     "pr2"	,
-        'Примітка3'	:	     "pr3"	,
-        'Примітка4'	:	     "pr4"	,
-        'Примітка5'	:	     "pr5"	,
-        'Примітка6'	:	     "pr6"	,
-        'Примітка7'	:	     "pr7"	,
-        'Примітка8'	:	     "pr8"	,
-        'Примітка9'	:	     "pr9"	,
-        'Примітка10'	:	     "pr10"	,
-        'Примітка11'	:	     "pr11"	,
-        'Висновки та пропозиції:'	:	     "visn"	,  
+        'Хто відвідує урок'	:	"who"	,
+        'Дата проведення'	:	"date"	,
+        'Клас'	:	"cl"	,
+        'Предмет'	:	"pr"	,
+        'Кількість учнів за списком'	:	"klist"	,
+        'Кількість учнів присутніх'	:	"kprez"	,
+        'Вчитель'	:	"teacher"	,
+        'Тема навчального заняття'	:	"tema"	,
+        'Обладнання'	:	"obladn"	,
+        'Мета відвідування'	:	"meta"	,
+        'Тип уроку'	:	"tip"	,
+        'Примітка2'	:	"pr2"	,
+        'Примітка3'	:	"pr3"	,
+        'Примітка4'	:	"pr4"	,
+        'Примітка5'	:	"pr5"	,
+        'Примітка6'	:	"pr6"	,
+        'Примітка7'	:	"pr7"	,
+        'Примітка8'	:	"pr8"	,
+        'Примітка9'	:	"pr9"	,
+        'Примітка10'	:	"pr10"	,
+        'Примітка11'	:	"pr11"	,
+        'Висновки та пропозиції:'	:	"visn"	,  
 
 }
 let ttlBals = {
-        
-        '2.1. правильність визначення мети уроку;'	:	     "c2_1"	,
-        '2.2. доцільність структури;'	:	     "c2_2"	,
-        '2.3. відповідність структури меті уроку;'	:	     "c2_3"	,
-        '2.4. логічність структури уроку;'	:	     "c2_4"	,
-        '2.5. завершеність етапів уроку, дій педагога і учнів;'	:	     "c2_5"	,
-        '2.6. наявність релаксаційних моментів;'	:	     "c2_6"	,
-        '2.7. поєднання фронтально, групової та індивідуальної роботи на уроці;'	:	     "c2_7"	,
-        '2.8. раціональне використання навчального часу;'	:	     "c2_8"	,
-        '2.9. готовність педагога до уроку;'	:	     "c2_9"	,
-        '2.10. готовність учнів до уроку'	:	     "c2_10"	,
-        
-        '3.1. реалізація дидактичних принципів;'	:	     "c3_1"	,
-        '3.2. відповідність навчального матеріалу вимогам програми;'	:	     "c3_2"	,
-        '3.3. повнота і доступність матеріалу за змістом і обсягом;'	:	     "c3_3"	,
-        '3.4. характер пізнавальної діяльності учнів '	:	     "c3_4"	,
-        
-        '4.1. розвиток і формування ключових компетентностей;'	:	     "c4_1"	,
-        '4.2. використання ефективних методів та прийомів роботи;'	:	     "c4_2"	,
-        '4.3. відповідність методів меті, завданням та змісту уроку;'	:	     "c4_3"	,
-        '4.4. використання прийомів активізації пізнавально…гри, евристичної бесіди, дискусії, диспуту тощо);'	:	     "c4_4"	,
-        '4.5. оптимальність організації самостійної, індивідуальної роботи учнів;'	:	     "c4_5"	,
-        '4.6. використання ІКТ, що сприяють оволодінню учнями ключовими компетентностями'	:	     "c4_6"	,
        
-        '5.1. використання обладнання та засобів навчання д…візації навчально-пізнавальної діяльності учнів;'	:	     "c5_1"	,
-        '5.2. формування в учнів позитивного ставлення до навчання;'	:	     "c5_2"	,
-        '5.3. стимулювання активної навчальної праці учнів'	:	     "c5_3"	,
+        '2.1. правильність визначення мети уроку;'	:	"c2_1"	,
+        '2.2. доцільність структури;'	:	"c2_2"	,
+        '2.3. відповідність структури меті уроку;'	:	"c2_3"	,
+        '2.4. логічність структури уроку;'	:	"c2_4"	,
+        '2.5. завершеність етапів уроку, дій педагога і учнів;'	:	"c2_5"	,
+        '2.6. наявність релаксаційних моментів;'	:	"c2_6"	,
+        '2.7. поєднання фронтально, групової та індивідуальної роботи на уроці;'	:	"c2_7"	,
+        '2.8. раціональне використання навчального часу;'	:	"c2_8"	,
+        '2.9. готовність педагога до уроку;'	:	"c2_9"	,
+        '2.10. готовність учнів до уроку'	:	"c2_10"	,
         
-        '6.1. спрямування навчального матеріалу на вихованн…изму, поваги до державної мови, культури, закону;'	:	     "c6_1"	,
-        '6.2. реалізація наскрізних змістовних ліній;'	:	     "c6_2"	,
-        '6.3. розвиток в учнів громадянську активність і відповідальність;'	:	     "c6_3"	,
-        '6.4. розвиток в учнів загальнолюдської цінності (соціальна емпатія,толерантність, інклюзивна культура тощо);'	:	     "c6_4"	,
-        '6.5. розвиток в учнів навичок співпраці та культури командної роботи'	:	     "c6_5"	,
+        '3.1. реалізація дидактичних принципів;'	:	"c3_1"	,
+        '3.2. відповідність навчального матеріалу вимогам програми;'	:	"c3_2"	,
+        '3.3. повнота і доступність матеріалу за змістом і обсягом;'	:	"c3_3"	,
+        '3.4. характер пізнавальної діяльності учнів '	:	"c3_4"	,
+        
+        '4.1. розвиток і формування ключових компетентностей;'	:	"c4_1"	,
+        '4.2. використання ефективних методів та прийомів роботи;'	:	"c4_2"	,
+        '4.3. відповідність методів меті, завданням та змісту уроку;'	:	"c4_3"	,
+        '4.4. використання прийомів активізації пізнавально…гри, евристичної бесіди, дискусії, диспуту тощо);'	:	"c4_4"	,
+        '4.5. оптимальність організації самостійної, індивідуальної роботи учнів;'	:	"c4_5"	,
+        '4.6. використання ІКТ, що сприяють оволодінню учнями ключовими компетентностями'	:	"c4_6"	,
        
-        '7.1. оцінювання навчальних досягнень учнів, спираючись на розроблені критерії;'	:	     "c7_1"	,
-        '7.2. оприлюднення критеріїв оцінювання навчальних досягнень учнів;'	:	     "c7_2"	,
-        '7.3. надання учням часу для обдумування відповіді;'	:	     "c7_3"	,
-        '7.4. супровід відповіді учня супроводжуючими запитаннями;'	:	     "c7_4"	,
-        '7.5. забезпечення зворотного зв’язку щодо якості виконання - виконаного завдання;'	:	     "c7_5"	,
-        '7.6. спрямування оцінювання навчальних досягнень на індивідуальний поступ учня;'	:	     "c7_6"	,
-        '7.7. використання методики самооцінювання і взаємооцінювання учнів;'	:	     "c7_7"	,
-        '7.8. відзначення досягнень учнів, підтримку у них бажання навчатися'	:	     "c7_8"	,
+        '5.1. використання обладнання та засобів навчання д…візації навчально-пізнавальної діяльності учнів;'	:	"c5_1"	,
+        '5.2. формування в учнів позитивного ставлення до навчання;'	:	"c5_2"	,
+        '5.3. стимулювання активної навчальної праці учнів'	:	"c5_3"	,
         
-        '8.1. співпраця з учнями на засадах партнерства;'	:	     "c8_1"	,
-        '8.2. сприйняття думки учнів, їх власної точки зору;'	:	     "c8_2"	,
-        '8.3. застосування особистісно зорієнтованого підходу;'	:	     "c8_3"	,
-        '8.4. дотримання принципів академічної доброчесності'	:	     "c8_4"	,
+        '6.1. спрямування навчального матеріалу на вихованн…изму, поваги до державної мови, культури, закону;'	:	"c6_1"	,
+        '6.2. реалізація наскрізних змістовних ліній;'	:	"c6_2"	,
+        '6.3. розвиток в учнів громадянську активність і відповідальність;'	:	"c6_3"	,
+        '6.4. розвиток в учнів загальнолюдської цінності (соціальна емпатія,толерантність, інклюзивна культура тощо);'	:	"c6_4"	,
+        '6.5. розвиток в учнів навичок співпраці та культури командної роботи'	:	"c6_5"	,
+       
+        '7.1. оцінювання навчальних досягнень учнів, спираючись на розроблені критерії;'	:	"c7_1"	,
+        '7.2. оприлюднення критеріїв оцінювання навчальних досягнень учнів;'	:	"c7_2"	,
+        '7.3. надання учням часу для обдумування відповіді;'	:	"c7_3"	,
+        '7.4. супровід відповіді учня супроводжуючими запитаннями;'	:	"c7_4"	,
+        '7.5. забезпечення зворотного зв’язку щодо якості виконання - виконаного завдання;'	:	"c7_5"	,
+        '7.6. спрямування оцінювання навчальних досягнень на індивідуальний поступ учня;'	:	"c7_6"	,
+        '7.7. використання методики самооцінювання і взаємооцінювання учнів;'	:	"c7_7"	,
+        '7.8. відзначення досягнень учнів, підтримку у них бажання навчатися'	:	"c7_8"	,
+        
+        '8.1. співпраця з учнями на засадах партнерства;'	:	"c8_1"	,
+        '8.2. сприйняття думки учнів, їх власної точки зору;'	:	"c8_2"	,
+        '8.3. застосування особистісно зорієнтованого підходу;'	:	"c8_3"	,
+        '8.4. дотримання принципів академічної доброчесності'	:	"c8_4"	,
       
-        '9.1. активність;'	:	     "c9_1"	,
-        '9.2. умотивованість;'	:	     "c9_2"	,
-        '9.3. старанність;'	:	     "c9_3"	,
-        '9.4. зацікавленість темою заняття;'	:	     "c9_4"	,
-        '9.5. дисциплінованість; '	:	     "c9_5"	,
-        '9.6. ставлення до вчителя'	:	     "c9_6"	,
+        '9.1. активність;'	:	"c9_1"	,
+        '9.2. умотивованість;'	:	"c9_2"	,
+        '9.3. старанність;'	:	"c9_3"	,
+        '9.4. зацікавленість темою заняття;'	:	"c9_4"	,
+        '9.5. дисциплінованість; '	:	"c9_5"	,
+        '9.6. ставлення до вчителя'	:	"c9_6"	,
         
-        '10.1. готовність учнів до виконання домашнього завдання;'	:	     "c10_1"	,
-        '10.2. рівень складності завдання та його обсяг;'	:	     "c10_2"	,
-        '10.3. диференційованість домашнього завдання;'	:	     "c10_3"	,
-        '10.4. спрямованість на оволодіння ключовими компетентностями, озвучено критерії його оцінювання'	:	     "c10_4"	,
+        '10.1. готовність учнів до виконання домашнього завдання;'	:	"c10_1"	,
+        '10.2. рівень складності завдання та його обсяг;'	:	"c10_2"	,
+        '10.3. диференційованість домашнього завдання;'	:	"c10_3"	,
+        '10.4. спрямованість на оволодіння ключовими компетентностями, озвучено критерії його оцінювання'	:	"c10_4"	,
         
-        '11.1. досягнення мети уроку;'	:	     "c11_1"	,
-        '11.2. реалізація завдань та очікуваних результатів;'	:	     "c11_2"	,
-        '11.3. оволодіння учнями ключовими компетентностями, нормами, цінностями'	:	     "c11_3"	,
+        '11.1. досягнення мети уроку;'	:	"c11_1"	,
+        '11.2. реалізація завдань та очікуваних результатів;'	:	"c11_2"	,
+        '11.3. оволодіння учнями ключовими компетентностями, нормами, цінностями'	:	"c11_3"	,
         
 
 }
@@ -1283,87 +1322,115 @@ function mkHeader(){
 //     } 
 // })
 
+function getCol(dat, numTable, name){
+    header = dat[numTable].header[0]
+    // console.log(header)
+    // console.log(header.length)
+    for (let col=0; col<header.length; col++){
+        if (name === header[col]){
+            return col
+        }        
+    }
+    if (name == 'Клас'){
+        return getCol(dat, numTable, 'Клас, група')
+    } else
+    if (name == 'Дата проведення'){
+        return getCol(dat, numTable, 'Дата проведення уроку')
+    } else
+    if (name == 'Вчитель'){
+        return getCol(dat, numTable, 'Вчитель, урок якого відвідують')
+    } else
+    if (name == 'Тема навчального заняття'){
+        return getCol(dat, numTable, 'Тема уроку')
+    }
+}
 
 
-
-let fillTable = (table, i, d)=>{
-    // (d['gsx$датапроведенняуроку']['$t'][0] >= '0' && d['gsx$датапроведенняуроку']['$t'][0] <= '3' )
+let fillTable = (table, dat, numTable, rrow, ii, d)=>{
     let dpu = titleToKey('Дата проведення');
-    if (d[dpu]['$t'][0] >= '0' && 
-        d[dpu]['$t'][0] <= '3' ){
-        let cel1 = document.createElement('td');
-        let cel2 = document.createElement('td');
-        let cel3 = document.createElement('td');
-        let cel4 = document.createElement('td');
-        let cel5 = document.createElement('td');
-        let cel6 = document.createElement('td');
-        let cel7 = document.createElement('td');
-        cel1.classList.add('cel_def');
-        cel2.classList.add('cel_def');
-        cel3.classList.add('cel_def');
-        cel4.classList.add('cel_def');
-        cel5.classList.add('cel_def');
-        cel6.classList.add('cel_def');
-        cel7.classList.add('cel_def');
-        cel7.classList.add('cel_chb');
-        let row = document.createElement('tr');
-        row.setAttribute('id','row_'+String(i));
-        cel1.innerText=d[titleToKey('Дата проведення')]['$t'];    
-        cel2.innerText=d[titleToKey('Хто відвідує урок')]['$t'];
-        cel3.innerText=d[titleToKey('Вчитель')]['$t'];
-        cel4.innerText=d[titleToKey('Клас')]['$t'];
-        cel5.innerText=d[titleToKey('Предмет')]['$t'];
-        cel6.innerText=d[titleToKey('Тема навчального заняття')]['$t'];
     
-        row.setAttribute('data-teach', d[titleToKey('Вчитель')]['$t']);
-        row.setAttribute('data-clas', d[titleToKey('Клас')]['$t']);
-        row.setAttribute('data-subj', d[titleToKey('Предмет')]['$t']);
-        row.setAttribute('data-who', d[titleToKey('Хто відвідує урок')]['$t']);
-        let s = d[titleToKey('Дата проведення')]['$t'];
-        let day = s.substr(0,2);
-        let year = s.substr(6,4);
-        let month = s.substr(3,2);
-        s = `${year}-${month}-${day}`;
-        row.setAttribute('data-date', s);
+    let row = document.createElement('tr');
+    row.setAttribute('id','ii_'+String(ii));
+    row.setAttribute('id','row_'+String(rrow));
+    row.setAttribute('id','table_'+String(numTable));
+
     
-        let ul = document.querySelectorAll(".f_chb");
-        row.classList.add('row_cl');
-        cel7.innerHTML=`<div class="print_col_all">      
-                <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
-                <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
-            </div>`;
-        // cel7.innerHTML=`<div class="print_col_all">      
-        //         <div class="print_col_i"><img class="print_col_img" id="img_${String(i)}" src="./assets/icons/eye.png"></div>
-        //         <div class="print_col_chb"><input class="sel_table_id_cl" id="id_${String(i)}" type="checkbox"></div>
-        //         <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(i)}" src="./assets/icons/dwnld.png"></div>
-        //     </div>`;
-            // document.getElementById(`id_dwnld_${String(i)}`).addEventListener('mouseup', )
-            table.append(row);
-        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-     } 
-     
+    hHeader = ['Дата проведення', 'Хто відвідує урок', 'Вчитель', 'Клас', 'Предмет', 'Тема навчального заняття']
+    
+    table.append(row);
+
+    for (let ci=0; ci<6; ci++){
+        let x = document.createElement('td');
+        x.classList.add('cel_def');
+        x.classList.add('cel_def');
+        col = getCol(dat, numTable, hHeader[ci])
+        x.innerText=d[col]; 
+        row.append(x);
+    } 
+
+    let cel7 = document.createElement('td');
+    cel7.classList.add('cel_def');
+    cel7.classList.add('cel_chb'); 
+
+    row.setAttribute('data-teach', d[getCol(dat, numTable, 'Вчитель')]);
+    row.setAttribute('data-clas', d[getCol(dat, numTable, 'Клас')]);
+    row.setAttribute('data-subj', d[getCol(dat, numTable, 'Предмет')]);
+    row.setAttribute('data-who', d[getCol(dat, numTable, 'Хто відвідує урок')]);
+    row.setAttribute('data-table', String(numTable));
+    row.setAttribute('data-row', String(rrow));
+
+    let s = d[getCol(dat, numTable, 'Дата проведення')];
+    let day = s.substr(0,2);
+    let year = s.substr(6,4);
+    let month = s.substr(3,2);
+    s = `${year}-${month}-${day}`;
+    row.setAttribute('data-date', s);
+    let ul = document.querySelectorAll(".f_chb");
+    row.classList.add('row_cl');
+    cel7.innerHTML=`<div class="print_col_all"> 
+    <div class="print_col_i"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+            <div class="print_col_edit"><img class="print_col_img" id="img_edit_${String(ii)}" src="./assets/icons/editbtn.png"  title="Редагувати" disabled></div>
+            <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(ii)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
+        </div>`;
+    row.append(cel7);
 }
 
 
 
 let sortByDate = (arr)=>{
-    // arr.sort((a, b) =>  (a['gsx$вчительурокякоговідвідують']['$t']) > (b['gsx$вчительурокякоговідвідують']['$t']) ? 1 : -1);
     arr.sort((a, b) =>  Date.parse(a['normDate']) > Date.parse(b['normDate']) ? 1 : -1);
-
 }
 
 
 
-let createTable = (gl_data)=>{    
+let createTable = (d)=>{ 
     const table = document.getElementById("table__id");
-    for (let i=0; i<gl_data.length; i++){
-        fillTable(table, gl_data[i]['id_m'], gl_data[i]);
+    let ii = 0
+    for(let numTable=0; numTable<d.length; numTable++){
+        let header = d[numTable].header[0]
+        let dat = d[numTable].data
+        for(let row=0; row<dat.length; row++){
+            fillTable(table, d, numTable, row, ii, dat[row])
+            ii++
+        }
     }
+
+    
+
     let print_col_imges = document.querySelectorAll(".print_col_img");
     print_col_imges.forEach(function(el) {
         el.addEventListener('click', (e)=>{
-            let a = createCard (gl_data.find(p => "img_"+String(p['id_m']) == e.target.id));
-            let b = print_atom(a);
+            const iii = parseInt(e.target.id.slice(4))
+            
+            const parentRow = e.target.closest('tr');
+            const numTable = parseInt(parentRow.getAttribute('data-table')) 
+            const row = parseInt(parentRow.getAttribute('data-row')) 
+            const head = glData[numTable].header[0]
+            const dat = glData[numTable].data[row]
+  
+            console.log(head)
+            // let a = createCard (head, dat);
+            let b = print_atom(head, dat);
             props_div.hidden = true
             pet_info.hidden = false
             fillModalWindow(b);
@@ -1426,7 +1493,24 @@ $(function(){
 
 // alert('Наразі функції сервісу обмежені. Просимо вибачення. Наші спеціалісти найближчим часом це виправлять.');
 
+
+
+let readAnaliz = (s2)=>{    
+    $.getJSON(url + 'getmultiblock/'+key,        
+       function (data) {
+            console.log(data)  
+            glData = data   
+            createLists(data);   
+            createTable(data);   
+        }
+    );   
+}
+
 readStorage();
+
+//TODO ---- devmode
+key = "1uOV_IJaMbe41dOBiSeYHrwhOfR7kUix8b9QhFK2oBeE"
+
 readAnaliz(sheet2);
 
 
