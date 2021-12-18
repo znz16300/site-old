@@ -199,8 +199,8 @@ function print_atom(head, dat){
         }
         allPar += '<p>';
         let h = head[i].trim()
-        let v = dat[i].trim()
-        if (v === '') {
+        let v = dat[i]
+        if (v === ''||v === undefined) {
             continue;
         }        
 
@@ -212,24 +212,7 @@ function print_atom(head, dat){
         allPar += v;
         allPar += '</p>';
 
-    //     let symEnd = '';
-    //     let a = reformatString(data[i].title);
-    //     let rozdTitle = rozd_v2[a];
-    //     if (rozdTitle === undefined){
-    //         rozdTitle = "";
-    //     } else {
-    //         rozdTitle = rozdTitle.toUpperCase();
-    //     }
-    //     next_title=(data[i+1].title).trim().toUpperCase();
-    //     allPar += rozdTitle;
-    //     let title_0 = reformatString((data[i]['title']).trim());
-    //     allPar += format_Aa(title_0, 
-    //                         (data[i].value).replace('_', '').trim(), 
-    //                         next_title=next_title,  
-    //                         format=form_at, 
-    //                         sep=sep, 
-    //                         symEnd=symEnd,                          
-    //                         );
+
     }
     // allPar = format_2(allPar, clasT, clasV);
      dist += allPar;
