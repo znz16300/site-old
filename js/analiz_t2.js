@@ -179,7 +179,7 @@ function reformatString(text) {
     return text.trim();
 }
 
-function print_atom(head, dat){    
+function print_atom(table, head, dat){    
 
 
     let allPar = '';
@@ -191,20 +191,28 @@ function print_atom(head, dat){
 
     let ttl = "АНАЛІЗ УРОКУ";
     dist =`<p></p><div class="title1">${ttl}</div>`;
-    // data.push({'id':111111111, 'title':" ", 'value':" "});
-    // console.log(data);
     for(let i=0; i<head.length; i++){
         if (head[i] === 'Позначка часу') {
             continue;
         }
         allPar += '<p>';
         let h = head[i].trim()
-        let v = dat[i]
+        if (h[h.length-1] === ';'||h[h.length-1] === '.'||h[h.length-1] === ','||h[h.length-1] === ':') h = h.slice(0, -1)
+        
+        let v = dat[i]     
         if (v === ''||v === undefined) {
             continue;
-        }        
+        } 
+        let rozzz = rozd_data[table][h]
+        if(rozzz !== undefined){
+            allPar += `<h3>${rozzz}</h3>`;
+        }
 
-        if (h[h.length-1] === ';') h = h.slice(0, -1)
+        
+        if (h === "1. Повнота та глибина перевірки"){
+            console.log('!!!!!')
+        }
+        
         allPar += h;        
         allPar += ': ';
         
@@ -1435,9 +1443,9 @@ let createTable = (d)=>{
             const head = glData[numTable].header[0]
             const dat = glData[numTable].data[row]
   
-            console.log(head)
+            // console.log(head)
             // let a = createCard (head, dat);
-            let b = print_atom(head, dat);
+            let b = print_atom(numTable, head, dat);
             props_div.hidden = true
             pet_info.hidden = false
             fillModalWindow(b);

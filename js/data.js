@@ -1,14 +1,14 @@
-let keyTableNews = "1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
-let keyTableDocs ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
-let keyTablePages = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
-let titles = ['Чого б ти не вчився, ти вчишся для себе', 
+const keyTableNews = "1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+const keyTableDocs ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
+const keyTablePages = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
+const titles = ['Чого б ти не вчився, ти вчишся для себе', 
               'У нас мета одна-єдина: зростить людиною дитину',
               'Школа - це основа, на якій будується все майбутнє життя',
               'Школа робить дитину сильною та відповідальною',
 
 ]
 
-let pets = [
+const pets = [
     {
       "id": "1",
       "name": "Кабінет фізики",
