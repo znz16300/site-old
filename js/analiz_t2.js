@@ -736,8 +736,25 @@ let createList =(d, m)=>{
 
 //Створюємо списки для меню
 let createListsDate = (data)=>{
+    let t = 0
     for(n of date){
         // console.log(n);
+    }
+    let dateM = new Set()
+
+    for (table of data){
+        let s = 'Дата проведення'
+        let numDateCol = getCol(data, t, s)
+        for (dat of table.data){
+            let s = dat[numDateCol];
+            let day = s.substr(0,2);
+            let month = s.substr(3,2);
+            let year = s.substr(6,4);
+            let d = `${year}-${month}-${day}`;
+            dateM.add(d)
+        }
+        t++
+
     }
 
     // for(let i=0; i<data.length; i++){
@@ -755,7 +772,7 @@ let createListsDate = (data)=>{
     let min = '2100-01-01';
     let max_0 = '2000-01-01';
     let min_0 = '2100-01-01';
-    for (d of date){
+    for (d of dateM){
             if (d<min_0) min_0 = d;
             if (d>max_0) max_0 = d;
     };
@@ -924,7 +941,13 @@ let filtrClick = (e)=>{
         for(inp of ulWho) {
             let ch = inp.checked;
             let w = inp.getAttribute('data-1');
+            w = w.replace('  ',' ')
+            who = who.replace('  ',' ')
+            // if (w === "ЗДНВР Ірина Ситюкова"&&who === w){
+            //     console.log("ЗДНВР Ірина Ситюкова")
+            // }
             if (who === w){
+                //fWho = true;
                 fWho = ch;
             }
         }
@@ -936,6 +959,7 @@ let filtrClick = (e)=>{
             row.style.display = "" 
         } else {
             row.style.display = "none";
+            //row.style.display = "";
         }
     }
     saveFilter();
