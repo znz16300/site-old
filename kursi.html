@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"> -->
+    
+    <link rel="stylesheet" href="./css/kursi.css">
+    <link rel="stylesheet" href="./css/page.css">
+    <!-- <link rel="stylesheet" href="./css/news.css"> -->
+    <script src="./js/jquery-3.5.0.js"></script>
+    <title id="title__">Сайт Куликівського ЗЗСО І-ІІІ ступенів</title>
+    <link rel="shortcut icon" href="./assets/icons/favicon.png">
+</head>
+
+<body>
+    
+    <div class="modal__wrapper">
+        <div class="modal">
+            <div class="modal_close">
+                <img src="./assets/icons/close_icon.png" class="modal_close_button" alt="close button">
+            </div>
+            <div class="modal__image">
+                <!-- <img src="./assets/images/school.jpg" alt="school"> -->
+            </div>
+            <div class="pet_info">
+                <div class="pet_info__name"></div>
+                <div class="pet_info__type"></div>
+                <div class="pet_info__about"></div>
+                <ul class="pet__info__advantage" >                    
+                    <li class="pet_info__inoculations" hidden>
+                        <span class="key"></span>
+                        <span class="value"></span>
+                    </li>
+                    <li class="pet_info__diseases" hidden>
+                        <span class="key"></span>
+                        <span class="value"></span>
+                    </li>
+                    <li class="pet_info__parasites" hidden>
+                        <span class="key"></span>
+                        <span class="value"></span>
+                    </li>
+                    <li class="pet__info__age">
+                        <span class="key">Додано:</span>
+                        <span class="value"></span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header_pets">
+            <div class="wrapper">
+  
+                <header class="header">
+                    <div class="header__logo_item">
+                        <div class="header__logo"><a class="header__logo_link" href="./index.html">Школа</a></div>
+                        <div class="header__text">Куликівський ЗЗСО І-ІІІ ст.</div>
+                    </div>
+                    <nav class="header__nav">
+                        <ul class="header__list">
+                            <li class="header__list_item"><a  href="./index.html">Головна</a></li>
+                            <li class="header__list_item"><a href="./news.html">Новини</a></li>
+                            <li class="header__list_item"><a href="./documents.html">Документи</a></li>
+                            <li class="header__list_item"><a 
+                                href="./page.html?titlePages=Діяльність&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"                             
+                                > 
+                                Діяльність
+                            </a>
+                            </li>
+                            <li class="header__list_item"><a 
+                                href="./page.html?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
+                                >Контакти</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header__burger">
+                        <div class="header__burger_line"></div>
+                        <div class="header__burger_line"></div>
+                        <div class="header__burger_line"></div>
+                    </div>
+                </header>
+            </div>
+        </div>
+        <main class="pets" id="mainId">            
+            <div class="wrapper">
+                <div class="pets__wrapper">
+                    <h3 id="title__id">
+                        Курси
+                    </h3>
+                    
+                    <div class="par">
+                    <label for="teach" class="titl">Оберіть вчителя</label><br>
+                    <select class="input_field " name="teach" id="teach_id">
+                        <option ></option>
+                    </select>
+                    </div>
+                    <div>
+                        <div class="table">
+                            <table  id="table_id" class="table__cl">
+                                <tbody id="tbody__id"  >
+                                    <tr class="cel_row">
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Час уведення</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Вчитель</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Тема</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Годин</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Номер документа</div> 
+                                        </div>
+                                    </th>
+
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Дата документа</div> 
+                                        </div>
+                                    </th>
+
+                                </tr>
+                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+        </main>
+
+        
+    </div>
+    <div class="go-up" title="Вгору" id="scrollToTop" >^</div>
+    <!-- <script src="./js/documents.js"></script> -->
+    <script src="./js/data.js"></script>
+    <script src="./js/kursi.js"></script>
+
+</body>
+
+</html>
