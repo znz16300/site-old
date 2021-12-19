@@ -1,5 +1,5 @@
 // const url = "http://127.0.0.1:5000/";
-const url = "https://schooltools.pythonanywhere.com/";
+ const url = "https://schooltools.pythonanywhere.com/";
 let glData
 let teachers = new Set()
 
@@ -10,7 +10,42 @@ const teachCombo = document.getElementById('teach_id')
 
 teachList.addEventListener('change', ()=> {
     tBody.innerHTML = ''
+    let head = document.createElement('tr');
+    head.classList.add('cel_row');
+    head.innerHTML = `
+    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Час уведення</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Вчитель</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Тема</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Годин</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Номер документа</div> 
+                                        </div>
+                                    </th>
 
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1">Дата документа</div> 
+                                        </div>
+                                    </th>
+    `
+    tBody.append(head)
     let teachName = teachCombo.value
     let dat = glData[0].data
     for (r of dat){
@@ -48,7 +83,7 @@ function getCol(dat, numTable, name){
 let readAnaliz = ()=>{    
     $.getJSON(url + 'getmultiblock/'+key,         
        function (data) {
-            console.log(data)  
+              
             glData = data   
             let dat = glData[0].data
             for (r of dat){
@@ -63,7 +98,7 @@ let readAnaliz = ()=>{
                 teachList.append(opt);
             }   
             
-            console.log(teachers)           
+                     
         }
     );   
 }
