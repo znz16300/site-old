@@ -484,7 +484,10 @@ function keyToId (k){
 let dwmlFunc = (btn)=>{
     const dwnlds = document.querySelectorAll('.sel_table_id_dwnld');
     dwnlds.forEach(function(btn) {        
-        btn.addEventListener('mouseup', function() {
+        btn.addEventListener('mouseup', e =>{
+            //search row
+            row = e.target.closest('tr')
+            console.log (row)
             let id_m = parseInt(btn.id.slice(9));
             let bal = 0
             let b;
@@ -497,7 +500,6 @@ let dwmlFunc = (btn)=>{
                     b = parseInt(gl_data[id_m][key]["$t"])
                     bal += b;
                     let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
-                    // console.log('nam ', nam)
                     context[nam] = '✓'
                 }
             });
@@ -511,23 +513,21 @@ let dwmlFunc = (btn)=>{
                 riven = 'достатній';
             else riven = 'високий';
 
+            let file = '444'
+            let numTable = parseInt(row.getAttribute('data-table'))
+            context['file'] = glData[numTable]['templFile']
             context['riven'] = riven
             context['posada'] = 'Заступник директора \n' + props['zaklad_name_r_v']
       
 
 
-            
-            //let url = "http://127.0.0.1:5000/";
-            //let url = "https://schooltools.pythonanywhere.com/";
             $.ajax({
                 type : "POST",
-                url : url+"getfileanalizt/",
+                url : url+"getfileanalizt2/",
                 data : context,
-                // contentType: false,
                 cache: false,
                 success: function(data){
-                    // console.log(data)
-                    //alert("Скачую файл. Натисніть Ok");
+
                     document.location.href = url+"test/"+data+"/";
 
                 }
@@ -1450,6 +1450,7 @@ let readAnaliz = (s2)=>{
             glData = data   
             createLists(data);   
             createTable(data);   
+            dwmlFunc();
         }
     );   
 }
