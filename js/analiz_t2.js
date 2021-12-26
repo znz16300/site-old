@@ -487,34 +487,68 @@ let dwmlFunc = (btn)=>{
         btn.addEventListener('mouseup', e =>{
             //search row
             row = e.target.closest('tr')
-            console.log (row)
+            let numTable = parseInt(row.getAttribute('data-table'))
+            let numRow = parseInt(row.getAttribute('data-row'))
+            let c = 0
             let id_m = parseInt(btn.id.slice(9));
             let bal = 0
             let b;
+            let maxBal = 0;
             let context = {'name_school': props['zaklad_name']};
-            dd_keys.forEach(key => {                 
-                let v = gl_data[id_m][key]["$t"]       
-                let vopros = hh_ww_d[key]
-                context[ttlwddj[vopros]] = v
-                if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
-                    b = parseInt(gl_data[id_m][key]["$t"])
+
+            for (h of glData[numTable].header[0]){
+                console.log(h)                
+                let v = glData[numTable].data[numRow][c]
+                if (v == undefined) v = ''
+                console.log(v)
+                
+                if (h !== undefined && h.slice(0,1)>='1' && h.slice(0,1)<='9'){
+                    b = parseInt(v)
                     bal += b;
-                    let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
+                    maxBal += 4
+                    let nam = 'c'+copyToSpaseAndRepl(h)+'_'+b;
                     context[nam] = '✓'
+                } else {
+                    context[ttlwddj[h]] = v
                 }
-            });
+
+                c++
+            }
+
+            
+            
+
+
+            // dd_keys.forEach(key => {                 
+            //     let v = gl_data[id_m][key]["$t"]       
+            //     let vopros = hh_ww_d[key]
+            //     context[ttlwddj[vopros]] = v
+            //     if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
+            //         b = parseInt(gl_data[id_m][key]["$t"])
+            //         bal += b;
+            //         maxBal += 4
+            //         let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
+            //         context[nam] = '✓'
+            //     }
+            // });
             
             context['bal'] = bal
-            if (bal<93) 
+            if (bal<maxBal*.25) 
                 riven = 'початковий';
-            else if (bal<133) 
+            else if (bal<maxBal*.5) 
                 riven = 'середній';
-            else if (bal<173) 
+            else if (bal<maxBal*.75) 
                 riven = 'достатній';
             else riven = 'високий';
+            // if (bal<93) 
+            //     riven = 'початковий';
+            // else if (bal<133) 
+            //     riven = 'середній';
+            // else if (bal<173) 
+            //     riven = 'достатній';
+            // else riven = 'високий';
 
-            let file = '444'
-            let numTable = parseInt(row.getAttribute('data-table'))
+            
             context['file'] = glData[numTable]['templFile']
             context['riven'] = riven
             context['posada'] = 'Заступник директора \n' + props['zaklad_name_r_v']
@@ -1150,17 +1184,22 @@ function titleToKey (title){
 // 1fcFYlF6lz8Qf37Un_Q4dbx8H_36JTpm752m7AIRjHKI
 
 let ttlwddj = {
+        'Позначка часу'	:	"dateInput"	,
         'Хто відвідує урок'	:	"who"	,
         'Дата проведення'	:	"date"	,
         'Клас'	:	"cl"	,
         'Предмет'	:	"pr"	,
+        'Кількість учнів (за списком)'	:	"klist"	,
+        'Кількість учнів (присутніх)'	:	"kprez"	,
         'Кількість учнів за списком'	:	"klist"	,
         'Кількість учнів присутніх'	:	"kprez"	,
         'Вчитель'	:	"teacher"	,
         'Тема навчального заняття'	:	"tema"	,
+        'Тема тижня'	:	"temaweek"	,
         'Обладнання'	:	"obladn"	,
         'Мета відвідування'	:	"meta"	,
         'Тип уроку'	:	"tip"	,
+        'Примітка1'	:	"pr1"	,
         'Примітка2'	:	"pr2"	,
         'Примітка3'	:	"pr3"	,
         'Примітка4'	:	"pr4"	,
@@ -1171,7 +1210,9 @@ let ttlwddj = {
         'Примітка9'	:	"pr9"	,
         'Примітка10'	:	"pr10"	,
         'Примітка11'	:	"pr11"	,
-        'Висновки та пропозиції:'	:	"visn"	,  
+        'Висновки та пропозиції'	:	"visn"	,  
+        'Висновки'	:	"visn"	,  
+        'Пропозиції'	:	"prop"	,  
 
 }
 
@@ -1281,12 +1322,6 @@ function getCol(dat, numTable, name){
     }
     if (name == 'Клас'){
         return getCol(dat, numTable, 'Клас, група')
-    } else
-    if (name == 'Дата проведення'){
-        return getCol(dat, numTable, 'Дата проведення уроку')
-    } else
-    if (name == 'Вчитель'){
-        return getCol(dat, numTable, 'Вчитель, урок якого відвідують')
     } else
     if (name == 'Тема навчального заняття'){
         return getCol(dat, numTable, 'Тема уроку')
