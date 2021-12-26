@@ -1,5 +1,5 @@
-const url = "http://127.0.0.1:5000/";
-//const url = "https://schooltools.pythonanywhere.com/";
+//const url = "http://127.0.0.1:5000/";
+const url = "https://schooltools.pythonanywhere.com/";
 
 var d1 = "";
 
@@ -179,7 +179,7 @@ function reformatString(text) {
     return text.trim();
 }
 
-function print_atom(table, head, dat){    
+function print_atom(table, head, dat){  
 
 
     let allPar = '';
@@ -253,6 +253,60 @@ function print_atom(table, head, dat){
         dist = dist.replaceAll('ЗАХІДУ', 'ЗАХОДУ');
         dist = dist.replaceAll('ЗАХІДОМ', 'ЗАХОДОМ');
     }   
+                           
+    return dist;
+
+}
+
+function print_atom_docx(table, head, dat){  
+
+    let allPar = '';
+   
+    dist ="";
+    for(let i=0; i<head.length; i++){
+        if (head[i] === 'Позначка часу') {
+            continue;
+        }
+        allPar += '';
+        let h = head[i].trim()
+        if (h[h.length-1] === ';'||h[h.length-1] === '.'||h[h.length-1] === ','||h[h.length-1] === ':') h = h.slice(0, -1)
+        
+        let v = dat[i]     
+        if (v === ''||v === undefined) {
+            continue;
+        } 
+        let rozzz = rozd_data[table][h]
+        if(rozzz !== undefined){
+            allPar +="\n"+ `${rozzz}`+"\n";
+        }
+        
+        allPar += h;        
+        allPar += ': ';
+        
+        // if (v[v.length-1] === ';') v = v.slice(0, -1)
+        allPar += v;
+        allPar += ''+"\n";
+
+
+    }
+    // allPar = format_2(allPar, clasT, clasV);
+     dist += allPar;
+    // text.innerHTML += format_2(allPar, clasT, clasV);
+    dist = refactorText(dist);
+    let sp_long = '                                  ';
+    if (props['set_signature_teacher'] === true){
+        tmp = 'З аналізом ознайомлений(на)  ' + sp_long + '  '
+    } else tmp = '';
+    
+    if (props['set_signature_boss'] === true){
+        tmp2 = props['boss_posada'] + sp_long + sp_long  + sp_long + sp_long + 
+                '  ' + sp_long + props['boss_short'];
+    } else tmp2 = '';
+
+    dist +=`${tmp}`+"\n" +
+                   ` ${tmp2}`+"\n"
+
+
                            
     return dist;
 
@@ -484,50 +538,85 @@ function keyToId (k){
 let dwmlFunc = (btn)=>{
     const dwnlds = document.querySelectorAll('.sel_table_id_dwnld');
     dwnlds.forEach(function(btn) {        
-        btn.addEventListener('mouseup', function() {
+        btn.addEventListener('mouseup', e =>{
+            //search row
+            row = e.target.closest('tr')
+            let numTable = parseInt(row.getAttribute('data-table'))
+            let numRow = parseInt(row.getAttribute('data-row'))
+            let c = 0
             let id_m = parseInt(btn.id.slice(9));
             let bal = 0
             let b;
+            let maxBal = 0;
             let context = {'name_school': props['zaklad_name']};
-            dd_keys.forEach(key => {                 
-                let v = gl_data[id_m][key]["$t"]       
-                let vopros = hh_ww_d[key]
-                context[ttlwddj[vopros]] = v
-                if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
-                    b = parseInt(gl_data[id_m][key]["$t"])
+            let text = print_atom_docx(numTable, glData[numTable].header[0], glData[numTable].data[numRow])
+            context['text'] = text
+            for (h of glData[numTable].header[0]){
+                console.log(h)                
+                let v = glData[numTable].data[numRow][c]
+                if (v == undefined) v = ''
+                console.log(v)
+                
+                if (h !== undefined && h.slice(0,1)>='1' && h.slice(0,1)<='9'){
+                    b = parseInt(v)
                     bal += b;
-                    let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
-                    // console.log('nam ', nam)
+                    maxBal += 4
+                    let nam = 'c'+copyToSpaseAndRepl(h)+'_'+b;
                     context[nam] = '✓'
+                } else {
+                    context[ttlwddj[h]] = v
                 }
-            });
+
+                c++
+            }
+
+            
+            
+
+
+            // dd_keys.forEach(key => {                 
+            //     let v = gl_data[id_m][key]["$t"]       
+            //     let vopros = hh_ww_d[key]
+            //     context[ttlwddj[vopros]] = v
+            //     if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
+            //         b = parseInt(gl_data[id_m][key]["$t"])
+            //         bal += b;
+            //         maxBal += 4
+            //         let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
+            //         context[nam] = '✓'
+            //     }
+            // });
             
             context['bal'] = bal
-            if (bal<93) 
+            if (bal<maxBal*.25) 
                 riven = 'початковий';
-            else if (bal<133) 
+            else if (bal<maxBal*.5) 
                 riven = 'середній';
-            else if (bal<173) 
+            else if (bal<maxBal*.75) 
                 riven = 'достатній';
             else riven = 'високий';
+            // if (bal<93) 
+            //     riven = 'початковий';
+            // else if (bal<133) 
+            //     riven = 'середній';
+            // else if (bal<173) 
+            //     riven = 'достатній';
+            // else riven = 'високий';
 
+            
+            context['file'] = glData[numTable]['templFile']
             context['riven'] = riven
             context['posada'] = 'Заступник директора \n' + props['zaklad_name_r_v']
       
 
 
-            
-            //let url = "http://127.0.0.1:5000/";
-            //let url = "https://schooltools.pythonanywhere.com/";
             $.ajax({
                 type : "POST",
-                url : url+"getfileanalizt/",
+                url : url+"getfileanalizt2/",
                 data : context,
-                // contentType: false,
                 cache: false,
                 success: function(data){
-                    // console.log(data)
-                    //alert("Скачую файл. Натисніть Ok");
+
                     document.location.href = url+"test/"+data+"/";
 
                 }
@@ -1150,17 +1239,22 @@ function titleToKey (title){
 // 1fcFYlF6lz8Qf37Un_Q4dbx8H_36JTpm752m7AIRjHKI
 
 let ttlwddj = {
+        'Позначка часу'	:	"dateInput"	,
         'Хто відвідує урок'	:	"who"	,
         'Дата проведення'	:	"date"	,
         'Клас'	:	"cl"	,
         'Предмет'	:	"pr"	,
+        'Кількість учнів (за списком)'	:	"klist"	,
+        'Кількість учнів (присутніх)'	:	"kprez"	,
         'Кількість учнів за списком'	:	"klist"	,
         'Кількість учнів присутніх'	:	"kprez"	,
         'Вчитель'	:	"teacher"	,
         'Тема навчального заняття'	:	"tema"	,
+        'Тема тижня'	:	"temaweek"	,
         'Обладнання'	:	"obladn"	,
         'Мета відвідування'	:	"meta"	,
         'Тип уроку'	:	"tip"	,
+        'Примітка1'	:	"pr1"	,
         'Примітка2'	:	"pr2"	,
         'Примітка3'	:	"pr3"	,
         'Примітка4'	:	"pr4"	,
@@ -1171,7 +1265,9 @@ let ttlwddj = {
         'Примітка9'	:	"pr9"	,
         'Примітка10'	:	"pr10"	,
         'Примітка11'	:	"pr11"	,
-        'Висновки та пропозиції:'	:	"visn"	,  
+        'Висновки та пропозиції'	:	"visn"	,  
+        'Висновки'	:	"visn"	,  
+        'Пропозиції'	:	"prop"	,  
 
 }
 
@@ -1281,12 +1377,6 @@ function getCol(dat, numTable, name){
     }
     if (name == 'Клас'){
         return getCol(dat, numTable, 'Клас, група')
-    } else
-    if (name == 'Дата проведення'){
-        return getCol(dat, numTable, 'Дата проведення уроку')
-    } else
-    if (name == 'Вчитель'){
-        return getCol(dat, numTable, 'Вчитель, урок якого відвідують')
     } else
     if (name == 'Тема навчального заняття'){
         return getCol(dat, numTable, 'Тема уроку')
@@ -1450,6 +1540,7 @@ let readAnaliz = (s2)=>{
             glData = data   
             createLists(data);   
             createTable(data);   
+            dwmlFunc();
         }
     );   
 }
@@ -1457,7 +1548,7 @@ let readAnaliz = (s2)=>{
 readStorage();
 
 //TODO ---- devmode
-key = "1uOV_IJaMbe41dOBiSeYHrwhOfR7kUix8b9QhFK2oBeE"
+//key = "1uOV_IJaMbe41dOBiSeYHrwhOfR7kUix8b9QhFK2oBeE"
 
 readAnaliz(sheet2);
 
