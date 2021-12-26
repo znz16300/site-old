@@ -179,7 +179,7 @@ function reformatString(text) {
     return text.trim();
 }
 
-function print_atom(table, head, dat){    
+function print_atom(table, head, dat){  
 
 
     let allPar = '';
@@ -253,6 +253,60 @@ function print_atom(table, head, dat){
         dist = dist.replaceAll('ЗАХІДУ', 'ЗАХОДУ');
         dist = dist.replaceAll('ЗАХІДОМ', 'ЗАХОДОМ');
     }   
+                           
+    return dist;
+
+}
+
+function print_atom_docx(table, head, dat){  
+
+    let allPar = '';
+   
+    dist ="";
+    for(let i=0; i<head.length; i++){
+        if (head[i] === 'Позначка часу') {
+            continue;
+        }
+        allPar += '';
+        let h = head[i].trim()
+        if (h[h.length-1] === ';'||h[h.length-1] === '.'||h[h.length-1] === ','||h[h.length-1] === ':') h = h.slice(0, -1)
+        
+        let v = dat[i]     
+        if (v === ''||v === undefined) {
+            continue;
+        } 
+        let rozzz = rozd_data[table][h]
+        if(rozzz !== undefined){
+            allPar +="\n"+ `${rozzz}`+"\n";
+        }
+        
+        allPar += h;        
+        allPar += ': ';
+        
+        // if (v[v.length-1] === ';') v = v.slice(0, -1)
+        allPar += v;
+        allPar += ''+"\n";
+
+
+    }
+    // allPar = format_2(allPar, clasT, clasV);
+     dist += allPar;
+    // text.innerHTML += format_2(allPar, clasT, clasV);
+    dist = refactorText(dist);
+    let sp_long = '                                  ';
+    if (props['set_signature_teacher'] === true){
+        tmp = 'З аналізом ознайомлений(на)  ' + sp_long + '  '
+    } else tmp = '';
+    
+    if (props['set_signature_boss'] === true){
+        tmp2 = props['boss_posada'] + sp_long + sp_long  + sp_long + sp_long + 
+                '  ' + sp_long + props['boss_short'];
+    } else tmp2 = '';
+
+    dist +=`${tmp}`+"\n" +
+                   ` ${tmp2}`+"\n"
+
+
                            
     return dist;
 
@@ -495,7 +549,8 @@ let dwmlFunc = (btn)=>{
             let b;
             let maxBal = 0;
             let context = {'name_school': props['zaklad_name']};
-
+            let text = print_atom_docx(numTable, glData[numTable].header[0], glData[numTable].data[numRow])
+            context['text'] = text
             for (h of glData[numTable].header[0]){
                 console.log(h)                
                 let v = glData[numTable].data[numRow][c]
