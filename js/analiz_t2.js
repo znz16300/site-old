@@ -1,5 +1,5 @@
-const url = "http://127.0.0.1:5000/";
-//const url = "https://schooltools.pythonanywhere.com/";
+//const url = "http://127.0.0.1:5000/";
+const url = "https://schooltools.pythonanywhere.com/";
 
 var d1 = "";
 
@@ -1548,7 +1548,7 @@ let readAnaliz = (s2)=>{
 readStorage();
 
 //TODO ---- devmode
-key = "1uOV_IJaMbe41dOBiSeYHrwhOfR7kUix8b9QhFK2oBeE"
+//key = "1uOV_IJaMbe41dOBiSeYHrwhOfR7kUix8b9QhFK2oBeE"
 
 readAnaliz(sheet2);
 
