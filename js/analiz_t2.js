@@ -825,6 +825,7 @@ let createListsDate = (data)=>{
     for (table of data){
         let s = 'Дата проведення'
         let numDateCol = getCol(data, t, s)
+        if (numDateCol === undefined) continue
         for (dat of table.data){
             let s = dat[numDateCol];
             let day = s.substr(0,2);
@@ -1385,52 +1386,54 @@ function getCol(dat, numTable, name){
 
 
 let fillTable = (table, dat, numTable, rrow, ii, d)=>{
-    let dpu = titleToKey('Дата проведення');
-    
-    let row = document.createElement('tr');
-    row.setAttribute('id','ii_'+String(ii));
-    row.setAttribute('id','row_'+String(rrow));
-    row.setAttribute('id','table_'+String(numTable));
+    if (dat[numTable].data.length > 0){
+        let dpu = titleToKey('Дата проведення');
+        
+        let row = document.createElement('tr');
+        row.setAttribute('id','ii_'+String(ii));
+        row.setAttribute('id','row_'+String(rrow));
+        row.setAttribute('id','table_'+String(numTable));
 
-    
-    hHeader = ['Дата проведення', 'Хто відвідує урок', 'Вчитель', 'Клас', 'Предмет', 'Тема навчального заняття']
-    
-    table.append(row);
+        
+        hHeader = ['Дата проведення', 'Хто відвідує урок', 'Вчитель', 'Клас', 'Предмет', 'Тема навчального заняття']
+        
+        table.append(row);
 
-    for (let ci=0; ci<6; ci++){
-        let x = document.createElement('td');
-        x.classList.add('cel_def');
-        x.classList.add('cel_def');
-        col = getCol(dat, numTable, hHeader[ci])
-        x.innerText=d[col]; 
-        row.append(x);
-    } 
+        for (let ci=0; ci<6; ci++){
+            let x = document.createElement('td');
+            x.classList.add('cel_def');
+            x.classList.add('cel_def');
+            col = getCol(dat, numTable, hHeader[ci])
+            x.innerText=d[col]; 
+            row.append(x);
+        } 
 
-    let cel7 = document.createElement('td');
-    cel7.classList.add('cel_def');
-    cel7.classList.add('cel_chb'); 
+        let cel7 = document.createElement('td');
+        cel7.classList.add('cel_def');
+        cel7.classList.add('cel_chb'); 
 
-    row.setAttribute('data-teach', d[getCol(dat, numTable, 'Вчитель')]);
-    row.setAttribute('data-clas', d[getCol(dat, numTable, 'Клас')]);
-    row.setAttribute('data-subj', d[getCol(dat, numTable, 'Предмет')]);
-    row.setAttribute('data-who', d[getCol(dat, numTable, 'Хто відвідує урок')]);
-    row.setAttribute('data-table', String(numTable));
-    row.setAttribute('data-row', String(rrow));
+        row.setAttribute('data-teach', d[getCol(dat, numTable, 'Вчитель')]);
+        row.setAttribute('data-clas', d[getCol(dat, numTable, 'Клас')]);
+        row.setAttribute('data-subj', d[getCol(dat, numTable, 'Предмет')]);
+        row.setAttribute('data-who', d[getCol(dat, numTable, 'Хто відвідує урок')]);
+        row.setAttribute('data-table', String(numTable));
+        row.setAttribute('data-row', String(rrow));
 
-    let s = d[getCol(dat, numTable, 'Дата проведення')];
-    let day = s.substr(0,2);
-    let year = s.substr(6,4);
-    let month = s.substr(3,2);
-    s = `${year}-${month}-${day}`;
-    row.setAttribute('data-date', s);
-    let ul = document.querySelectorAll(".f_chb");
-    row.classList.add('row_cl');
-    cel7.innerHTML=`<div class="print_col_all"> 
-    <div class="print_col_i"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
-            <div class="print_col_edit"><img class="print_col_img" id="img_edit_${String(ii)}" src="./assets/icons/editbtn.png"  title="Редагувати" disabled></div>
-            <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(ii)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
-        </div>`;
-    row.append(cel7);
+        let s = d[getCol(dat, numTable, 'Дата проведення')];
+        let day = s.substr(0,2);
+        let year = s.substr(6,4);
+        let month = s.substr(3,2);
+        s = `${year}-${month}-${day}`;
+        row.setAttribute('data-date', s);
+        let ul = document.querySelectorAll(".f_chb");
+        row.classList.add('row_cl');
+        cel7.innerHTML=`<div class="print_col_all"> 
+        <div class="print_col_i"><img class="print_col_img" id="img_${String(ii)}" src="./assets/icons/eye.png"  title="Переглянути"></div>
+                <div class="print_col_edit"><img class="print_col_img" id="img_edit_${String(ii)}" src="./assets/icons/editbtn.png"  title="Редагувати" disabled></div>
+                <div class="print_col_dwnld"><img class="sel_table_id_dwnld" id="id_dwnld_${String(ii)}" src="./assets/icons/dwnld.png" title="Завантажити"></div>
+            </div>`;
+        row.append(cel7);
+    }
 }
 
 
