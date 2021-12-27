@@ -552,10 +552,10 @@ let dwmlFunc = (btn)=>{
             let text = print_atom_docx(numTable, glData[numTable].header[0], glData[numTable].data[numRow])
             context['text'] = text
             for (h of glData[numTable].header[0]){
-                console.log(h)                
+                // console.log(h)                
                 let v = glData[numTable].data[numRow][c]
                 if (v == undefined) v = ''
-                console.log(v)
+                // console.log(v)
                 
                 if (h !== undefined && h.slice(0,1)>='1' && h.slice(0,1)<='9'){
                     b = parseInt(v)

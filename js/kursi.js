@@ -5,15 +5,18 @@ let teachers = new Set()
 
 
 const teachList = document.getElementById('teach_id')
-const tBody = document.getElementById('tbody__id')
+const table = document.getElementById('table_id')
 const teachCombo = document.getElementById('teach_id')
 
 teachList.addEventListener('change', ()=> {
-    tBody.innerHTML = ''
-    let head = document.createElement('tr');
+    table.innerHTML = ``
+    
+    let head = document.createElement('thead');
+    let tBody = document.createElement('tbody');
     head.classList.add('cel_row');
-    head.innerHTML = `
-    <th class="cel_h">
+    head.innerHTML = `       
+            <tr>
+                                    <th class="cel_h">
                                         <div class="cel_div">
                                             <div class="sp_1">Час уведення</div> 
                                         </div>
@@ -44,8 +47,17 @@ teachList.addEventListener('change', ()=> {
                                             <div class="sp_1">Дата документа</div> 
                                         </div>
                                     </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
+                                            <div class="sp_1 >&#2714</div> 
+                                        </div>
+                                    </th>
+            </tr>     
+
     `
-    tBody.append(head)
+    table.append(head)
+    table.append(tBody)
+
     let teachName = teachCombo.value
     let dat = glData[0].data
     for (r of dat){
@@ -60,6 +72,7 @@ teachList.addEventListener('change', ()=> {
             <td>${r[3]}</td>
             <td>${r[4]}</td>
             <td>${r[5]}</td>
+            <td><input type="checkbox"></td>
             `
             tBody.append(row)
         }
