@@ -1379,8 +1379,17 @@ function getCol(dat, numTable, name){
     if (name == 'Клас'){
         return getCol(dat, numTable, 'Клас, група')
     } else
+    if (name == 'Дата проведення'){
+        return getCol(dat, numTable, 'Дата проведення уроку')
+    } else
     if (name == 'Тема навчального заняття'){
         return getCol(dat, numTable, 'Тема уроку')
+    } else
+    if (name == 'Чий урок відвідує'){
+        return getCol(dat, numTable, 'Вчитель')
+    } else
+    if (name == 'Вчитель'){
+        return getCol(dat, numTable, 'Вчитель, урок якого відвідують')
     }
 }
 
