@@ -1,5 +1,18 @@
 
+.title_form {
+	font-size: 2vh;
+	
+}
 
+.title_lbl {
+	/* padding : 5vh; */
+}
+
+.button_form {
+	margin-top: 3vh;
+	align-items: center;
+	width: 20vh;
+}
 
 
 button, .input_date_field, .input_field {
