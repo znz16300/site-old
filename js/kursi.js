@@ -60,11 +60,12 @@ teachList.addEventListener('change', ()=> {
 
     let teachName = teachCombo.value
     let dat = glData[0].data
+    let ii = 0
     for (r of dat){
         if (teachName == r[1]){
             
             let row = document.createElement('tr');
-            row.setAttribute('id','ii_'+String(1));
+            row.setAttribute('id','ii_'+String(ii));
             row.innerHTML = `
             <td>${r[0]}</td>
             <td>${r[1]}</td>
@@ -72,10 +73,11 @@ teachList.addEventListener('change', ()=> {
             <td>${r[3]}</td>
             <td>${r[4]}</td>
             <td>${r[5]}</td>
-            <td><input type="checkbox"></td>
+            <td><input class="chk_clas" type="checkbox"></td>
             `
             tBody.append(row)
         }
+        ii++
     } 
 
 })

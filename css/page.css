@@ -1469,3 +1469,18 @@ img {
 .go-up:hover {
   opacity: 1;
 }
+
+
+.imMenuClass{
+  height: 60vh;
+}
+
+.date_title_menu {
+  margin-top: -5vh;
+  font-size: 2vh;
+}
+
+.image_title_menu {
+  margin-top: 3vh;
+  text-align: center;
+}
