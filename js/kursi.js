@@ -49,6 +49,11 @@ teachList.addEventListener('change', ()=> {
                                     </th>
                                     <th class="cel_h">
                                         <div class="cel_div">
+                                            <div class="sp_1">Суб'єкт підвищення кваліфікації</div> 
+                                        </div>
+                                    </th>
+                                    <th class="cel_h">
+                                        <div class="cel_div">
                                             <div class="sp_1 >&#2714</div> 
                                         </div>
                                     </th>
@@ -73,6 +78,7 @@ teachList.addEventListener('change', ()=> {
             <td>${r[3]}</td>
             <td>${r[4]}</td>
             <td>${r[5]}</td>
+            <td>${r[6]}</td>
             <td><input class="chk_clas" type="checkbox"></td>
             `
             tBody.append(row)
