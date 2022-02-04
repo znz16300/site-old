@@ -99,6 +99,17 @@ function getCol(dat, numTable, name){
 }
 
 
+function sortSet(set) {
+    const entries = [];
+    for (const member of set) {
+      entries.push(member);
+    }
+    set.clear();
+    for (const entry of entries.sort()) {
+      set.add(entry);
+    }
+    return set;
+  };
 
 
 let readAnaliz = ()=>{    
@@ -110,6 +121,7 @@ let readAnaliz = ()=>{
             for (r of dat){
                 teachers.add(r[1])
             } 
+            sortSet(teachers)  
             let i = 0  
             for (t of teachers){
                 let opt = document.createElement('option');
