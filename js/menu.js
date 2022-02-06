@@ -20,7 +20,7 @@ let readPageMenu = ()=>{
                imag = s.data[s.data.length-1][2]
                imageKey = imag.split('?id=')[1]
                im = "http://drive.google.com/uc?export=view&id="+imageKey;
-               title.innerText = `за ${date}`
+               title.innerText = `меню на  ${date}`
                image.innerHTML = `<img class="imMenuClass" src="${im}">` 
 
 
