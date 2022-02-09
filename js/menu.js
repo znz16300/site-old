@@ -21,7 +21,11 @@ let readPageMenu = ()=>{
                imageKey = imag.split('?id=')[1]
                im = "http://drive.google.com/uc?export=view&id="+imageKey;
                title.innerText = `меню на  ${date}`
-               image.innerHTML = `<img class="imMenuClass" src="${im}">` 
+               image.innerHTML = `
+                    <a href="${im}">
+                        <img class="imMenuClass" src="${im}">
+                    </a>
+               ` 
 
 
             //    console.log(date)
