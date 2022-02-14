@@ -1112,7 +1112,7 @@ let readStorage = ()=>{
             window.localStorage.setItem("keyTableForAnaliz", s);
         }            
     }    
-    loadFilters();
+    // loadFilters();
 
     s = window.localStorage.getItem("propsForAnaliz");
     if (s === null) { 
