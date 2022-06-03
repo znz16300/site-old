@@ -253,8 +253,6 @@ function readNews(){
                     let photoPath = ""
                     for(let j=0; j<images.length; j++){
                         let start = images[j].indexOf('?id=') + 4;
-                        // let end  = images[j].indexOf('/edit');
-                        // let l = end - start -1;
                         let ss = images[j].substr(start);
                         codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
                     }
