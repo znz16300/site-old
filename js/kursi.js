@@ -21,11 +21,7 @@ teachList.addEventListener('change', ()=> {
                                             <div class="sp_1">Час уведення</div> 
                                         </div>
                                     </th>
-                                    <th class="cel_h">
-                                        <div class="cel_div">
-                                            <div class="sp_1">Вчитель</div> 
-                                        </div>
-                                    </th>
+
                                     <th class="cel_h">
                                         <div class="cel_div">
                                             <div class="sp_1">Тема</div> 
@@ -54,7 +50,7 @@ teachList.addEventListener('change', ()=> {
                                     </th>
                                     <th class="cel_h">
                                         <div class="cel_div">
-                                            <div class="sp_1">Сертифікат</div> 
+                                            <div class="sp_1">Сертифікат / свідоцтво</div> 
                                         </div>
                                     </th>
 
@@ -81,12 +77,12 @@ teachList.addEventListener('change', ()=> {
                 let r8 = imgFromGoogleToHtml(r[8]);
                 r88 = `<a class="popup_image" href="${r8}" target="_blank"><div class="td_a_img"><img class="min_img" src="./assets/icons/ospr.png"></div></a>`;
             } else {
-                r66 = ''
+                r88 = ''
             }
                         row.setAttribute('id','ii_'+String(ii));
             row.innerHTML = `
             <td>${r[0]}</td>
-            <td>${r[1]}</td>
+
             <td>${r[2]}</td>
             <td>${r[3]}</td>
             <td>${r[4]}</td>
