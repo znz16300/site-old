@@ -8,6 +8,10 @@
 	/* padding : 5vh; */
 }
 
+.wwrap_no {
+	word-break:  break-all ;
+}
+
 .button_form {
 	margin-top: 3vh;
 	align-items: center;

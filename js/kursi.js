@@ -85,7 +85,7 @@ teachList.addEventListener('change', ()=> {
 
             <td>${r[2]}</td>
             <td>${r[3]}</td>
-            <td>${r[4]}</td>
+            <td class="wwrap_no">${r[4]}</td>
             <td>${r[5]}</td>
             <td>${r[6]}</td>
             <td>${r88}</td>
