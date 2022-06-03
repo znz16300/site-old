@@ -14,6 +14,13 @@
 	width: 20vh;
 }
 
+.min_img {
+	width: 20px;
+}
+.td_a_img{
+	text-align: center;
+}
+
 
 button, .input_date_field, .input_field {
     border-radius: 5px;

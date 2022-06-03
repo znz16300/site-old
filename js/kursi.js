@@ -54,6 +54,12 @@ teachList.addEventListener('change', ()=> {
                                     </th>
                                     <th class="cel_h">
                                         <div class="cel_div">
+                                            <div class="sp_1">Сертифікат</div> 
+                                        </div>
+                                    </th>
+
+                                    <th class="cel_h">
+                                        <div class="cel_div">
                                             <div class="sp_1 >&#2714</div> 
                                         </div>
                                     </th>
@@ -79,6 +85,7 @@ teachList.addEventListener('change', ()=> {
             <td>${r[4]}</td>
             <td>${r[5]}</td>
             <td>${r[6]}</td>
+            <td><a class="popup_image" href="${imgFromGoogleToHtml(r[8])}" target="_blank"><div class="td_a_img"><img class="min_img" src="../assets/icons/ospr.png"></div></a></td>
             <td><input class="chk_clas" type="checkbox"></td>
             `
             tBody.append(row)
@@ -88,6 +95,12 @@ teachList.addEventListener('change', ()=> {
 
 })
 
+function imgFromGoogleToHtml(img){
+    let start = img.indexOf('?id=') + 4;
+    let ss = img.substr(start);
+   return ("http://drive.google.com/uc?export=view&id="+ss);
+
+}
 
 function getCol(dat, numTable, name){
     header = dat[numTable].header[0]
@@ -112,7 +125,7 @@ function sortSet(set) {
   };
 
 
-let readAnaliz = ()=>{    
+let readKursi = ()=>{    
     $.getJSON(url + 'getmultiblock/'+key,         
        function (data) {
               
@@ -142,5 +155,5 @@ let readAnaliz = ()=>{
 let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E"
 let sheet = "Відповіді форми (1)"
 
-readAnaliz();
+readKursi();
 
