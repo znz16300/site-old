@@ -1,4 +1,6 @@
-
+.container body {
+	min-width: 1000px;
+}
 .title_form {
 	font-size: 2vh;
 	
