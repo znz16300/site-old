@@ -16,11 +16,7 @@ teachList.addEventListener('change', ()=> {
     head.classList.add('cel_row');
     head.innerHTML = `       
             <tr>
-                                    <th class="cel_h">
-                                        <div class="cel_div">
-                                            <div class="sp_1">Час уведення</div> 
-                                        </div>
-                                    </th>
+
 
                                     <th class="cel_h">
                                         <div class="cel_div">
@@ -68,10 +64,12 @@ teachList.addEventListener('change', ()=> {
     let teachName = teachCombo.value
     let dat = glData[0].data
     let ii = 0
+    // Час уведення ${r[0]}
     for (r of dat){
         if (teachName == r[1]){
             
             let row = document.createElement('tr');
+
             let r88 = '';
             if (r[8] !== ''){
                 let r8 = imgFromGoogleToHtml(r[8]);
@@ -79,9 +77,10 @@ teachList.addEventListener('change', ()=> {
             } else {
                 r88 = ''
             }
-                        row.setAttribute('id','ii_'+String(ii));
+            row.setAttribute('id','ii_'+String(ii));
+            row.setAttribute('title',`Дата та час уведення: ${r[0]}`);
             row.innerHTML = `
-            <td>${r[0]}</td>
+
 
             <td>${r[2]}</td>
             <td>${r[3]}</td>
