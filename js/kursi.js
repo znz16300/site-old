@@ -76,7 +76,14 @@ teachList.addEventListener('change', ()=> {
         if (teachName == r[1]){
             
             let row = document.createElement('tr');
-            row.setAttribute('id','ii_'+String(ii));
+            let r88 = '';
+            if (r[8] !== ''){
+                let r8 = imgFromGoogleToHtml(r[8]);
+                r88 = `<a class="popup_image" href="${r8}" target="_blank"><div class="td_a_img"><img class="min_img" src="./assets/icons/ospr.png"></div></a>`;
+            } else {
+                r66 = ''
+            }
+                        row.setAttribute('id','ii_'+String(ii));
             row.innerHTML = `
             <td>${r[0]}</td>
             <td>${r[1]}</td>
@@ -85,7 +92,7 @@ teachList.addEventListener('change', ()=> {
             <td>${r[4]}</td>
             <td>${r[5]}</td>
             <td>${r[6]}</td>
-            <td><a class="popup_image" href="${imgFromGoogleToHtml(r[8])}" target="_blank"><div class="td_a_img"><img class="min_img" src="../assets/icons/ospr.png"></div></a></td>
+            <td>${r88}</td>
             <td><input class="chk_clas" type="checkbox"></td>
             `
             tBody.append(row)
