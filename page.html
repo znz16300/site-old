@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"> -->
-    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"> -->    
     <link rel="stylesheet" href="./css/page.css">
+    <link rel="stylesheet" href="./css/mainadvmenu.css">
+    <link rel="stylesheet" href="./css/advmenulite.css" />
     <!-- <link rel="stylesheet" href="./css/news.css"> -->
     <script src="./js/jquery-3.5.0.js"></script>
     <title id="title__">Сайт Куликівського ЗЗСО І-ІІІ ступенів</title>
@@ -14,7 +15,12 @@
 </head>
 
 <body>
-    
+    <div class="modal__menu hide" >
+        <ul id="advmenu_ul_id" class="advmenu_ul">
+
+        </ul>
+    </div>
+
     <div class="modal__wrapper">
         <div class="modal">
             <div class="modal_close">
@@ -72,6 +78,12 @@
                             <li class="header__list_item"><a 
                                 href="./page.html?titlePages=Контакти&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"
                                 >Контакти</a></li>
+
+                                <li class="header__list_item">
+                                    <div id="advM">
+                                        ...
+                                    </div>
+                                </li>
                         </ul>
                     </nav>
                     <div class="header__burger">
@@ -158,6 +170,7 @@
     <!-- <script src="./js/documents.js"></script> -->
     <script src="./js/data.js"></script>
     <script src="./js/page.js"></script>
+    <script src="./js/mainadvmenu.js"></script>
 
 </body>
 

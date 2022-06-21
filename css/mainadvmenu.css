@@ -1,0 +1,60 @@
+/* AdvMenu */
+
+#advM {
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 15px;
+    line-height: 160%;
+    color: #cdcdcd;
+    text-decoration: none;
+    padding-bottom: 3px;
+  }
+  
+  .modal__menu {
+    position: absolute;
+    top: 80px;
+    left: calc(100% - 250px);
+    background: #292626;
+    padding: 20px;
+    
+  }
+  
+  .modal__menu {
+    transform: translateY(-50%);
+    animation: ani 1s forwards;
+    z-index: 200;
+  }
+  
+  
+  
+  @keyframes ani {
+    0% {transform: translateY(-50%);}
+    100% {transform: translateY(0);}
+  }
+  
+  .hide {
+    display: none;
+  }
+  
+  .advmenu__item {
+    padding: 5px 5px;
+    cursor: pointer;
+  }
+  
+  .advmenu_a__item {
+    font-family: Arial;
+    font-size: 15px;
+    line-height: 160%;
+    color: #cdcdcd;
+    text-decoration: none;
+    padding-bottom: 3px;
+  }
+  
+  .advmenu_ul {
+    display: inline;
+  }
+  
+  .advmenu_ul :hover {
+    color: #F1CDB3;
+    /* font-weight: 600px; */
+  }
