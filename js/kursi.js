@@ -1,6 +1,8 @@
+// const shevchenko = require("shevchenko");
+
 // const url = "http://127.0.0.1:5000/";
 const url = "https://schooltools.pythonanywhere.com/";
-const golova = 'Орсагош О.В.'
+const golova = 'Орсагош Оксані Валеріївні'
 const zaklad = 'КОЗ "Куликівський ЗЗСО І-ІІІ ст."'
 let glData;
 let teachers = new Set();
@@ -122,6 +124,35 @@ teachList.addEventListener("change", () => {
     document.location.href ="https://docs.google.com/forms/d/e/1FAIpQLSe6ghl4Quw7gCGBwbgUz1V4GilJQrzk1NM1Hxyp79pkOI8ceg/viewform?usp=sf_link"
   })
 
+  function fullNameToInic(s){
+    let n = s.indexOf(' ')
+    let prizv = s.substr(0, n)    
+    s = s.substr(n+1)
+    n = s.indexOf(' ')
+    let nam = s.substr(0, n) 
+    let fath = s.substr(n+1)    
+    return prizv + ' ' + nam[0] + '.' + fath[0] +'.'
+  }
+  function fullNameToParts(s){
+    let n = s.indexOf(' ')
+    let prizv = s.substr(0, n)    
+    s = s.substr(n+1)
+    n = s.indexOf(' ')
+    let nam = s.substr(0, n) 
+    let fath = s.substr(n+1)  
+    let gender 
+    if (s.substr(-1) === 'ч') gender = 'male'; else gender = 'female'    
+    return {
+      gender: gender, 
+      firstName: nam,
+      middleName: fath,
+      lastName: prizv
+    };
+
+  }
+
+
+
   button.addEventListener("click", () => {
     let sp = [];
     for (let i = 0; i < tBody.childNodes.length; i++) {
@@ -145,19 +176,24 @@ teachList.addEventListener("change", () => {
       }
       //
     }
+    console.log(shevchenko.inGenitive(fullNameToParts(teachCombo.value)))
+    let s = shevchenko.inGenitive(fullNameToParts(teachCombo.value))
+    let teachRod = s.lastName + " " + s.firstName + " " + s.middleName
     if (sp.length > 0){
       console.log(sp);
       let dat = new Date;
       console.log(formatDate(dat));
       let context = {
-        'teacher':'fff',
+        'teacher':teachRod,
+        // 'teacher':teachCombo.value,
+        'teacherINIC':fullNameToInic(teachCombo.value),
         // 'kursi': sp,
         'golova': golova,
         'zaklad': zaklad,
         'date': formatDate(dat),
         'file': 'klopot.docx',
       }
-      let s = ''
+      s = ''
       let sym = ''
       for (let i = 0; i < sp.length; i++) {
         context['title'+i] = sp[i]['title']
@@ -254,3 +290,6 @@ let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E";
 let sheet = "Відповіді форми (1)";
 
 readKursi();
+
+
+// https://shevchenko-js.tooleks.com/#usageExample
