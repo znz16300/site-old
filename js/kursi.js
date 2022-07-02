@@ -204,7 +204,23 @@ teachList.addEventListener("change", () => {
           ', форма підвищення кваліфікації - інституційна (' + sp[i]['forma'] + ')' +
           ', навчання за програмою підвищення кваліфікації ('+sp[i]['subj'] +')'+sym+'' + "\n"
       }
+      let s1, s2, p1, p2
+      if (sp.length === 1){
+        s1 = ''
+        s2 = 'у'
+        p1 = 'а'
+        p2 = 'у'
+      } else {
+        s1 = 'и'
+        s2 = 'ів'
+        p1 = 'и'
+        p2 = 'ів'
+      }
       context['list'] = s
+      context['s1'] = s1
+      context['s2'] = s2
+      context['p1'] = p1
+      context['p2'] = p2
      
       $.ajax({
         type : "POST",
