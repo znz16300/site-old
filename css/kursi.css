@@ -136,3 +136,10 @@ button, .input_date_field, .input_field {
 .table tbody tr:nth-child(even){
 	background: #f3f3f3;
 }
+
+.button__klopot {
+	background: #D8D8D8  	;
+	cursor: pointer;
+	float: right;
+	padding: 10px;
+}
