@@ -181,7 +181,7 @@ teachList.addEventListener("change", () => {
     });
 
     } else {
-      console.log('Ви нічого не вибрали');
+      alert('Ви нічого не вибрали');
     }
     
   });
