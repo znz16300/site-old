@@ -34,28 +34,28 @@ teachList.addEventListener("change", () => {
                                     </th>
                                     <th class="cel_h">
                                         <div class="cel_div">
-                                            <div class="sp_1">Номер документа</div> 
+                                            <div class="sp_1">Номер</div> 
                                         </div>
                                     </th>
 
                                     <th class="cel_h">
                                         <div class="cel_div">
-                                            <div class="sp_1">Дата документа</div> 
+                                            <div class="sp_1">Дата</div> 
                                         </div>
                                     </th>
                                     <th class="cel_h">
                                         <div class="cel_div">
-                                            <div class="sp_1">Суб'єкт підвищення кваліфікації</div> 
+                                            <div class="sp_1">Суб'єкт ПК</div> 
                                         </div>
                                     </th>
                                     <th class="cel_h" hidden>
                                         <div class="cel_div">
-                                            <div class="sp_1">Форма</div> 
+                                            <div class="sp_1">Форма ПК</div> 
                                         </div>
                                     </th>
                                     <th class="cel_h">
                                         <div class="cel_div">
-                                            <div class="sp_1">Сертифікат / свідоцтво</div> 
+                                            <div class="sp_1">Докум.</div> 
                                         </div>
                                     </th>
 
@@ -106,7 +106,7 @@ teachList.addEventListener("change", () => {
       row.innerHTML = `
 
 
-            <td class="row__title">${r[2]}</td>
+            <td class="row__title truncate-text">${r[2]}</td>
             <td class="row__long">${r[3]}</td>
             <td class="wwrap_no">${r[4]}</td>
             <td class="row__date">${r[5]}</td>
@@ -133,6 +133,7 @@ teachList.addEventListener("change", () => {
     let fath = s.substr(n+1)    
     return prizv + ' ' + nam[0] + '.' + fath[0] +'.'
   }
+  
   function fullNameToParts(s){
     let n = s.indexOf(' ')
     let prizv = s.substr(0, n)    
@@ -150,8 +151,6 @@ teachList.addEventListener("change", () => {
     };
 
   }
-
-
 
   button.addEventListener("click", () => {
     let sp = [];

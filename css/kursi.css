@@ -42,13 +42,36 @@ button, .input_date_field, .input_field {
     margin-top: 10px;
 }
 .input_field, .input_date_field {
-     width: 100vh; 
+     width: 80vw; 
     /* background-color: #F3EAC2; */
-    font-size: 2vh;
+    font-size: 1.5em;
 }
+/* 
+.truncate-text {
+	background: #c8ad90;
+	padding: 1rem;
+	width: 180px;
+	height: 20px;
+	overflow: hidden;
+	position: relative;
+  }
+   
+  .truncate-text:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(180deg, transparent, #c8ad90 50%);
+  }
+   */
 
 .titl {
-    font-size: 2vh;
+	font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1em;
 }
 
 .par {
