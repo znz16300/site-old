@@ -58,3 +58,37 @@
     color: #F1CDB3;
     /* font-weight: 600px; */
   }
+
+  @media screen and (max-width: 767px) {
+
+    #advM {
+
+      font-size: 32px;
+      
+      
+    }
+    
+    .modal__menu {     
+      left: 25px; 
+      width: 80%;  
+    }
+    
+    .modal__menu {
+      transform: none;     
+    }
+    
+    
+  
+    
+    .hide {
+      display: none;
+    }
+ 
+    
+    .advmenu_a__item {     
+      font-size: 32px;     
+    }
+    
+   
+
+  }
