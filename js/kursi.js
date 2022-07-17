@@ -197,7 +197,9 @@ teachList.addEventListener("change", () => {
       for (let i = 0; i < sp.length; i++) {
         context['title'+i] = sp[i]['title']
         if (i === sp.length-1) sym = '.'; else sym = ';'
-        s += '-' + "\t" + 'від ' +sp[i]['date'] + 
+        s += 
+          '-' + "\t" + ' "' + sp[i]['title'] + '" '+ 
+          'від ' +sp[i]['date'] + 
           ', реєстраційний номер - ' + sp[i]['num'] +
           ', кількість годин - ' + sp[i]['long'] + 
           ', форма підвищення кваліфікації - інституційна (' + sp[i]['forma'] + ')' +
