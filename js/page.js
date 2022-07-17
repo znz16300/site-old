@@ -64,7 +64,11 @@ function readPage(key){
 
                     let text = data[i]["gsx$абзац"]["$t"];
                     let tip = data[i]["gsx$тип1-картки2-абзаци"]["$t"];
-                    let link = data[i]["gsx$кнопказпосиланням"]["$t"];
+                    let link = data[i]["gsx$кнопказпосиланням"];
+                    if (link !== undefined){
+                        link = link["$t"]
+                    } else continue
+                    // let link = data[i]["gsx$кнопказпосиланням"]["$t"];
                     let images = data[i]["gsx$фото"]["$t"].split(",");
                     let image = images[0];
 
