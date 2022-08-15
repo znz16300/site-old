@@ -3,7 +3,7 @@
 // const url = "http://127.0.0.1:5000/";
 const url = "https://schooltools.pythonanywhere.com/";
 const golova = 'Орсагош Оксані Валеріївні'
-const zaklad = 'КОЗ "Куликівський ЗЗСО І-ІІІ ст."'
+const zaklad = 'Куликівського ліцею'
 let glData;
 let teachers = new Set();
 
