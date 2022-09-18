@@ -163,7 +163,7 @@
 }
 
 .start-screen .start_screen__article .start_screen__button:hover {
-  background: #fddcc4;
+  background: #8176a7;
 }
 
 .start-screen .start_screen__image {
@@ -317,7 +317,7 @@
 }
 
 .our__friends .our__friends__wrapper .our__friends__button:hover {
-  background: #fddcc4;
+  background: #8176a7;
 }
 
 .pet_slider {
@@ -455,7 +455,7 @@
 }
 
 .pet_slider .pet_slider__items .pet_slider__item .pet_slider__item-button:hover {
-  background: #fddcc4;
+  background: #8176a7;
 }
 
 .than__wrapper {
@@ -1084,7 +1084,7 @@
 
 .modal__wrapper:hover .modal_close {
   /* transform: rotate(360deg); */
-  background-color: #fddcc4;
+  background-color: #8176a7;
   /* transition: all 0.5s; */
 }
 
@@ -1121,7 +1121,7 @@
 
 .modal__wrapper .modal .modal_close:hover {
   /* transform: rotate(360deg); */
-  background-color: #fddcc4;
+  background-color: #8176a7;
   /* transition: all 2s; */
 }
 
