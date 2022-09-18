@@ -5,8 +5,6 @@
   outline-offset: 0;
 }
 
-
-
 .container {
   overflow-x: hidden;
   max-width: 1920px;
@@ -15,9 +13,7 @@
 
 .start {
   padding-top: 60px;
-  background: url(./../assets/images/noise_transparent@2x.png),
-    radial-gradient(100% 215.42% at 0% 0%,
-      #5b483a 0%, #262425 100%), #211f20;
+  background: url(./../assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #68a870 0%, #043d12 100%), #010c01;
   min-height: 100vh;
 }
 
@@ -27,7 +23,7 @@
 }
 
 .h1 {
-  color: #3b312b;
+  color: colorFont1;
   height: 0;
   position: absolute;
   top: -20px;
@@ -366,22 +362,18 @@
   from {
     left: -100%;
   }
-
   to {
     left: 0;
   }
 }
-
 @keyframes slideRight {
   from {
     left: 0;
   }
-
   to {
     left: calc(-100% - 90px);
   }
 }
-
 .pet_slider .pet_slider__items {
   display: flex;
   justify-content: flex-start;
@@ -399,18 +391,14 @@
 
 .pet_slider__item-image img {
   width: 250px;
-
 }
 
 .pet_slider__item-image {
   height: 200px;
-
 }
 
 .pet_slider .pet_slider__items .pet_slider__item {
-
   height: 360px;
-
   padding-top: 10px;
   width: 270px;
   margin-right: 90px;
@@ -580,7 +568,6 @@
   float: left;
 }
 
-
 .donation .donation__wrapper .donation__account .donation__account_number a {
   font-family: Georgia;
   font-style: normal;
@@ -606,12 +593,8 @@
   color: #b2b2b2;
 }
 
-
-
 .footer {
-  background: url(./../assets/images/noise_transparent@2x.png),
-    radial-gradient(110.67% 538.64% at 5.73% 50%,
-      #513d2f 0%, #1a1a1c 100%), #211f20;
+  background: url(./../assets/images/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #68a870 0%, #043d12 100%), #010c01;
 }
 
 .footer .footer__wrapper {
@@ -701,130 +684,102 @@
   .start {
     padding-top: 30px;
   }
-
   .header {
     padding: 0 30px;
   }
-
   .start-screen {
     flex-direction: column;
     justify-content: center;
   }
-
   .start-screen .start_screen__article {
     margin-bottom: 100px;
     width: 60%;
   }
-
   .start-screen .start_screen__article .start_screen__button {
     margin: 0 auto;
   }
-
   .start-screen .start_screen__image {
     margin-right: 30px;
     text-align: end;
   }
-
   .start-screen .start_screen__image img {
     width: 74vw;
-
   }
-
   .about__wrapper {
     flex-direction: column;
   }
-
   .about__wrapper .about__article {
     width: 56%;
   }
-
   .about__wrapper .about__article {
     margin-bottom: 80px;
     order: -1;
   }
-
   .about__wrapper .about__image {
     margin-right: 0;
   }
-
   .pet_slider {
     padding: 0 30px;
     box-sizing: border-box;
   }
-
   .pet_slider .pet_slider__items {
     max-width: 580px;
   }
-
   .pet_slider .pet_slider__items .pet_slider__item {
     margin-right: 40px;
   }
-
   @keyframes slideRight {
     from {
       left: 0;
     }
-
     to {
       left: calc(-100% - 40px);
     }
   }
-
   .pet_slider .pet__slider__arrow:hover {
     background-color: #f6f6f6;
   }
-
   .than__wrapper .than__list .than__list_item {
     width: 30%;
     margin-right: 0;
   }
-
   .than__wrapper .than__list .than__list_item:nth-child(5),
-  .than__wrapper .than__list .than__list_item:nth-child(3n),
-  .than__wrapper .than__list .than__list_item:last-child {
+.than__wrapper .than__list .than__list_item:nth-child(3n),
+.than__wrapper .than__list .than__list_item:last-child {
     margin-right: 0;
   }
-
   .donation .donation__wrapper {
     flex-direction: column;
   }
-
   .donation .donation__wrapper .donation__article_item {
     width: 49.5%;
     margin-bottom: 60px;
     order: -1;
   }
-
   .donation .donation__wrapper .donation__image_item {
     margin-right: 0;
   }
-
   .footer .footer__wrapper {
     flex-direction: column;
     padding: 30px 30px 0;
   }
-
   .footer .footer__wrapper .footer__info {
     justify-content: space-around;
     width: 100%;
     margin: 0 0 65px;
   }
-
   .footer .footer__wrapper .footer__image {
     align-self: center;
   }
 }
-
 @media screen and (max-width: 767px) {
   .header {
     padding: 0 10px;
   }
-
   .header .header__logo_item {
     margin-right: 41px;
     z-index: 20;
   }
-
   .header .header__nav {
     position: fixed;
     z-index: 10;
@@ -836,7 +791,6 @@
     transform: translateX(100%);
     transition: transform 0.3s linear, background-color 0s linear 0.3s;
   }
-
   .header .header__nav .header__list {
     flex-direction: column;
     justify-content: center;
@@ -847,12 +801,10 @@
     width: 320px;
     height: 100%;
   }
-
   .header .header__nav .header__list .header__list_item {
     margin-right: 0;
     margin-bottom: 40px;
   }
-
   .header .header__nav .header__list .header__list_item a {
     font-family: Arial;
     font-style: normal;
@@ -861,72 +813,58 @@
     line-height: 160%;
     margin-bottom: 40px;
   }
-
   .header .header__nav .header__list .header__list_item:last-child {
     margin-bottom: 0;
   }
-
   .header .header__nav-active {
     transform: translateX(0%);
     background: rgba(41, 41, 41, 0.6);
   }
-
   .header .header__burger {
     display: block;
     margin-right: 43px;
     z-index: 20;
     transition: 0.3s all linear;
   }
-
   .header .header__burger .header__burger_line {
     width: 30px;
     height: 2px;
     background-color: #f1cdb3;
     margin-bottom: 8px;
   }
-
   .header .header__burger .header__burger_line:last-child {
     margin-bottom: 0;
   }
-
   .header .header__burger-active {
     transform: rotate(90deg);
   }
-
   @keyframes changeOpacity {
     0% {
       opacity: 0;
     }
-
     60% {
       opacity: 0;
     }
-
     100% {
       opacity: 1;
     }
   }
-
   .header_active {
     justify-content: flex-end;
   }
-
   .header_active .header__logo_item {
     animation: changeOpacity 0.5s;
   }
-
   .start-screen {
     padding-right: 10px;
     padding-left: 10px;
   }
-
   .start-screen .start_screen__article {
     width: 100%;
     max-width: 400px;
     margin-bottom: 105px;
     text-align: center;
   }
-
   .start-screen .start_screen__article .start_screen__caption {
     width: 250px;
     align-self: center;
@@ -937,19 +875,15 @@
     line-height: 130%;
     letter-spacing: 0.06em;
   }
-
   .start-screen .start_screen__image {
     margin-right: 0;
   }
-
   .start-screen .start_screen__image img {
     width: 81vw;
   }
-
   .about__wrapper {
     padding: 42px 10px;
   }
-
   .about__wrapper .h2 {
     text-align: center;
     width: 290px;
@@ -960,13 +894,11 @@
     line-height: 130%;
     letter-spacing: 0.06em;
   }
-
   .about__wrapper .about__image {
     width: 260px;
     height: 354px;
     /* background-image: url(./assets/images/about.jpg); */
   }
-
   .about__wrapper .about__article {
     display: flex;
     flex-direction: column;
@@ -975,24 +907,20 @@
     width: 100%;
     max-width: 450px;
   }
-
   .about__wrapper .about__article .about__text {
     box-sizing: border-box;
     padding: 0 15px;
     text-align: justify;
     margin-bottom: 23px;
   }
-
   .about__wrapper .about__article .about__text:last-child {
     margin-bottom: 0;
   }
-
   .our__friends .our__friends__wrapper {
     height: 791px;
     padding: 0 10px;
     justify-content: space-evenly;
   }
-
   .our__friends .our__friends__wrapper .our__friends__caption {
     font-family: Georgia;
     font-style: normal;
@@ -1001,24 +929,20 @@
     line-height: 130%;
     letter-spacing: 0.06em;
   }
-
   .our__friends .pet_slider {
     padding: 0;
     flex-wrap: wrap;
     justify-content: space-between;
     max-width: 320px;
   }
-
   .our__friends .pet_slider .pet_slider__items {
     max-width: 270px;
     margin-bottom: 20px;
     order: -1;
   }
-
   .than__wrapper {
     padding: 42px 10px;
   }
-
   .than__wrapper .than__caption {
     width: 230px;
     margin-bottom: 42px;
@@ -1029,24 +953,19 @@
     line-height: 130%;
     letter-spacing: 0.06em;
   }
-
   .than__wrapper .than__list {
     margin-bottom: -30px;
   }
-
   .than__wrapper .than__list .than__list_item {
     width: 50%;
     margin-bottom: 30px;
   }
-
   .than__wrapper .than__list .than__list_item:last-child {
     margin-right: auto;
   }
-
   .than__wrapper .than__list .than__list_item .than__item_image {
     margin-bottom: 18px;
   }
-
   .than__wrapper .than__list .than__list_item .than__item_name {
     font-family: Georgia;
     font-style: normal;
@@ -1055,16 +974,13 @@
     line-height: 116%;
     letter-spacing: 0.06em;
   }
-
   .donation .donation__wrapper {
     padding: 42px 10px 40px;
   }
-
   .donation .donation__wrapper .donation__image_item img {
     display: block;
     float: right;
   }
-
   .donation .donation__wrapper .donation__article_item {
     width: 100%;
     margin-bottom: 42px;
@@ -1072,7 +988,6 @@
     flex-direction: column;
     align-items: center;
   }
-
   .donation .donation__wrapper .donation__article_item .donation__caption {
     font-family: Georgia;
     font-style: normal;
@@ -1083,7 +998,6 @@
     text-align: center;
     width: 75%;
   }
-
   .donation .donation__wrapper .donation__article_item .donation__text {
     font-family: Arial;
     font-size: 15px;
@@ -1091,16 +1005,13 @@
     text-align: center;
     letter-spacing: 0;
   }
-
   .donation .donation__wrapper .donation__article_item .donation__account {
     margin: 0 auto 20px;
     width: 281px;
   }
-
   .donation .donation__wrapper .donation__article_item .donation__account .donation__account_number {
     padding-top: 4px;
   }
-
   .donation .donation__wrapper .donation__article_item .donation__account .donation__account_number a {
     font-family: Georgia;
     font-style: normal;
@@ -1109,31 +1020,26 @@
     line-height: 116%;
     letter-spacing: 0.06em;
   }
-
   .donation .donation__wrapper .donation__article_item .donation__note {
     padding: 0 10px;
     max-width: 400px;
     text-align: justify;
   }
-
   .footer .footer__wrapper {
     padding: 30px 10px 0;
     text-align: center;
   }
-
   .footer .footer__wrapper .footer__info {
     flex-direction: column;
     align-items: center;
     margin-bottom: 40px;
   }
-
   .footer .footer__wrapper .footer__info .footer__contacts {
     margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
   .footer .footer__wrapper .footer__info .footer__contacts .footer__contacts_caption {
     font-family: Georgia;
     font-style: normal;
@@ -1142,7 +1048,6 @@
     line-height: 130%;
     letter-spacing: 0.06em;
   }
-
   .footer .footer__wrapper .footer__info .footer__location_caption {
     font-family: Georgia;
     font-style: normal;
@@ -1153,22 +1058,18 @@
     width: 96%;
     margin: 0 auto 40px;
   }
-
   .footer .footer__wrapper .footer__info .footer__location_address:not(:last-child) {
     margin-bottom: 40px;
   }
-
   .footer .footer__wrapper .footer__info .footer__location_address a {
     text-align: left;
   }
-
   .footer .footer__wrapper .footer__image {
     background-image: url(./../assets/images/school.jpg);
     width: 260px;
     height: 269px;
   }
 }
-
 .modal__wrapper {
   position: fixed;
   top: -100%;
@@ -1216,7 +1117,6 @@
 
 .modal__wrapper .modal .modal_close img {
   display: block;
-
 }
 
 .modal__wrapper .modal .modal_close:hover {
@@ -1303,64 +1203,49 @@
   .modal__wrapper .modal {
     width: 630px;
   }
-
   .modal__wrapper .modal .modal__image img {
     width: 350px;
   }
-
   .modal__wrapper .modal .pet_info {
     padding: 10px 8px 10px 11px;
   }
-
   .modal__wrapper .modal .pet_info .pet_info__type {
     margin-bottom: 20px;
   }
-
   .modal__wrapper .modal .pet_info .pet_info__about {
     margin-bottom: 20px;
     font-size: 13px;
     line-height: 110%;
   }
-
   .modal__wrapper .modal .pet_info .pet__info__advantage li {
     margin-bottom: 5px;
   }
 }
-
 @media screen and (max-width: 767px) {
   .modal__wrapper .modal {
     width: 240px;
   }
-
   .modal__wrapper .modal .modal_close {
     left: calc(100% - 22px);
   }
-
   .modal__wrapper .modal .modal__image img {
     display: none;
   }
-
   .modal__wrapper .modal .pet_info {
     padding: 10px;
   }
-
   .modal__wrapper .modal .pet_info .pet_info__name {
     text-align: center;
   }
-
   .modal__wrapper .modal .pet_info .pet_info__type {
     text-align: center;
   }
-
   .modal__wrapper .modal .pet_info .pet_info__about {
     text-align: justify;
     margin-bottom: 24px;
   }
-
   .modal__wrapper .modal .pet_info .pet__info__advantage li {
     margin-bottom: 5px;
   }
 }
-
-
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map *//*# sourceMappingURL=style.css.map */
