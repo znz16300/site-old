@@ -13,7 +13,7 @@
 
 .start {
   padding-top: 60px;
-  background: url(./../assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #68a870 0%, #043d12 100%), #010c01;
+  background: url(./../assets/images/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #47a4b4 0%, #02282b 100%), #48336e;
   min-height: 100vh;
 }
 
@@ -47,7 +47,7 @@
   font-size: 32px;
   line-height: 110%;
   letter-spacing: 0.06em;
-  color: #f1cdb3;
+  color: #d0d7ec;
   text-decoration: none;
 }
 
@@ -95,7 +95,7 @@
 
 .header .header__list .header__list_item a.list-item_active,
 .header .header__list .header__list_item a:active {
-  border-bottom: 3px solid #f1cdb3;
+  border-bottom: 3px solid #d0d7ec;
 }
 
 .header .header__burger {
@@ -140,7 +140,7 @@
 .start-screen .start_screen__article .start_screen__button {
   width: 207px;
   height: 52px;
-  background: #f1cdb3;
+  background: #d0d7ec;
   border-radius: 100px;
   border: none;
   font-family: Georgia;
@@ -222,7 +222,7 @@
 .about__btn {
   width: 207px;
   height: 52px;
-  background: #f1cdb3;
+  background: #d0d7ec;
   border-radius: 100px;
   border: none;
   font-family: Georgia;
@@ -269,7 +269,7 @@
 #act__button {
   width: 259px;
   height: 51px;
-  background: #f1cdb3;
+  background: #d0d7ec;
   border-radius: 26px;
   border: none;
   font-family: Georgia;
@@ -297,7 +297,7 @@
 .our__friends .our__friends__wrapper .our__friends__button {
   width: 259px;
   height: 51px;
-  background: #f1cdb3;
+  background: #d0d7ec;
   border-radius: 26px;
   border: none;
   font-family: Georgia;
@@ -330,7 +330,7 @@
 .pet_slider .pet__slider__arrow {
   width: 52px;
   height: 52px;
-  border: 2px solid #f1cdb3;
+  border: 2px solid #d0d7ec;
   border-radius: 25px;
   box-sizing: border-box;
   text-align: center;
@@ -339,7 +339,7 @@
 }
 
 .pet_slider .pet__slider__arrow:hover {
-  background: #f1cdb3;
+  background: #d0d7ec;
 }
 
 .pet_slider .pet__slider__arrow:active {
@@ -432,7 +432,7 @@
 }
 
 .pet_slider .pet_slider__items .pet_slider__item .pet_slider__item-button {
-  border: 2px solid #f1cdb3;
+  border: 2px solid #d0d7ec;
   box-sizing: border-box;
   border-radius: 26px;
   background-color: #fafafa;
@@ -559,7 +559,7 @@
   padding-left: 15px;
   padding-top: 10px;
   box-sizing: border-box;
-  background: #f1cdb3;
+  background: #d0d7ec;
   border-radius: 9px;
 }
 
@@ -594,7 +594,7 @@
 }
 
 .footer {
-  background: url(./../assets/images/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #68a870 0%, #043d12 100%), #010c01;
+  background: url(./../assets/images/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #47a4b4 0%, #02282b 100%), #48336e;
 }
 
 .footer .footer__wrapper {
@@ -639,7 +639,7 @@
   font-size: 20px;
   line-height: 115%;
   letter-spacing: 0.06em;
-  color: #f1cdb3;
+  color: #d0d7ec;
   text-decoration: none;
 }
 
@@ -829,7 +829,7 @@
   .header .header__burger .header__burger_line {
     width: 30px;
     height: 2px;
-    background-color: #f1cdb3;
+    background-color: #d0d7ec;
     margin-bottom: 8px;
   }
   .header .header__burger .header__burger_line:last-child {
@@ -1107,7 +1107,7 @@
   top: -52px;
   width: 52px;
   height: 52px;
-  border: 2px solid #f1cdb3;
+  border: 2px solid #d0d7ec;
   box-sizing: border-box;
   border-radius: 100px;
   display: flex;
