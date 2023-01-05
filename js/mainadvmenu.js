@@ -2,7 +2,7 @@ const modalMenu = document.querySelector('.modal__menu')
 const advmenu_ul_id = document.querySelector('#advmenu_ul_id')
 let fieldNamesAdv = {};
 gl_dataAdv = []
-
+let fl = true
 
 
 
@@ -122,15 +122,37 @@ body.addEventListener('keydown', (e) => {
            }
 })
 
-modalMenu.addEventListener('mouseleave', () => {
-    modalMenu.classList.add('hide');
+// modalMenu.addEventListener('mouseleave', () => {
+//     modalMenu.classList.add('hide');
    
+// })
+
+
+
+modalMenu.addEventListener('mouseleave', () => {   
+   fl = true; 
+   setTimeout(function() {
+    
+    if (fl){
+        modalMenu.classList.add('hide');
+    }
+  
+}, delayInMilliseconds);
 })
+
+var delayInMilliseconds = 1000; //1 second
+
+
 
 
 advM.addEventListener('click', () => {
     drawMenu(0)
     modalMenu.classList.toggle('hide');
+
+})
+
+advmenu_ul_id.addEventListener('mouseover', () => {
+    fl = false
 
 })
 
