@@ -19,7 +19,7 @@ let fields = {
 }
 let missing_teachers = []
 let allTeachers = []
-let les_count = 11;
+let les_count = 12;
 const dWeek = {
     '1': 'mo',
     '2': 'tu',
@@ -459,7 +459,7 @@ let readPage_this = ()=>{
                  if (n > max){max = n};
             }
          }
-         les_count = max;
+         les_count = max+1;
          let i = 0;
          miss_teach.innerHTML = `<option ></option>`;
          for (row of timeTable[2]){
