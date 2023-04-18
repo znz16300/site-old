@@ -1,0 +1,21 @@
+/* AdvMenu */
+
+#advM {
+    color: #292929;
+  }
+  
+  .modal__menu {
+    background: #F6F6F6;    
+  }
+
+  
+  .advmenu_a__item {
+
+    color: #292929;
+
+  }
+
+  
+  .advmenu_ul :hover {
+    color: #F1CDB3;
+  }
