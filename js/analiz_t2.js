@@ -570,22 +570,7 @@ let dwmlFunc = (btn)=>{
                 c++
             }
 
-            
-            
 
-
-            // dd_keys.forEach(key => {                 
-            //     let v = gl_data[id_m][key]["$t"]       
-            //     let vopros = hh_ww_d[key]
-            //     context[ttlwddj[vopros]] = v
-            //     if (vopros !== undefined && vopros.slice(0,1)>='1' && vopros.slice(0,1)<='9'){
-            //         b = parseInt(gl_data[id_m][key]["$t"])
-            //         bal += b;
-            //         maxBal += 4
-            //         let nam = 'c'+copyToSpaseAndRepl(vopros)+'_'+b;
-            //         context[nam] = '✓'
-            //     }
-            // });
             
             context['bal'] = bal
             if (bal<maxBal*.25) 
@@ -595,13 +580,6 @@ let dwmlFunc = (btn)=>{
             else if (bal<maxBal*.75) 
                 riven = 'достатній';
             else riven = 'високий';
-            // if (bal<93) 
-            //     riven = 'початковий';
-            // else if (bal<133) 
-            //     riven = 'середній';
-            // else if (bal<173) 
-            //     riven = 'достатній';
-            // else riven = 'високий';
 
             
             context['file'] = glData[numTable]['templFile']
@@ -616,9 +594,7 @@ let dwmlFunc = (btn)=>{
                 data : context,
                 cache: false,
                 success: function(data){
-
                     document.location.href = url+"test/"+data+"/";
-
                 }
             });
 
