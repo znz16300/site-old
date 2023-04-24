@@ -1,26 +1,26 @@
 /* AdvMenu */
-$mainFon1 : #47a4b4;
-$mainFon2 : #02282b;
-$mainFon3 : #48336e;
-$color_1 : #d0d7ec;
-$color_act_button : #8176a7;
+$mainFon1: #47a4b4;
+$mainFon2: #02282b;
+$mainFon3: #48336e;
+$color_1: #d0d7ec;
+$color_act_button: #8176a7;
 
 #advM {
-    color: $mainFon2;
-  }
-  
-  .modal__menu {
-    background: $mainFon2;    
-  }
+  color: #d0d7ec;
+}
 
-  
-  .advmenu_a__item {
+.modal__menu {
+  // background: #47a4b4;
+}
 
-    color: $mainFon2;
 
-  }
+.advmenu_a__item {
 
-  
-  .advmenu_ul :hover {
-    color: $mainFon1;
-  }
+  color: #efefef;
+
+}
+
+
+.advmenu_ul :hover {
+  color: #d0d7ec;
+}
