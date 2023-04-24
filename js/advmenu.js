@@ -4,7 +4,6 @@ var d1 = "";
 let sheet2 = "default";
 let shName = 'sheet1';
 let title_st = '';
-// let key = '1G1l3J4HHLOItVLYbrPL08ml3TtON_fAULcpecqn0vwM';
 
 const title = document.getElementById("title__id");
 const text = document.getElementById("paragraphs__id");
@@ -73,14 +72,11 @@ gl_data = []
         data = data['feed']['entry'];
         setFields(data);
         gl_data = gl_data.concat(data)
-        // console.log(gl_data)
-        // console.log(fieldNames)
         let titleKey = ''
         let linkKey = ''
         for (t of Object.values(fieldNames)){            
             let key = t['key']
             let value = t['title']
-            // console.log(key, value)
             if (value === 'Title'){
                 titleKey = key
             }
@@ -91,7 +87,6 @@ gl_data = []
         
         
         let paragraphs__id = document.querySelector('#paragraphs__id')
-        // console.log(paragraphs__id)
         const ul = document.createElement('ul')
         paragraphs__id.append(ul)
         for (p of Object.values(gl_data)){
@@ -99,7 +94,6 @@ gl_data = []
             li.innerText = p[titleKey]['$t']
             
             ul.append(li)
-        //    console.log(p[titleKey]['$t'])
         }
       
 
@@ -149,15 +143,9 @@ if (true){
 
 
 const title_dom = document.getElementById('title__id');
-    // if (title_ !== null){
-    //     title_.innerText = title_st;
-    //     title_dom.innerHTML = title_st;
-    // }
     let strGET = window.location.search.replace( '?', '').split('&'); 
     let par_1 = strGET[0].split("=")
     let par_2 = strGET[1].split("=")
-    // const title_ = decodeURI(par_1[1])
-    // const title_dom = decodeURI(par_1[1])
     title_st = decodeURI(par_1[1])
     const keyT = par_2[1]
     if (title_ !== null){
@@ -166,7 +154,7 @@ const title_dom = document.getElementById('title__id');
     }
 
     function ScrollUpShow(){
-        // const heightMainBlock2 = document.documentElement.clientHeight ;        
+
         if (window.pageYOffset>=200){
             document.getElementById("scrollToTop").style.display ='block';   
         } else {
