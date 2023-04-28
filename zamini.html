@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заміни пропущених уроків</title>
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script>
     <script src="./js/jquery-3.5.0.js"></script>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
+    
+    
     <link rel="stylesheet" href="./css/zamini.css">
+
 </head>
 <body>
 
@@ -23,7 +26,7 @@
                 <select class="input_field " name="teach" id="miss_teach_id" 
                 >
                     <option >________________________________</option>
-                   <!--  <option >Лапко Юлія Миколаївна</option>                 -->
+
                 </select>              
             </div>
             <div class="missing_item">
@@ -93,6 +96,7 @@
         </div>
         <div class="missing missing_list">
             <div class="date_missing">
+                
                 <div class="missing_item">
                     <div>Вивід списку для журналу пропущених та замінених уроків</div>
                     
@@ -113,7 +117,7 @@
                         Вивести
                     </button>
                 </div>
-                <form id="form1_id" action="http://zelenskiy.pythonanywhere.com/addblock/" method="POST">
+                <form id="form1_id" action="http://schooltools.pythonanywhere.com/addblock/" method="POST">
                 <!-- <form action="http://127.0.0.1:5000/addblock/" method="POST"> -->
                     <div class="missing_item output_list">
                         <textarea class="input_field"

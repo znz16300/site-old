@@ -94,12 +94,7 @@ function computeNumberItemsOnPage() {
 }
 
 function shuffle(array) {
-    // let i = array.length, j = 0;
 
-    // while (i--) {
-    //     j = Math.floor(Math.random() * (i + 1));
-    //     [array[i], array[j]] = [array[j], array[i]];
-    // }
 
     return array;
 }
@@ -132,6 +127,7 @@ function createCardItem(item) {
     if (true){
         let cardItem = document.createElement('div');
         cardItem.classList.add('cards__item');
+        cardItem.classList.add('shake-hard');
         cardItem.dataset.id = item.id;
         let cardItemImage = document.createElement('div');
         cardItemImage.classList.add('cards__item-image');
@@ -145,7 +141,6 @@ function createCardItem(item) {
         let button = document.createElement('button');
         button.classList.add('cards__item-button');
         button.innerText = 'Читати далі...';
-        // button.setAttribute('click', 'window.location.href="'+item.type+'"')  //item.type
         cardItemImage.append(image);
         cardItem.append(cardItemImage, cardItemName, button);
         return cardItem;
@@ -214,8 +209,6 @@ cards.addEventListener('click', e => {
     }
 
 
-    // fillModalWindow(newsData.find(p => p.id == itemId));
-    // toggleModalWindow();
 });
 
 modalWindow.addEventListener('click', e => {
@@ -309,20 +302,46 @@ function loadDocuments(data, d){
     
 }
 
-function readNews(d){
-    $.getJSON(url,
-       function (data) {
-            loadDocuments(data, d);
-            calculatePages();
-            changeDisableStatus(currentPageBtn.textContent); 
-            drawPage(currentPageBtn.textContent);
-                    
-        }
+let step = 0;
 
-        
-    );
-    
-}
+function readDocum(d){    
+    let shName = 'Відповіді форми (1)';
+    // let url = 'http://127.0.0.1:5000/getdocument/'+keyTableDocs+'/'+shName;
+    let url = 'https://schooltools.pythonanywhere.com/getdocument/'+keyTableDocs+'/'+shName;
+    // let url = 'https://zelenskiy.pythonanywhere.com/getdocument/'+keyTableDocs+'/'+shName;
+    request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400){
+        data = JSON.parse(request.responseText);  
+        loadDocuments(data, d);
+        changeDisableStatus(currentPageBtn.textContent); 
+        calculatePages();
+        drawPage(currentPageBtn.textContent);
+      } else {
+        // We reached our target server, but it returned an error
+        console.log('Upps Docum');
+        // if (step < 25)
+        //     readDocum(d);
+      }
+    };
+    request.onerror = function() {
+      // There was a connection error of some sort
+    };
+    request.send();
+  };
+
+// function readNews(d){
+//     $.getJSON(url,
+//        function (data) {
+//             loadDocuments(data, d);
+//             calculatePages();
+//             changeDisableStatus(currentPageBtn.textContent); 
+//             drawPage(currentPageBtn.textContent);
+                    
+//         }        
+//     );    
+// }
 
 window.onscroll = function() {
     var scrollElem = document.getElementById("scrollToTop");
@@ -331,6 +350,7 @@ window.onscroll = function() {
     } else {
         scrollElem.style.opacity = "0.5";
     }
+    ScrollUpShow();
  }
 
 var timeOut;
@@ -351,7 +371,7 @@ scroolBtn.addEventListener("click", ()=>{
 
 function Search(text){
     console.log("Search");
-    readNews(true);
+    readDocum(true);
     res = [];
 
     if (text === ""){
@@ -366,7 +386,7 @@ function Search(text){
         })
     }
     if (res.length>0){
-        readNews(false);
+        readDocum(false);
     } else {
         alert("Документа не знайдено")
     }
@@ -385,10 +405,19 @@ edtSearch.addEventListener("keypress", (e)=>{
     }
 })
 
-readNews(true);
+function ScrollUpShow(){
+    // const heightMainBlock2 = document.documentElement.clientHeight ;        
+    if (window.pageYOffset>=200){
+        document.getElementById("scrollToTop").style.display ='block';   
+    } else {
+        document.getElementById("scrollToTop").style.display =  'none';
+    }
+}
+
+readDocum(true);
 
 
-    
+
 
 
 

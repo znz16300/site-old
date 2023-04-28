@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Аналіз відвіданих уроків</title>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/io/script.js"></script>
+<script src="./js/jquery-3.5.0.js"></script>
+<link rel="stylesheet" href="./css/analiz.css">
+<link rel="shortcut icon" href="./assets/icons/favicon.png">
+<meta http-equiv="Permissions-Policy" content="interest-cohort=()"/>
+
+</head>
+<body>
+    <div class="modal__wrapper">
+        <div class="modal">
+            <div class="modal_close">
+                <img id="btn_close_modal" 
+                     src="./assets/icons/close_icon.png" 
+                     class="modal_close_button" alt="close-button">
+            </div>
+
+            
+                <div class="config_block" id="props_div_id">
+                    <div class="config_title">Налаштування</div>
+                     
+                    <div class="pib_dir">
+                        <div class="title_boss">
+                            Назва закладу (називний відмінок)
+                        </div>                        
+                        <input class="pole_config" id="zaklad_name_id" type="text"> .
+                    </div>
+                    <div class="pib_dir">
+                        <div class="title_boss">
+                            Назва закладу (родовий відмінок)
+                        </div>                        
+                        <input class="pole_config" id="zaklad_name_r_v_id" type="text"> .
+                    </div>
+                    <div class="pib_dir">
+                        <div class="title_boss">
+                            Посада керівника
+                        </div>                        
+                        <input class="pole_config" id="posada_boss_id" type="text"> .
+                    </div>
+                    <div class="pib_dir">
+                        <div class="title_boss">
+                            Ініціали, прізвище керівника
+                        </div>                        
+                        <input class="pole_config" id="name_boss_id" type="text"> .
+                    </div>
+                    <div>Показувати місце для підпису</div> 
+                    <div class="props_items"> 
+                        <div>вчителя</div> 
+                        <input id="set_signature_teacher_id" type="checkbox"> , &nbsp;                        
+                        <div>керівника закладу</div>  
+                        <input id="set_signature_boss_id" type="checkbox"> .
+                    </div>
+                </div>
+                
+            <div class="pet_info" id="pet_info_id">    
+                <div class="pet_info__about"></div>
+            </div>
+                
+
+        </div>
+    </div>
+
+    <nav id="context-menu-id" class="context-menu">
+        <ul id="teach__menu__items_id" class="context-menu__items">
+        </ul>
+        <div class="btn_menu">
+            <button id="btn_close_menu">x</button>
+        </div>        
+    </nav>
+    <nav id="context-menu-who-id" class="context-menu">
+        <ul id="who__menu__items_id" class="context-menu__items">
+        </ul>
+        <div class="btn_menu">
+            <button id="btn_close_menu_who">x</button>
+        </div>        
+    </nav>
+    <nav id="context-menu-subj-id" class="context-menu">
+        <ul id="subj__menu__items_id" class="context-menu__items">
+        </ul>
+        <div class="btn_menu">
+            <button id="btn_close_menu_subj">x</button>
+        </div>        
+    </nav>
+    <nav id="context-menu-clas-id" class="context-menu">
+        
+        <ul id="clas__menu__items_id" class="context-menu__items"> </ul>     
+        <div class="btn_menu"><button id="btn_close_menu_clas">x</button></div>           
+    </nav>
+    <nav id="context-menu-date-id" class="context-menu">      
+        <ul id="date__menu__items_id" class="context-menu__items"> </ul>  
+        <!-- <div class="btn_menu"><button id="btn_close_menu_date">x</button></div>    -->
+    </nav>
+
+<header class="head">
+    <div class="title__block">
+       <!-- <div class="title__head"></div>  -->
+       <div class="toolbar__head">
+        <button id="settings_btn_id" class="btn_min" title="Налаштування">⚙</button>
+       </div> 
+       <div class="toolbar__head">
+        <button class="btn_min" id="reset_btn_id" title="Вилучити ключ">
+            ↻
+        </button>
+        
+    </div>
+    </div>
+    
+
+    <div class="header__table">
+        <div id="div_t">
+
+        
+        <table id="table_id" class="table__cl">
+            <tbody id="table__id"  >
+                <tr class="cel_row">
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Дата уроку</div> <div class="sp_2"><img id="id_table_date" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                    </div>
+                </th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Хто відвідує</div> <div class="sp_2"><img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                    </div>
+                </th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Чий урок відвідує</div> <div class="sp_2"><img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                    </div>
+                </th>
+                <th class="cel_h">
+                    <div class="cel_div">
+                        <div class="sp_1">Клас</div> <div class="sp_2">
+                            <img id="id_table_clas" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр">
+                        </div>
+                    </div>
+                </th>
+                <th class="cel_h" >
+                    <div class="cel_div">
+                        <div class="sp_1">Предмет</div> <div class="sp_2"><img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""  title="Фільтр"></div>
+                        
+                    </div>
+                </th>
+                <!-- <th class="cel_h">Хто відвідує<img id="id_table_who" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <!-- <th class="cel_h">Чий урок відвідує<img id="id_table_teach" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <!-- <th class="cel_h">Клас<img id="id_table_clas" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <!-- <th class="cel_h">Предмет<img id="id_table_subj" src="./assets/icons/filter_btn.png" alt=""></th> -->
+                <th class="cel_h">Тема уроку</th>
+                <th class="cel_h" >
+                    <div class="cel_div">Вивід
+
+                            <input class="btn_sel" id="sel_all_id" type="button" title="Виділити всі" value=""> 
+
+
+                    </div>
+                </th>                
+            </tr>
+
+            </tbody>
+        </table>
+        </div>
+        <div class="btn_div" hidden>
+            <button id="btn__print_id" 
+                class="btn">Вивести</button>
+            <button id="btn__copy_id" 
+                class="btn">Скопіювати</button>
+            
+        </div>
+
+        
+    </div>
+    
+</header>
+
+<div id="content"></div>
+
+
+<a href="#" id="scroll_top" title="Вгору"></a>
+<a href="#" id="scroll_bottom" title="Вниз"></a>
+
+
+<script src="./js/data_analiz.js"></script>
+<script src="./js/adata.js"></script>
+<script src="./js/analiz_t2.js"></script>
+
+
+
+</body>
+</html>

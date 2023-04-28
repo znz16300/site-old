@@ -10,6 +10,9 @@ header {
     font-style: normal;
     /* line-height: 150%; */
 }
+.print_col_i{
+  margin-top: 5px;
+}
 
 .inp_data {
     /* justify-content: baseline; */
@@ -49,9 +52,6 @@ header {
 }
 
 
-/* .input_data_cl {
-   
-} */
 
 .toolbar__head :hover {
   cursor: pointer;
@@ -61,9 +61,9 @@ header {
 
 .title__block {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
-  margin-right: 30px;
+  margin-right: 40px;
 }
 .props_items {
   display: flex;
@@ -84,7 +84,7 @@ header {
     padding-left: 30px;
     margin-top: 25px;
     margin-bottom: 0;
-
+    
     font-family: Georgia;
     font-style: normal;
     font-weight: bold;
@@ -348,6 +348,7 @@ header {
 }
 .modal__wrapper .modal .pet_info {
   margin-bottom: 10px;
+  
 }
 .modal__wrapper .modal .pet_info .pet_info__about {
   margin-bottom: 40px;
@@ -406,3 +407,26 @@ header {
  	opacity: 1;
 } 
 
+.pole_config{
+  width: 550px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin-top: 5px;
+
+}
+
+.pib_dir {
+  margin-top: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.config_block{
+  padding: 10px;
+}
+
+.config_title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
