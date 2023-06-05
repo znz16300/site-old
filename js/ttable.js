@@ -39,6 +39,7 @@ const datBlock =document.querySelector('#date_block')
 const readPageTt = ()=>{
     //Визначаємо номер тижні (чисельник/знаменник)
     
+    
     let shName = 'week1';
     let url = server + 'gettimetable/'+keyZamini+'/'+shName;
     
