@@ -1,16 +1,12 @@
 /* AdvMenu */
 #advM {
-  color: #02282b;
-}
-
-.modal__menu {
-  background: #02282b;
+  color: #d0d7ec;
 }
 
 .advmenu_a__item {
-  color: #02282b;
+  color: #efefef;
 }
 
 .advmenu_ul :hover {
-  color: #47a4b4;
+  color: #d0d7ec;
 }/*# sourceMappingURL=advmenulite.css.map */
