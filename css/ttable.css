@@ -70,8 +70,8 @@ main .btn-block .screen .less-item {
   width: 100vw;
   padding: 10px;
 }
-main .btn-block .screen .less-item option {
+main .btn-block .screen .less-item li {
   font-size: 1.6em;
   border-radius: 0;
-  padding: 15px;
+  padding: 10px;
 }/*# sourceMappingURL=ttable.css.map */

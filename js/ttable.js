@@ -128,7 +128,7 @@ function showTeachersTT(){
 
     lList.push("(" + lesLime + ") " + num + ". " + klas + " - " + subj)
   }
-  createList(lessList, lList)
+  createList(lessList, lList, 'li')
 }
 
 teacherList.addEventListener('change', ()=>{
@@ -158,10 +158,10 @@ let readTT = (s2)=>{
       glData = data; 
       // Читаємо список вчителів
       const tList = getFirstNonEmptyElements(getData(glData, 'week1')['data']);
-      createList(teacherList, tList)
+      createList(teacherList, tList, 'option')
       // Читаємо список класів
       const cList = getFirstNonEmptyElements(getData(glData, 'week1 (clas)')['data']);
-      createList(clasList, cList)
+      createList(clasList, cList, 'option')
       // Визначаємо чисельник чи знаменник для вказаної дати
       const tWD = getData(glData, 'workdays')['data'];
       day  = getDataByDate(tWD, datePicker.value);
@@ -203,8 +203,8 @@ function getFirstNonEmptyElements(lists) {
     .filter(element => element !== undefined);
 }
 
-function createList(node, list) {
-  node.innerHTML = list.map(row => `<option>${row}</option>`).join('');
+function createList(node, list, tag) {
+  node.innerHTML = list.map(row => `<${tag}>${row}</${tag}>`).join('');
   node.value = '';
 }
 
