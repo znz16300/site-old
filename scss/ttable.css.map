@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["ttable.scss"],"names":[],"mappings":"AAAA;EACI","file":"ttable.css"}
+{"version":3,"sources":["ttable.scss","ttable.css"],"names":[],"mappings":"AAAA;EACI,yBAAA;EACA,WAAA;EACA,UAAA;ACCJ;;ADCA;EACI,aAAA;ACEJ;;ADAA;EACI,gBAAA;EACA,aAAA;EACA,6BAAA;EACA,YAAA;ACGJ;ADFI;EACI,cAAA;ACIR;;ADDA;EACI,gBAAA;ACIJ","file":"ttable.css"}

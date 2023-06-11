@@ -5,28 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/ttable.css">
+    <script src="./js/jquery-3.5.0.js"></script>
     <script defer src="./js/ttable.js"></script>
     <title>Розклад</title>
 </head>
 <body>
     <header>
-        <div id="date_block"></div>
+        <div class="title">...</div>
+        <div class="date">         
+            <button class="btn-left">&lt;</button>
+            <input class="date_block" type="date" id="date_id">
+            <button class="btn-right">&gt;</button>    
+        </div>
+        <div class="main-sel">
         <div class="sel-block">
             <select class="sel-item" name="teach" id="teach_id">
                 <option value=""></option>
-                <option value="">12345  67890</option>
-                <option value="">12345  67890</option>
             </select>
-            <select class="sel-item" name="clas" id="clas-id">
+            <select class="sel-item" name="clas" id="clas_id">
                 <option value=""></option>
-                <option value="">12345  67890</option>
-                <option value="">12345  67890</option>
             </select>
+        </div>
         </div>
     
     </header>
     <main>
-        main
+        <div class="btn-block">            
+            <div class="screen">
+                <select class="less-item" name="clas" id="less_id"  size="11">
+                    <option value=""></option>                
+                </select>
+            </div>            
+        </div>
     </main>
 </body>
 </html>

@@ -1,6 +1,8 @@
-const keyZamini = '1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk';
-const server = 'https://schooltools.pythonanywhere.com/';
+const urlMy = window.location.href;
+console.log(urlMy);
+const keyZamini = urlMy.split("id=")[1];
 
+const server = "https://schooltools.pythonanywhere.com/";
 
 const currentDate = new Date();
 const date = currentDate.getDate();
@@ -9,160 +11,203 @@ const year = currentDate.getFullYear();
 const hours = currentDate.getHours();
 const minutes = currentDate.getMinutes();
 const dayOfWeek = currentDate.getDay();
-const days = ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"];
+const days = [
+  "Неділя",
+  "Понеділок",
+  "Вівторок",
+  "Середа",
+  "Четвер",
+  "П'ятниця",
+  "Субота",
+];
 const dayName = days[dayOfWeek];
 
-let timeTable = {1: undefined, 2: undefined}
+let timeTable = { 1: undefined, 2: undefined };
+let timeTableClas = { 1: undefined, 2: undefined };
 
 let workDaysDate = [];
 
 let fields = {
-    0: 'gsx$teach',
-}
-let missing_teachers = []
-let allTeachers = []
+  0: "gsx$teach",
+};
+let fieldsClas = {
+  0: "gsx$clas",
+};
+let missing_teachers = [];
+let allTeachers = [];
+let allClases = [];
 let les_count = 12;
 const dWeek = {
-    '1': 'mo',
-    '2': 'tu',
-    '3': 'we',
-    '4': 'th',
-    '5': 'fr',
-    '6': 'st',
-}; 
+  1: "mo",
+  2: "tu",
+  3: "we",
+  4: "th",
+  5: "fr",
+  6: "st",
+};
 
 const teacherList = document.getElementById("teach_id");
-const datBlock =document.querySelector('#date_block')
+const clasList = document.getElementById("clas_id");
+const datePicker = document.getElementById("date_id");
+const lessList = document.getElementById("less_id");
+const datBlock = document.querySelector(".date_block");
+const title = document.querySelector(".title");
+const btnLeft = document.querySelector(".btn-left");
+const btnRight = document.querySelector(".btn-right");
 
 
+let day = {chZn: 0, dWeek: 0};
 
-const readPageTt = ()=>{
-    //Визначаємо номер тижні (чисельник/знаменник)
-    
-    
-    let shName = 'week1';
-    let url = server + 'gettimetable/'+keyZamini+'/'+shName;
-    
-    request = new XMLHttpRequest();
-    request.open('GET', url, true);
-    request.onload = function() {
-      if (request.status >= 200 && request.status < 400){
-        data = JSON.parse(request.responseText);  
-        timeTable[1] = data['feed']['entry'];   
-        console.log(timeTable[1]);    
-            let lessons = timeTable[1][1]
-            let max = -1;
-            for (var item in lessons) {
-                if (item.slice(0,6) === 'gsx$mo'){ 
-                    let n = parseInt(lessons[item]['$t']);
-                    if (n > max){max = n};}
-            }
-            les_count = max;
-            let i = 0;
-            teacherList.innerHTML = `<option ></option>`;
-            for (row of timeTable[1]){
-                let k = row[fields[0]];
-                if (k !== undefined && k['$t'] !== ""){
-                    allTeachers.push({'teach': k.$t, 'numRow': i});
-                    let cel1 = document.createElement('option');
-                    cel1.innerText=`${k.$t}`;
-                    teacherList.append(cel1);
-                }  
-                i++;
-            } 
-            // fillTable();
-      } else {
-        console.log('Upps ');
-      }
-    };
-    request.onerror = function() {
-      // There was a connection error of some sort
-    };
-    request.send();
-
-    shName = 'week2';
-    url = server + 'gettimetable/'+keyZamini+'/'+shName;
-    request2 = new XMLHttpRequest();
-    request2.open('GET', url, true);
-    request2.onload = function() {
-    if (request2.status >= 200 && request2.status < 400){
-         data = JSON.parse(request2.responseText);  
-         timeTable[2] = data['feed']['entry'];   
-         console.log(timeTable[2]);    
-         let lessons = timeTable[2][1]
-
-         let max = -1;
-         for (var item in lessons) {
-             if (item.slice(0,6) === 'gsx$mo'){ 
-                 let n = parseInt(lessons[item]['$t']);
-                 if (n > max){max = n};
-            }
-         }
-         les_count = max+1;
-         let i = 0;
-         teacherList.innerHTML = `<option ></option>`;
-         for (row of timeTable[2]){
-             let k = row[fields[0]];
-            if (k !== undefined && k['$t'] !== ""){
-                allTeachers.push({'teach': k.$t, 'numRow': i});
-                let cel1 = document.createElement('option');
-                cel1.innerText=`${k.$t}`;
-                teacherList.append(cel1);
-            }  
-            i++;
-        } 
-        // fillTable();
-    } else {
-        console.log('Upps ');
-      }
-    };
-    request2.onerror = function() {
-      // There was a connection error of some sort
-    };
-    request2.send();
-
-    sheetDate = "workdays";
-    url = server + 'getwd/'+keyZamini+'/'+sheetDate;
-    request3 = new XMLHttpRequest();
-    request3.open('GET', url, true);
-    request3.onload = function() {
-      if (request3.status >= 200 && request3.status < 400){
-        data = JSON.parse(request3.responseText);  
-        data = data['feed']['entry']; 
-        //console.log(data);
-        for (let i=1; i<500; i++){
-            
-            let x = data[1]['gsx$day_'+parseInt(i)];
-            let w = data[2]['gsx$day_'+parseInt(i)];
-            let ch_zn = data[3]['gsx$day_'+parseInt(i)];
-            if (x !== null && ch_zn !== undefined){
-                workDaysDate.push(
-                    {
-                        'date': x['$t'],
-                        'week': w['$t'],
-                        'ch_zn': ch_zn['$t'],                         
-                    })
-            }
-        }
+function shiftDate(dateInput, step) {  
+  let currentDate = new Date(dateInput.value);
+  currentDate.setDate(currentDate.getDate() - step);
+  let previousDate = currentDate.toISOString().split('T')[0];
+  dateInput.value = previousDate;
+}
 
 
-      } else {
-        console.log('Upps ');
-      }
-    };
-    request3.onerror = function() {
-      // There was a connection error of some sort
-    };
-    request3.send();
+btnLeft.addEventListener('click', () => {
+  shiftDate(datePicker, 1);
+  const tWD = getData(glData, 'workdays')['data'];
+  day  = getDataByDate(tWD, datePicker.value);
+  showTeachersTT();
+});
 
-    
+btnRight.addEventListener('click', () => {
+  shiftDate(datePicker, -1);
+  const tWD = getData(glData, 'workdays')['data'];
+  day  = getDataByDate(tWD, datePicker.value);
+  showTeachersTT();
+});
+
+datePicker.addEventListener('change', () => {
+  const tWD = getData(glData, 'workdays')['data'];
+  day  = getDataByDate(tWD, datePicker.value);
+  showTeachersTT();
+})
+
+function showTeachersTT(){
+  lessList.innerHTML = '<option value=""></option>';
+  const selectedOption = teacherList.options[teacherList.selectedIndex];
+  const surname = selectedOption.text;
+  // Шукаємо розклад вчителя
+  console.log(surname);
+  let week = 'week1';
+  if (day.chZn === 2){
+    week = 'week2';
+  }
+  const list = getData(glData, week)['data'];
+  const tt = getInnerListByName(list, surname)
+  
+  // Визначаємо діапазон уроків
+  const  maxLessons = 11;
+  let lList = [];
+  
+  let start = (day.dWeek-1)*(maxLessons+1)+1;  
+  let fin = start + maxLessons;
+  let s;
+  console.log(day);
+  if (day.chZn == 1) 
+    s =  tt[3][start-1] + ". Чисельник";
+  else 
+    s =  tt[3][start-1] + ". Знаменник";
+  title.innerText = s;
+  console.log(s);
+  
+  const startLesson = getData(glData, 'Час початку уроків').header;
+  console.log(startLesson)
+  for (let i=start; i<fin; i++){    
+    let lesLime = startLesson[0][(i-1)%(maxLessons+1)]
+    let num =  tt[2][i]
+    let klas =  tt[1][i]
+    let subj =  tt[0][i]
+    if (lesLime === undefined) lesLime = '-';
+    if (num === undefined) num = '-';
+    if (klas === undefined) klas = '-';
+    if (subj === undefined) subj = '-';
+
+    lList.push("(" + lesLime + ") " + num + ". " + klas + " - " + subj)
+  }
+  createList(lessList, lList)
+}
+
+teacherList.addEventListener('change', ()=>{
+  showTeachersTT();
+})
+
+function getInnerListByName(list, surname) {
+  for (var i = 0; i < list.length; i++) {
+    if (list[i][0] === surname) {
+      return [list[i].slice(1), list[i+1].slice(1), list[1].slice(1), list[0].slice(1)];
+    }
+  }
+  return null;
+}
+
+
+let glData = [];
+
+function padNumberWithZero(number) {
+  return number < 10 ? '0' + number : number.toString();
+}
+
+let readTT = (s2)=>{    
+  $.getJSON(server +  'getmultiblock/'+keyZamini,        
+     function (data) {
+      datePicker.value = `${year}-${(padNumberWithZero(month)).slice()}-${padNumberWithZero(date)}`
+      glData = data; 
+      // Читаємо список вчителів
+      const tList = getFirstNonEmptyElements(getData(glData, 'week1')['data']);
+      createList(teacherList, tList)
+      // Читаємо список класів
+      const cList = getFirstNonEmptyElements(getData(glData, 'week1 (clas)')['data']);
+      createList(clasList, cList)
+      // Визначаємо чисельник чи знаменник для вказаної дати
+      const tWD = getData(glData, 'workdays')['data'];
+      day  = getDataByDate(tWD, datePicker.value);
+      
+      // if (day.chZn == 1) 
+      //   s =  tt[3][start-1] + ". Чисельник";
+      // else 
+      //   s =  tt[3][start-1] + ". Знаменник";
+      // title.innerText = s;
+          
+    }
+  );   
+}
+
+function getDataByDate(list, date) {
+  let dateIndex = list[0].indexOf(date);
+  if (dateIndex === -1) {
+    return null; 
+  } else {
+    return { chZn: list[2][dateIndex], dWeek: list[1][dateIndex]}; 
+  }
+}
+
+
+function getData(tables, table) {
+  var result = tables.find(function(item) {
+    return item.templFile === table;
+  });
+  if (result) {
+    return { header: result.header, data: result.data };
+  }
+  return null;
+}
+
+function getFirstNonEmptyElements(lists) {
+  return lists
+    .map(innerList => innerList[0])
+    .filter(element => element !== '')
+    .filter(element => element !== undefined);
+}
+
+function createList(node, list) {
+  node.innerHTML = list.map(row => `<option>${row}</option>`).join('');
+  node.value = '';
 }
 
 
 
-const s = "Поточна дата: " + date + "." + month + "." + year + " " + 
-          "Поточний час: " + hours + ":" + minutes + "<br>" +
-          "День тижня: " + dayName;
-
-datBlock.innerHTML = s
-readPageTt()
+readTT();
