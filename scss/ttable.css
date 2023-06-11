@@ -1,0 +1,23 @@
+* {
+  background-color: #202023;
+  color: #fff;
+  padding: 0;
+}
+
+body {
+  padding: 20px;
+}
+
+.sel-block {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-around;
+  height: 50px;
+}
+.sel-block .sel-item {
+  max-width: 45%;
+}
+
+main {
+  margin-top: 16px;
+}/*# sourceMappingURL=ttable.css.map */
