@@ -11,20 +11,22 @@ body {
 
 .main-sel {
   display: flex;
-  justify-content: space-between;
-  width: 100vw;
+  justify-content: center;
 }
 .main-sel .sel-block {
   width: 100%;
   margin-top: 16px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 50px;
-  width: 265px;
+  gap: 24px;
 }
 .main-sel .sel-block .sel-item {
-  max-width: 45%;
+  width: 85%;
   font-size: 1.2em;
+}
+.main-sel .sel-block .sel-item:nth-child(even) {
+  width: 25%;
 }
 
 header .title {

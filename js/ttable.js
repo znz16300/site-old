@@ -93,7 +93,7 @@ function showTeachersTT(){
   // Шукаємо розклад вчителя
   console.log(surname);
   let week = 'week1';
-  if (day.chZn === 2){
+  if (day.chZn == 2){
     week = 'week2';
   }
   const list = getData(glData, week)['data'];

@@ -744,8 +744,8 @@
     margin-right: 0;
   }
   .than__wrapper .than__list .than__list_item:nth-child(5),
-.than__wrapper .than__list .than__list_item:nth-child(3n),
-.than__wrapper .than__list .than__list_item:last-child {
+  .than__wrapper .than__list .than__list_item:nth-child(3n),
+  .than__wrapper .than__list .than__list_item:last-child {
     margin-right: 0;
   }
   .donation .donation__wrapper {
@@ -1248,4 +1248,4 @@
     margin-bottom: 5px;
   }
 }
-/*# sourceMappingURL=style.css.map *//*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map */
