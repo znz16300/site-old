@@ -31,7 +31,7 @@ body {
 
 header {
     .title {
-       font-size: 1.6em; 
+       font-size: 1.2em; 
        text-align: center;
     }
     .date {
@@ -88,6 +88,10 @@ main {
                 padding: 10px;
                 
                 // background-color: rgb(153, 206, 54);
+            }
+            li:hover {
+                background-color: rgb(54, 147, 201);
+                cursor: pointer;
             }
         } 
     }
