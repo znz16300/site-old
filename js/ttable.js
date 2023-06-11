@@ -86,8 +86,52 @@ datePicker.addEventListener('change', () => {
   showTeachersTT();
 })
 
+function showClasTT(){
+  lessList.innerHTML = '<li value=""></li>';
+  const selectedOption = clasList.options[clasList.selectedIndex];
+  const clasName = selectedOption.text;
+  // Шукаємо розклад вчителя
+  console.log(clasName);
+  let week = 'week1 (clas)';
+  if (day.chZn == 2){
+    week = 'week2 (clas)';
+  }
+  const list = getData(glData, week)['data'];
+  const tt = getInnerListByName(list, clasName)
+  
+  // Визначаємо діапазон уроків
+  const  maxLessons = 11;
+  let lList = [];
+  
+  let start = (day.dWeek-1)*(maxLessons+1)+1;  
+  let fin = start + maxLessons;
+  let s;
+  console.log(day);
+  if (day.chZn == 1) 
+    s =  tt[3][start-1] + ". Чисельник";
+  else 
+    s =  tt[3][start-1] + ". Знаменник";
+  title.innerText = s;
+ 
+  const startLesson = getData(glData, 'Час початку уроків').header;
+  console.log(startLesson)
+  for (let i=start; i<fin; i++){    
+    let lesLime = startLesson[0][(i-1)%(maxLessons+1)]
+    let num =  tt[2][i]
+    let klas =  tt[1][i]
+    let subj =  tt[0][i]
+    if (lesLime === undefined) lesLime = '-';
+    if (num === undefined) num = '-';
+    if (klas === undefined) klas = '-';
+    if (subj === undefined) subj = '-';
+
+    lList.push("(" + lesLime + ") " + num + ". " + klas + " - " + subj)
+  }
+  createList(lessList, lList, 'li')
+}
+
 function showTeachersTT(){
-  lessList.innerHTML = '<option value=""></option>';
+  lessList.innerHTML = '<li value=""></li>';
   const selectedOption = teacherList.options[teacherList.selectedIndex];
   const surname = selectedOption.text;
   // Шукаємо розклад вчителя
@@ -112,8 +156,7 @@ function showTeachersTT(){
   else 
     s =  tt[3][start-1] + ". Знаменник";
   title.innerText = s;
-  console.log(s);
-  
+ 
   const startLesson = getData(glData, 'Час початку уроків').header;
   console.log(startLesson)
   for (let i=start; i<fin; i++){    
@@ -133,6 +176,9 @@ function showTeachersTT(){
 
 teacherList.addEventListener('change', ()=>{
   showTeachersTT();
+})
+clasList.addEventListener('change', ()=>{
+  showClasTT();
 })
 
 function getInnerListByName(list, surname) {
