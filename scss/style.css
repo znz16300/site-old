@@ -358,29 +358,12 @@
   fill: #cdcdcd;
 }
 
-@-webkit-keyframes slideLeft {
-  from {
-    left: -100%;
-  }
-  to {
-    left: 0;
-  }
-}
-
 @keyframes slideLeft {
   from {
     left: -100%;
   }
   to {
     left: 0;
-  }
-}
-@-webkit-keyframes slideRight {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(-100% - 90px);
   }
 }
 @keyframes slideRight {
@@ -399,13 +382,11 @@
 }
 
 .pet_slider .pet_slider__items .item_animation-right {
-  -webkit-animation: slideRight 0.5s ease-out;
-          animation: slideRight 0.5s ease-out;
+  animation: slideRight 0.5s ease-out;
 }
 
 .pet_slider .pet_slider__items .item_animation-left {
-  -webkit-animation: slideLeft 0.5s ease-out;
-          animation: slideLeft 0.5s ease-out;
+  animation: slideLeft 0.5s ease-out;
 }
 
 .pet_slider__item-image img {
@@ -747,14 +728,6 @@
   .pet_slider .pet_slider__items .pet_slider__item {
     margin-right: 40px;
   }
-  @-webkit-keyframes slideRight {
-    from {
-      left: 0;
-    }
-    to {
-      left: calc(-100% - 40px);
-    }
-  }
   @keyframes slideRight {
     from {
       left: 0;
@@ -771,8 +744,8 @@
     margin-right: 0;
   }
   .than__wrapper .than__list .than__list_item:nth-child(5),
-.than__wrapper .than__list .than__list_item:nth-child(3n),
-.than__wrapper .than__list .than__list_item:last-child {
+  .than__wrapper .than__list .than__list_item:nth-child(3n),
+  .than__wrapper .than__list .than__list_item:last-child {
     margin-right: 0;
   }
   .donation .donation__wrapper {
@@ -865,17 +838,6 @@
   .header .header__burger-active {
     transform: rotate(90deg);
   }
-  @-webkit-keyframes changeOpacity {
-    0% {
-      opacity: 0;
-    }
-    60% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
   @keyframes changeOpacity {
     0% {
       opacity: 0;
@@ -891,8 +853,7 @@
     justify-content: flex-end;
   }
   .header_active .header__logo_item {
-    -webkit-animation: changeOpacity 0.5s;
-            animation: changeOpacity 0.5s;
+    animation: changeOpacity 0.5s;
   }
   .start-screen {
     padding-right: 10px;
@@ -1287,4 +1248,4 @@
     margin-bottom: 5px;
   }
 }
-/*# sourceMappingURL=style.css.map *//*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map */

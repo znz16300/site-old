@@ -11,21 +11,30 @@ body {
 
 .main-sel {
     display: flex;
-    justify-content: space-between;
-    width: 100vw;
+    justify-content: center;
+   
+    // background-color: #fff;
+    
     
     .sel-block {
         width: 100%;
         margin-top: 16px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         height: 50px;
-        width: 265px;
+        // width: 265p;
+        gap: 24px;
 
         .sel-item {
-            max-width: 45%;
+            width: 85%;           
             font-size: 1.2em;
         }
+        .sel-item:nth-child(even) {
+            width: 25%;           
+            
+        }
+        
+
     }
 }
 
@@ -54,6 +63,7 @@ header {
         }
     
     }
+
 }
 
 main {
