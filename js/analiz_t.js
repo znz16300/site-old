@@ -1,5 +1,5 @@
 const url = "http://127.0.0.1:5000/";
-//const url = "https://schooltools.pythonanywhere.com/";
+//const url = "https://zelenskiy.pythonanywhere.com/";
 
 var d1 = "";
 // let data_table = {};
@@ -1285,7 +1285,7 @@ function mkHeader(){
 
             
 //             //let url = "http://127.0.0.1:5000/";
-//             let url = "https://schooltools.pythonanywhere.com/";
+//             let url = "https://zelenskiy.pythonanywhere.com/";
 //             $.ajax({
 //                 type : "POST",
 //                 url : url+"getfileanalizt/",

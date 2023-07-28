@@ -233,7 +233,7 @@ let step = 0;
 function readNews(){    
     shName = "Аркуш1"
     //let url = 'https://AlexZelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName; //Не працює
-    let url = 'https://schooltools.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
+    let url = 'https://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
     // let url = 'https://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
     //let url = 'http://127.0.0.1:5000/getnews/'+keyTableNews+'/'+shName;
     request = new XMLHttpRequest();

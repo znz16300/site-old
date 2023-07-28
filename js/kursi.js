@@ -1,7 +1,7 @@
 // const shevchenko = require("shevchenko");
 
 // const url = "http://127.0.0.1:5000/";
-const url = "https://schooltools.pythonanywhere.com/";
+const url = "https://zelenskiy.pythonanywhere.com/";
 const golova = 'Орсагош Оксані Валеріївні'
 const zaklad = 'Куликівського ліцею'
 let glData;

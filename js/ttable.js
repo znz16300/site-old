@@ -2,7 +2,7 @@ const urlMy = window.location.href;
 console.log(urlMy);
 const keyZamini = urlMy.split("id=")[1];
 
-const server = "https://schooltools.pythonanywhere.com/";
+const server = "https://zelenskiy.pythonanywhere.com/";
 
 const currentDate = new Date();
 const date = currentDate.getDate();
