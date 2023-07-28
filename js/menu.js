@@ -1,5 +1,5 @@
 // let url = 'http://127.0.0.1:5000/'
-let url = 'https://schooltools.pythonanywhere.com/'
+let url = 'https://zelenskiy.pythonanywhere.com/'
 let shName = 'Answer'
 let key = '1cYpcT17iZydWA8a292KDXx6C_Y7p6gDDkgy_aM9dT9w'
 

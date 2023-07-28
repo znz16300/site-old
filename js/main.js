@@ -225,7 +225,7 @@ let setFields = (data) => {
 // function readAdvMenu(key) {
 
 //     shName = "sheet1"
-//     let url = 'https://schooltools.pythonanywhere.com/getblock/' + key + '/' + shName;
+//     let url = 'https://zelenskiy.pythonanywhere.com/getblock/' + key + '/' + shName;
 //     //  let url = 'http://127.0.0.1:5000/getblock/'+key+'/'+shName;
 //     request = new XMLHttpRequest();
 //     request.open('GET', url, true);

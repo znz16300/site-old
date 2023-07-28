@@ -62,7 +62,7 @@ let setFields = (data)=>{
 function readAdvMenu(key){
 gl_data = []
  shName = "sheet1"
-//  let url = 'https://schooltools.pythonanywhere.com/getpage/'+key+'/'+shName;
+//  let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
  let url = 'http://127.0.0.1:5000/getblock/'+key+'/'+shName;
   request = new XMLHttpRequest();
   request.open('GET', url, true);
