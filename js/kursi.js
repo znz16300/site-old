@@ -103,7 +103,13 @@ teachList.addEventListener("change", () => {
         r88 = "";
       }
       row.setAttribute("id", "ii_" + String(ii));
-      row.setAttribute("title", `Дата та час уведення: ${r[0]}`);
+      // console.log(r[14]);
+      let pedrada = '' 
+      if (r[14]){
+        pedrada = ', затверджено рішенням педради від ' + r[14];
+      }
+
+      row.setAttribute("title", `Дата та час уведення: ${r[0]}${pedrada}`);
       row.innerHTML = `
 
 
