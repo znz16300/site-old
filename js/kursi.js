@@ -108,7 +108,15 @@ teachList.addEventListener("change", () => {
       if (r[14]){
         pedrada = ', затверджено рішенням педради від ' + r[14];
       }
-
+      if (!r[15]){
+        r[15] = '2000';
+      }
+      let [day, month, year] = r[5].split('.').map(Number);
+      let dateKursi = new Date(year, month - 1, day);
+      let dateAtest = new Date(r[15], 3, 1);
+      if (dateKursi < dateAtest){
+        row.classList.add('gray_row')
+      } 
       row.setAttribute("title", `Дата та час уведення: ${r[0]}${pedrada}`);
       row.innerHTML = `
 
