@@ -94,7 +94,7 @@ function readPage(key){
                         let codeImages = [] 
                         let photoPath = ""
 
-let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
+                        let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                         for(let j=0; j<images.length; j++){
 
                             let x=images[j].indexOf('?id=');
@@ -105,7 +105,10 @@ let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                                 let ss = images[j].substr(start);
 
                                 im = "http://drive.google.com/uc?export=view&id="+ss;
-                                text_tmp = `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp
+                                if (wImage !== ''){
+                                    text_tmp = `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp
+                                } 
+                                
                             } else {
                                 x = images[j].indexOf('/file/d/');
                                 if (false){
@@ -114,7 +117,10 @@ let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                                 } else {
                                     //Якщо малюнок по посиланню з іншого ресурсу
                                     im = images[j];
-                                    text_tmp = `<img src="${im}" alt="" width = "${wImage}%"> ` + text_tmp
+                                    if (wImage !== ''){
+                                        text_tmp = `<img src="${im}" alt="" width = "${wImage}%"> ` + text_tmp
+                                    }
+                                    
                                 }
                             }               
                         }
