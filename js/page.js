@@ -76,7 +76,7 @@ function readPage(key){
                         document.getElementById('paragraphs__id').style.display = 'flex';
                         text = `
                         <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
-                        <a href="${link}"  target="_blank">
+                        <a href="${link}" class="a_card"  target="_blank">
                                     <div class="item1"><img
                                         width="180px"
                                      src="${image}" alt=""></div>
