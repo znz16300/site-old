@@ -6,6 +6,10 @@
 	
 }
 
+.gray_row{
+	color: lightgray;
+}
+
 .title_lbl {
 	/* padding : 5vh; */
 }
@@ -42,9 +46,8 @@ button, .input_date_field, .input_field {
     margin-top: 10px;
 }
 .input_field, .input_date_field {
-     width: 80vw; 
-    /* background-color: #F3EAC2; */
     font-size: 1.5em;
+	width: 100%;
 }
 /* 
 .truncate-text {
