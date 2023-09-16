@@ -89,7 +89,17 @@ function readPage(key){
                         if (tip === '3') {
                             text_tmp += `<div style="width:500px;padding-top: 50px; font-size: 18px; color: #545454;">${text}</div>` 
                         } else {
-                            text_tmp += `<div >${text}</div>`
+                            if (link !=="#"){
+                                text_tmp += `
+                                <div style="line-height: 1.5; font-size: 18px;">
+                                    <a href="${link}">
+                                        ${text}
+                                    </a>
+                                </div>`
+                            } else {
+                                text_tmp += `<div  style="line-height: 1.5; font-size: 18px;">${text}</div>`
+                            }
+                            
                         }
                         let codeImages = [] 
                         let photoPath = ""
