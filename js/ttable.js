@@ -2,7 +2,7 @@ const urlMy = window.location.href;
 console.log(urlMy);
 const keyZamini = urlMy.split("id=")[1];
 
-const server = "https://schooltools.pythonanywhere.com/";
+const server = "https://zelenskiy.pythonanywhere.com/";
 
 const currentDate = new Date();
 const date = currentDate.getDate();
@@ -70,31 +70,38 @@ btnLeft.addEventListener('click', () => {
   shiftDate(datePicker, 1);
   const tWD = getData(glData, 'workdays')['data'];
   day  = getDataByDate(tWD, datePicker.value);
-  showTeachersTT();
+  if (teacherList.value !== '')
+    showTT(teacherList, ['week1', 'week2']);
+  else
+    showTT(clasList, ['week1 (clas)', 'week2 (clas)']);
+
 });
 
 btnRight.addEventListener('click', () => {
   shiftDate(datePicker, -1);
   const tWD = getData(glData, 'workdays')['data'];
   day  = getDataByDate(tWD, datePicker.value);
-  showTeachersTT();
+  if (teacherList.value !== '')
+    showTT(teacherList, ['week1', 'week2']);
+  else
+    showTT(clasList, ['week1 (clas)', 'week2 (clas)']);
 });
 
 datePicker.addEventListener('change', () => {
   const tWD = getData(glData, 'workdays')['data'];
   day  = getDataByDate(tWD, datePicker.value);
-  showTeachersTT();
+  showTT(teacherList, ['week1', 'week2']);
 })
 
-function showTeachersTT(){
-  lessList.innerHTML = '<option value=""></option>';
-  const selectedOption = teacherList.options[teacherList.selectedIndex];
+function showTT(listD, tables){
+  lessList.innerHTML = '<li value=""></li>';
+  const selectedOption = listD.options[listD.selectedIndex];
   const surname = selectedOption.text;
   // Шукаємо розклад вчителя
   console.log(surname);
-  let week = 'week1';
-  if (day.chZn === 2){
-    week = 'week2';
+  let week = tables[0];
+  if (day.chZn == "2"){
+    week = tables[1];
   }
   const list = getData(glData, week)['data'];
   const tt = getInnerListByName(list, surname)
@@ -112,27 +119,34 @@ function showTeachersTT(){
   else 
     s =  tt[3][start-1] + ". Знаменник";
   title.innerText = s;
-  console.log(s);
-  
+ 
   const startLesson = getData(glData, 'Час початку уроків').header;
   console.log(startLesson)
   for (let i=start; i<fin; i++){    
     let lesLime = startLesson[0][(i-1)%(maxLessons+1)]
+    if (lesLime === undefined) lesLime = '';
     let num =  tt[2][i]
+    if (num === undefined) num = '';
     let klas =  tt[1][i]
-    let subj =  tt[0][i]
-    if (lesLime === undefined) lesLime = '-';
-    if (num === undefined) num = '-';
-    if (klas === undefined) klas = '-';
-    if (subj === undefined) subj = '-';
-
-    lList.push("(" + lesLime + ") " + num + ". " + klas + " - " + subj)
+    if (klas === undefined) klas = '';
+    let subj =  tt[0][i]   
+    if (subj === undefined) subj = '';
+    // if (subj === '') klas = '-'
+    if (tables[0].length > 5) //Ознака того, що розклад класу
+      lList.push("(" + lesLime + ") " + num + ". " + subj );
+    else
+      lList.push("(" + lesLime + ") " + num + ". " + klas + " - " + subj)
   }
   createList(lessList, lList, 'li')
 }
 
 teacherList.addEventListener('change', ()=>{
-  showTeachersTT();
+  clasList.value = ''
+  showTT(teacherList, ['week1', 'week2']);
+})
+clasList.addEventListener('change', ()=>{
+  teacherList.value = ''
+  showTT(clasList, ['week1 (clas)', 'week2 (clas)']);
 })
 
 function getInnerListByName(list, surname) {
@@ -211,3 +225,7 @@ function createList(node, list, tag) {
 
 
 readTT();
+
+
+// http://127.0.0.1:5509/ttable.html?id=1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk
+

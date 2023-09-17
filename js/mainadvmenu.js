@@ -29,7 +29,7 @@ let setFieldsAdv = (dataAdv) => {
 
 function readAdvMenu(keyAdv) {
     let shNameAdv = "sheet1"
-    let urlAdv = 'https://schooltools.pythonanywhere.com/getblock/' + keyAdv + '/' + shNameAdv;
+    let urlAdv = 'https://zelenskiy.pythonanywhere.com/getblock/' + keyAdv + '/' + shNameAdv;
     //  let urlAdv = 'http://127.0.0.1:5000/getblock/'+keyAdv+'/'+shNameAdv;
     requestAdv = new XMLHttpRequest();
     requestAdv.open('GET', urlAdv, true);

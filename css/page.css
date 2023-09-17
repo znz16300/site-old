@@ -4,6 +4,12 @@ a {
   color: #545454;
 }
 
+.a_card{
+  display: flex;
+  flex-direction: column;
+  height: 210%;
+  justify-content: space-between;
+}
 li {
   list-style-type: none;
 }
@@ -1397,7 +1403,7 @@ h3 {
 }
 .item2 {
   grid-area: b;
-  align-self: end;
+  align-self: center;
 }
 
 

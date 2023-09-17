@@ -6,7 +6,7 @@ let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
 //const server = 'http://127.0.0.1:5000/';
-const server = 'https://schooltools.pythonanywhere.com/';
+const server = 'https://zelenskiy.pythonanywhere.com/';
 
 // let sheetIdMiss = 1520665800;
 

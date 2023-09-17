@@ -47,7 +47,7 @@ let step = 0;
 function readPage(key){
 //   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
  shName = "Аркуш1"
- let url = 'https://schooltools.pythonanywhere.com/getpage/'+key+'/'+shName;
+ let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
 //  let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
 //  let url = 'http://127.0.0.1:5000/getpage/'+key+'/'+shName;
   //let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
@@ -76,7 +76,7 @@ function readPage(key){
                         document.getElementById('paragraphs__id').style.display = 'flex';
                         text = `
                         <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
-                        <a href="${link}"  target="_blank">
+                        <a href="${link}" class="a_card"  target="_blank">
                                     <div class="item1"><img
                                         width="180px"
                                      src="${image}" alt=""></div>
@@ -89,12 +89,22 @@ function readPage(key){
                         if (tip === '3') {
                             text_tmp += `<div style="width:500px;padding-top: 50px; font-size: 18px; color: #545454;">${text}</div>` 
                         } else {
-                            text_tmp += `<div >${text}</div>`
+                            if (link !=="#"){
+                                text_tmp += `
+                                <div style="line-height: 1.5; font-size: 18px;">
+                                    <a href="${link}">
+                                        ${text}
+                                    </a>
+                                </div>`
+                            } else {
+                                text_tmp += `<div  style="line-height: 1.5; font-size: 18px;">${text}</div>`
+                            }
+                            
                         }
                         let codeImages = [] 
                         let photoPath = ""
 
-let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
+                        let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                         for(let j=0; j<images.length; j++){
 
                             let x=images[j].indexOf('?id=');
@@ -105,7 +115,10 @@ let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                                 let ss = images[j].substr(start);
 
                                 im = "http://drive.google.com/uc?export=view&id="+ss;
-                                text_tmp = `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp
+                                if (wImage !== ''){
+                                    text_tmp = `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp
+                                } 
+                                
                             } else {
                                 x = images[j].indexOf('/file/d/');
                                 if (false){
@@ -114,7 +127,10 @@ let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
                                 } else {
                                     //Якщо малюнок по посиланню з іншого ресурсу
                                     im = images[j];
-                                    text_tmp = `<img src="${im}" alt="" width = "${wImage}%"> ` + text_tmp
+                                    if (wImage !== ''){
+                                        text_tmp = `<img src="${im}" alt="" width = "${wImage}%"> ` + text_tmp
+                                    }
+                                    
                                 }
                             }               
                         }
