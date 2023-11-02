@@ -1,5 +1,5 @@
 
-const url = "https://zelenskiy.pythonanywhere.com/";
+const url = "https://schooltools.pythonanywhere.com/";
 
 
 var d1 = "";
