@@ -140,6 +140,7 @@
 }
 .cards .cards__item .cards__item-image {
   margin-bottom: 27px;
+  overflow: hidden;
 }
 .cards__item {
   max-width: 280px;

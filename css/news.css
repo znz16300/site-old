@@ -144,6 +144,7 @@
 .cards .cards__item .cards__item-image {
   margin-bottom: 27px;
   margin-top: 30px;
+  overflow: hidden;
 }
 .cards__item {
   max-width: 280px;
