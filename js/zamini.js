@@ -5,7 +5,8 @@ let sheet2 = "2";
 let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
-const server = 'https://zelenskiy.pythonanywhere.com/';
+const server = 'https://schooltools.pythonanywhere.com/';
+// const server = 'https://zelenskiy.pythonanywhere.com/';
 
 let timeTable = {1: undefined, 2: undefined}
 

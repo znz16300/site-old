@@ -300,6 +300,7 @@ let readKursi = () => {
   $.getJSON(url + "getmultiblock/" + key, function (data) {
     glData = data;
     let dat = glData[0].data;
+    console.log(dat);
     for (r of dat) {
       teachers.add(r[1]);
     }
