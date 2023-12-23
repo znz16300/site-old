@@ -12,6 +12,8 @@ const teachList = document.getElementById("teach_id");
 // const table = document.getElementById('table_id')
 const teachCombo = document.getElementById("teach_id");
 const divTable = document.querySelector(".table");
+const loader = document.querySelector(".loader");
+
 
 teachList.addEventListener("change", () => {
   divTable.innerHTML = ` <table  id="table_id" class="table"></table>`;
@@ -105,11 +107,11 @@ teachList.addEventListener("change", () => {
       row.setAttribute("id", "ii_" + String(ii));
       // console.log(r[14]);
       let pedrada = '' 
-      if (r[14]){
-        pedrada = ', затверджено рішенням педради від ' + r[14];
+      if (r[15]){
+        pedrada = '. Затверджено рішенням педради від ' + r[15];
       }
-      if (!r[15]){
-        r[15] = '2000';
+      if (!r[16]){
+        r[16] = '2000';
       }
       let [day, month, year] = r[5].split('.').map(Number);
       let dateKursi = new Date(year, month - 1, day);
@@ -117,7 +119,7 @@ teachList.addEventListener("change", () => {
       if (dateKursi < dateAtest){
         row.classList.add('gray_row')
       } 
-      row.setAttribute("title", `Дата та час уведення: ${r[0]}${pedrada}`);
+      row.setAttribute("title", `Уведено: ${r[0]}${pedrada}`);
       row.innerHTML = `
 
 
@@ -313,6 +315,7 @@ let readKursi = () => {
       opt.innerText = t;
       teachList.append(opt);
     }
+    loader.classList.add('hide-loader');
   });
 };
 
