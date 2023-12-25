@@ -185,6 +185,10 @@ button, .input_date_field, .input_field {
 	background: #f3f3f3;
 }
 
+.tr_hide {
+	display: none;
+}
+
 .button__klopot {
 	background: #D8D8D8  	;
 	cursor: pointer;
