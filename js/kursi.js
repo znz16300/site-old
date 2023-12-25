@@ -73,24 +73,56 @@ teachList.addEventListener("change", () => {
   table.append(head);
   table.append(tBody);
 
-  let buttonBlock = document.createElement("div");
-  let button = document.createElement("button");
+  const chbBlock = document.createElement("div");
+ 
+  const chbox = document.createElement("input");
+  chbox.setAttribute("type", "checkbox");
+  chbox.setAttribute("id", "checkbox");
+  chbox.checked = true;
+
+  const chboxLabel = document.createElement("label");
+  chboxLabel.setAttribute("for", "checkbox");
+  chboxLabel.innerText = 'приховати старі';
+  chbox.addEventListener('change', () => {
+    // Шукаю всі сірі рядки і роблю їх невидимими якщо вибрано
+    const trGray = document.querySelectorAll('tr.gray_row');
+    
+    trGray.forEach(elem => {
+      if (chbox.checked) {
+        elem.classList.add('tr_hide');
+      } else {
+        elem.classList.remove('tr_hide');
+      }
+    })
+   
+
+  })
+  // chbBlock.classList.add("button__block");
+  // chbox.classList.add("button__klopot");
+  
+  chbBlock.append(chbox, chboxLabel);
+  divTable.append(chbBlock);
+
+  const buttonBlock = document.createElement("div");
+  const button = document.createElement("button");
   buttonBlock.classList.add("button__block");
   button.classList.add("button__klopot");
   button.innerText = "Сформувати клопотання";
   buttonBlock.append(button);
   divTable.append(buttonBlock);
 
-  let buttonBlock2 = document.createElement("div");
-  let buttonAdd = document.createElement("button");
+
+
+  const buttonBlock2 = document.createElement("div");
+  const buttonAdd = document.createElement("button");
   buttonBlock2.classList.add("button__block");
   buttonAdd.classList.add("button__klopot");
   buttonAdd.innerText = "Додати нові курси";
   buttonBlock2.append(buttonAdd);
   divTable.append(buttonBlock2);
 
-  let teachName = teachCombo.value;
-  let dat = glData[0].data;
+  const teachName = teachCombo.value;
+  const dat = glData[0].data;
   let ii = 0;
   // Час уведення ${r[0]}
   for (r of dat) {
@@ -115,9 +147,10 @@ teachList.addEventListener("change", () => {
       }
       let [day, month, year] = r[5].split('.').map(Number);
       let dateKursi = new Date(year, month - 1, day);
-      let dateAtest = new Date(r[15], 3, 1);
+      let dateAtest = new Date(r[16], 3, 1);
       if (dateKursi < dateAtest){
         row.classList.add('gray_row')
+        row.classList.add('tr_hide')
       } 
       row.setAttribute("title", `Уведено: ${r[0]}${pedrada}`);
       row.innerHTML = `
