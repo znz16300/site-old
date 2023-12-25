@@ -189,6 +189,20 @@ button, .input_date_field, .input_field {
 	display: none;
 }
 
+.button__block {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button__klopot {
+	margin: 0 5px;
+}
+
+#make_klop {
+	margin-right: 10px;
+}
+
 .button__klopot {
 	background: #D8D8D8  	;
 	cursor: pointer;

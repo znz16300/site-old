@@ -9,7 +9,6 @@ let glData;
 let teachers = new Set();
 
 const teachList = document.getElementById("teach_id");
-// const table = document.getElementById('table_id')
 const teachCombo = document.getElementById("teach_id");
 const divTable = document.querySelector(".table");
 const loader = document.querySelector(".loader");
@@ -73,8 +72,14 @@ teachList.addEventListener("change", () => {
   table.append(head);
   table.append(tBody);
 
+  const buttonBlock = document.createElement("div");
+  buttonBlock.classList.add("button__block");
+
   const chbBlock = document.createElement("div");
- 
+  chbBlock.classList.add("chb__klopot");
+
+  
+
   const chbox = document.createElement("input");
   chbox.setAttribute("type", "checkbox");
   chbox.setAttribute("id", "checkbox");
@@ -96,30 +101,27 @@ teachList.addEventListener("change", () => {
     })
    
 
-  })
-  // chbBlock.classList.add("button__block");
-  // chbox.classList.add("button__klopot");
-  
+  })  
   chbBlock.append(chbox, chboxLabel);
-  divTable.append(chbBlock);
+  buttonBlock.append(chbBlock);
 
-  const buttonBlock = document.createElement("div");
-  const button = document.createElement("button");
-  buttonBlock.classList.add("button__block");
+  const btnBl2 = document.createElement("div");
+
+  const button = document.createElement("button");  
   button.classList.add("button__klopot");
+  button.setAttribute('id', 'make_klop');
   button.innerText = "Сформувати клопотання";
-  buttonBlock.append(button);
+
   divTable.append(buttonBlock);
-
-
-
-  const buttonBlock2 = document.createElement("div");
   const buttonAdd = document.createElement("button");
-  buttonBlock2.classList.add("button__block");
   buttonAdd.classList.add("button__klopot");
+  buttonAdd.setAttribute('id', 'add_kurs');
   buttonAdd.innerText = "Додати нові курси";
-  buttonBlock2.append(buttonAdd);
-  divTable.append(buttonBlock2);
+  
+  
+  btnBl2.append(button, buttonAdd);
+  buttonBlock.append(btnBl2);
+
 
   const teachName = teachCombo.value;
   const dat = glData[0].data;
