@@ -21,6 +21,7 @@ let arrowToStart = document.querySelector('.arrow_to_start');
 let arrowToEnd = document.querySelector('.arrow_to_end');
 let currentPageBtn = document.querySelector('.page_number');
 let navigation = document.querySelector('.pages');
+const loader = document.querySelector(".loader");
 let pages = [];
 
 function changeOverflow() {
@@ -233,7 +234,7 @@ let step = 0;
 function readNews(){    
     shName = "Аркуш1"
     //let url = 'https://AlexZelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName; //Не працює
-    let url = 'https://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
+    let url = 'https://schooltools.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
     // let url = 'https://zelenskiy.pythonanywhere.com/getnews/'+keyTableNews+'/'+shName;
     //let url = 'http://127.0.0.1:5000/getnews/'+keyTableNews+'/'+shName;
     request = new XMLHttpRequest();
@@ -285,6 +286,7 @@ function readNews(){
             calculatePages();
             drawPage(currentPageBtn.textContent);
             changeDisableStatus(currentPageBtn.textContent);    
+            loader.classList.add('hide-loader'); 
       } else {
         // We reached our target server, but it returned an error
         console.log('Upps ' );

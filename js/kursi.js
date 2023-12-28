@@ -1,3 +1,12 @@
+// <<<<<<< HEAD
+//     const btnKursi = document.getElementById("btnKursi");
+//     console.log(66666666)
+//     if (btnKursi !=null){
+//         btnKursi.addEventListener('click', ()=>{
+//             alert(1111)
+//         })
+//     }
+// =======
 // const shevchenko = require("shevchenko");
 
 // const url = "http://127.0.0.1:5000/";
@@ -9,9 +18,10 @@ let glData;
 let teachers = new Set();
 
 const teachList = document.getElementById("teach_id");
-// const table = document.getElementById('table_id')
 const teachCombo = document.getElementById("teach_id");
 const divTable = document.querySelector(".table");
+const loader = document.querySelector(".loader");
+
 
 teachList.addEventListener("change", () => {
   divTable.innerHTML = ` <table  id="table_id" class="table"></table>`;
@@ -71,24 +81,59 @@ teachList.addEventListener("change", () => {
   table.append(head);
   table.append(tBody);
 
-  let buttonBlock = document.createElement("div");
-  let button = document.createElement("button");
+  const buttonBlock = document.createElement("div");
   buttonBlock.classList.add("button__block");
+
+  const chbBlock = document.createElement("div");
+  chbBlock.classList.add("chb__klopot");
+
+  
+
+  const chbox = document.createElement("input");
+  chbox.setAttribute("type", "checkbox");
+  chbox.setAttribute("id", "checkbox");
+  chbox.checked = true;
+
+  const chboxLabel = document.createElement("label");
+  chboxLabel.setAttribute("for", "checkbox");
+  chboxLabel.innerText = 'приховати старі';
+  chbox.addEventListener('change', () => {
+    // Шукаю всі сірі рядки і роблю їх невидимими якщо вибрано
+    const trGray = document.querySelectorAll('tr.gray_row');
+    
+    trGray.forEach(elem => {
+      if (chbox.checked) {
+        elem.classList.add('tr_hide');
+      } else {
+        elem.classList.remove('tr_hide');
+      }
+    })
+   
+
+  })  
+  chbBlock.append(chbox, chboxLabel);
+  buttonBlock.append(chbBlock);
+
+  const btnBl2 = document.createElement("div");
+
+  const button = document.createElement("button");  
   button.classList.add("button__klopot");
+  button.setAttribute('id', 'make_klop');
   button.innerText = "Сформувати клопотання";
-  buttonBlock.append(button);
+
   divTable.append(buttonBlock);
-
-  let buttonBlock2 = document.createElement("div");
-  let buttonAdd = document.createElement("button");
-  buttonBlock2.classList.add("button__block");
+  const buttonAdd = document.createElement("button");
   buttonAdd.classList.add("button__klopot");
+  buttonAdd.setAttribute('id', 'add_kurs');
   buttonAdd.innerText = "Додати нові курси";
-  buttonBlock2.append(buttonAdd);
-  divTable.append(buttonBlock2);
+  
+  
+  btnBl2.append(button, buttonAdd);
+  buttonBlock.append(btnBl2);
 
-  let teachName = teachCombo.value;
-  let dat = glData[0].data;
+
+  const teachName = teachCombo.value;
+  const dat = glData[0].data;
   let ii = 0;
   // Час уведення ${r[0]}
   for (r of dat) {
@@ -105,19 +150,20 @@ teachList.addEventListener("change", () => {
       row.setAttribute("id", "ii_" + String(ii));
       // console.log(r[14]);
       let pedrada = '' 
-      if (r[14]){
-        pedrada = ', затверджено рішенням педради від ' + r[14];
+      if (r[15]){
+        pedrada = '. Затверджено рішенням педради від ' + r[15];
       }
-      if (!r[15]){
-        r[15] = '2000';
+      if (!r[16]){
+        r[16] = '2000';
       }
       let [day, month, year] = r[5].split('.').map(Number);
       let dateKursi = new Date(year, month - 1, day);
-      let dateAtest = new Date(r[15], 3, 1);
+      let dateAtest = new Date(r[16], 3, 1);
       if (dateKursi < dateAtest){
         row.classList.add('gray_row')
+        row.classList.add('tr_hide')
       } 
-      row.setAttribute("title", `Дата та час уведення: ${r[0]}${pedrada}`);
+      row.setAttribute("title", `Уведено: ${r[0]}${pedrada}`);
       row.innerHTML = `
 
 
@@ -300,6 +346,7 @@ let readKursi = () => {
   $.getJSON(url + "getmultiblock/" + key, function (data) {
     glData = data;
     let dat = glData[0].data;
+    console.log(dat);
     for (r of dat) {
       teachers.add(r[1]);
     }
@@ -312,6 +359,7 @@ let readKursi = () => {
       opt.innerText = t;
       teachList.append(opt);
     }
+    loader.classList.add('hide-loader');
   });
 };
 
@@ -325,3 +373,4 @@ readKursi();
 
 
 // https://shevchenko-js.tooleks.com/#usageExample
+
