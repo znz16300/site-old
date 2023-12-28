@@ -472,7 +472,8 @@ function keyToId (k){
 
 let readAnaliz = (s2)=>{
     let shName = 'FormAnsver1';
-    let url = 'https://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
+    // let url = 'http://127.0.0.1:5000/getblock/'+key+'/'+shName;
+    let url = 'https://schooltools.pythonanywhere.com/getblock/'+key+'/'+shName;
     // let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+s2+"/public/values?alt=json"
     $.getJSON(url,
         
@@ -1112,7 +1113,7 @@ let readStorage = ()=>{
             window.localStorage.setItem("keyTableForAnaliz", s);
         }            
     }    
-    loadFilters();
+    // loadFilters();
 
     s = window.localStorage.getItem("propsForAnaliz");
     if (s === null) { 

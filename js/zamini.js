@@ -5,10 +5,8 @@ let sheet2 = "2";
 let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
-//const server = 'http://127.0.0.1:5000/';
 const server = 'https://schooltools.pythonanywhere.com/';
-
-// let sheetIdMiss = 1520665800;
+// const server = 'https://zelenskiy.pythonanywhere.com/';
 
 let timeTable = {1: undefined, 2: undefined}
 
@@ -19,7 +17,7 @@ let fields = {
 }
 let missing_teachers = []
 let allTeachers = []
-let les_count = 11;
+let les_count = 12;
 const dWeek = {
     '1': 'mo',
     '2': 'tu',
@@ -69,8 +67,7 @@ pz_button.addEventListener("click", (e)=>{
     data['namesheetmisstable'] = idSheetMissTable;
 
     // jQuery.ajax({
-    //     url: "http://127.0.0.1:5000/createpz/",
-    //     // url: "http://zelenskiy.pythonanywhere.com/createpz/",
+    //     url: server + "createpz/",
     //     type: "POST",
     //     cache: false,
     //     data: data,
@@ -102,8 +99,7 @@ date_out_finish.addEventListener("change", (e)=>{
     saveSettings();
 })
 
-open_button.addEventListener('click', (e)=>{
-    
+open_button.addEventListener('click', (e)=>{    
     let url = "https://docs.google.com/spreadsheets/d/" + keyZamini + "/edit";
     window.open(url);
 })
@@ -126,7 +122,6 @@ clear_all_miss_button.addEventListener('click', (e)=>{
 const ajax_btn1 = document.getElementById("ajax_btn1_id");
 const form = document.getElementById("form1_id");
 
-
 ajax_btn1.addEventListener("click", function() {
     
     let datForm = $("#form1_id").serialize();
@@ -144,31 +139,6 @@ ajax_btn1.addEventListener("click", function() {
     );
 
 });
-
-
-
-// ajax_btn1.addEventListener("click", function() {
-//     var request = new XMLHttpRequest();
-//     FD  = new FormData(form);
-//     // FD[ 'text' ] ='aaaa';
-//     // FD[ 'url_client' ] ='bbbb';
-//     // FD[ 'idmisstable0' ] ='cccc';
-
-//     console.log(FD);
-//     request.open('POST','http://127.0.0.1:5000/addblockadj/',true);
-//     // request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-//     request.addEventListener('readystatechange', function() {
-//       if ((request.readyState==4) && (request.status==200)) {
-//         // var welcome = document.getElementById('welcome');
-//         // welcome.innerHTML = request.responseText;
-//         console.log("Ok");
-//       }
-//     });
-//     request.send(FD);
-// });
-
-
-
 
 cancel_miss_button.addEventListener('click', ()=>{
     console.log(missing_teachers);
@@ -459,7 +429,7 @@ let readPage_this = ()=>{
                  if (n > max){max = n};
             }
          }
-         les_count = max;
+         les_count = max+1;
          let i = 0;
          miss_teach.innerHTML = `<option ></option>`;
          for (row of timeTable[2]){

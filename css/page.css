@@ -4,6 +4,12 @@ a {
   color: #545454;
 }
 
+.a_card{
+  display: flex;
+  flex-direction: column;
+  height: 210%;
+  justify-content: space-between;
+}
 li {
   list-style-type: none;
 }
@@ -19,8 +25,6 @@ li {
 
   }
 
-
-  
   .container {
     overflow-x: hidden;
     max-width: 1920px;
@@ -1210,7 +1214,7 @@ li {
   .pets__wrapper {
     align-items:initial;
     margin-left: 30px;
-    
+    min-height: 100vh;
 }
 
 .default_par {
@@ -1396,10 +1400,11 @@ h3 {
 } 
 .item1 {
   grid-area: a;
+  overflow: hidden;
 }
 .item2 {
   grid-area: b;
-  align-self: end;
+  align-self: center;
 }
 
 
@@ -1469,3 +1474,41 @@ img {
 .go-up:hover {
   opacity: 1;
 }
+
+
+.imMenuClass{
+  height: 90vh;
+}
+
+.date_title_menu {
+  margin-top: -5vh;
+  font-size: 3vh;
+  color: #545454;
+}
+
+.image_title_menu {
+  margin-top: 3vh;
+  text-align: center;
+}
+
+.hide-loader {
+	display: none;
+}
+
+.loader {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	border: 8px solid #3498db; /* Колір обводки */
+	border-top: 8px solid transparent;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+  }

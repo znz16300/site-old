@@ -7,14 +7,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mainadvmenu.css">
     <link rel="shortcut icon" href="./assets/icons/favicon.png">
-    <title>Сайт Куликівського ЗЗСО І-ІІІ ступенів</title>
+    <script src="./js/jquery-3.5.0.js"></script>
+    <title>Сайт Куликівського ліцею</title>
 </head>
 
 <body>
 
+    <div class="modal__menu hide" >
+        <ul id="advmenu_ul_id" class="advmenu_ul">
 
-
+        </ul>
+    </div>
 
     <div class="modal__wrapper">
         <div class="modal">
@@ -35,22 +40,14 @@
                         <span class="key">Рік обладнання:</span>
                         <span class="value">2 months</span>
                     </li>
-                    <!-- <li class="pet_info__inoculations">
-                        <span class="key">Inoculations:</span>
-                        <span class="value">none</span>
-                    </li>
-                    <li class="pet_info__diseases">
-                        <span class="key">Diseases:</span>
-                        <span class="value">none</span>
-                    </li>
-                    <li class="pet_info__parasites">
-                        <span class="key">Parasites:</span>
-                        <span class="value">none</span>
-                    </li> -->
                 </ul>
             </div>
         </div>
     </div>
+
+
+
+
     <div class="container">
         <div class="start">
             <div class="wrapper">
@@ -62,7 +59,7 @@
                                 Школа
                             </a>
                         </div>
-                        <div class="header__text">Куликівський ЗЗСО І-ІІІ ст.</div>
+                        <div class="header__text">Куликівський ліцей</div>
                     </div>
                     <nav class="header__nav">
                         <ul class="header__list">
@@ -90,6 +87,11 @@
                                     Контакти
                                 </a>
                             </li>
+                            <li class="header__list_item">
+                                <div id="advM">
+                                    ...
+                                </div>
+                            </li>
                         </ul>
                     </nav>
                     <div class="header__burger">
@@ -103,7 +105,7 @@
                         <h2 class="start_screen__caption">Школа - це основа, на якій будується все майбутнє життя</h2>
                         <div class="start_screen__text">
                             <p>
-                                Комунальний опорний заклад "Куликівський заклад загальної середньої освіти І-ІІІ ступенів" Куликівської селищної ради.
+                                Куликівський ліцей Куликівської селищної ради Чернігівського району Чернігівської області.
                             </p>
                             Навчальний заклад, де працюють досвідчені та креативні вчителі, де навчаються
                             розумні та творчі учні. Де кожен учень має доступ до освіти.
@@ -113,7 +115,8 @@
                         </button>
                     </div>
                     
-                    <div class="start_screen__image"><img src="./assets/images/photo_2020-11-26_22-25-37.jpg" alt="puppy">
+                    <div class="start_screen__image"><img src="./assets/images/spring.jpg" alt="school">
+                    <!-- <div class="start_screen__image"><img src="./assets/images/autumn.jpg" alt="school"> -->
                     </div>
                 </div>
             </div>
@@ -127,11 +130,14 @@
                         <p class="about__text">
 
                         </p>
-                        <p class="about__text">Примірний перелік документів, що створюються під час діяльності закладів загальної середньої освіти, із зазначенням строків зберігання, наведено в додатку до листа-роз’яснення МОН України від 03.10.2018 № 1/9-596 щодо застосування окремих положень Інструкції з діловодства у закладах загальної середньої освіти.
+                        <p class="about__text">
+
+                            Обов’язкова документація, розміщена на нашому сайті згідно статті 30 Закону України «Про освіту» від 
+                            05.09.2017 № 2145-VIII.
                             </p>
                             <span class="btn__span">
                                 <button class="about__btn "           
-                                    onclick='window.location.href="./documents.html"'>
+                                    onclick="window.location='./page.html?titlePages=Перелік документів&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI'">
                                     Читати
                                 </button>
                             </span>
@@ -145,18 +151,17 @@
         <div class="our__friends">
             <div class="wrapper">
                 <div class="our__friends__wrapper">
-                    <h2 class="our__friends__caption">Матеріально-технічна<br> база закладу</h2>
+                <h2 class="our__friends__caption">Матеріально-технічна<br> база закладу</h2>
                     <div class="pet_slider">
                         <button class="pet__slider__arrow arrow_left"><img src="./assets/icons/icon-arrow-left.svg"
                                 alt="arrow_left"></button>
                         <div class="pet_slider__items">
-
                             
                         </div>
                         <button class="pet__slider__arrow arrow_right"><img src="./assets/icons/icon-arrow-right.svg"
                                 alt="arrow_right"></button>
                     </div>
-                    <button class="our__friends__button" onclick='window.location.href="./pets.html"'>Ознайомитися</button>
+                    <button class="our__friends__button" onclick='window.location.href="./page.html?titlePages=Матеріально-технічна база закладу&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI"'>Ознайомитися</button>
                 </div>
             </div>
         </div>
@@ -173,24 +178,38 @@
                                     <source media="(max-width:767px)"
                                         srcset="./assets/icons/5.png">
                                     <img src="./assets/icons/5.png" alt="Вчителі" 
-                                        onclick="window.location='./page.html?titlePages=Вчителі&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI'"                     
+                                        onclick="window.location='./page.html?titlePages=Учительська&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI'"                     
                                         >
                                 </picture>
                             </div>
                             <div class="than__item_name">Вчителі</div>
                         </div>
+                        <!-- <div class="than__list_item">
+                            <div class="than__item_image">
+                                <picture class="btn__span">
+                                    <source media="(max-width:767px)"
+                                        srcset="./assets/icons/menu1.png">
+                                    <img src="./assets/icons/menu1.png" alt="Меню" 
+                                    onclick="window.location='./menu.html'"
+                                    >
+                                </picture>
+                            </div>
+                            <div class="than__item_name">Сьогодні в їдальні<br> закладу</div>
+                        </div> -->
+
                         <div class="than__list_item">
                             <div class="than__item_image">
                                 <picture class="btn__span">
                                     <source media="(max-width:767px)"
-                                        srcset="./assets/icons/4.png">
-                                    <img src="./assets/icons/4.png" alt="Учні" 
-                                    onclick="window.location='./page.html?titlePages=Учні&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI'"
+                                        srcset="./assets/icons/menu1.png">
+                                    <img src="./assets/icons/menu1.png" alt="Меню" 
+                                    onclick="window.location='./menu.html'"
                                     >
                                 </picture>
                             </div>
-                            <div class="than__item_name">Учні</div>
+                            <div class="than__item_name">Сьогодні в їдальні<br> закладу</div>
                         </div>
+
                         <div class="than__list_item">
                             <div class="than__item_image">
                                 <picture class="btn__span">
@@ -303,24 +322,20 @@
                 <div class="donation__wrapper">
                     <div class="donation__image_item">
                         <picture>
-                            <source media="(max-width:767px)" srcset="./assets/images/covid.png">
-                            <img src="./assets/images/covid.png" alt="covid">
+                            <source media="(max-width:767px)" srcset="./assets/images/open1.png">
+                            <img style="width: 100%;" src="./assets/images/open1.png" alt="info">
                         </picture>
                     </div>
                     <div class="donation__article_item">
-                        <h2 class="donation__caption">Коронавірусна інфекція COVID-19</h2>
-                        <div class="donation__text">У зв'язку з світовою пандемією</div>
+                        <h2 class="donation__caption">Публічна інформація</h2>
+                        <div class="donation__text"></div>
                         <div class="donation__account">
                             <img src="" alt=""
                                 class="donation__account_image">
-                            <div class="donation__account_number"><a href="https://phc.org.ua/kontrol-zakhvoryuvan/inshi-infekciyni-zakhvoryuvannya/koronavirusna-infekciya-covid-19">Бережіть себе та інших!</a></div>
+                            <div class="donation__account_number"><a href="./page.html?titlePages=Відкритість%20та%20публічність&keyPages=1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI">Відкритість та прозорість</a></div>
                         </div>
                         <div class="donation__note">                            
-                            У разі переведення класу (класів) на дистанційне навчання,
-                            освітній процес в закладі забезпечується з використанням платформ:
-                            nz.ua (електронний щоденник);
-                            zoom та google meet (онлайн конференції);
-                            viber й telegram (програми обміну повідомленнями)
+                           
                         </div>
                     </div>
                 </div>
@@ -382,6 +397,7 @@
     <!-- <script src="./js/storage.js"></script> -->
     <script src="./js/data.js"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/mainadvmenu.js"></script>
 
     <script>
         

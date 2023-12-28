@@ -21,6 +21,7 @@ let arrowToStart = document.querySelector('.arrow_to_start');
 let arrowToEnd = document.querySelector('.arrow_to_end');
 let currentPageBtn = document.querySelector('.page_number');
 let navigation = document.querySelector('.pages');
+const loader = document.querySelector(".loader");
 let pages = [];
 
 function changeOverflow() {
@@ -253,8 +254,6 @@ function readNews(){
                     let photoPath = ""
                     for(let j=0; j<images.length; j++){
                         let start = images[j].indexOf('?id=') + 4;
-                        // let end  = images[j].indexOf('/edit');
-                        // let l = end - start -1;
                         let ss = images[j].substr(start);
                         codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
                     }
@@ -287,6 +286,7 @@ function readNews(){
             calculatePages();
             drawPage(currentPageBtn.textContent);
             changeDisableStatus(currentPageBtn.textContent);    
+            loader.classList.add('hide-loader'); 
       } else {
         // We reached our target server, but it returned an error
         console.log('Upps ' );

@@ -1,16 +1,20 @@
-let burgerItem = document.querySelector('.header__burger');
-let menu = document.querySelector('.header__nav');
-let header = document.querySelector('.header');
-let activeLink = document.querySelector('.list-item_active');
-let btnLeft = document.querySelector('.arrow_left');
-let btnRight = document.querySelector('.arrow_right');
-let sliderItems = document.querySelector('.pet_slider__items');
-let modalWindow = document.querySelector('.modal__wrapper');
+const burgerItem = document.querySelector('.header__burger');
+const menu = document.querySelector('.header__nav');
+const header = document.querySelector('.header');
+const activeLink = document.querySelector('.list-item_active');
+const btnLeft = document.querySelector('.arrow_left');
+const btnRight = document.querySelector('.arrow_right');
+const sliderItems = document.querySelector('.pet_slider__items');
+const modalWindow = document.querySelector('.modal__wrapper');
+const advM = document.querySelector('#advM')
+
 
 const m_teach = document.getElementById("m_teach");
+// const advmenu_ul_id = document.querySelector('#advmenu_ul_id')
 
 
-
+// let fieldNames = {};
+// gl_data = []
 
 let currentPetNumbers = [];
 
@@ -172,17 +176,17 @@ modalWindow.addEventListener('click', e => {
 function setStorage(name, value) {
     window.localStorage.setItem(name, JSON.stringify(value));
 }
-  
 
 
-function updateStorage(){
+
+function updateStorage() {
     let keyNews = window.localStorage.getItem("keyTableForNews");
     if (keyNews === null) {
         let s = prompt("Уведіть ключ для новин", "");
-        if (s !== null){
-            window.localStorage.setItem("keyTableForNews", s); 
-        }            
-    }    
+        if (s !== null) {
+            window.localStorage.setItem("keyTableForNews", s);
+        }
+    }
 }
 
 function setStorage(name, value) {
@@ -197,13 +201,124 @@ function delStorage(name) {
     localStorage.removeItem(name);
 }
 
-function setPageKey(title, key){
+function setPageKey(title, key) {
     setStorage('keyPages', key);
     setStorage('titlePages', title);
     document.location.href = './page.html';
 }
- 
+
+
+
+
+let setFields = (data) => {
+    let i = 0;
+    $.each(data[0], function (key, value) {
+        if (key.slice(0, 4) === 'gsx$') {
+            fieldNames[i] = { 'key': key, 'title': value['$t'] };
+            i++;
+        }
+    })
+}
+
+
+
+// function readAdvMenu(key) {
+
+//     shName = "sheet1"
+//     let url = 'https://zelenskiy.pythonanywhere.com/getblock/' + key + '/' + shName;
+//     //  let url = 'http://127.0.0.1:5000/getblock/'+key+'/'+shName;
+//     request = new XMLHttpRequest();
+//     request.open('GET', url, true);
+//     request.onload = function () {
+//         if (request.status >= 200 && request.status < 400) {
+//             data = JSON.parse(request.responseText);
+//             data = data['feed']['entry'];
+//             setFields(data);
+//             gl_data = gl_data.concat(data)
+//             drawMenu(0)
+//          } else {
+//             console.log('Upps ');
+//         }
+//     };
+//     request.onerror = function () {
+//         // There was a connection error of some sort
+//     };
+//     request.send();
+// };
+
+// function drawMenu(k) {
+//     advmenu_ul_id.innerHTML = ""
+//     let titleKey = ''
+//     let linkKey = ''
+//     let FathMenu = ''
+//     let N = ''
+//     for (t of Object.values(fieldNames)) {
+//         let key = t['key']
+//         let value = t['title']
+//         if (value === 'Title') {
+//             titleKey = key
+//         } else
+//             if (value === 'link') {
+//                 linkKey = key
+//             } else
+//                 if (value === 'FathMenu') {
+//                     FathMenu = key
+//                 } else
+//                     if (value === 'N') {
+//                         N = key
+//                     }
+
+//     }
+
+//     modalMenu.append(advmenu_ul_id)
+//     for (p of Object.values(gl_data)) {
+//         if (p[FathMenu]['$t'] == k) {
+//             const li = document.createElement('li')
+//             li.innerHTML = `<div class="advmenu_a__item advmenu__item" 
+//                 data-child=${p[N]['$t']}
+//                 data-link=${p[linkKey]['$t']}> 
+//                 ${p[titleKey]['$t']}</div>`
+//             advmenu_ul_id.append(li)
+//             li.addEventListener('click', (e) => {
+//                 let link = e.target.dataset['link']
+//                 if (link !== "#"){
+//                     window.location.href = link
+//                 }
+//             })
+//         }
+//     }
+// }
+
+// const body = document.querySelector('body')
+
+// body.addEventListener('keydown', (e) => {
+//     if (e.key == 'Escape') {
+//         modalMenu.classList.add('hide');
+//            }
+// })
+
+// modalMenu.addEventListener('mouseleave', () => {
+//     modalMenu.classList.add('hide');
+   
+// })
+
+
+// advM.addEventListener('click', () => {
+
+//     modalMenu.classList.toggle('hide');
+
+// })
+
+
+
+
+// https://docs.google.com/spreadsheets/d/1G1l3J4HHLOItVLYbrPL08ml3TtON_fAULcpecqn0vwM/edit#gid=0
+
+const keyT = '1G1l3J4HHLOItVLYbrPL08ml3TtON_fAULcpecqn0vwM'
+
 
 // updateStorage();
 // alert('Наразі функції сервісу обмежені. Просимо вибачення. Наші спеціалісти найближчим часом це виправлять.');
 updateSlider();
+
+// readAdvMenu(keyT);

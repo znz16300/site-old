@@ -18,6 +18,7 @@ let arrowToStart = document.querySelector('.arrow_to_start');
 let arrowToEnd = document.querySelector('.arrow_to_end');
 let currentPageBtn = document.querySelector('.page_number');
 let navigation = document.querySelector('.pages');
+const loader = document.querySelector(".loader");
 let pages = [];
 let res = [];
 
@@ -94,12 +95,7 @@ function computeNumberItemsOnPage() {
 }
 
 function shuffle(array) {
-    // let i = array.length, j = 0;
 
-    // while (i--) {
-    //     j = Math.floor(Math.random() * (i + 1));
-    //     [array[i], array[j]] = [array[j], array[i]];
-    // }
 
     return array;
 }
@@ -214,8 +210,6 @@ cards.addEventListener('click', e => {
     }
 
 
-    // fillModalWindow(newsData.find(p => p.id == itemId));
-    // toggleModalWindow();
 });
 
 modalWindow.addEventListener('click', e => {
@@ -325,9 +319,10 @@ function readDocum(d){
         changeDisableStatus(currentPageBtn.textContent); 
         calculatePages();
         drawPage(currentPageBtn.textContent);
+        loader.classList.add('hide-loader'); 
       } else {
         // We reached our target server, but it returned an error
-        console.log('Upps ');
+        console.log('Upps Docum');
         // if (step < 25)
         //     readDocum(d);
       }
@@ -421,10 +416,10 @@ function ScrollUpShow(){
     }
 }
 
-readDocum(true);``
+readDocum(true);
 
 
-    
+
 
 
 
