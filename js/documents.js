@@ -18,6 +18,7 @@ let arrowToStart = document.querySelector('.arrow_to_start');
 let arrowToEnd = document.querySelector('.arrow_to_end');
 let currentPageBtn = document.querySelector('.page_number');
 let navigation = document.querySelector('.pages');
+const loader = document.querySelector(".loader");
 let pages = [];
 let res = [];
 
@@ -318,6 +319,7 @@ function readDocum(d){
         changeDisableStatus(currentPageBtn.textContent); 
         calculatePages();
         drawPage(currentPageBtn.textContent);
+        loader.classList.add('hide-loader'); 
       } else {
         // We reached our target server, but it returned an error
         console.log('Upps Docum');

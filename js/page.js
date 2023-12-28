@@ -9,6 +9,7 @@ let burgerItem_1 = document.querySelector('.header__burger');
 let menu_1 = document.querySelector('.header__nav');
 let header_1 = document.querySelector('.header');
 let activeLink_1 = document.querySelector('.list-item_active');
+const loader = document.querySelector(".loader");
 // let modalWindow = document.querySelector('.modal__wrapper');
 
 
@@ -145,6 +146,7 @@ function readPage(key){
             if (text !== null)    
                 text.innerHTML = text_tmp;  
         // ScrollUpShow()
+        loader.classList.add('hide-loader'); 
     } else {
       // We reached our target server, but it returned an error
       console.log('Upps ');
