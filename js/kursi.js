@@ -1,3 +1,12 @@
+// <<<<<<< HEAD
+//     const btnKursi = document.getElementById("btnKursi");
+//     console.log(66666666)
+//     if (btnKursi !=null){
+//         btnKursi.addEventListener('click', ()=>{
+//             alert(1111)
+//         })
+//     }
+// =======
 // const shevchenko = require("shevchenko");
 
 // const url = "http://127.0.0.1:5000/";
@@ -7,6 +16,44 @@ const golova = 'Орсагош Оксані Валеріївні'
 const zaklad = 'Куликівського ліцею'
 let glData;
 let teachers = new Set();
+
+// стара таблиця
+// const COL_DATA_TIME = 0
+// const COL_TEACHER = 1
+// const COL_TITLE = 2
+// const COL_GODIN = 3
+// const COL_NUM_DOCUM = 4
+// const COL_DATE_DOCUM = 5
+// const COL_PLATFORM = 6
+// const COL_FORMA = 7
+// const COL_DOCUM = 8
+// const COL_PROGRAM = 9
+// const COL_EMAIL = 10
+// const COL_NEED_ZARAH = 11
+// const COL_INCLUZ = 12
+// const COL_TIP_DOCUM = 13
+// const COL_PSIHO = 14
+// const COL_PEDRADA = 15
+// const COL_ATEST_YEAR = 16
+
+// стара таблиця
+const COL_DATA_TIME = 0
+const COL_TEACHER = 2
+const COL_TITLE = 3
+const COL_GODIN = 4
+const COL_NUM_DOCUM = 8
+const COL_DATE_DOCUM = 9
+const COL_PLATFORM = 10
+const COL_FORMA = 11
+const COL_DOCUM = 12
+const COL_PROGRAM = 13
+const COL_EMAIL = 1
+const COL_NEED_ZARAH = 14
+const COL_INCLUZ = 5
+const COL_TIP_DOCUM = 7
+const COL_PSIHO = 6
+const COL_PEDRADA = 15
+const COL_ATEST_YEAR = 16
 
 const teachList = document.getElementById("teach_id");
 const teachCombo = document.getElementById("teach_id");
@@ -128,42 +175,43 @@ teachList.addEventListener("change", () => {
   let ii = 0;
   // Час уведення ${r[0]}
   for (r of dat) {
-    if (teachName == r[1]) {
+    if (teachName == r[COL_TEACHER]) {
       let row = document.createElement("tr");
 
       let r88 = "";
-      if (r[8] !== "") {
-        let r8 = imgFromGoogleToHtml(r[8]);
-        r88 = `<a class="popup_image" href="${r8}" target="_blank"><div class="td_a_img"><img class="min_img" src="./assets/icons/ospr.png"></div></a>`;
+      if (r[COL_DOCUM] !== "") {
+        let r8 = imgFromGoogleToHtml(r[COL_DOCUM]);
+        r88 = `<a class="popup_image" href="${r[COL_DOCUM]}" target="_blank"><div class="td_a_img"><img class="min_img" src="./assets/icons/ospr.png"></div></a>`;
       } else {
         r88 = "";
       }
       row.setAttribute("id", "ii_" + String(ii));
       // console.log(r[14]);
       let pedrada = '' 
-      if (r[15]){
-        pedrada = '. Затверджено рішенням педради від ' + r[15];
+      
+      if (r[COL_PEDRADA]){
+        pedrada = '. Затверджено рішенням педради від ' + r[COL_PEDRADA];
       }
-      if (!r[16]){
-        r[16] = '2000';
+      if (!r[COL_ATEST_YEAR]){
+        r[COL_ATEST_YEAR] = '2000';
       }
-      let [day, month, year] = r[5].split('.').map(Number);
+      let [day, month, year] = r[COL_DATE_DOCUM].split('.').map(Number);
       let dateKursi = new Date(year, month - 1, day);
-      let dateAtest = new Date(r[16], 3, 1);
+      let dateAtest = new Date(r[COL_ATEST_YEAR], 3, 1);
       if (dateKursi < dateAtest){
         row.classList.add('gray_row')
         row.classList.add('tr_hide')
       } 
-      row.setAttribute("title", `Уведено: ${r[0]}${pedrada}`);
+      row.setAttribute("title", `Уведено: ${r[COL_DATA_TIME]}${pedrada}`);
       row.innerHTML = `
 
 
-            <td class="row__title truncate-text">${r[2]}</td>
-            <td class="row__long">${r[3]}</td>
-            <td class="wwrap_no">${r[4]}</td>
-            <td class="row__date">${r[5]}</td>
-            <td class="row__subj">${r[6]}</td>
-            <td class="row__forma" hidden>${r[7]}</td>
+            <td class="row__title truncate-text">${r[COL_TITLE]}</td>
+            <td class="row__long">${r[COL_GODIN]}</td>
+            <td class="wwrap_no">${r[COL_NUM_DOCUM]}</td>
+            <td class="row__date">${r[COL_DATE_DOCUM]}</td>
+            <td class="row__subj">${r[COL_PLATFORM]}</td>
+            <td class="row__forma" hidden>${r[COL_FORMA]}</td>
             <td>${r88}</td>
             <td><input class="chk_clas" type="checkbox"></td>
             `;
@@ -339,7 +387,7 @@ let readKursi = () => {
     let dat = glData[0].data;
     console.log(dat);
     for (r of dat) {
-      teachers.add(r[1]);
+      teachers.add(r[COL_TEACHER]);
     }
     sortSet(teachers);
     let i = 0;
@@ -357,10 +405,14 @@ let readKursi = () => {
 // readStorage();
 
 //TODO ---- devmode
-let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E";
+// СТара таблиця
+// let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E";
+// Нова таблиця
+const key = "1W6zD4eXSqCFW2iObVuNUyjj_hyS1aPi_tWe7Ce8dxWU";
 let sheet = "Відповіді форми (1)";
 
 readKursi();
 
 
 // https://shevchenko-js.tooleks.com/#usageExample
+

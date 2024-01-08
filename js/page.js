@@ -3,13 +3,17 @@ let sheet2 = "default";
 let shName = "Відповіді форми (1)";
 let title_st = "";
 
+
 const title = document.getElementById("title__id");
 const text = document.getElementById("paragraphs__id");
+
 let burgerItem_1 = document.querySelector(".header__burger");
 let menu_1 = document.querySelector(".header__nav");
 let header_1 = document.querySelector(".header");
 let activeLink_1 = document.querySelector(".list-item_active");
 const loader = document.querySelector(".loader");
+
+
 
 
 function changeOverflow_1() {
@@ -211,5 +215,17 @@ if (true) {
     }
   }
 
-  readPage(keyT);
+
+    function ScrollUpShow(){
+        // const heightMainBlock2 = document.documentElement.clientHeight ;        
+        if (window.pageYOffset>=200){
+            document.getElementById("scrollToTop").style.display ='block';   
+        } else {
+            document.getElementById("scrollToTop").style.display =  'none';
+        }
+    }
+
+    
+
+    readPage(keyT);
 }
