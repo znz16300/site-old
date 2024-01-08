@@ -221,7 +221,7 @@ teachList.addEventListener("change", () => {
   }
 
   buttonAdd.addEventListener("click", ()=>{
-    document.location.href ="https://docs.google.com/forms/d/e/1FAIpQLSe6ghl4Quw7gCGBwbgUz1V4GilJQrzk1NM1Hxyp79pkOI8ceg/viewform?usp=sf_link"
+    document.location.href ="https://docs.google.com/forms/d/e/1FAIpQLScQf3nU3fBL49wHU7Lg1KCK8RQijuGY6kbGW2TYHPO14YUI8g/viewform"
   })
 
   function fullNameToInic(s){
