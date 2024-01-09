@@ -36,7 +36,7 @@ let teachers = new Set();
 // const COL_PEDRADA = 15
 // const COL_ATEST_YEAR = 16
 
-// стара таблиця
+// нова таблиця
 const COL_DATA_TIME = 0
 const COL_TEACHER = 2
 const COL_TITLE = 3
@@ -169,13 +169,23 @@ teachList.addEventListener("change", () => {
   btnBl2.append(button, buttonAdd);
   buttonBlock.append(btnBl2);
 
+  const compareDates = (a, b) => {
+    const dateA = new Date(a[COL_DATE_DOCUM].split('.').reverse().join('-'));
+    const dateB = new Date(b[COL_DATE_DOCUM].split('.').reverse().join('-'));
+    return dateA - dateB;
+  };
 
   const teachName = teachCombo.value;
   const dat = glData[0].data;
   let ii = 0;
-  // Час уведення ${r[0]}
-  for (r of dat) {
-    if (teachName == r[COL_TEACHER]) {
+  const filteredArray = dat.filter(subArray => subArray[COL_TEACHER] === teachName);
+  filteredArray.sort(compareDates);
+
+  for (r of filteredArray) {
+
+
+    if (true) {
+    // if (teachName == r[COL_TEACHER]) {
       let row = document.createElement("tr");
 
       let r88 = "";
@@ -409,6 +419,7 @@ let readKursi = () => {
 // let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E";
 // Нова таблиця
 const key = "1W6zD4eXSqCFW2iObVuNUyjj_hyS1aPi_tWe7Ce8dxWU";
+
 let sheet = "Відповіді форми (1)";
 
 readKursi();
