@@ -1,4 +1,5 @@
 const keyTableNews = "1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
+// const keyTableNews = "1Dk0WYpOKeRoDATgzMkIkFjUcFwNAG5MRn4W7bEyzd0M";
 const keyTableDocs ="1O_bJjH8TAHww34uxA51rdyJoX4PaxMGOzL57N8G7H34";
 const keyTablePages = '1F6QVr9WNio-_ODmnIlMTSHeSQxLOjgnd0nYB1_z0BeI';
 const titles = ['Чого б ти не вчився, ти вчишся для себе', 
