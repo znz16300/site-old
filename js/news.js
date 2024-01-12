@@ -3,6 +3,8 @@ let sheet = "1";
 
 let newsData = [];
 
+// const keyTableNews ="1Dk0WYpOKeRoDATgzMkIkFjUcFwNAG5MRn4W7bEyzd0M"   //2024
+
 // var keyTableNews;
 // const keyTableNews ="1iE8XXyoZ9nBOnxsYUJ_Og-09LfKYQJ9emDatNQIUh3k";
 
@@ -255,7 +257,8 @@ function readNews(){
                     for(let j=0; j<images.length; j++){
                         let start = images[j].indexOf('?id=') + 4;
                         let ss = images[j].substr(start);
-                        codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
+                        codeImages.push(images[j]);
+                        // codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
                     }
                     
                     let im = ""
@@ -414,14 +417,4 @@ function ScrollUpShow(){
 }
 
 readNews();
-
-
-
-
-
-    
-
-
-
-
 
