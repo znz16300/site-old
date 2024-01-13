@@ -268,7 +268,8 @@ function loadDocuments(data, d){
             for(let j=0; j<images.length; j++){
                 let start = images[j].indexOf('?id=') + 4;
                 let ss = images[j].substr(start);
-                codeImages.push(ss);
+                codeImages.push(images[j]);
+                // codeImages.push(ss);
             }                    
             let im = ""
             if (codeImages[0].length === 0) {
