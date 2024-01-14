@@ -263,7 +263,8 @@ teachList.addEventListener("change", () => {
   }
 
   button.addEventListener("click", () => {
-    let sp = [];
+    let sp = []; 
+    let date_input = '';
     for (let i = 0; i < tBody.childNodes.length; i++) {
       const ch = tBody.childNodes[i].querySelector(".chk_clas");
       if (ch.checked) {
@@ -274,7 +275,7 @@ teachList.addEventListener("change", () => {
         const subj = tBody.childNodes[i].querySelector(".row__subj");
         const forma = tBody.childNodes[i].querySelector(".row__forma");
 
-        const date_input = tBody.childNodes[i].title
+        date_input = tBody.childNodes[i].title
         const rec = {
             'title': title.innerText,
             'long': long.innerText,
@@ -303,9 +304,9 @@ teachList.addEventListener("change", () => {
         'zaklad': zaklad,
         'date': formatDate(dat),
         'file': 'klopot.docx',
-        'dateInput': date_input,
+        'dateInput': date_input
       }
-      s = ''
+      let s = ''
       let sym = ''
       for (let i = 0; i < sp.length; i++) {
         context['title'+i] = sp[i]['title']
