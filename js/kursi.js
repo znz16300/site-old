@@ -267,13 +267,15 @@ teachList.addEventListener("change", () => {
     for (let i = 0; i < tBody.childNodes.length; i++) {
       const ch = tBody.childNodes[i].querySelector(".chk_clas");
       if (ch.checked) {
-        let title = tBody.childNodes[i].querySelector(".row__title");
-        let long = tBody.childNodes[i].querySelector(".row__long");
-        let num = tBody.childNodes[i].querySelector(".wwrap_no");
-        let date = tBody.childNodes[i].querySelector(".row__date");
-        let subj = tBody.childNodes[i].querySelector(".row__subj");
-        let forma = tBody.childNodes[i].querySelector(".row__forma");
-        let rec = {
+        const title = tBody.childNodes[i].querySelector(".row__title");
+        const long = tBody.childNodes[i].querySelector(".row__long");
+        const num = tBody.childNodes[i].querySelector(".wwrap_no");
+        const date = tBody.childNodes[i].querySelector(".row__date");
+        const subj = tBody.childNodes[i].querySelector(".row__subj");
+        const forma = tBody.childNodes[i].querySelector(".row__forma");
+
+        const date_input = tBody.childNodes[i].title
+        const rec = {
             'title': title.innerText,
             'long': long.innerText,
             'num': num.innerText,
@@ -286,13 +288,13 @@ teachList.addEventListener("change", () => {
       //
     }
     console.log(shevchenko.inGenitive(fullNameToParts(teachCombo.value)))
-    let s = shevchenko.inGenitive(fullNameToParts(teachCombo.value))
-    let teachRod = s.lastName + " " + s.firstName + " " + s.middleName
+    const s = shevchenko.inGenitive(fullNameToParts(teachCombo.value))
+    const teachRod = s.lastName + " " + s.firstName + " " + s.middleName
     if (sp.length > 0){
-      console.log(sp);
-      let dat = new Date;
-      console.log(formatDate(dat));
-      let context = {
+      // console.log(sp);
+      const dat = new Date;
+      // console.log(formatDate(dat));
+      const context = {
         'teacher':teachRod,
         // 'teacher':teachCombo.value,
         'teacherINIC':fullNameToInic(teachCombo.value),
@@ -301,6 +303,7 @@ teachList.addEventListener("change", () => {
         'zaklad': zaklad,
         'date': formatDate(dat),
         'file': 'klopot.docx',
+        'dateInput': date_input,
       }
       s = ''
       let sym = ''
@@ -395,7 +398,7 @@ let readKursi = () => {
   $.getJSON(url + "getmultiblock/" + key, function (data) {
     glData = data;
     let dat = glData[0].data;
-    console.log(dat);
+    // console.log(dat);
     for (r of dat) {
       teachers.add(r[COL_TEACHER]);
     }
