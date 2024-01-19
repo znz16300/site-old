@@ -186,7 +186,8 @@
 }
 
 .pages {
-  display: flex;
+  /* display: flex; */
+  display: none;
 }
 .pages .pages__paginator {
   font-family: Georgia;

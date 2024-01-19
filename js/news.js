@@ -280,6 +280,7 @@ function readNews(){
                         "parasites": ["none"]
                     }
                     newsData.push(newsOne);
+                    document.querySelector('.pages').style.display = 'flex';
                 }                
             }
             calculatePages();
