@@ -246,8 +246,6 @@ function readNews(){
           data = JSON.parse(request.responseText);
           data = data['feed']['entry'];
             for (let i=0; i<data.length;i++){
-                // console.log("============");
-                // console.log(data[i][gsx$show][$t] !== "");
                 if (data[i]["gsx$show"] !== undefined && data[i]["gsx$show"]["$t"] !== ""){
                     d1 = data[i];
                     // console.log(d1);
@@ -282,19 +280,14 @@ function readNews(){
                         "parasites": ["none"]
                     }
                     newsData.push(newsOne);
-                }
-                
+                }                
             }
-            // console.log(newsData);   
             calculatePages();
             drawPage(currentPageBtn.textContent);
             changeDisableStatus(currentPageBtn.textContent);    
             loader.classList.add('hide-loader'); 
       } else {
-        // We reached our target server, but it returned an error
         console.log('Upps ' );
-        // if (step < 25)
-        //     readNews();
       }
     };
     request.onerror = function() {
