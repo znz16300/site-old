@@ -68,6 +68,7 @@ function fillModalWindow(item) {
   let htmlText = `${item.description}<div class="imgs_on_modal">`;
   // Не показуємо перше фото в модалці. Інакше у рядку нижче цикл запускаємо від 0
   for (let i = 1; i < item["images"].length; i++) {
+    if (item["images"][i].trim() === '') continue;
     htmlText += `<p ><img src="${item["images"][i]}" alt="" width="85%"></p>`;
   }
   htmlText += "</div>";
