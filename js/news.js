@@ -66,7 +66,8 @@ function fillModalWindow(item) {
   let petAbout = document.querySelector(".pet_info__about");
   // petAbout.textContent = item.description;
   let htmlText = `${item.description}<div class="imgs_on_modal">`;
-  for (let i = 0; i < item["images"].length; i++) {
+  // Не показуємо перше фото в модалці. Інакше у рядку нижче цикл запускаємо від 0
+  for (let i = 1; i < item["images"].length; i++) {
     htmlText += `<p ><img src="${item["images"][i]}" alt="" width="85%"></p>`;
   }
   htmlText += "</div>";
@@ -245,136 +246,6 @@ navigation.addEventListener("click", (e) => {
 
 let step = 0;
 
-// function readNews(keyTable = keyTableNews, shName = "Аркуш1") {
-//   // shName = "Аркуш1"
-//   //let url = 'https://AlexZelenskiy.pythonanywhere.com/getnews/'+keyTable+'/'+shName; //Не працює
-//   const url =
-//     "https://schooltools.pythonanywhere.com/getnews/" + keyTable + "/" + shName;
-//   // let url = 'https://zelenskiy.pythonanywhere.com/getnews/'+keyTable+'/'+shName;
-//   //let url = 'http://127.0.0.1:5000/getnews/'+keyTable+'/'+shName;
-//   request = new XMLHttpRequest();
-//   request.open("GET", url, true);
-//   request.onload = function () {
-//     if (request.status >= 200 && request.status < 400) {
-//       data = JSON.parse(request.responseText);
-//       data = data["feed"]["entry"];
-//       for (let i = 0; i < data.length; i++) {
-//         if (
-//           data[i]["gsx$show"] !== undefined &&
-//           data[i]["gsx$show"]["$t"] !== ""
-//         ) {
-//           d1 = data[i];
-//           // console.log(d1);
-//           let images = d1["gsx$фото"]["$t"].split(",");
-//           let codeImages = [];
-//           let photoPath = "";
-//           for (let j = 0; j < images.length; j++) {
-//             let start = images[j].indexOf("?id=") + 4;
-//             let ss = images[j].substr(start);
-//             codeImages.push(images[j]);
-//             // codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
-//           }
-
-//           let im = "";
-//           if (codeImages[0].length === 0) {
-//             im = "./assets/images/nophoto.png";
-//           } else {
-//             im = codeImages[0];
-//           }
-//           // nophoto.png
-//           let newsOne = {
-//             id: String(i + 1),
-//             name: d1["gsx$названовини"]["$t"],
-//             img: im,
-//             images: codeImages,
-//             type: "",
-//             breed: "",
-//             description: d1["gsx$текстновини"]["$t"],
-//             age: d1["gsx$позначкачасу"]["$t"],
-//             inoculations: ["none"],
-//             diseases: ["none"],
-//             parasites: ["none"],
-//           };
-//           newsData.push(newsOne);
-//           document.querySelector(".pages").style.display = "flex";
-//         }
-//       }
-//       calculatePages();
-//       drawPage(currentPageBtn.textContent);
-//       changeDisableStatus(currentPageBtn.textContent);
-//       loader.classList.add("hide-loader");
-//     } else {
-//       console.log("Upps ");
-//     }
-//   };
-//   request.onerror = function () {
-//     // There was a connection error of some sort
-//   };
-//   request.send();
-// }
-
-// function readNewsAll(keyTables = keyTableNewsAll) {
-//   const url =
-//     "https://schooltools.pythonanywhere.com/getnews/" + keyTable + "/" + shName;
-//   request = new XMLHttpRequest();
-//   request.open("GET", url, true);
-//   request.onload = function () {
-//     if (request.status >= 200 && request.status < 400) {
-//       data = JSON.parse(request.responseText);
-//       data = data["feed"]["entry"];
-//       for (let i = 0; i < data.length; i++) {
-//         if (
-//           data[i]["gsx$show"] !== undefined &&
-//           data[i]["gsx$show"]["$t"] !== ""
-//         ) {
-//           d1 = data[i];
-//           // console.log(d1);
-//           let images = d1["gsx$фото"]["$t"].split(",");
-//           let codeImages = [];
-//           let photoPath = "";
-//           for (let j = 0; j < images.length; j++) {
-//             let start = images[j].indexOf("?id=") + 4;
-//             let ss = images[j].substr(start);
-//             codeImages.push(images[j]);
-//             // codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
-//           }
-
-//           let im = "";
-//           if (codeImages[0].length === 0) {
-//             im = "./assets/images/nophoto.png";
-//           } else {
-//             im = codeImages[0];
-//           }
-//           // nophoto.png
-//           let newsOne = {
-//             id: String(i + 1),
-//             name: d1["gsx$названовини"]["$t"],
-//             img: im,
-//             images: codeImages,
-//             type: "",
-//             breed: "",
-//             description: d1["gsx$текстновини"]["$t"],
-//             age: d1["gsx$позначкачасу"]["$t"],
-//             inoculations: ["none"],
-//             diseases: ["none"],
-//             parasites: ["none"],
-//           };
-//           newsData.push(newsOne);
-//           document.querySelector(".pages").style.display = "flex";
-//         }
-//       }
-//       calculatePages();
-//       drawPage(currentPageBtn.textContent);
-//       changeDisableStatus(currentPageBtn.textContent);
-//       loader.classList.add("hide-loader");
-//     } else {
-//       console.log("Upps ");
-//     }
-//   };
-//   request.onerror = function () {};
-//   request.send();
-// }
-
 window.onscroll = function () {
   var scrollElem = document.getElementById("scrollToTop");
   if (document.body.scrollTop > document.documentElement.clientHeight) {
@@ -403,20 +274,6 @@ const scroolBtn = document.getElementById("scrollToTop");
 scroolBtn.addEventListener("click", () => {
   goUp();
 });
-
-// function readStorage(){
-//     keyTableNews = window.localStorage.getItem("keyTableForNews");
-//     if (keyTableNews === null) {
-//         let s = prompt("Уведіть ключ для новин", "");
-//         if (s !== null){
-//             keyTableNews = s;
-//             window.localStorage.setItem("keyTableForNews", s);
-//         }
-//     }
-// }
-
-// readStorage();
-// url  = "https://spreadsheets.google.com/feeds/list/"+keyTableNews+"/"+sheet+"/public/values?alt=json";
 
 function openNewWin(url) {
   myWin = open(url);
@@ -473,7 +330,6 @@ function flattenArray(nestedArray) {
 
 // Функція для обробки результатів
 function processResults() {
-  // Ось ваш код обробки результатів, може використовувати resultsArray
   console.log("Обробка результатів:", resultsArray);
   const mergedArray = [].concat(...resultsArray);
   // const mergedArray = flattenArray(resultsArray);
@@ -481,16 +337,12 @@ function processResults() {
   for (let table of mergedArray) {
     data = table["feed"]["entry"];
     for (let i = 0; i < data.length; i++) {
-        if (data[i]["gsx$названовини"]["$t"] === 'тестова новина 2') {
-            console.log('123456');
-        }
       if (data[i]["gsx$названовини"]["$t"] === 'Назва новини') continue;
       if (
         data[i]["gsx$show"] !== undefined &&
         data[i]["gsx$show"]["$t"] !== ""
       ) {
         d1 = data[i];
-        // console.log(d1);
         let images = d1["gsx$фото"]["$t"].split(",");
         let codeImages = [];
         let photoPath = "";
@@ -530,14 +382,10 @@ function processResults() {
     drawPage(currentPageBtn.textContent);
     changeDisableStatus(currentPageBtn.textContent);
     loader.classList.add("hide-loader");
-  //     for (let t of table) {
-  //         resultsArrayIntegr.push(t);
-  //     }
   }
-  //   console.log('Обробка результатів в одному:', resultsArrayIntegr);
 }
 
-// Приклад використання
+
 const urlsToFetch = [];
 
 for (let keyTableNews of keyTableNewsAll) {
@@ -557,6 +405,3 @@ fetchDataForUrls(urlsToFetch)
     console.error("Помилка виконання AJAX-запитів", error);
   });
 
-// readNews(keyTable=keyTableNews);
-// readNewsAll(keyTables=keyTableNewsAll);
-// readNews(keyTable=keyTableNewsAlt);
