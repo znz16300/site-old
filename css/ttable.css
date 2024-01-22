@@ -94,26 +94,31 @@ main .btn-block .screen .less-item li .time {
   color: green;
   margin-right: 16px;
   width: 42px;
+  background-color: inherit;
 }
 main .btn-block .screen .less-item li .num {
   margin-right: 16px;
   width: 24px;
+  background-color: inherit;
 }
 main .btn-block .screen .less-item li .klas {
   margin-left: 16px;
   color: #90f0a8;
   min-width: 100px;
+  background-color: inherit;
 }
 main .btn-block .screen .less-item li .subj {
   margin-left: 16px;
   color: #9090f0;
   min-width: 200px;
+  background-color: inherit;
 }
 main .btn-block .screen .less-item li .zamina {
   width: 600;
   color: red;
+  background-color: inherit;
 }
 main .btn-block .screen .less-item li:hover {
-  background-color: rgb(54, 147, 201);
+  background-color: rgb(4, 29, 44);
   cursor: pointer;
 }

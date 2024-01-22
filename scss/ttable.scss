@@ -130,33 +130,38 @@ main {
                         color: green;
                         margin-right: 16px;
                         width: 42px;
+                        background-color: inherit;
                     }
 
                     .num {
                         margin-right: 16px;
                         width: 24px;
+                        background-color: inherit;
                     }
 
                     .klas {
                         margin-left: 16px;
                         color: #90f0a8;
                         min-width: 100px;
+                        background-color: inherit;
                     }
 
                     .subj {
                         margin-left: 16px;
                         color: #9090f0;
                         min-width: 200px;
+                        background-color: inherit;
                     }
 
                     .zamina {
                         width: 600;
                         color: red;
+                        background-color: inherit;
                     }
                 }
 
                 li:hover {
-                    background-color: rgb(54, 147, 201);
+                    background-color: rgb(4, 29, 44);
                     cursor: pointer;
                 }
             }
