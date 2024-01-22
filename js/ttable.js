@@ -1,8 +1,9 @@
 const urlMy = window.location.href;
 console.log(urlMy);
-const keyZamini = urlMy.split("id=")[1];
+const keyZamini = '1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk';
+// const keyZamini = urlMy.split("id=")[1];
 
-const server = "https://zelenskiy.pythonanywhere.com/";
+const server = "https://schooltools.pythonanywhere.com/";
 
 const currentDate = new Date();
 const date = currentDate.getDate();
@@ -104,6 +105,8 @@ function showTT(listD, tables){
     week = tables[1];
   }
   const list = getData(glData, week)['data'];
+  const numLessons = list[1].slice(1, 13);
+  console.log(numLessons);
   const tt = getInnerListByName(list, surname)
   
   // Визначаємо діапазон уроків
@@ -124,6 +127,7 @@ function showTT(listD, tables){
   console.log(startLesson)
   for (let i=start; i<fin; i++){    
     let lesLime = startLesson[0][(i-1)%(maxLessons+1)]
+    // let lesLime = startLesson[0][(i-1)%(maxLessons+1)]
     if (lesLime === undefined) lesLime = '';
     let num =  tt[2][i]
     if (num === undefined) num = '';
@@ -132,10 +136,16 @@ function showTT(listD, tables){
     let subj =  tt[0][i]   
     if (subj === undefined) subj = '';
     // if (subj === '') klas = '-'
+    let numDot = '';
+    if (numLessons[i] === '-' || numLessons[i] === '') {
+      numDot = '';
+    } else {
+      numDot = `${numLessons[i]}`;
+    }
     if (tables[0].length > 5) //Ознака того, що розклад класу
-      lList.push("(" + lesLime + ") " + num + ". " + subj );
+      lList.push(`<div class="time">${lesLime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`);
     else
-      lList.push("(" + lesLime + ") " + num + ". " + klas + " - " + subj)
+      lList.push(`<div class="time">${lesLime}</div> <div class="num">${numDot}</div> <div class="klas">${klas}</div><div class="subj">${subj}</div>`)
   }
   createList(lessList, lList, 'li')
 }
@@ -179,13 +189,7 @@ let readTT = (s2)=>{
       // Визначаємо чисельник чи знаменник для вказаної дати
       const tWD = getData(glData, 'workdays')['data'];
       day  = getDataByDate(tWD, datePicker.value);
-      
-      // if (day.chZn == 1) 
-      //   s =  tt[3][start-1] + ". Чисельник";
-      // else 
-      //   s =  tt[3][start-1] + ". Знаменник";
-      // title.innerText = s;
-          
+
     }
   );   
 }
@@ -218,7 +222,7 @@ function getFirstNonEmptyElements(lists) {
 }
 
 function createList(node, list, tag) {
-  node.innerHTML = list.map(row => `<${tag}>${row}</${tag}>`).join('');
+  node.innerHTML += list.map(row => `<${tag}>${row}</${tag}>`).join('');
   node.value = '';
 }
 

@@ -200,7 +200,7 @@ teachList.addEventListener("change", () => {
       let pedrada = '' 
       
       if (r[COL_PEDRADA]){
-        pedrada = '. Затверджено рішенням педради від ' + r[COL_PEDRADA];
+        pedrada = '. Зараховано рішенням педради від ' + r[COL_PEDRADA];
       }
       if (!r[COL_ATEST_YEAR]){
         r[COL_ATEST_YEAR] = '2000';
