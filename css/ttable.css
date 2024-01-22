@@ -11,26 +11,9 @@ li {
 
 body {
   padding: 20px;
-}
-
-.main-sel {
-  display: flex;
-  justify-content: center;
-}
-.main-sel .sel-block {
-  width: 100%;
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  height: 50px;
-  gap: 24px;
-}
-.main-sel .sel-block .sel-item {
-  width: 85%;
-  font-size: 1.2em;
-}
-.main-sel .sel-block .sel-item:nth-child(even) {
-  width: 25%;
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 header .title {
@@ -49,15 +32,39 @@ header .date .date_block {
   font-size: 1.6em;
   height: 50px;
   text-align: center;
+  border: none;
 }
 header .date button {
   width: 70px;
   height: 50px;
   font-size: 1.6em;
+  border: none;
+}
+header .main-sel {
+  display: flex;
+  justify-content: center;
+}
+header .main-sel .sel-block {
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+header .main-sel .sel-block .sel-item {
+  width: 100%;
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 5px;
+  border: none;
+}
+header .main-sel .sel-block .gray {
+  color: rgb(188, 240, 140);
 }
 
 main {
-  margin-top: 16px;
+  margin-top: 8px;
 }
 main .btn-block {
   display: flex;
@@ -80,8 +87,28 @@ main .btn-block .screen .less-item li {
   font-size: 1.6em;
   border-radius: 0;
   padding: 10px;
+  display: flex;
+}
+main .btn-block .screen .less-item li .time {
+  font-size: 1rem;
+  color: green;
+  margin-right: 16px;
+  width: 32px;
+}
+main .btn-block .screen .less-item li .num {
+  margin-right: 16px;
+}
+main .btn-block .screen .less-item li .klas {
+  margin-left: 16px;
+  color: #90f0a8;
+  min-width: 100px;
+}
+main .btn-block .screen .less-item li .subj {
+  margin-left: 16px;
+  color: #9090f0;
+  min-width: 200px;
 }
 main .btn-block .screen .less-item li:hover {
   background-color: rgb(54, 147, 201);
   cursor: pointer;
-}/*# sourceMappingURL=ttable.css.map */
+}
