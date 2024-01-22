@@ -137,10 +137,10 @@ function showTT(listD, tables){
     if (subj === undefined) subj = '';
     // if (subj === '') klas = '-'
     let numDot = '';
-    if (numLessons[i] === '-' || numLessons[i] === '') {
+    if (numLessons[i%12] === '-' || numLessons[i%12] === '') {
       numDot = '';
     } else {
-      numDot = `${numLessons[i]}`;
+      numDot = `${numLessons[i%12]}`;
     }
     if (tables[0].length > 5) //Ознака того, що розклад класу
       lList.push(`<div class="time">${lesLime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`);
