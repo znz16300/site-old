@@ -129,11 +129,12 @@ main {
                         font-size: 1.2rem;
                         color: green;
                         margin-right: 16px;
-                        width: 32px;
+                        width: 42px;
                     }
 
                     .num {
                         margin-right: 16px;
+                        width: 24px;
                     }
 
                     .klas {
@@ -146,6 +147,11 @@ main {
                         margin-left: 16px;
                         color: #9090f0;
                         min-width: 200px;
+                    }
+
+                    .zamina {
+                        width: 600;
+                        color: red;
                     }
                 }
 

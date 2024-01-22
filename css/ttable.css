@@ -93,10 +93,11 @@ main .btn-block .screen .less-item li .time {
   font-size: 1.2rem;
   color: green;
   margin-right: 16px;
-  width: 32px;
+  width: 42px;
 }
 main .btn-block .screen .less-item li .num {
   margin-right: 16px;
+  width: 24px;
 }
 main .btn-block .screen .less-item li .klas {
   margin-left: 16px;
@@ -107,6 +108,10 @@ main .btn-block .screen .less-item li .subj {
   margin-left: 16px;
   color: #9090f0;
   min-width: 200px;
+}
+main .btn-block .screen .less-item li .zamina {
+  width: 600;
+  color: red;
 }
 main .btn-block .screen .less-item li:hover {
   background-color: rgb(54, 147, 201);
