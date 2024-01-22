@@ -5,6 +5,18 @@
     border-radius: 5px;
 }
 
+select {
+    border: none;
+}
+
+select:focus {
+    outline: none;
+}
+
+select:hover {
+    background-color: rgb(4, 29, 44);
+}
+
 li {
     list-style-type: none;
 }
@@ -36,6 +48,10 @@ header {
             height: 50px;
             text-align: center;
             border: none;
+            background-color: inherit;
+        }
+        .date_block:focus {
+            outline: none;
         }
 
         button {
@@ -43,8 +59,12 @@ header {
             height: 50px;
             font-size: 1.6em;
             border: none;
+            background-color: inherit;
         }
 
+    }
+    .date:hover {
+        background-color: rgb(4, 29, 44);
     }
 
     .main-sel {
