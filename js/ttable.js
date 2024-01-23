@@ -1,5 +1,5 @@
 const urlMy = window.location.href;
-console.log(urlMy);
+// console.log(urlMy);
 const keyZamini = "1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk";
 // const keyZamini = urlMy.split("id=")[1];
 
@@ -135,7 +135,7 @@ function showTT(listD, tables) {
   const selectedOption = listD.options[listD.selectedIndex];
   const surname = selectedOption.text;
   // Шукаємо розклад вчителя
-  console.log(surname);
+  // console.log(surname);
   let week = tables[0];
   if (day.chZn == "2") {
     week = tables[1];
@@ -151,7 +151,7 @@ function showTT(listD, tables) {
   const zaminiRes = filterArray(tZaminList, date_, name_);
   const zaminiResKlas = filterArrayKlas(tZaminList, date_, name_);
 
-  console.log(zaminiRes);
+  // console.log(zaminiRes);
 
   // Визначаємо діапазон уроків
   const maxLessons = 11;
@@ -196,7 +196,7 @@ function showTT(listD, tables) {
     });
 
     let rowKl, rowTeach;
-    console.log(zaminiResKlas);
+    // console.log(zaminiResKlas);
     if (filteredArrayKlas.length === 0) {
       rowKl = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`;
     } else {
@@ -264,28 +264,34 @@ function padNumberWithZero(number) {
 
 let readTT = (s2) => {
   $.getJSON(server + "getmultiblock/" + keyZamini, function (data) {
-    datePicker.value = `${year}-${padNumberWithZero(
-      month
-    ).slice()}-${padNumberWithZero(date)}`;
+    console.log('Завантажено з сервера');
     glData = data;
-    // Читаємо список вчителів
-    const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
-      .sort()
-      .filter((item) => item !== "text");
-    createList(teacherList, tList, "option");
-    // Читаємо список класів
-    const cList = getFirstNonEmptyElements(
-      getData(glData, "week1 (clas)")["data"]
-    ).filter((item) => item !== "text");
-    createList(clasList, cList, "option");
-    // Визначаємо чисельник чи знаменник для вказаної дати
-    const tWD = getData(glData, "workdays")["data"];
-    day = getDataByDate(tWD, datePicker.value);
-    tZaminList = getData(glData, "missingbook")["data"];
-    loader.classList.add('hide-loader');
-    // console.log(tZaminList);
+    startApp();
+
   });
 };
+
+const startApp = () => {
+  // Читаємо список вчителів
+  datePicker.value = `${year}-${padNumberWithZero(
+    month
+  ).slice()}-${padNumberWithZero(date)}`;
+  const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
+  .sort()
+  .filter((item) => item !== "text");
+  createList(teacherList, tList, "option");
+  // Читаємо список класів
+  const cList = getFirstNonEmptyElements(
+    getData(glData, "week1 (clas)")["data"]
+  ).filter((item) => item !== "text");
+  createList(clasList, cList, "option");
+  // Визначаємо чисельник чи знаменник для вказаної дати
+  const tWD = getData(glData, "workdays")["data"];
+  day = getDataByDate(tWD, datePicker.value);
+  tZaminList = getData(glData, "missingbook")["data"];
+  loader.classList.add('hide-loader');
+
+}
 
 function getDataByDate(list, date) {
   let dateIndex = list[0].indexOf(date);
@@ -317,6 +323,53 @@ function createList(node, list, tag) {
   node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
   node.value = "";
 }
+
+// async function loadDataFromJsonFile() {
+//   try {
+//       // Задайте шлях до вашого JSON файлу
+//       const jsonFilePath = './js/ttable.json';
+
+//       // Використовуйте fetch для завантаження даних з JSON файлу
+//       const response = await fetch(jsonFilePath);
+
+//       if (!response.ok) {
+//           throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
+
+//       // Отримайте об'єкт з JSON даних
+//       glData = await response.json();
+//       console.log('Отримано дані:', jsonObject);
+//       startApp();
+//       // Тепер ви можете використовувати отриманий об'єкт
+//       console.log('Отримано дані:', jsonObject);
+
+//       // Ваш код обробки даних тут
+
+//   } catch (error) {
+//       console.error('Помилка при завантаженні даних:', error.message);
+//   }
+// }
+
+const loadDataFromJsonFile = () => {
+  fetch("./js/ttable.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      glData = data;
+      console.log('Отримано дані:', glData);
+      startApp();
+
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+};
+
+loadDataFromJsonFile()
 
 readTT();
 
