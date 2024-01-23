@@ -55,6 +55,7 @@ const datBlock = document.querySelector(".date_block");
 const title = document.querySelector(".title");
 const btnLeft = document.querySelector(".btn-left");
 const btnRight = document.querySelector(".btn-right");
+const loader = document.querySelector(".loader");
 
 let day = { chZn: 0, dWeek: 0 };
 
@@ -202,17 +203,17 @@ function showTT(listD, tables) {
       rowKl = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="subj zamina">${filteredArrayKlas[0][8]} / ${filteredArrayKlas[0][6]}</div>`;
     }
 
-
     if (filteredArray.length === 0) {
       rowTeach = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="klas">${klas}</div><div class="subj">${subj}</div>`;
     } else {
       rowTeach = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="klas zamina">${filteredArray[0][5]}</div><div class="subj zamina">${filteredArray[0][8]}</div>`;
     }
 
-    if (tables[0].length > 5) //Ознака того, що розклад класу
-      lList.push(rowKl);      
+    if (tables[0].length > 5)
+      //Ознака того, що розклад класу
+      lList.push(rowKl);
     else {
-        lList.push(rowTeach);
+      lList.push(rowTeach);
     }
   }
   createList(lessList, lList, "li");
@@ -268,17 +269,20 @@ let readTT = (s2) => {
     ).slice()}-${padNumberWithZero(date)}`;
     glData = data;
     // Читаємо список вчителів
-    const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"]).sort().filter(item => item !== 'text');
+    const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
+      .sort()
+      .filter((item) => item !== "text");
     createList(teacherList, tList, "option");
     // Читаємо список класів
     const cList = getFirstNonEmptyElements(
       getData(glData, "week1 (clas)")["data"]
-    ).filter(item => item !== 'text');
+    ).filter((item) => item !== "text");
     createList(clasList, cList, "option");
     // Визначаємо чисельник чи знаменник для вказаної дати
     const tWD = getData(glData, "workdays")["data"];
     day = getDataByDate(tWD, datePicker.value);
     tZaminList = getData(glData, "missingbook")["data"];
+    loader.classList.add('hide-loader');
     // console.log(tZaminList);
   });
 };
