@@ -268,12 +268,12 @@ let readTT = (s2) => {
     ).slice()}-${padNumberWithZero(date)}`;
     glData = data;
     // Читаємо список вчителів
-    const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"]);
+    const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"]).sort().filter(item => item !== 'text');
     createList(teacherList, tList, "option");
     // Читаємо список класів
     const cList = getFirstNonEmptyElements(
       getData(glData, "week1 (clas)")["data"]
-    );
+    ).filter(item => item !== 'text');
     createList(clasList, cList, "option");
     // Визначаємо чисельник чи знаменник для вказаної дати
     const tWD = getData(glData, "workdays")["data"];
