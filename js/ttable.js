@@ -272,12 +272,13 @@ let readTT = (s2) => {
 };
 
 const startApp = () => {
-  // Читаємо список вчителів
-  datePicker.value = `${year}-${padNumberWithZero(
-    month
-  ).slice()}-${padNumberWithZero(date)}`;
+  if (datePicker.value === ''){
+    datePicker.value = `${year}-${padNumberWithZero(
+      month
+    ).slice()}-${padNumberWithZero(date)}`;
+  }
   const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
-  .sort()
+  .sort(customCompare)
   .filter((item) => item !== "text");
   createList(teacherList, tList, "option");
   // Читаємо список класів
@@ -320,8 +321,9 @@ function getFirstNonEmptyElements(lists) {
 }
 
 function createList(node, list, tag) {
+  node.innerHTML = `<${tag} disabled selected hidden>Оберіть</${tag}>`;
   node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
-  node.value = "";
+  node.value = "Оберіть";
 }
 
 // async function loadDataFromJsonFile() {
@@ -368,6 +370,27 @@ const loadDataFromJsonFile = () => {
       console.error("There was a problem with the fetch operation:", error);
     });
 };
+
+const customAlphabet = 'абвгґдеєжзиіїйклмнопрстуфхцчшщьюя';
+
+function customCompare(a, b) {
+  const minLength = Math.min(a.length, b.length);
+
+  for (let i = 0; i < minLength; i++) {
+      const charA = a[i].toLowerCase();  // Перетворення у нижній регістр
+      const charB = b[i].toLowerCase();  // Перетворення у нижній регістр
+
+      const indexA = customAlphabet.indexOf(charA);
+      const indexB = customAlphabet.indexOf(charB);
+
+      if (indexA !== indexB) {
+          return indexA - indexB;
+      }
+  }
+
+  return a.length - b.length;
+}
+
 
 loadDataFromJsonFile()
 

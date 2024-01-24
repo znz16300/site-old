@@ -108,7 +108,7 @@ header .main-sel .sel-block .gray {
 }
 
 main {
-  margin-top: 8px;
+  margin-top: -16px;
 }
 main .btn-block {
   display: flex;
