@@ -68,14 +68,18 @@ header {
     
     .date {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         gap: 10px;
         // margin-top: 16px;
         // width: 100vw;
         background-color: $bgc2;
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+          }
+
 
         .date_block {
-            width: 70vw;
+            width: 90vw;
             height: 10%;
             font-size: 1.6em;
             height: 50px;

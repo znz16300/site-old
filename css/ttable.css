@@ -64,12 +64,15 @@ header .title {
 }
 header .date {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   gap: 10px;
   background-color: unset;
 }
+header .date input[type=date]::-webkit-calendar-picker-indicator {
+  display: none;
+}
 header .date .date_block {
-  width: 70vw;
+  width: 90vw;
   height: 10%;
   font-size: 1.6em;
   height: 50px;
