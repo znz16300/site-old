@@ -160,61 +160,67 @@ function showTT(listD, tables) {
   let start = (day.dWeek - 1) * (maxLessons + 1) + 1;
   let fin = start + maxLessons;
   let s;
+  // if (true) {
+  if (tt[3][start - 1] !== undefined) {
+    if (day.chZn == 1) s = tt[3][start - 1] + ". Чисельник";
+    else s = tt[3][start - 1] + ". Знаменник";
+    title.innerText = s;
 
-  if (day.chZn == 1) s = tt[3][start - 1] + ". Чисельник";
-  else s = tt[3][start - 1] + ". Знаменник";
-  title.innerText = s;
+    const startLesson = getData(glData, "Час початку уроків").header;
 
-  const startLesson = getData(glData, "Час початку уроків").header;
+    for (let i = start; i < fin; i++) {
+      let lesTime = startLesson[0][(i - 1) % (maxLessons + 1)];
 
-  for (let i = start; i < fin; i++) {
-    let lesTime = startLesson[0][(i - 1) % (maxLessons + 1)];
+      if (lesTime === undefined) lesTime = "";
+      let num = tt[2][i];
+      if (num === undefined) num = "";
+      let klas = tt[1][i];
+      if (klas === undefined) klas = "";
+      let subj = tt[0][i];
+      if (subj === undefined) subj = "";
 
-    if (lesTime === undefined) lesTime = "";
-    let num = tt[2][i];
-    if (num === undefined) num = "";
-    let klas = tt[1][i];
-    if (klas === undefined) klas = "";
-    let subj = tt[0][i];
-    if (subj === undefined) subj = "";
+      let numDot = "";
+      if (
+        numLessons[i % (maxLessons + 1)] === "-" ||
+        numLessons[i % (maxLessons + 1)] === ""
+      ) {
+        numDot = "";
+      } else {
+        numDot = `${numLessons[i % (maxLessons + 1)]}`;
+      }
+      if (numDot === undefined) numDot = "";
+      const filteredArray = zaminiRes.filter(function (innerArray) {
+        return innerArray[9] === numDot;
+      });
+      const filteredArrayKlas = zaminiResKlas.filter(function (innerArray) {
+        return innerArray[9] === numDot;
+      });
 
-    let numDot = "";
-    if (
-      numLessons[i % (maxLessons + 1)] === "-" ||
-      numLessons[i % (maxLessons + 1)] === ""
-    ) {
-      numDot = "";
-    } else {
-      numDot = `${numLessons[i % (maxLessons + 1)]}`;
+      let rowKl, rowTeach;
+      // console.log(zaminiResKlas);
+      if (filteredArrayKlas.length === 0) {
+        rowKl = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`;
+      } else {
+        rowKl = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="subj zamina">${filteredArrayKlas[0][8]} / ${filteredArrayKlas[0][6]}</div>`;
+      }
+
+      if (filteredArray.length === 0) {
+        rowTeach = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="klas">${klas}</div><div class="subj">${subj}</div>`;
+      } else {
+        rowTeach = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="klas zamina">${filteredArray[0][5]}</div><div class="subj zamina">${filteredArray[0][8]}</div>`;
+      }
+
+      if (tables[0].length > 5)
+        //Ознака того, що розклад класу
+        lList.push(rowKl);
+      else {
+        lList.push(rowTeach);
+      }
     }
-    if (numDot === undefined) numDot = "";
-    const filteredArray = zaminiRes.filter(function (innerArray) {
-      return innerArray[9] === numDot;
-    });
-    const filteredArrayKlas = zaminiResKlas.filter(function (innerArray) {
-      return innerArray[9] === numDot;
-    });
+  } else {
+    lessList.innerHTML = '';
+    title.innerText = 'Вихідний';
 
-    let rowKl, rowTeach;
-    // console.log(zaminiResKlas);
-    if (filteredArrayKlas.length === 0) {
-      rowKl = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`;
-    } else {
-      rowKl = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="subj zamina">${filteredArrayKlas[0][8]} / ${filteredArrayKlas[0][6]}</div>`;
-    }
-
-    if (filteredArray.length === 0) {
-      rowTeach = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="klas">${klas}</div><div class="subj">${subj}</div>`;
-    } else {
-      rowTeach = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="klas zamina">${filteredArray[0][5]}</div><div class="subj zamina">${filteredArray[0][8]}</div>`;
-    }
-
-    if (tables[0].length > 5)
-      //Ознака того, що розклад класу
-      lList.push(rowKl);
-    else {
-      lList.push(rowTeach);
-    }
   }
   createList(lessList, lList, "li");
 }
@@ -264,22 +270,21 @@ function padNumberWithZero(number) {
 
 let readTT = (s2) => {
   $.getJSON(server + "getmultiblock/" + keyZamini, function (data) {
-    console.log('Завантажено з сервера');
+    console.log("Завантажено з сервера");
     glData = data;
     startApp();
-
   });
 };
 
 const startApp = () => {
-  if (datePicker.value === ''){
+  if (datePicker.value === "") {
     datePicker.value = `${year}-${padNumberWithZero(
       month
     ).slice()}-${padNumberWithZero(date)}`;
   }
   const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
-  .sort(customCompare)
-  .filter((item) => item !== "text");
+    .sort(customCompare)
+    .filter((item) => item !== "text");
   createList(teacherList, tList, "option");
   // Читаємо список класів
   const cList = getFirstNonEmptyElements(
@@ -290,9 +295,8 @@ const startApp = () => {
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
   tZaminList = getData(glData, "missingbook")["data"];
-  loader.classList.add('hide-loader');
-
-}
+  loader.classList.add("hide-loader");
+};
 
 function getDataByDate(list, date) {
   let dateIndex = list[0].indexOf(date);
@@ -321,10 +325,10 @@ function getFirstNonEmptyElements(lists) {
 }
 
 function createList(node, list, tag) {
-  if (tag === 'option') {
+  if (tag === "option") {
     node.innerHTML = `<${tag} disabled selected hidden>Оберіть</${tag}>`;
   }
-    node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
+  node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
   node.value = "Оберіть";
 }
 
@@ -364,37 +368,35 @@ const loadDataFromJsonFile = () => {
     })
     .then((data) => {
       glData = data;
-      console.log('Отримано дані:', glData);
+      console.log("Отримано дані:", glData);
       startApp();
-
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
     });
 };
 
-const customAlphabet = 'абвгґдеєжзиіїйклмнопрстуфхцчшщьюя';
+const customAlphabet = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя";
 
 function customCompare(a, b) {
   const minLength = Math.min(a.length, b.length);
 
   for (let i = 0; i < minLength; i++) {
-      const charA = a[i].toLowerCase();  // Перетворення у нижній регістр
-      const charB = b[i].toLowerCase();  // Перетворення у нижній регістр
+    const charA = a[i].toLowerCase(); // Перетворення у нижній регістр
+    const charB = b[i].toLowerCase(); // Перетворення у нижній регістр
 
-      const indexA = customAlphabet.indexOf(charA);
-      const indexB = customAlphabet.indexOf(charB);
+    const indexA = customAlphabet.indexOf(charA);
+    const indexB = customAlphabet.indexOf(charB);
 
-      if (indexA !== indexB) {
-          return indexA - indexB;
-      }
+    if (indexA !== indexB) {
+      return indexA - indexB;
+    }
   }
 
   return a.length - b.length;
 }
 
-
-loadDataFromJsonFile()
+loadDataFromJsonFile();
 
 readTT();
 
