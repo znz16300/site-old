@@ -136,6 +136,7 @@ main .btn-block .screen .less-item li {
   border-radius: 0;
   padding: 10px;
   display: flex;
+  justify-content: space-between;
 }
 main .btn-block .screen .less-item li .time {
   font-size: 1.2rem;
@@ -158,7 +159,7 @@ main .btn-block .screen .less-item li .klas {
 main .btn-block .screen .less-item li .subj {
   margin-left: 16px;
   color: #9090f0;
-  min-width: 200px;
+  min-width: 160px;
   background-color: inherit;
 }
 main .btn-block .screen .less-item li .zamina {

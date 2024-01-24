@@ -177,6 +177,7 @@ background-color: $bgc2;
                     // line-height: 200%;
                     padding: 10px;
                     display: flex;
+                    justify-content: space-between;
 
                     // background-color: rgb(153, 206, 54);
                     .time {
@@ -203,7 +204,7 @@ background-color: $bgc2;
                     .subj {
                         margin-left: 16px;
                         color: #9090f0;
-                        min-width: 200px;
+                        min-width: 160px;
                         background-color: inherit;
                     }
 
