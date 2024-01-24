@@ -3,6 +3,7 @@
   background-color: #202023;
   color: #fff;
   padding: 0;
+  margin: 0;
   border-radius: 5px;
 }
 
@@ -23,8 +24,8 @@ li {
 }
 
 body {
-  padding: 20px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 14px;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -52,15 +53,20 @@ body .loader {
   }
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+}
 header .title {
   font-size: 1.2em;
   text-align: center;
+  background-color: unset;
 }
 header .date {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 16px;
+  background-color: unset;
 }
 header .date .date_block {
   width: 70vw;
@@ -102,26 +108,24 @@ header .main-sel .sel-block .sel-item {
   text-align: center;
   padding: 5px;
   border: none;
+  background-color: unset;
 }
 header .main-sel .sel-block .gray {
   color: rgb(188, 240, 140);
 }
 
-main {
-  margin-top: -16px;
-}
 main .btn-block {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-top: 16px;
 }
 main .btn-block .screen {
   width: 500px;
   height: 80vh;
   display: flex;
   justify-content: center;
+  background-color: unset;
 }
 main .btn-block .screen .less-item {
   width: 100vw;

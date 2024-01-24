@@ -2,9 +2,11 @@
     background-color: #202023;
     color: #fff;
     padding: 0;
+    margin: 0;
     border-radius: 5px;
 }
-
+$bgc2: unset;
+// $bgc2: #31313a;
 select {
     border: none;
 }
@@ -22,8 +24,8 @@ li {
 }
 
 body {
-    padding: 20px;
-    font-size: 16px;
+    padding: 10px;
+    font-size: 14px;
     max-width: 600px;
     margin: 0 auto;
 
@@ -52,16 +54,25 @@ body {
 
 
 header {
+    // position: fixed;
+    display: flex;
+    flex-direction: column;
+    // width: 100vw;
+    // margin-top: 10px;
+    // gap: -5px;
     .title {
         font-size: 1.2em;
         text-align: center;
+        background-color: $bgc2;
     }
-
+    
     .date {
         display: flex;
         justify-content: center;
         gap: 10px;
-        margin-top: 16px;
+        // margin-top: 16px;
+        // width: 100vw;
+        background-color: $bgc2;
 
         .date_block {
             width: 70vw;
@@ -113,6 +124,7 @@ header {
                 text-align: center;
                 padding: 5px;
                 border: none;
+                background-color: $bgc2;
 
             }
 
@@ -133,14 +145,14 @@ header {
 }
 
 main {
-    margin-top: -16px;
+    // margin-top: -8px;
 
     .btn-block {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10px;
-        margin-top: 16px;
+        // margin-top: 8px;
 
 
         .screen {
@@ -148,7 +160,7 @@ main {
             height: 80vh;
             display: flex;
             justify-content: center;
-
+background-color: $bgc2;
 
 
 
