@@ -160,7 +160,7 @@ main {
             height: 80vh;
             display: flex;
             justify-content: center;
-background-color: $bgc2;
+            background-color: $bgc2;
 
 
 
@@ -177,7 +177,7 @@ background-color: $bgc2;
                     // line-height: 200%;
                     padding: 10px;
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: flex-start;
 
                     // background-color: rgb(153, 206, 54);
                     .time {

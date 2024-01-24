@@ -136,7 +136,7 @@ main .btn-block .screen .less-item li {
   border-radius: 0;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 main .btn-block .screen .less-item li .time {
   font-size: 1.2rem;
