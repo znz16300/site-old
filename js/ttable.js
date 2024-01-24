@@ -321,8 +321,10 @@ function getFirstNonEmptyElements(lists) {
 }
 
 function createList(node, list, tag) {
-  node.innerHTML = `<${tag} disabled selected hidden>Оберіть</${tag}>`;
-  node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
+  if (tag === 'option') {
+    node.innerHTML = `<${tag} disabled selected hidden>Оберіть</${tag}>`;
+  }
+    node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
   node.value = "Оберіть";
 }
 
