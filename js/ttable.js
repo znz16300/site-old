@@ -56,6 +56,46 @@ const title = document.querySelector(".title");
 const btnLeft = document.querySelector(".btn-left");
 const btnRight = document.querySelector(".btn-right");
 const loader = document.querySelector(".loader");
+const main = document.querySelector('main');
+
+// Робимо свап
+let startX;
+let startY;
+let distX;
+let distY;
+let threshold = 50;
+
+main.addEventListener('touchstart', function(e) {
+    let touch = e.changedTouches[0];
+    startX = touch.pageX;
+    startY = touch.pageY;
+}, false);
+
+main.addEventListener('touchmove', function(e) {
+    e.preventDefault(); // Забороняємо прокрутку при руху пальцем
+}, false);
+
+main.addEventListener('touchend', function(e) {
+    let touch = e.changedTouches[0];
+    distX = touch.pageX - startX;
+    distY = touch.pageY - startY;
+
+    if (Math.abs(distX) >= threshold) {
+        // Свайп вправо чи вліво
+        if (distX > 0) {
+            console.log('Swipe right');
+            btnLeftClick();
+
+        } else {
+            console.log('Swipe left');            
+            btnRightClick();
+        }
+    }
+}, false);
+
+
+
+// --------------------
 
 let day = { chZn: 0, dWeek: 0 };
 
@@ -66,21 +106,25 @@ function shiftDate(dateInput, step) {
   dateInput.value = previousDate;
 }
 
-btnLeft.addEventListener("click", () => {
+const btnLeftClick = ()=> {
   shiftDate(datePicker, 1);
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
   if (teacherList.value !== "") showTT(teacherList, ["week1", "week2"]);
   else showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
-});
+};
 
-btnRight.addEventListener("click", () => {
+btnLeft.addEventListener("click", btnLeftClick);
+
+const btnRightClick = ()=> {
   shiftDate(datePicker, -1);
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
   if (teacherList.value !== "") showTT(teacherList, ["week1", "week2"]);
   else showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
-});
+};
+
+btnRight.addEventListener("click", btnRightClick);
 
 datePicker.addEventListener("change", () => {
   const tWD = getData(glData, "workdays")["data"];
