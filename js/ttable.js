@@ -283,12 +283,17 @@ function showTT(listD, tables) {
 }
 
 teacherList.addEventListener("change", () => {
+  teacherList.style.width = "90%";
+  clasList.style.width = "10%";
   clasList.value = "Клас";
   showTT(teacherList, ["week1", "week2"]);
 });
 clasList.addEventListener("change", () => {
+  // Клас по центру
+
   teacherList.value = "Вчитель";
-  clasList.style.width = "50%";
+  teacherList.style.width = "20%";
+  clasList.style.width = "80%";
   showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
 });
 

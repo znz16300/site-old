@@ -66,7 +66,7 @@ header .date {
   display: flex;
   justify-content: space-around;
   gap: 10px;
-  background-color: unset;
+  background-color: rgba(68, 68, 68, 0.2666666667);
 }
 header .date input[type=date]::-webkit-calendar-picker-indicator {
   display: none;
@@ -105,18 +105,18 @@ header .main-sel .sel-block {
   gap: 24px;
 }
 header .main-sel .sel-block .sel-item {
-  width: 100%;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-align: center;
   padding: 5px;
   border: none;
-  background-color: unset;
+  background-color: rgba(68, 68, 68, 0.2666666667);
+  overflow: visible;
 }
 header .main-sel .sel-block .gray {
   color: rgb(188, 240, 140);
 }
 header .main-sel .sel-block .sel-item:nth-child(even) {
-  width: 50%;
+  background-color: rgba(68, 68, 68, 0.2666666667);
 }
 
 main .btn-block {
