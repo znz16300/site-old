@@ -6,6 +6,7 @@
     border-radius: 5px;
 }
 $bgc2: unset;
+$bgc3: #4444;
 // $bgc2: #31313a;
 select {
     border: none;
@@ -72,7 +73,7 @@ header {
         gap: 10px;
         // margin-top: 16px;
         // width: 100vw;
-        background-color: $bgc2;
+        background-color: $bgc3;
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
           }
@@ -122,13 +123,14 @@ header {
             gap: 24px;
 
             .sel-item {
-                width: 100%;
+                // width: 100%;
                 // height: 3rem;
-                font-size: 1.8rem;
+                font-size: 1.5rem;
                 text-align: center;
                 padding: 5px;
                 border: none;
-                background-color: $bgc2;
+                background-color: $bgc3;
+                overflow: visible;
 
             }
 
@@ -137,7 +139,8 @@ header {
             }
 
             .sel-item:nth-child(even) {
-                width: 50%;           
+                // width: 50%;
+                background-color: $bgc3;     
 
             }
 
