@@ -91,6 +91,19 @@ main.addEventListener('touchend', function(e) {
             btnRightClick();
         }
     }
+    if (Math.abs(distY) >= threshold) {
+        // Свайп вправо чи вліво
+        if (distY > 0) {
+            console.log('Swipe down');
+            window.scrollBy(0, -500);
+
+        } else {
+            console.log('Swipe up');            
+            window.scrollBy(0, 500);
+        }
+    }
+
+
 }, false);
 
 

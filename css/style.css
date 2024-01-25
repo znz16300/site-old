@@ -174,7 +174,6 @@
   display: block;
   float: right;
   margin-bottom: 5vh;
-  border-radius: 10px;
 }
 
 .about__wrapper {
@@ -194,7 +193,6 @@
   height: 408px;
   margin-right: 120px;
   background-image: url(./../assets/images/about.jpg);
-  border-radius: 10px;
 }
 
 .about__wrapper .h2 {
