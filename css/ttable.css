@@ -56,17 +56,24 @@ body .loader {
 header {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 header .title {
-  font-size: 1.2em;
+  position: fixed;
+  z-index: 100;
+  top: -5px;
+  font-size: 1.4em;
   text-align: center;
-  background-color: unset;
+  background-color: #666;
+  padding: 5px 50px 0 50px;
+  width: 30%;
+  transition: top 0.3s ease-in-out;
 }
 header .date {
   display: flex;
   justify-content: space-around;
   gap: 10px;
-  background-color: rgba(68, 68, 68, 0.2666666667);
+  max-width: 600px;
 }
 header .date input[type=date]::-webkit-calendar-picker-indicator {
   display: none;
@@ -78,7 +85,6 @@ header .date .date_block {
   height: 50px;
   text-align: center;
   border: none;
-  background-color: inherit;
 }
 header .date .date_block:focus {
   outline: none;
@@ -175,4 +181,13 @@ main .btn-block .screen .less-item li .zamina {
 main .btn-block .screen .less-item li:hover {
   background-color: rgb(4, 29, 44);
   cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  body header .date {
+    background-color: rgba(68, 68, 68, 0.2666666667);
+  }
+  body header .date button {
+    display: none;
+  }
 }

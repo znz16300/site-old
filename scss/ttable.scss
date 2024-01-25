@@ -58,13 +58,24 @@ header {
     // position: fixed;
     display: flex;
     flex-direction: column;
+    align-items: center;
     // width: 100vw;
     // margin-top: 10px;
     // gap: -5px;
     .title {
-        font-size: 1.2em;
+        // display: none;
+        position: fixed;
+        z-index: 100;
+        // left: 40%;
+        top: -5px;
+        font-size: 1.4em;
         text-align: center;
-        background-color: $bgc2;
+        background-color: #666;
+        padding: 5px 50px 0 50px;
+        width: 30%;
+        transition: top 0.3s ease-in-out; 
+     
+        
     }
     
     .date {
@@ -72,8 +83,9 @@ header {
         justify-content: space-around;
         gap: 10px;
         // margin-top: 16px;
-        // width: 100vw;
-        background-color: $bgc3;
+        max-width: 600px;
+        // background-color: $bgc3;
+        
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
           }
@@ -86,7 +98,8 @@ header {
             height: 50px;
             text-align: center;
             border: none;
-            background-color: inherit;
+            // background-color: inherit;
+            
         }
         .date_block:focus {
             outline: none;
@@ -230,3 +243,63 @@ main {
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    body {
+        header {
+
+            .title {
+
+            }
+            
+            .date {
+
+                background-color: $bgc3;
+                input[type="date"]::-webkit-calendar-picker-indicator {
+
+                  }
+        
+        
+                .date_block {
+
+                }
+                .date_block:focus {
+
+                }
+        
+                button {
+                    display: none;
+                }
+        
+            }
+            .date:hover {
+
+            }
+        
+            .main-sel {
+
+        
+                .sel-block {
+
+        
+                    .sel-item {
+        
+                    }
+        
+                    .gray {
+
+                    }
+        
+                    .sel-item:nth-child(even) {
+ 
+        
+                    }
+        
+        
+                }
+            }
+        
+        
+        }
+    }
+  }

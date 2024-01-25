@@ -188,6 +188,7 @@ function transformFullName(fullName) {
 }
 
 function showTT(listD, tables) {
+  title.style.top = '-5px';
   lessList.innerHTML = '';
   const selectedOption = listD.options[listD.selectedIndex];
   const surname = selectedOption.text;
@@ -219,8 +220,8 @@ function showTT(listD, tables) {
   let s;
   // if (true) {
   if (tt[3][start - 1] !== undefined) {
-    if (day.chZn == 1) s = tt[3][start - 1] + ". Чисельник";
-    else s = tt[3][start - 1] + ". Знаменник";
+    if (day.chZn == 1) s = tt[3][start - 1]; // + ". Чисельник";
+    else s = tt[3][start - 1]; // + ". Знаменник";
     title.innerText = s;
 
     const startLesson = getData(glData, "Час початку уроків").header;
@@ -280,6 +281,12 @@ function showTT(listD, tables) {
 
   }
   createList(lessList, lList, "li");
+  const hideTimeout = 3000; // Час затримки перед прихованням панелі у мілісекундах
+
+  // Встановити таймер для приховання панелі
+  setTimeout(function() {
+    title.style.top = '-50px'; // Приховати панель зміщенням угору
+  }, hideTimeout);
 }
 
 teacherList.addEventListener("change", () => {
