@@ -115,7 +115,7 @@ header {
             width: 100%;
             margin-top: 16px;
             display: flex;
-            flex-direction: column;
+            // flex-direction: column;
             justify-content: space-between;
 
             // width: 265p;
@@ -136,10 +136,10 @@ header {
                 color: rgb(188, 240, 140);
             }
 
-            // .sel-item:nth-child(even) {
-            //     width: 25%;           
+            .sel-item:nth-child(even) {
+                width: 50%;           
 
-            // }
+            }
 
 
         }

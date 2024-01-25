@@ -175,7 +175,7 @@ function transformFullName(fullName) {
 }
 
 function showTT(listD, tables) {
-  lessList.innerHTML = '<li value=""></li>';
+  lessList.innerHTML = '';
   const selectedOption = listD.options[listD.selectedIndex];
   const surname = selectedOption.text;
   // Шукаємо розклад вчителя
@@ -270,11 +270,12 @@ function showTT(listD, tables) {
 }
 
 teacherList.addEventListener("change", () => {
-  clasList.value = "";
+  clasList.value = "Клас";
   showTT(teacherList, ["week1", "week2"]);
 });
 clasList.addEventListener("change", () => {
-  teacherList.value = "";
+  teacherList.value = "Вчитель";
+  clasList.style.width = "50%";
   showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
 });
 
@@ -328,7 +329,7 @@ const startApp = () => {
   }
 
   let tNow = teacherList.value; 
-  if (tNow === '') tNow = 'Оберіть';
+  if (tNow === '') tNow = 'Вчитель...';
   const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
     .sort(customCompare)
     .filter((item) => item !== "text");
@@ -337,7 +338,7 @@ const startApp = () => {
 
   // Читаємо список класів
   tNow = clasList.value; 
-  if (tNow === '') tNow = 'Оберіть';
+  if (tNow === '') tNow = 'Клас ...';
   const cList = getFirstNonEmptyElements(
     getData(glData, "week1 (clas)")["data"]
   ).filter((item) => item !== "text");
