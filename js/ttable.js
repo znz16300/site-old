@@ -282,15 +282,24 @@ const startApp = () => {
       month
     ).slice()}-${padNumberWithZero(date)}`;
   }
+
+  let tNow = teacherList.value; 
+  if (tNow === '') tNow = 'Оберіть';
   const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
     .sort(customCompare)
     .filter((item) => item !== "text");
   createList(teacherList, tList, "option");
+  teacherList.value = tNow;
+
   // Читаємо список класів
+  tNow = clasList.value; 
+  if (tNow === '') tNow = 'Оберіть';
   const cList = getFirstNonEmptyElements(
     getData(glData, "week1 (clas)")["data"]
   ).filter((item) => item !== "text");
   createList(clasList, cList, "option");
+  clasList.value = tNow;
+  
   // Визначаємо чисельник чи знаменник для вказаної дати
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
