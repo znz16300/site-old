@@ -101,7 +101,6 @@ header .main-sel .sel-block {
   width: 100%;
   margin-top: 16px;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   gap: 24px;
 }
@@ -115,6 +114,9 @@ header .main-sel .sel-block .sel-item {
 }
 header .main-sel .sel-block .gray {
   color: rgb(188, 240, 140);
+}
+header .main-sel .sel-block .sel-item:nth-child(even) {
+  width: 50%;
 }
 
 main .btn-block {
