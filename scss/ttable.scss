@@ -67,7 +67,7 @@ header {
         position: fixed;
         z-index: 100;
         // left: 40%;
-        top: -5px;
+        top: -50%;
         font-size: 1.4em;
         text-align: center;
         background-color: #666;
@@ -207,6 +207,7 @@ main {
                         width: 42px;
                         background-color: inherit;
                     }
+                    
 
                     .num {
                         margin-right: 16px;
@@ -233,6 +234,9 @@ main {
                         color: red;
                         background-color: inherit;
                     }
+                }
+                .blink {
+                    border: 1px solid red;
                 }
 
                 li:hover {
