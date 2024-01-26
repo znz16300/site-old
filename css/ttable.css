@@ -61,7 +61,7 @@ header {
 header .title {
   position: fixed;
   z-index: 100;
-  top: -5px;
+  top: -50%;
   font-size: 1.4em;
   text-align: center;
   background-color: #666;
@@ -177,6 +177,9 @@ main .btn-block .screen .less-item li .zamina {
   width: 600;
   color: red;
   background-color: inherit;
+}
+main .btn-block .screen .less-item .blink {
+  border: 1px solid red;
 }
 main .btn-block .screen .less-item li:hover {
   background-color: rgb(4, 29, 44);

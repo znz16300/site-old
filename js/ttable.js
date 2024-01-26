@@ -56,7 +56,7 @@ const title = document.querySelector(".title");
 const btnLeft = document.querySelector(".btn-left");
 const btnRight = document.querySelector(".btn-right");
 const loader = document.querySelector(".loader");
-const main = document.querySelector('main');
+const main = document.querySelector("main");
 
 // Робимо свап
 let startX;
@@ -65,48 +65,54 @@ let distX;
 let distY;
 let threshold = 50;
 
-main.addEventListener('touchstart', function(e) {
+main.addEventListener(
+  "touchstart",
+  function (e) {
     let touch = e.changedTouches[0];
     startX = touch.pageX;
     startY = touch.pageY;
-}, false);
+  },
+  false
+);
 
-main.addEventListener('touchmove', function(e) {
+main.addEventListener(
+  "touchmove",
+  function (e) {
     e.preventDefault(); // Забороняємо прокрутку при руху пальцем
-}, false);
+  },
+  false
+);
 
-main.addEventListener('touchend', function(e) {
+main.addEventListener(
+  "touchend",
+  function (e) {
     let touch = e.changedTouches[0];
     distX = touch.pageX - startX;
     distY = touch.pageY - startY;
 
     if (Math.abs(distX) >= threshold) {
-        // Свайп вправо чи вліво
-        if (distX > 0) {
-            console.log('Swipe right');
-            btnLeftClick();
-
-        } else {
-            console.log('Swipe left');            
-            btnRightClick();
-        }
+      // Свайп вправо чи вліво
+      if (distX > 0) {
+        console.log("Swipe right");
+        btnLeftClick();
+      } else {
+        console.log("Swipe left");
+        btnRightClick();
+      }
     }
     if (Math.abs(distY) >= threshold) {
-        // Свайп вправо чи вліво
-        if (distY > 0) {
-            console.log('Swipe down');
-            window.scrollBy(0, -500);
-
-        } else {
-            console.log('Swipe up');            
-            window.scrollBy(0, 500);
-        }
+      // Свайп вправо чи вліво
+      if (distY > 0) {
+        console.log("Swipe down");
+        window.scrollBy(0, -500);
+      } else {
+        console.log("Swipe up");
+        window.scrollBy(0, 500);
+      }
     }
-
-
-}, false);
-
-
+  },
+  false
+);
 
 // --------------------
 
@@ -119,7 +125,7 @@ function shiftDate(dateInput, step) {
   dateInput.value = previousDate;
 }
 
-const btnLeftClick = ()=> {
+const btnLeftClick = () => {
   shiftDate(datePicker, 1);
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
@@ -129,7 +135,7 @@ const btnLeftClick = ()=> {
 
 btnLeft.addEventListener("click", btnLeftClick);
 
-const btnRightClick = ()=> {
+const btnRightClick = () => {
   shiftDate(datePicker, -1);
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
@@ -187,9 +193,56 @@ function transformFullName(fullName) {
   }
 }
 
+const getNameDay = (myDate) => {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const dayOfWeekUkr = myDate.toLocaleDateString("uk-UA", options);
+  return dayOfWeekUkr;
+};
+
+function timeToMinutes(timeString) {
+  // Розділити час за допомогою двокрапки
+  const timeArray = timeString.split(":");
+
+  // Перетворити години та хвилини у числа
+  const hours = parseInt(timeArray[0], 10);
+  const minutes = parseInt(timeArray[1], 10);
+
+  // Обчислити час в хвилинах
+  const totalMinutes = hours * 60 + minutes;
+
+  return totalMinutes;
+}
+
+function lessonIsNow(date, time) {
+  const currentDate = new Date();
+  const currentHours = currentDate.getHours();
+  const currentMinutes = currentDate.getMinutes();
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+  const startLesson = timeToMinutes(time);
+  const endLesson = startLesson + 40;
+  const minuteNow = timeToMinutes(`${currentHours}:${currentMinutes}`);
+  if (
+    date === formattedDate &&
+    minuteNow >= startLesson &&
+    minuteNow <= endLesson
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 function showTT(listD, tables) {
-  title.style.top = '-5px';
-  lessList.innerHTML = '';
+  title.style.top = "-5px";
+  lessList.innerHTML = "";
   const selectedOption = listD.options[listD.selectedIndex];
   const surname = selectedOption.text;
   // Шукаємо розклад вчителя
@@ -217,7 +270,8 @@ function showTT(listD, tables) {
 
   let start = (day.dWeek - 1) * (maxLessons + 1) + 1;
   let fin = start + maxLessons;
-  let s;
+  let s,
+    mark = "";
   // if (true) {
   if (tt[3][start - 1] !== undefined) {
     if (day.chZn == 1) s = tt[3][start - 1]; // + ". Чисельник";
@@ -256,6 +310,12 @@ function showTT(listD, tables) {
 
       let rowKl, rowTeach;
       // console.log(zaminiResKlas);
+      if (lessonIsNow(datePicker.value, lesTime)) {
+        mark = "blink";
+      }
+
+      // lList.clasList.add('blink');
+
       if (filteredArrayKlas.length === 0) {
         rowKl = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`;
       } else {
@@ -276,32 +336,31 @@ function showTT(listD, tables) {
       }
     }
   } else {
-    lessList.innerHTML = '';
-    title.innerText = 'Вихідний';
-
+    lessList.innerHTML = "";
+    title.innerText = "Вихідний";
   }
-  createList(lessList, lList, "li");
-  const hideTimeout = 3000; // Час затримки перед прихованням панелі у мілісекундах
-
+  createList(lessList, lList, "li", (class_ = mark));
+  // Час затримки перед прихованням панелі у мілісекундах
+  const hideTimeout = 3000;
   // Встановити таймер для приховання панелі
-  setTimeout(function() {
-    title.style.top = '-50px'; // Приховати панель зміщенням угору
+  setTimeout(function () {
+    title.style.top = "-50px"; // Приховати панель зміщенням угору
   }, hideTimeout);
 }
 
 teacherList.addEventListener("change", () => {
-  teacherList.style.width = "90%";
-  clasList.style.width = "10%";
+  teacherList.style.width = "75%";
+  clasList.style.width = "15%";
   clasList.value = "Клас";
   showTT(teacherList, ["week1", "week2"]);
 });
+
 clasList.addEventListener("change", () => {
   // Клас по центру
-
-  teacherList.value = "Вчитель";
-  teacherList.style.width = "20%";
-  clasList.style.width = "80%";
+  teacherList.style.width = "15%";
+  clasList.style.width = "75%";
   showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
+  teacherList.value = "Вчитель";
 });
 
 function getInnerListByName(list, surname) {
@@ -346,15 +405,47 @@ let readTT = (s2) => {
   });
 };
 
+function getDayOfWeekUkr(dateString) {
+  // Розділяємо рядок на компоненти дати
+  const dateComponents = dateString.split(".");
+
+  // Створюємо об'єкт Date з компонентами дати
+  const myDate = new Date(
+    `${dateComponents[2]}-${dateComponents[1]}-${dateComponents[0]}`
+  );
+
+  // Отримуємо день тижня українською мовою
+  const options = { weekday: "long" };
+  const dayOfWeekUkr = myDate.toLocaleDateString("uk-UA", options);
+
+  return dayOfWeekUkr;
+}
+
+function capitalizeFirstLetter(inputString) {
+  if (inputString.length === 0) {
+    return inputString; // Перевірка на пустий рядок
+  }
+
+  // Формуємо рядок з першою великою літерою та рештою рядка
+  const resultString =
+    inputString.charAt(0).toUpperCase() + inputString.slice(1);
+
+  return resultString;
+}
+
 const startApp = () => {
+  // showTT(listD, tables);
+
   if (datePicker.value === "") {
     datePicker.value = `${year}-${padNumberWithZero(
       month
     ).slice()}-${padNumberWithZero(date)}`;
   }
 
-  let tNow = teacherList.value; 
-  if (tNow === '') tNow = 'Вчитель...';
+  // title.innerText = capitalizeFirstLetter(getDayOfWeekUkr(datePicker.value));
+
+  let tNow = teacherList.value;
+  if (tNow === "") tNow = "Вчитель...";
   const tList = getFirstNonEmptyElements(getData(glData, "week1")["data"])
     .sort(customCompare)
     .filter((item) => item !== "text");
@@ -362,19 +453,23 @@ const startApp = () => {
   teacherList.value = tNow;
 
   // Читаємо список класів
-  tNow = clasList.value; 
-  if (tNow === '') tNow = 'Клас ...';
+  tNow = clasList.value;
+  if (tNow === "") tNow = "Клас ...";
   const cList = getFirstNonEmptyElements(
     getData(glData, "week1 (clas)")["data"]
   ).filter((item) => item !== "text");
   createList(clasList, cList, "option");
   clasList.value = tNow;
-  
+
   // Визначаємо чисельник чи знаменник для вказаної дати
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
   tZaminList = getData(glData, "missingbook")["data"];
   loader.classList.add("hide-loader");
+  // const hideTimeout = 3000;
+  // setTimeout(function() {
+  //   title.style.top = '-50px'; // Приховати панель зміщенням угору
+  // }, hideTimeout);
 };
 
 function getDataByDate(list, date) {
@@ -403,11 +498,13 @@ function getFirstNonEmptyElements(lists) {
     .filter((element) => element !== undefined);
 }
 
-function createList(node, list, tag) {
+function createList(node, list, tag, class_ = "") {
   if (tag === "option") {
     node.innerHTML = `<${tag} disabled selected hidden>Оберіть</${tag}>`;
   }
-  node.innerHTML += list.map((row) => `<${tag}>${row}</${tag}>`).join("");
+  node.innerHTML += list
+    .map((row) => `<${tag} class="${class_}">${row}</${tag}>`)
+    .join("");
   node.value = "Оберіть";
 }
 
