@@ -62,6 +62,7 @@ const cross = document.querySelector(".cross");
 // const canvas = document.querySelector("#myCanvas");
 const imgAlarm = document.querySelector(".img-alarm");
 const btnBlock = document.querySelector(".btn-block");
+const body = document.querySelector("body");
 
 // Робимо свап
 let startX;
@@ -78,7 +79,7 @@ alarm.addEventListener('click', () => {
   alarm.style.top = "-100%";
 })
 
-main.addEventListener(
+body.addEventListener(
   "touchstart",
   function (e) {
     let touch = e.changedTouches[0];
@@ -88,7 +89,7 @@ main.addEventListener(
   false
 );
 
-main.addEventListener(
+body.addEventListener(
   "touchmove",
   function (e) {
     e.preventDefault(); // Забороняємо прокрутку при руху пальцем
@@ -96,7 +97,7 @@ main.addEventListener(
   false
 );
 
-main.addEventListener(
+body.addEventListener(
   "touchend",
   function (e) {
     let touch = e.changedTouches[0];
@@ -601,8 +602,8 @@ function refresh() {
   setTimeout(function () {
     console.log('Refresh');
     const timestamp = new Date().getTime();
-    const body = "https://ubilling.net.ua/aerialalerts/?map=webp?" + timestamp;
-    btnBlock.style.backgroundImage = `url("${imgSrc}")`;
+    const imgSrc = "https://ubilling.net.ua/aerialalerts/?map=webp?" + timestamp;
+    body.style.backgroundImage = `url("${imgSrc}")`;
     refrScreen();
     refresh();
     mapShow();
