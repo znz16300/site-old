@@ -109,12 +109,12 @@ body {
 
 
 header {
-
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: $bgc;
-
+    padding: 5px;
+    padding-bottom: 10px;
 
     .title {
         // display: none;
