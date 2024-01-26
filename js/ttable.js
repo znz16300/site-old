@@ -643,7 +643,7 @@ function mapShow() {
 
 function mapHide() {
   setTimeout(function () {
-    alarm.style.top = "-100%";
+    alarm.style.top = "-200%";
   }, 5000);  
 }
 
