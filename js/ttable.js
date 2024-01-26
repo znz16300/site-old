@@ -59,7 +59,7 @@ const loader = document.querySelector(".loader");
 const main = document.querySelector("main");
 const alarm = document.querySelector(".alarm");
 const cross = document.querySelector(".cross");
-const canvas = document.querySelector("#myCanvas");
+// const canvas = document.querySelector("#myCanvas");
 const imgAlarm = document.querySelector(".img-alarm");
 
 // Робимо свап
@@ -596,7 +596,7 @@ function customCompare(a, b) {
   return a.length - b.length;
 }
 
-const context = canvas.getContext('2d');
+// const context = canvas.getContext('2d');
 
 function refresh() {
   setTimeout(function () {
@@ -652,15 +652,15 @@ function mapHide() {
 function getPixelColor(img, x, y) {
 
   // Створення canvas для отримання контексту
-  var canvas = document.createElement("canvas");
-  var context = canvas.getContext("2d");
+  // var canvas = document.createElement("canvas");
+  // var context = canvas.getContext("2d");
 
   // Встановлення розмірів canvas в розміри зображення
-  canvas.width = img.width;
-  canvas.height = img.height;
+  // canvas.width = img.width;
+  // canvas.height = img.height;
 
   // Малювання зображення на canvas
-  context.drawImage(img, 0, 0, img.width, img.height);
+  // context.drawImage(img, 0, 0, img.width, img.height);
 
   // Отримання координати пікселя (наприклад, (x, y) = (100, 50))
 
