@@ -190,6 +190,10 @@ main {
                 width: 100vw;
                 padding: 10px;
 
+                .blink {
+                    border: 1px solid red;
+                }
+
                 li {
                     // height: 10%;
                     font-size: 1.6em;
@@ -206,8 +210,11 @@ main {
                         margin-right: 16px;
                         width: 42px;
                         background-color: inherit;
+
                     }
-                    
+                    .blink {
+                        border: none;
+                    }
 
                     .num {
                         margin-right: 16px;
@@ -235,9 +242,7 @@ main {
                         background-color: inherit;
                     }
                 }
-                .blink {
-                    border: 1px solid red;
-                }
+                
 
                 li:hover {
                     background-color: rgb(4, 29, 44);

@@ -312,20 +312,22 @@ function showTT(listD, tables) {
       // console.log(zaminiResKlas);
       if (lessonIsNow(datePicker.value, lesTime)) {
         mark = "blink";
+      } else {
+        mark = "";
       }
 
       // lList.clasList.add('blink');
 
       if (filteredArrayKlas.length === 0) {
-        rowKl = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`;
+        rowKl = `<div class="time ${mark}">${lesTime}</div> <div class="num">${numDot}</div> <div class="subj">${subj}</div>`;
       } else {
-        rowKl = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="subj zamina">${filteredArrayKlas[0][8]} / ${filteredArrayKlas[0][6]}</div>`;
+        rowKl = `<div class="time ${mark}">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="subj zamina">${filteredArrayKlas[0][8]} / ${filteredArrayKlas[0][6]}</div>`;
       }
 
       if (filteredArray.length === 0) {
-        rowTeach = `<div class="time">${lesTime}</div> <div class="num">${numDot}</div> <div class="klas">${klas}</div><div class="subj">${subj}</div>`;
+        rowTeach = `<div class="time ${mark}">${lesTime}</div> <div class="num">${numDot}</div> <div class="klas">${klas}</div><div class="subj">${subj}</div>`;
       } else {
-        rowTeach = `<div class="time">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="klas zamina">${filteredArray[0][5]}</div><div class="subj zamina">${filteredArray[0][8]}</div>`;
+        rowTeach = `<div class="time ${mark}">${lesTime}</div> <div class="num zamina">${numDot}</div> <div class="klas zamina">${filteredArray[0][5]}</div><div class="subj zamina">${filteredArray[0][8]}</div>`;
       }
 
       if (tables[0].length > 5)
@@ -339,7 +341,7 @@ function showTT(listD, tables) {
     lessList.innerHTML = "";
     title.innerText = "Вихідний";
   }
-  createList(lessList, lList, "li", (class_ = mark));
+  createListLessons(lessList, lList, "li");
   // Час затримки перед прихованням панелі у мілісекундах
   const hideTimeout = 3000;
   // Встановити таймер для приховання панелі
@@ -498,7 +500,7 @@ function getFirstNonEmptyElements(lists) {
     .filter((element) => element !== undefined);
 }
 
-function createList(node, list, tag, class_ = "") {
+function createList(node, list, tag, class_="") {
   if (tag === "option") {
     node.innerHTML = `<${tag} disabled selected hidden>Оберіть</${tag}>`;
   }
@@ -507,6 +509,20 @@ function createList(node, list, tag, class_ = "") {
     .join("");
   node.value = "Оберіть";
 }
+
+function createListLessons(node, list, tag, class_="") {
+  let s = '';
+  node.innerHTML += list
+    .map((row) => {
+      const elementClass = class_ ? ` ${class_}` : ''; // Якщо class_ не порожній, додаємо його до класу
+      const blinkClass = row.includes('blink') ? ' blink' : ''; // Додаємо клас blink, якщо 'blink' знаходиться в тексті
+
+      return `<${tag} class="${elementClass}${blinkClass}">${row}</${tag}>`;
+    })
+    .join("");
+  node.value = "Оберіть";
+}
+
 
 // async function loadDataFromJsonFile() {
 //   try {
