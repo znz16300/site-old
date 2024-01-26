@@ -61,6 +61,7 @@ const alarm = document.querySelector(".alarm");
 const cross = document.querySelector(".cross");
 // const canvas = document.querySelector("#myCanvas");
 const imgAlarm = document.querySelector(".img-alarm");
+const btnBlock = document.querySelector(".btn-block");
 
 // Робимо свап
 let startX;
@@ -364,16 +365,16 @@ function showTT(listD, tables) {
 }
 
 teacherList.addEventListener("change", () => {
-  teacherList.style.width = "75%";
-  clasList.style.width = "15%";
+  // teacherList.style.width = "75%";
+  // clasList.style.width = "15%";
   clasList.value = "Клас";
   showTT(teacherList, ["week1", "week2"]);
 });
 
 clasList.addEventListener("change", () => {
   // Клас по центру
-  teacherList.style.width = "15%";
-  clasList.style.width = "75%";
+  // teacherList.style.width = "15%";
+  // clasList.style.width = "75%";
   showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
   teacherList.value = "Вчитель";
 });
@@ -596,40 +597,12 @@ function customCompare(a, b) {
   return a.length - b.length;
 }
 
-// const context = canvas.getContext('2d');
-
 function refresh() {
   setTimeout(function () {
     console.log('Refresh');
-    // alarm.style.top = "50%";
-    // alarm.innerHTML = `
-    // <img 
-    //     id="alarm-map" 
-    //     " 
-    //     src="https://ubilling.net.ua/aerialalerts/?map=webp">
-    //     <div class="cross">&#10005;</div>
-    // `;
     const timestamp = new Date().getTime();
-    imgAlarm.src = "https://ubilling.net.ua/aerialalerts/?map=webp?" + timestamp;
-
-
-    // imgAlarm.onload = function() {
-    //   var x = 100;
-    //   var y = 50;
-    //   getPixelColor(imgAlarm, 145, 90);
-  // };
-
-    // loadAlarm();
-    // const context = canvas.getContext('2d');
-    // const img = document.querySelector('#alarm-map')
-    // img.onload = function() {
-    //   // Завантаження малюнка з тега <img> в канвас
-    //   context.drawImage(img, 0, 0, canvas.width, canvas.height);
-    //   // Отримання кольору пікселя
-    //   const pixelColor = getPixelColor(370, 173);
-    //   console.log('Color of the pixel at (370, 173):', pixelColor);
-    
-    // };
+    const body = "https://ubilling.net.ua/aerialalerts/?map=webp?" + timestamp;
+    btnBlock.style.backgroundImage = `url("${imgSrc}")`;
     refrScreen();
     refresh();
     mapShow();
@@ -647,32 +620,6 @@ function mapHide() {
   }, 5000);  
 }
 
-
-
-function getPixelColor(img, x, y) {
-
-  // Створення canvas для отримання контексту
-  // var canvas = document.createElement("canvas");
-  // var context = canvas.getContext("2d");
-
-  // Встановлення розмірів canvas в розміри зображення
-  // canvas.width = img.width;
-  // canvas.height = img.height;
-
-  // Малювання зображення на canvas
-  // context.drawImage(img, 0, 0, img.width, img.height);
-
-  // Отримання координати пікселя (наприклад, (x, y) = (100, 50))
-
-  // Отримання даних пікселя на заданих координатах
-  var pixelData = context.getImageData(x, y, 1, 1).data;
-
-  // Отримання кольору у форматі RGBA
-  var color = "rgba(" + pixelData[0] + ", " + pixelData[1] + ", " + pixelData[2] + ", " + (pixelData[3] / 255) + ")";
-
-  // Виведення кольору в консоль або кудись інде
-  console.log("Color at (" + x + ", " + y + "): " + color);
-}
 
 loadDataFromJsonFile();
 readTT();

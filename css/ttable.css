@@ -1,6 +1,5 @@
 @charset "UTF-8";
 * {
-  background-color: #202023;
   color: #fff;
   padding: 0;
   margin: 0;
@@ -9,6 +8,7 @@
 
 select {
   border: none;
+  background-color: rgba(32, 32, 32, 0.9);
 }
 
 select:focus {
@@ -16,7 +16,7 @@ select:focus {
 }
 
 select:hover {
-  background-color: rgb(4, 29, 44);
+  background-color: rgba(32, 32, 32, 0.9);
 }
 
 li {
@@ -24,10 +24,16 @@ li {
 }
 
 body {
-  padding: 10px;
+  background-color: rgba(32, 32, 32, 0.9);
+  padding: 20px;
   font-size: 14px;
   max-width: 600px;
   margin: 0 auto;
+  height: 90vh;
+  background-image: url("https://ubilling.net.ua/aerialalerts/?map=webp");
+  background-size: 90%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 body .hide-loader {
   display: none;
@@ -37,7 +43,8 @@ body .loader {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 8px solid #3498db; /* Колір обводки */
+  border: 8px solid #3498db;
+  /* Колір обводки */
   border-top: 8px solid transparent;
   border-radius: 50%;
   width: 50px;
@@ -53,10 +60,11 @@ body .loader {
   }
 }
 body .alarm {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0); /* напівпрозорий чорний фон */
+  background: rgba(0, 0, 0, 0);
+  /* напівпрозорий чорний фон */
   position: fixed;
   width: 70%;
   max-width: 600px;
@@ -86,6 +94,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(32, 32, 32, 0.9);
 }
 header .title {
   position: fixed;
@@ -102,18 +111,18 @@ header .date {
   display: flex;
   justify-content: space-around;
   gap: 10px;
-  max-width: 600px;
+  background-color: rgba(32, 32, 32, 0.9);
 }
 header .date input[type=date]::-webkit-calendar-picker-indicator {
   display: none;
 }
 header .date .date_block {
-  width: 90vw;
   height: 10%;
   font-size: 1.6em;
   height: 50px;
   text-align: center;
   border: none;
+  background-color: rgba(32, 32, 32, 0.9);
 }
 header .date .date_block:focus {
   outline: none;
@@ -123,17 +132,16 @@ header .date button {
   height: 50px;
   font-size: 1.6em;
   border: none;
-  background-color: inherit;
+  background-color: rgba(32, 32, 32, 0.9);
 }
 header .date:hover {
   background-color: rgb(4, 29, 44);
 }
 header .main-sel {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 header .main-sel .sel-block {
-  width: 100%;
   margin-top: 16px;
   display: flex;
   justify-content: space-between;
@@ -144,16 +152,22 @@ header .main-sel .sel-block .sel-item {
   text-align: center;
   padding: 5px;
   border: none;
-  background-color: rgba(68, 68, 68, 0.2666666667);
-  overflow: visible;
+  background-color: inherit;
+  width: 70%;
+}
+header .main-sel .sel-block .sel-item:focus {
+  background-color: rgba(32, 32, 32, 0.9);
 }
 header .main-sel .sel-block .gray {
   color: rgb(188, 240, 140);
 }
 header .main-sel .sel-block .sel-item:nth-child(even) {
-  background-color: rgba(68, 68, 68, 0.2666666667);
+  width: 20%;
 }
 
+main {
+  margin-top: 16px;
+}
 main .btn-block {
   display: flex;
   justify-content: center;
@@ -161,11 +175,11 @@ main .btn-block {
   gap: 10px;
 }
 main .btn-block .screen {
-  width: 500px;
-  height: 80vh;
+  width: 95%;
   display: flex;
   justify-content: center;
-  background-color: unset;
+  background-color: rgba(32, 32, 32, 0.9);
+  padding: 16px;
 }
 main .btn-block .screen .less-item {
   width: 100vw;

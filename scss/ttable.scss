@@ -1,15 +1,20 @@
+$bgc: rgba(32, 32, 32, 0.9);
+
 * {
-    background-color: #202023;
+    // background-color: $bgc;
     color: #fff;
     padding: 0;
     margin: 0;
     border-radius: 5px;
 }
+
 $bgc2: unset;
 $bgc3: #4444;
+
 // $bgc2: #31313a;
 select {
     border: none;
+    background-color: $bgc;
 }
 
 select:focus {
@@ -17,7 +22,7 @@ select:focus {
 }
 
 select:hover {
-    background-color: rgb(4, 29, 44);
+    background-color: $bgc;
 }
 
 li {
@@ -25,38 +30,53 @@ li {
 }
 
 body {
-    padding: 10px;
+    background-color: $bgc;
+    padding: 20px;
     font-size: 14px;
     max-width: 600px;
     margin: 0 auto;
+    height: 90vh;
+    background-image: url('https://ubilling.net.ua/aerialalerts/?map=webp');
+        background-size: 90%;
+        background-position: center bottom;
+        background-repeat: no-repeat;
 
     .hide-loader {
         display: none;
     }
-    
+
     .loader {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 8px solid #3498db; /* Колір обводки */
+        border: 8px solid #3498db;
+        /* Колір обводки */
         border-top: 8px solid transparent;
         border-radius: 50%;
         width: 50px;
         height: 50px;
         animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      .alarm {
-        display: flex;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .alarm {
+        display: none;
+        // display: flex;
         align-items: center;
         justify-content: center;
         // height: 100%;
-        background: rgba(0, 0, 0, 0.0); /* напівпрозорий чорний фон */
+        background: rgba(0, 0, 0, 0.0);
+        /* напівпрозорий чорний фон */
         position: fixed;
         width: 70%;
         // height: 50%;
@@ -65,13 +85,14 @@ body {
         left: 50%;
         transform: translate(-50%, -50%);
         transition: top 1.0s ease-in-out;
+
         .img-alarm {
-            width: 100%; 
-            height: auto; 
+            width: 100%;
+            height: auto;
             display: block;
             --webkit-user-select: none;
             margin: auto;
-            cursor: zoom-in;        
+            cursor: zoom-in;
             transition: background-color 300ms;
         }
 
@@ -83,18 +104,18 @@ body {
             cursor: pointer;
         }
 
-      }
+    }
 }
 
 
 header {
-    // position: fixed;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    // width: 100vw;
-    // margin-top: 10px;
-    // gap: -5px;
+    background-color: $bgc;
+
+
     .title {
         // display: none;
         position: fixed;
@@ -106,34 +127,33 @@ header {
         background-color: #666;
         padding: 5px 50px 0 50px;
         width: 30%;
-        transition: top 0.3s ease-in-out; 
-     
-        
+        transition: top 0.3s ease-in-out;
+
+
     }
-    
+
     .date {
         display: flex;
         justify-content: space-around;
         gap: 10px;
-        // margin-top: 16px;
-        max-width: 600px;
-        // background-color: $bgc3;
-        
+        background-color: $bgc;
+
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
-          }
+        }
 
 
         .date_block {
-            width: 90vw;
+            // width: 90vw;
             height: 10%;
             font-size: 1.6em;
             height: 50px;
             text-align: center;
             border: none;
-            // background-color: inherit;
-            
+            background-color: $bgc;
+
         }
+
         .date_block:focus {
             outline: none;
         }
@@ -143,41 +163,40 @@ header {
             height: 50px;
             font-size: 1.6em;
             border: none;
-            background-color: inherit;
+            background-color: $bgc;
         }
 
     }
+
     .date:hover {
         background-color: rgb(4, 29, 44);
     }
 
     .main-sel {
         display: flex;
-        justify-content: center;
-
-        // background-color: #fff;
-
+        justify-content: space-between;
 
         .sel-block {
-            width: 100%;
+            // width: 90%;
             margin-top: 16px;
             display: flex;
-            // flex-direction: column;
             justify-content: space-between;
-
-            // width: 265p;
             gap: 24px;
 
             .sel-item {
-                // width: 100%;
-                // height: 3rem;
+
                 font-size: 1.5rem;
                 text-align: center;
                 padding: 5px;
                 border: none;
-                background-color: $bgc3;
-                overflow: visible;
+                background-color: inherit;
+                // overflow: visible;
+                width: 70%;
 
+            }
+
+            .sel-item:focus {
+                background-color: $bgc;
             }
 
             .gray {
@@ -185,8 +204,8 @@ header {
             }
 
             .sel-item:nth-child(even) {
-                // width: 50%;
-                background-color: $bgc3;     
+                width: 20%;
+
 
             }
 
@@ -198,25 +217,24 @@ header {
 }
 
 main {
-    // margin-top: -8px;
+    margin-top: 16px;
 
     .btn-block {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10px;
-        // margin-top: 8px;
+        
 
 
         .screen {
-            width: 500px;
-            height: 80vh;
+            // width: 500px;
+            width: 95%;
+            // height: 80vh;
             display: flex;
             justify-content: center;
-            background-color: $bgc2;
-
-
-
+            background-color: $bgc;
+            padding: 16px;
 
             .less-item {
 
@@ -236,7 +254,6 @@ main {
                     display: flex;
                     justify-content: flex-start;
 
-                    // background-color: rgb(153, 206, 54);
                     .time {
                         font-size: 1.2rem;
                         color: green;
@@ -245,6 +262,7 @@ main {
                         background-color: inherit;
 
                     }
+
                     .blink {
                         border: none;
                     }
@@ -275,7 +293,7 @@ main {
                         background-color: inherit;
                     }
                 }
-                
+
 
                 li:hover {
                     background-color: rgb(4, 29, 44);
@@ -290,58 +308,44 @@ main {
     body {
         header {
 
-            .title {
+            .title {}
 
-            }
-            
             .date {
 
                 background-color: $bgc3;
-                input[type="date"]::-webkit-calendar-picker-indicator {
 
-                  }
-        
-        
-                .date_block {
+                input[type="date"]::-webkit-calendar-picker-indicator {}
 
-                }
-                .date_block:focus {
 
-                }
-        
+                .date_block {}
+
+                .date_block:focus {}
+
                 button {
                     display: none;
                 }
-        
-            }
-            .date:hover {
 
             }
-        
+
+            .date:hover {}
+
             .main-sel {
 
-        
+
                 .sel-block {
 
-        
-                    .sel-item {
-        
-                    }
-        
-                    .gray {
 
-                    }
-        
-                    .sel-item:nth-child(even) {
- 
-        
-                    }
-        
-        
+                    .sel-item {}
+
+                    .gray {}
+
+                    .sel-item:nth-child(even) {}
+
+
                 }
             }
-        
-        
+
+
         }
     }
-  }
+}
