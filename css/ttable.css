@@ -32,10 +32,6 @@ body {
 body .hide-loader {
   display: none;
 }
-body #myCanvas {
-  position: fixed;
-  top: -100%;
-}
 body .loader {
   position: fixed;
   top: 50%;
@@ -63,7 +59,7 @@ body .alarm {
   height: 100%;
   background: rgba(0, 0, 0, 0); /* напівпрозорий чорний фон */
   position: fixed;
-  width: 50%;
+  width: 100%;
   height: 50%;
   max-width: 600px;
   top: 50%;
