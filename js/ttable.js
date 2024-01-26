@@ -73,6 +73,10 @@ cross.addEventListener('click', () => {
   alarm.style.top = "-100%";
 })
 
+alarm.addEventListener('click', () => {
+  alarm.style.top = "-100%";
+})
+
 main.addEventListener(
   "touchstart",
   function (e) {
@@ -532,32 +536,6 @@ function createListLessons(node, list, tag, class_="") {
   node.value = "Оберіть";
 }
 
-
-// async function loadDataFromJsonFile() {
-//   try {
-//       // Задайте шлях до вашого JSON файлу
-//       const jsonFilePath = './js/ttable.json';
-
-//       // Використовуйте fetch для завантаження даних з JSON файлу
-//       const response = await fetch(jsonFilePath);
-
-//       if (!response.ok) {
-//           throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
-
-//       // Отримайте об'єкт з JSON даних
-//       glData = await response.json();
-//       console.log('Отримано дані:', jsonObject);
-//       startApp();
-//       // Тепер ви можете використовувати отриманий об'єкт
-//       console.log('Отримано дані:', jsonObject);
-
-//       // Ваш код обробки даних тут
-
-//   } catch (error) {
-//       console.error('Помилка при завантаженні даних:', error.message);
-//   }
-// }
 let alarmData;
 
 const loadAlarm = () => {
