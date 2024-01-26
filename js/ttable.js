@@ -57,6 +57,10 @@ const btnLeft = document.querySelector(".btn-left");
 const btnRight = document.querySelector(".btn-right");
 const loader = document.querySelector(".loader");
 const main = document.querySelector("main");
+const alarm = document.querySelector(".alarm");
+const cross = document.querySelector(".cross");
+const canvas = document.querySelector("#myCanvas");
+const imgAlarm = document.querySelector(".img-alarm");
 
 // Робимо свап
 let startX;
@@ -64,6 +68,10 @@ let startY;
 let distX;
 let distY;
 let threshold = 50;
+
+cross.addEventListener('click', () => {
+  alarm.style.top = "-100%";
+})
 
 main.addEventListener(
   "touchstart",
@@ -125,22 +133,23 @@ function shiftDate(dateInput, step) {
   dateInput.value = previousDate;
 }
 
-const btnLeftClick = () => {
-  shiftDate(datePicker, 1);
+function refrScreen() {
   const tWD = getData(glData, "workdays")["data"];
   day = getDataByDate(tWD, datePicker.value);
   if (teacherList.value !== "") showTT(teacherList, ["week1", "week2"]);
   else showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
+}
+
+const btnLeftClick = () => {
+  shiftDate(datePicker, 1);
+  refrScreen();
 };
 
 btnLeft.addEventListener("click", btnLeftClick);
 
 const btnRightClick = () => {
   shiftDate(datePicker, -1);
-  const tWD = getData(glData, "workdays")["data"];
-  day = getDataByDate(tWD, datePicker.value);
-  if (teacherList.value !== "") showTT(teacherList, ["week1", "week2"]);
-  else showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
+  refrScreen();
 };
 
 btnRight.addEventListener("click", btnRightClick);
@@ -236,7 +245,6 @@ function lessonIsNow(date, time) {
   ) {
     return true;
   }
-
   return false;
 }
 
@@ -244,6 +252,7 @@ function showTT(listD, tables) {
   title.style.top = "-5px";
   lessList.innerHTML = "";
   const selectedOption = listD.options[listD.selectedIndex];
+  if (selectedOption === undefined) return;
   const surname = selectedOption.text;
   // Шукаємо розклад вчителя
   // console.log(surname);
@@ -404,6 +413,8 @@ let readTT = (s2) => {
     console.log("Завантажено з сервера");
     glData = data;
     startApp();
+    refresh();
+    mapHide();
   });
 };
 
@@ -468,10 +479,8 @@ const startApp = () => {
   day = getDataByDate(tWD, datePicker.value);
   tZaminList = getData(glData, "missingbook")["data"];
   loader.classList.add("hide-loader");
-  // const hideTimeout = 3000;
-  // setTimeout(function() {
-  //   title.style.top = '-50px'; // Приховати панель зміщенням угору
-  // }, hideTimeout);
+
+
 };
 
 function getDataByDate(list, date) {
@@ -549,7 +558,28 @@ function createListLessons(node, list, tag, class_="") {
 //       console.error('Помилка при завантаженні даних:', error.message);
 //   }
 // }
+let alarmData;
 
+const loadAlarm = () => {
+  const url = 'https://ubilling.net.ua/aerialalerts/?source=dunai';
+  // const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  fetch(url)
+
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alarmData = data;
+      console.log(alarmData);
+
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+};
 const loadDataFromJsonFile = () => {
   fetch("./js/ttable.json")
     .then((response) => {
@@ -588,8 +618,88 @@ function customCompare(a, b) {
   return a.length - b.length;
 }
 
-loadDataFromJsonFile();
+const context = canvas.getContext('2d');
 
+function refresh() {
+  setTimeout(function () {
+    console.log('Refresh');
+    // alarm.style.top = "50%";
+    // alarm.innerHTML = `
+    // <img 
+    //     id="alarm-map" 
+    //     " 
+    //     src="https://ubilling.net.ua/aerialalerts/?map=webp">
+    //     <div class="cross">&#10005;</div>
+    // `;
+    const timestamp = new Date().getTime();
+    imgAlarm.src = "https://ubilling.net.ua/aerialalerts/?map=webp?" + timestamp;
+
+
+    // imgAlarm.onload = function() {
+    //   var x = 100;
+    //   var y = 50;
+    //   getPixelColor(imgAlarm, 145, 90);
+  // };
+
+    // loadAlarm();
+    // const context = canvas.getContext('2d');
+    // const img = document.querySelector('#alarm-map')
+    // img.onload = function() {
+    //   // Завантаження малюнка з тега <img> в канвас
+    //   context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    //   // Отримання кольору пікселя
+    //   const pixelColor = getPixelColor(370, 173);
+    //   console.log('Color of the pixel at (370, 173):', pixelColor);
+    
+    // };
+    refrScreen();
+    refresh();
+    mapShow();
+  }, 30000);
+}
+
+function mapShow() {
+  alarm.style.top = "50%";
+  mapHide();
+}
+
+function mapHide() {
+  setTimeout(function () {
+    alarm.style.top = "-100%";
+  }, 5000);  
+}
+
+
+
+function getPixelColor(img, x, y) {
+
+  // Створення canvas для отримання контексту
+  var canvas = document.createElement("canvas");
+  var context = canvas.getContext("2d");
+
+  // Встановлення розмірів canvas в розміри зображення
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  // Малювання зображення на canvas
+  context.drawImage(img, 0, 0, img.width, img.height);
+
+  // Отримання координати пікселя (наприклад, (x, y) = (100, 50))
+
+  // Отримання даних пікселя на заданих координатах
+  var pixelData = context.getImageData(x, y, 1, 1).data;
+
+  // Отримання кольору у форматі RGBA
+  var color = "rgba(" + pixelData[0] + ", " + pixelData[1] + ", " + pixelData[2] + ", " + (pixelData[3] / 255) + ")";
+
+  // Виведення кольору в консоль або кудись інде
+  console.log("Color at (" + x + ", " + y + "): " + color);
+}
+
+loadDataFromJsonFile();
 readTT();
 
+
+
 // http://127.0.0.1:5509/ttable.html?id=1obSD_Q_w6ZXVAfMmJyXsGkf12VqDWjdhLDwARsd9Ujk
+// https://wiki.ubilling.net.ua/doku.php?id=aerialalertsapi
