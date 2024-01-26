@@ -32,6 +32,10 @@ body {
 body .hide-loader {
   display: none;
 }
+body #myCanvas {
+  position: fixed;
+  top: -100%;
+}
 body .loader {
   position: fixed;
   top: 50%;
@@ -51,6 +55,36 @@ body .loader {
   100% {
     transform: rotate(360deg);
   }
+}
+body .alarm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: rgba(0, 0, 0, 0); /* напівпрозорий чорний фон */
+  position: fixed;
+  width: 50vw;
+  height: 50vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: top 1s ease-in-out;
+}
+body .alarm .img-alarm {
+  width: 100%;
+  height: auto;
+  display: block;
+  --webkit-user-select: none;
+  margin: auto;
+  cursor: zoom-in;
+  transition: background-color 300ms;
+}
+body .alarm .cross {
+  position: absolute;
+  right: 0;
+  top: 32px;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 header {
