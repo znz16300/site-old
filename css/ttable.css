@@ -31,7 +31,7 @@ body {
   height: 110vh;
   background-image: url("https://ubilling.net.ua/aerialalerts/?map=webp");
   background-size: 80%;
-  background-position: center bottom;
+  background-position: center center;
   background-repeat: no-repeat;
 }
 body .hide-loader {
@@ -88,8 +88,7 @@ body .alarm .cross {
   font-size: 2rem;
   cursor: pointer;
 }
-
-header {
+body header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,7 +96,7 @@ header {
   padding: 5px;
   padding-bottom: 10px;
 }
-header .title {
+body header .title {
   position: fixed;
   z-index: 100;
   top: -50%;
@@ -108,48 +107,48 @@ header .title {
   width: 30%;
   transition: top 0.3s ease-in-out;
 }
-header .date {
+body header .date {
   display: flex;
   justify-content: space-around;
   gap: 10px;
 }
-header .date input[type=date]::-webkit-calendar-picker-indicator {
+body header .date input[type=date]::-webkit-calendar-picker-indicator {
   display: none;
 }
-header .date input[type=date] {
+body header .date input[type=date] {
   background-color: unset;
 }
-header .date .date_block {
+body header .date .date_block {
   height: 10%;
   font-size: 1.6em;
   height: 50px;
   text-align: center;
   border: none;
 }
-header .date .date_block:focus {
+body header .date .date_block:focus {
   outline: none;
 }
-header .date button {
+body header .date button {
   width: 70px;
   height: 50px;
   font-size: 1.6em;
   border: none;
-  background-color: rgba(32, 32, 32, 0.9);
+  background-color: inherit;
 }
-header .date:hover {
+body header .date:hover {
   background-color: rgb(4, 29, 44);
 }
-header .main-sel {
+body header .main-sel {
   display: flex;
   justify-content: space-between;
 }
-header .main-sel .sel-block {
+body header .main-sel .sel-block {
   margin-top: 16px;
   display: flex;
   justify-content: space-between;
   gap: 24px;
 }
-header .main-sel .sel-block .sel-item {
+body header .main-sel .sel-block .sel-item {
   font-size: 1.5rem;
   text-align: center;
   padding: 5px;
@@ -157,26 +156,25 @@ header .main-sel .sel-block .sel-item {
   background-color: inherit;
   width: 70%;
 }
-header .main-sel .sel-block .sel-item:focus {
+body header .main-sel .sel-block .sel-item:focus {
   background-color: rgba(32, 32, 32, 0.9);
 }
-header .main-sel .sel-block .gray {
+body header .main-sel .sel-block .gray {
   color: rgb(188, 240, 140);
 }
-header .main-sel .sel-block .sel-item:nth-child(even) {
+body header .main-sel .sel-block .sel-item:nth-child(even) {
   width: 20%;
 }
-
-main {
+body main {
   margin-top: 16px;
 }
-main .btn-block {
+body main .btn-block {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
-main .btn-block .screen {
+body main .btn-block .screen {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -184,14 +182,14 @@ main .btn-block .screen {
   padding: 16px;
   overflow: auto;
 }
-main .btn-block .screen .less-item {
+body main .btn-block .screen .less-item {
   width: 100vw;
   padding: 10px;
 }
-main .btn-block .screen .less-item .blink {
+body main .btn-block .screen .less-item .blink {
   border: 1px solid red;
 }
-main .btn-block .screen .less-item li {
+body main .btn-block .screen .less-item li {
   font-size: 1.6em;
   border-radius: 0;
   padding: 10px;
@@ -199,39 +197,39 @@ main .btn-block .screen .less-item li {
   justify-content: flex-start;
   word-break: break-all;
 }
-main .btn-block .screen .less-item li .time {
+body main .btn-block .screen .less-item li .time {
   font-size: 1.2rem;
   color: green;
   margin-right: 16px;
   min-width: 10%;
   background-color: inherit;
 }
-main .btn-block .screen .less-item li .blink {
+body main .btn-block .screen .less-item li .blink {
   border: none;
 }
-main .btn-block .screen .less-item li .num {
+body main .btn-block .screen .less-item li .num {
   margin-right: 16px;
   width: 24px;
   background-color: inherit;
 }
-main .btn-block .screen .less-item li .klas {
+body main .btn-block .screen .less-item li .klas {
   margin-left: 16px;
   color: #90f0a8;
   min-width: 100px;
   background-color: inherit;
 }
-main .btn-block .screen .less-item li .subj {
+body main .btn-block .screen .less-item li .subj {
   margin-left: 16px;
   color: #9090f0;
   min-width: 160px;
   background-color: inherit;
 }
-main .btn-block .screen .less-item li .zamina {
+body main .btn-block .screen .less-item li .zamina {
   width: 600;
   color: red;
   background-color: inherit;
 }
-main .btn-block .screen .less-item li:hover {
+body main .btn-block .screen .less-item li:hover {
   background-color: rgb(4, 29, 44);
   cursor: pointer;
 }
@@ -241,6 +239,7 @@ main .btn-block .screen .less-item li:hover {
     height: 70vh;
     padding: 0px;
     margin: 0;
+    background-position: center bottom;
   }
   body header {
     background-color: unset;
