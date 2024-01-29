@@ -131,10 +131,10 @@ body {
     }
 
     .date {
-        display: flex;
-        justify-content: space-around;
+        display: flex;        
         gap: 10px;
-        // background-color: $bgc;
+        justify-content: space-between;
+        width: 100%;
 
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
@@ -178,6 +178,7 @@ body {
     .main-sel {
         display: flex;
         justify-content: space-between;
+        width: 100%;
 
         .sel-block {
             // width: 90%;
@@ -321,8 +322,9 @@ main {
             .title {}
 
             .date {
-
+                justify-content: center;
                 background-color: unset;
+                width: unset;
 
                 input[type="date"]::-webkit-calendar-picker-indicator {
                     background-color: unset;
