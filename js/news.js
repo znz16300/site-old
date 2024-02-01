@@ -329,14 +329,63 @@ function flattenArray(nestedArray) {
   }, []);
 }
 
+function mergeArrays(arrays) {
+  // Створюємо пустий масив для результатів
+  let mergedArray = [];
+
+  // Цикл для кожного масиву в основному масиві
+  arrays.forEach((array) => {
+    // Перевіряємо, чи є елементи в масиві
+    if (array.feed && array.feed.entry && Array.isArray(array.feed.entry)) {
+      // Додаємо кожен елемент з поточного масиву до об'єднаного масиву
+      mergedArray = mergedArray.concat(array.feed.entry);
+    }
+  });
+
+  // Створюємо новий об'єкт з результатом
+  const result = { feed: { entry: mergedArray } };
+
+  return result;
+}
+
+// const compareDates = (a, b) => {
+//   const dateA = new Date(a[COL_DATE_DOCUM].split('.').reverse().join('-'));
+//   const dateB = new Date(b[COL_DATE_DOCUM].split('.').reverse().join('-'));
+//   return dateA - dateB;
+// };
+
+function sortByDateTime(array) {
+  // Визначаємо функцію порівняння для сортування
+  const compareDates = (a, b) => {
+    // Розбиваємо текстові значення на компоненти
+    const componentsA = a.gsx$позначкачасу.$t.split(/[. :]/);
+    const componentsB = b.gsx$позначкачасу.$t.split(/[. :]/);
+  
+    // Створюємо об'єкти Date за розбитими компонентами
+    const dateA = new Date(componentsA[2], componentsA[1] - 1, componentsA[0], componentsA[3], componentsA[4], componentsA[5]);
+    const dateB = new Date(componentsB[2], componentsB[1] - 1, componentsB[0], componentsB[3], componentsB[4], componentsB[5]);
+  
+    // Порівнюємо дати у порядку зростання
+    return dateA - dateB;
+  };
+  
+
+  // Сортуємо масив за допомогою визначеної функції порівняння
+  array.sort(compareDates);
+  return array;
+}
+
 // Функція для обробки результатів
 function processResults() {
   console.log("Обробка результатів:", resultsArray);
-  const mergedArray = [].concat(...resultsArray);
-  // const mergedArray = flattenArray(resultsArray);
+  const mergedArray = mergeArrays(resultsArray);
+  console.log("mergedArray:", mergedArray);
+  const sortedArray = sortByDateTime(mergedArray.feed.entry);
+  console.log("sortedArray:", sortedArray);
+
   let id = 0
-  for (let table of mergedArray) {
-    data = table["feed"]["entry"];
+  if (true) {
+    data = sortedArray;
     for (let i = 0; i < data.length; i++) {
       if (data[i]["gsx$названовини"]["$t"] === 'Назва новини') continue;
       if (
