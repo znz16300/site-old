@@ -5,6 +5,7 @@ let sheet2 = "2";
 let sheetDate = "3";
 let rowEdit = undefined;
 let teachNum = undefined;
+// const server = "http://127.0.0.1:5000/";
 const server = "https://schooltools.pythonanywhere.com/";
 // const server = 'https://zelenskiy.pythonanywhere.com/';
 
@@ -51,6 +52,9 @@ const pz_button = document.getElementById("pz_button_id");
 const idmisstable = document.getElementById("idmisstable");
 const idmisstable0 = document.getElementById("idmisstable0");
 const reset_btn = document.getElementById("reset_btn_id");
+const create_pz_ajax = document.getElementById("create-pz-ajax");
+const link = document.querySelector(".link");
+const loader = document.querySelector(".loader");
 
 reset_btn.addEventListener("click", () => {
   let cnf = confirm(`Вилучити ключ таблиці?`);
@@ -61,13 +65,52 @@ reset_btn.addEventListener("click", () => {
   }
 });
 
+
+
+create_pz_ajax.addEventListener("click", (e) => {
+  url = server + 'pz/';
+  let data = {};
+  data["date_start"] = date_pz_start.value;
+  data["date_finish"] = date_pz_finish.value;
+  data["idmisstable"] = keyZamini;
+  data["namesheetmisstable"] = idSheetMissTable;
+  const options = {
+    method: 'POST', // Вказуємо метод POST
+    headers: {
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify(data)
+  };
+  loader.classList.remove('hide-loader');
+  fetch(url, options)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Помилка в запиті для ${url}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    // Додавання результату до глобального масиву
+    console.log(data);
+    link.innerHTML += `
+      <p><a href="${data['link']}" target="_blank">Таблиця</a></p>
+    `;
+    loader.classList.add('hide-loader');
+  })
+  .catch((error) => {
+    console.error(`Помилка виконання запиту для ${url}`, error);
+    loader.classList.add('hide-loader');
+  });
+
+  saveSettings();
+});
+
 pz_button.addEventListener("click", (e) => {
   let data = {};
   data["date_start"] = date_pz_start.value;
   data["date_finish"] = date_pz_finish.value;
   data["idmisstable"] = keyZamini;
   data["namesheetmisstable"] = idSheetMissTable;
-
   saveSettings();
 });
 
@@ -384,6 +427,7 @@ let readPage_this = () => {
   request.open("GET", url, true);
   request.onload = function () {
     if (request.status >= 200 && request.status < 400) {
+      loader.classList.add('hide-loader');
       data = JSON.parse(request.responseText);
       timeTable[1] = data["feed"]["entry"];
       console.log(timeTable[1]);

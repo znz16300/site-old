@@ -2,6 +2,8 @@ var d1 = "";
 let sheet2 = "default";
 let shName = "Відповіді форми (1)";
 let title_st = "";
+// const server = "http://127.0.0.1:5000/getpage/";
+const server = "https://schooltools.pythonanywhere.com/getpage/";
 
 
 const title = document.getElementById("title__id");
@@ -52,7 +54,7 @@ function readPage(key) {
   //   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
   shName = "Аркуш1";
   let url =
-    "https://schooltools.pythonanywhere.com/getpage/" + key + "/" + shName;
+    server + key + "/" + shName;
   //  let url = 'https://zelenskiy.pythonanywhere.com/getpage/'+key+'/'+shName;
   //  let url = 'http://127.0.0.1:5000/getpage/'+key+'/'+shName;
   //let url = 'http://zelenskiy.pythonanywhere.com/getblock/'+key+'/'+shName;
