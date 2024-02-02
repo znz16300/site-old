@@ -63,6 +63,7 @@ const cross = document.querySelector(".cross");
 const imgAlarm = document.querySelector(".img-alarm");
 const btnBlock = document.querySelector(".btn-block");
 const body = document.querySelector("body");
+const screen = document.querySelector(".screen");
 
 // Робимо свап
 let startX;

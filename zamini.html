@@ -18,7 +18,7 @@
     <header>
 
     </header>
-
+    <div class="loader"></div>
     <div class="main">
         <div class="missing">
             <div class="missing_item">
@@ -139,7 +139,7 @@
                         <button id="open_button_id" type="button">
                             Відкрити таблицю
                         </button>
-                        <button id="ajax_btn1_id" type="button">
+                        <button id="ajax_btn1_id" type="button" hidden>
                             ajax_btn1_id
                         </button>
                     </div>
@@ -183,12 +183,14 @@
                     </div>
 
                     <div class="missing_item shadow">
-                        <button id="pz_button_id" type="submit">
+                        <button id="pz_button_id" type="submit" hidden>
                             Сформувати ПЗ
                         </button>
                     </div>
                 
                 </form> 
+                <button id="create-pz-ajax">Створити ПЗ</button>
+                <div class="link"></div>
             </div>
             
 
