@@ -3,13 +3,9 @@
     margin: 0;
 }
 
-.main {
-    
+.main {    
     display: flex;
     font-family: Georgia, 'Times New Roman', Times, serif;
-
-    /* background-color: #0c0701; */
-    height: 657px;
     justify-content: space-around;
 }
 
