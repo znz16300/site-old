@@ -92,7 +92,7 @@ const loadState = () => {
       showTT(teacherList, ["week1", "week2"]);      
     } else {
       clasList.value = state['classN'];
-      showTT(clasList, ["week1", "week2"]);      
+      showTT(clasList, ["week1 (clas)", "week2 (clas)"]);      
     }
     
     // saveState();
