@@ -71,6 +71,31 @@ let startY;
 let distX;
 let distY;
 let threshold = 50;
+let state = {};
+
+const saveState = () => {
+  state['teachN'] = teacherList.value;
+  state['classN'] = clasList.value;
+  const jsonString = JSON.stringify(state);
+  localStorage.setItem("savedState", jsonString);
+}
+
+const loadState = () => {
+  if (localStorage.getItem("savedState")) {
+    console.log("Ключ існує");
+    const storedString = localStorage.getItem("savedState");
+    state = JSON.parse(storedString);
+    teacherList.value = state['teachN'];
+    clasList.value = state['classN'];
+
+    showTT(teacherList, ["week1", "week2"]);
+    saveState();
+  } else {
+    // Ключ відсутній в localStorage
+    console.log("Ключ відсутній");
+  }
+}
+
 
 cross.addEventListener('click', () => {
   alarm.style.top = "-100%";
@@ -256,6 +281,8 @@ function lessonIsNow(date, time) {
 }
 
 function showTT(listD, tables) {
+  // console.log(selectedOption.text);
+  // loadState();
   title.style.top = "-5px";
   lessList.innerHTML = "";
   const selectedOption = listD.options[listD.selectedIndex];
@@ -371,6 +398,7 @@ teacherList.addEventListener("change", () => {
   // clasList.style.width = "15%";
   clasList.value = "Клас";
   showTT(teacherList, ["week1", "week2"]);
+  saveState();
 });
 
 clasList.addEventListener("change", () => {
@@ -379,6 +407,7 @@ clasList.addEventListener("change", () => {
   // clasList.style.width = "75%";
   showTT(clasList, ["week1 (clas)", "week2 (clas)"]);
   teacherList.value = "Вчитель";
+  saveState();
 });
 
 function getInnerListByName(list, surname) {
@@ -419,6 +448,7 @@ let readTT = (s2) => {
   $.getJSON(server + "getmultiblock/" + keyZamini, function (data) {
     console.log("Завантажено з сервера");
     glData = data;
+    // loadState();
     startApp();
     refresh();
     mapHide();
@@ -460,6 +490,8 @@ const startApp = () => {
     datePicker.value = `${year}-${padNumberWithZero(
       month
     ).slice()}-${padNumberWithZero(date)}`;
+
+
   }
 
   // title.innerText = capitalizeFirstLetter(getDayOfWeekUkr(datePicker.value));
@@ -487,7 +519,7 @@ const startApp = () => {
   tZaminList = getData(glData, "missingbook")["data"];
   loader.classList.add("hide-loader");
 
-
+  
 };
 
 function getDataByDate(list, date) {
@@ -571,8 +603,10 @@ const loadDataFromJsonFile = () => {
     })
     .then((data) => {
       glData = data;
-      console.log("Отримано дані:", glData);
+      console.log("Отримано дані:", glData);      
       startApp();
+      loadState();
+
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
