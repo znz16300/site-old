@@ -85,11 +85,17 @@ const loadState = () => {
     console.log("Ключ існує");
     const storedString = localStorage.getItem("savedState");
     state = JSON.parse(storedString);
-    teacherList.value = state['teachN'];
-    clasList.value = state['classN'];
-
-    showTT(teacherList, ["week1", "week2"]);
-    saveState();
+    
+    
+    if (state['teachN'] !='') {
+      teacherList.value = state['teachN'];
+      showTT(teacherList, ["week1", "week2"]);      
+    } else {
+      clasList.value = state['classN'];
+      showTT(clasList, ["week1", "week2"]);      
+    }
+    
+    // saveState();
   } else {
     // Ключ відсутній в localStorage
     console.log("Ключ відсутній");
@@ -450,6 +456,11 @@ let readTT = (s2) => {
     glData = data;
     // loadState();
     startApp();
+    if (teacherList.value !='') {
+      showTT(teacherList, ["week1", "week2"]);      
+    } else {
+      showTT(clasList, ["week1", "week2"]);      
+    }
     refresh();
     mapHide();
   });
