@@ -459,7 +459,7 @@ let readTT = (s2) => {
     if (teacherList.value !='') {
       showTT(teacherList, ["week1", "week2"]);      
     } else {
-      showTT(clasList, ["week1", "week2"]);      
+      showTT(clasList, ["week1 (clas)", "week2 (clas)"]);      
     }
     refresh();
     mapHide();
