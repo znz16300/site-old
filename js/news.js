@@ -393,13 +393,18 @@ function processResults() {
         data[i]["gsx$show"]["$t"] !== ""
       ) {
         d1 = data[i];
-        let images = d1["gsx$фото"]["$t"].split(",");
+        let images = d1["gsx$фото"]["$t"].split(/[, \n]+/);
         let codeImages = [];
         let photoPath = "";
         for (let j = 0; j < images.length; j++) {
           let start = images[j].indexOf("?id=") + 4;
           let ss = images[j].substr(start);
-          codeImages.push(images[j]);
+          if (images[j].indexOf('/') === -1) {
+            photoPath = `/img-news/${images[j]}`;
+          } else {
+            photoPath = `${images[j]}`;
+          }
+          codeImages.push(photoPath);
           // codeImages.push("http://drive.google.com/uc?export=view&id="+ss);
         }
 
