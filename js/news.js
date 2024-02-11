@@ -375,17 +375,10 @@ function sortByDateTime(array) {
   return array;
 }
 
-// Функція для обробки результатів
-function processResults() {
-  console.log("Обробка результатів:", resultsArray);
-  const mergedArray = mergeArrays(resultsArray);
-  console.log("mergedArray:", mergedArray);
-  const sortedArray = sortByDateTime(mergedArray.feed.entry);
-  console.log("sortedArray:", sortedArray);
-
+function setNewsData(arr) {
   let id = 0
   if (true) {
-    data = sortedArray;
+    data = arr;
     for (let i = 0; i < data.length; i++) {
       if (data[i]["gsx$названовини"]["$t"] === 'Назва новини') continue;
       if (
@@ -440,6 +433,38 @@ function processResults() {
   }
 }
 
+// Функція для обробки результатів
+function processResults() {
+  console.log("Обробка результатів:", resultsArray);
+  const mergedArray = mergeArrays(resultsArray);
+  console.log("mergedArray:", mergedArray);
+  const sortedArray = sortByDateTime(mergedArray.feed.entry);
+  console.log("sortedArray:", sortedArray);
+  setNewsData(arr=sortedArray)
+  
+}
+
+const readDataFromFile = () => {
+  let sortedArray = '';
+  fetch('./js/news.json')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setNewsData(arr=data);
+
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });
+
+
+  
+}
+
 
 const urlsToFetch = [];
 
@@ -450,6 +475,8 @@ for (let keyTableNews of keyTableNewsAll) {
     `https://schooltools.pythonanywhere.com/getnews/${keyTable}/${shName}`
   );
 }
+
+readDataFromFile();
 
 fetchDataForUrls(urlsToFetch)
   .then(() => {
