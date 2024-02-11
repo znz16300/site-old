@@ -454,15 +454,12 @@ const readDataFromFile = () => {
       return response.json();
     })
     .then((data) => {
-      setNewsData(arr=data);
+      setNewsData(arr=data, comment='read from json');
 
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
-    });
-
-
-  
+    });  
 }
 
 

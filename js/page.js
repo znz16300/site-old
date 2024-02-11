@@ -50,6 +50,94 @@ menu_1.addEventListener("click", (e) => {
 
 let step = 0;
 
+function setPagesData(arr, comment) {
+  let text_tmp = "";
+  console.log(comment);
+  for (let i = 0; i < arr.length; i++) {
+    if (title_st === arr[i]["gsx$розділ"]["$t"]) {
+      let text = arr[i]["gsx$абзац"]["$t"];
+      let tip = arr[i]["gsx$тип1-картки2-абзаци"]["$t"];
+      let link = arr[i]["gsx$кнопказпосиланням"];
+      if (link !== undefined) {
+        link = link["$t"];
+      } else continue;
+      // let link = arr[i]["gsx$кнопказпосиланням"]["$t"];
+      let images = arr[i]["gsx$фото"]["$t"].split(",");
+      let image = images[0];
+
+      if (tip === "1") {
+        document.getElementById("paragraphs__id").style.display = "flex";
+        text = `
+                    <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
+                    <a href="${link}" class="a_card"  target="_blank">
+                                <div class="item1"><img
+                                    width="180px"
+                                 src="${image}" alt=""></div>
+                                 <div class="item2">${text}</div></a>
+                    </div>
+                    `;
+        text_tmp += `${text}`;
+      } else {
+        document.getElementById("paragraphs__id").style.display = "block";
+        if (tip === "3") {
+          text_tmp += `<div style="width:500px;padding-top: 50px; font-size: 18px; color: #545454;">${text}</div>`;
+        } else {
+          if (link !== "#") {
+            text_tmp += `
+                            <div style="line-height: 1.5; font-size: 18px;">
+                                <a href="${link}">
+                                    ${text}
+                                </a>
+                            </div>`;
+          } else {
+            text_tmp += `<div  style="line-height: 1.5; font-size: 18px;">${text}</div>`;
+          }
+        }
+        let codeImages = [];
+        let photoPath = "";
+
+        let wImage = arr[i]["gsx$ширинамалюнка"]["$t"];
+        for (let j = 0; j < images.length; j++) {
+          let x = images[j].indexOf("?id=");
+          if (x > -1) {
+            //Це якщо малюнок відправлено формою
+
+            let start = images[j].indexOf("?id=") + 4;
+            let ss = images[j].substr(start);
+
+            im = "http://drive.google.com/uc?export=view&id=" + ss;
+            if (wImage !== "") {
+              text_tmp =
+                `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp;
+            }
+          } else {
+            x = images[j].indexOf("/file/d/");
+            if (false) {
+            } else {
+              //Якщо малюнок по посиланню з іншого ресурсу
+              im = images[j];
+              if (wImage !== "") {
+                text_tmp =
+                  `<img src="${im}" alt="" width = "${wImage}%"> ` +
+                  text_tmp;
+              }
+            }
+          }
+        }
+      }
+      if (tip === "3") {
+        document.getElementById("paragraphs__id").style.display = "flex";
+        // document.getElementById('rr').style.width[0] = 300;
+      }
+      const regex = String.fromCharCode(10);
+    }
+  }
+  if (text !== null) text.innerHTML = text_tmp;
+  // ScrollUpShow()
+  loader.classList.add("hide-loader");
+}
+
+
 function readPage(key) {
   //   let url  = "https://spreadsheets.google.com/feeds/list/"+key+"/"+sheet2+"/public/values?alt=json"
   shName = "Аркуш1";
@@ -64,89 +152,8 @@ function readPage(key) {
     if (request.status >= 200 && request.status < 400) {
       data = JSON.parse(request.responseText);
       data = data["feed"]["entry"];
-      let text_tmp = "";
-      for (let i = 0; i < data.length; i++) {
-        if (title_st === data[i]["gsx$розділ"]["$t"]) {
-          let text = data[i]["gsx$абзац"]["$t"];
-          let tip = data[i]["gsx$тип1-картки2-абзаци"]["$t"];
-          let link = data[i]["gsx$кнопказпосиланням"];
-          if (link !== undefined) {
-            link = link["$t"];
-          } else continue;
-          // let link = data[i]["gsx$кнопказпосиланням"]["$t"];
-          let images = data[i]["gsx$фото"]["$t"].split(",");
-          let image = images[0];
-
-          if (tip === "1") {
-            document.getElementById("paragraphs__id").style.display = "flex";
-            text = `
-                        <div class="sect-1 shake-hard " style="text-align: center; text-decoration: none;">
-                        <a href="${link}" class="a_card"  target="_blank">
-                                    <div class="item1"><img
-                                        width="180px"
-                                     src="${image}" alt=""></div>
-                                     <div class="item2">${text}</div></a>
-                        </div>
-                        `;
-            text_tmp += `${text}`;
-          } else {
-            document.getElementById("paragraphs__id").style.display = "block";
-            if (tip === "3") {
-              text_tmp += `<div style="width:500px;padding-top: 50px; font-size: 18px; color: #545454;">${text}</div>`;
-            } else {
-              if (link !== "#") {
-                text_tmp += `
-                                <div style="line-height: 1.5; font-size: 18px;">
-                                    <a href="${link}">
-                                        ${text}
-                                    </a>
-                                </div>`;
-              } else {
-                text_tmp += `<div  style="line-height: 1.5; font-size: 18px;">${text}</div>`;
-              }
-            }
-            let codeImages = [];
-            let photoPath = "";
-
-            let wImage = data[i]["gsx$ширинамалюнка"]["$t"];
-            for (let j = 0; j < images.length; j++) {
-              let x = images[j].indexOf("?id=");
-              if (x > -1) {
-                //Це якщо малюнок відправлено формою
-
-                let start = images[j].indexOf("?id=") + 4;
-                let ss = images[j].substr(start);
-
-                im = "http://drive.google.com/uc?export=view&id=" + ss;
-                if (wImage !== "") {
-                  text_tmp =
-                    `<img src="${im}" alt="" width = "${wImage}%">` + text_tmp;
-                }
-              } else {
-                x = images[j].indexOf("/file/d/");
-                if (false) {
-                } else {
-                  //Якщо малюнок по посиланню з іншого ресурсу
-                  im = images[j];
-                  if (wImage !== "") {
-                    text_tmp =
-                      `<img src="${im}" alt="" width = "${wImage}%"> ` +
-                      text_tmp;
-                  }
-                }
-              }
-            }
-          }
-          if (tip === "3") {
-            document.getElementById("paragraphs__id").style.display = "flex";
-            // document.getElementById('rr').style.width[0] = 300;
-          }
-          const regex = String.fromCharCode(10);
-        }
-      }
-      if (text !== null) text.innerHTML = text_tmp;
-      // ScrollUpShow()
-      loader.classList.add("hide-loader");
+      console.log('ReadData', data);
+      setPagesData(arr=data, comment="read from google sheets")
     } else {
       // We reached our target server, but it returned an error
       console.log("Upps ");
@@ -187,6 +194,25 @@ const scroolBtn = document.getElementById("scrollToTop");
 scroolBtn.addEventListener("click", () => {
   goUp();
 });
+
+
+const readPagesFromFile = () => {
+  let sortedArray = '';
+  fetch('./js/pages.json')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setPagesData(arr=data, comment="read from json");
+
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
+    });  
+}
 
 if (true) {
   const title_ = document.getElementById("title__");
@@ -229,5 +255,6 @@ if (true) {
 
     
 
+    readPagesFromFile();
     readPage(keyT);
 }
