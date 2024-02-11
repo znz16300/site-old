@@ -393,7 +393,7 @@ function setNewsData(arr) {
           let start = images[j].indexOf("?id=") + 4;
           let ss = images[j].substr(start);
           if (images[j].indexOf('/') === -1) {
-            photoPath = `/img-news/${images[j]}`;
+            photoPath = `./img-news/${images[j]}`;
           } else {
             photoPath = `${images[j]}`;
           }
