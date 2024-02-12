@@ -379,6 +379,8 @@ function setNewsData(arr) {
   let id = 0
   if (true) {
     data = arr;
+    // console.log(arr);
+    newsData = [];
     for (let i = 0; i < data.length; i++) {
       if (data[i]["gsx$названовини"]["$t"] === 'Назва новини') continue;
       if (
@@ -430,6 +432,7 @@ function setNewsData(arr) {
     drawPage(currentPageBtn.textContent);
     changeDisableStatus(currentPageBtn.textContent);
     loader.classList.add("hide-loader");
+    console.log(newsData);
   }
 }
 
