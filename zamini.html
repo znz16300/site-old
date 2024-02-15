@@ -18,7 +18,7 @@
     <header>
 
     </header>
-
+    <div class="loader"></div>
     <div class="main">
         <div class="missing">
             <div class="missing_item">
@@ -133,13 +133,13 @@
                         <button id="copy_button_id" type="button" hidden>
                             Скопіювати
                         </button>
-                        <button id="post_button_id" type="submit">
+                        <button id="post_button_id" type="submit"hidden>
                             Надіслати
                         </button>
                         <button id="open_button_id" type="button">
                             Відкрити таблицю
                         </button>
-                        <button id="ajax_btn1_id" type="button">
+                        <button id="ajax_btn1_id" type="button" hidden>
                             ajax_btn1_id
                         </button>
                     </div>
@@ -152,7 +152,7 @@
                     <div>Формування пояснювальної записки</div>                    
                 </div>
                 
-                <form action="http://zelenskiy.pythonanywhere.com/createpz/" method="POST">
+                <form action="http://schooltools.pythonanywhere.com/createpz/" method="POST">
                 <!-- <form action="http://127.0.0.1:5000/createpz/" method="POST"> -->
                     <div class="missing_item">
                         <label for="date_start">від</label>
@@ -183,12 +183,14 @@
                     </div>
 
                     <div class="missing_item shadow">
-                        <button id="pz_button_id" type="submit">
+                        <button id="pz_button_id" type="submit" hidden>
                             Сформувати ПЗ
                         </button>
                     </div>
                 
                 </form> 
+                <button id="create-pz-ajax">Створити ПЗ</button>
+                <div class="link"></div>
             </div>
             
 

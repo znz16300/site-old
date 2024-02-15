@@ -18,6 +18,7 @@ let arrowToStart = document.querySelector('.arrow_to_start');
 let arrowToEnd = document.querySelector('.arrow_to_end');
 let currentPageBtn = document.querySelector('.page_number');
 let navigation = document.querySelector('.pages');
+const loader = document.querySelector(".loader");
 let pages = [];
 let res = [];
 
@@ -267,7 +268,8 @@ function loadDocuments(data, d){
             for(let j=0; j<images.length; j++){
                 let start = images[j].indexOf('?id=') + 4;
                 let ss = images[j].substr(start);
-                codeImages.push(ss);
+                codeImages.push(images[j]);
+                // codeImages.push(ss);
             }                    
             let im = ""
             if (codeImages[0].length === 0) {
@@ -307,7 +309,7 @@ let step = 0;
 function readDocum(d){    
     let shName = 'Відповіді форми (1)';
     // let url = 'http://127.0.0.1:5000/getdocument/'+keyTableDocs+'/'+shName;
-    let url = 'https://zelenskiy.pythonanywhere.com/getdocument/'+keyTableDocs+'/'+shName;
+    let url = 'https://schooltools.pythonanywhere.com/getdocument/'+keyTableDocs+'/'+shName;
     // let url = 'https://zelenskiy.pythonanywhere.com/getdocument/'+keyTableDocs+'/'+shName;
     request = new XMLHttpRequest();
     request.open('GET', url, true);
@@ -318,6 +320,7 @@ function readDocum(d){
         changeDisableStatus(currentPageBtn.textContent); 
         calculatePages();
         drawPage(currentPageBtn.textContent);
+        loader.classList.add('hide-loader'); 
       } else {
         // We reached our target server, but it returned an error
         console.log('Upps Docum');

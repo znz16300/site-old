@@ -1,3 +1,12 @@
+// <<<<<<< HEAD
+//     const btnKursi = document.getElementById("btnKursi");
+//     console.log(66666666)
+//     if (btnKursi !=null){
+//         btnKursi.addEventListener('click', ()=>{
+//             alert(1111)
+//         })
+//     }
+// =======
 // const shevchenko = require("shevchenko");
 
 // const url = "http://127.0.0.1:5000/";
@@ -8,10 +17,49 @@ const zaklad = 'Куликівського ліцею'
 let glData;
 let teachers = new Set();
 
+// стара таблиця
+// const COL_DATA_TIME = 0
+// const COL_TEACHER = 1
+// const COL_TITLE = 2
+// const COL_GODIN = 3
+// const COL_NUM_DOCUM = 4
+// const COL_DATE_DOCUM = 5
+// const COL_PLATFORM = 6
+// const COL_FORMA = 7
+// const COL_DOCUM = 8
+// const COL_PROGRAM = 9
+// const COL_EMAIL = 10
+// const COL_NEED_ZARAH = 11
+// const COL_INCLUZ = 12
+// const COL_TIP_DOCUM = 13
+// const COL_PSIHO = 14
+// const COL_PEDRADA = 15
+// const COL_ATEST_YEAR = 16
+
+// нова таблиця
+const COL_DATA_TIME = 0
+const COL_TEACHER = 2
+const COL_TITLE = 3
+const COL_GODIN = 4
+const COL_NUM_DOCUM = 8
+const COL_DATE_DOCUM = 9
+const COL_PLATFORM = 10
+const COL_FORMA = 11
+const COL_DOCUM = 12
+const COL_PROGRAM = 13
+const COL_EMAIL = 1
+const COL_NEED_ZARAH = 14
+const COL_INCLUZ = 5
+const COL_TIP_DOCUM = 7
+const COL_PSIHO = 6
+const COL_PEDRADA = 15
+const COL_ATEST_YEAR = 16
+
 const teachList = document.getElementById("teach_id");
-// const table = document.getElementById('table_id')
 const teachCombo = document.getElementById("teach_id");
 const divTable = document.querySelector(".table");
+const loader = document.querySelector(".loader");
+
 
 teachList.addEventListener("change", () => {
   divTable.innerHTML = ` <table  id="table_id" class="table"></table>`;
@@ -71,62 +119,109 @@ teachList.addEventListener("change", () => {
   table.append(head);
   table.append(tBody);
 
-  let buttonBlock = document.createElement("div");
-  let button = document.createElement("button");
+  const buttonBlock = document.createElement("div");
   buttonBlock.classList.add("button__block");
+
+  const chbBlock = document.createElement("div");
+  chbBlock.classList.add("chb__klopot");
+
+  
+
+  const chbox = document.createElement("input");
+  chbox.setAttribute("type", "checkbox");
+  chbox.setAttribute("id", "checkbox");
+  chbox.checked = true;
+
+  const chboxLabel = document.createElement("label");
+  chboxLabel.setAttribute("for", "checkbox");
+  chboxLabel.innerText = 'приховати старі';
+  chbox.addEventListener('change', () => {
+    // Шукаю всі сірі рядки і роблю їх невидимими якщо вибрано
+    const trGray = document.querySelectorAll('tr.gray_row');
+    
+    trGray.forEach(elem => {
+      if (chbox.checked) {
+        elem.classList.add('tr_hide');
+      } else {
+        elem.classList.remove('tr_hide');
+      }
+    })
+   
+
+  })  
+  chbBlock.append(chbox, chboxLabel);
+  buttonBlock.append(chbBlock);
+
+  const btnBl2 = document.createElement("div");
+
+  const button = document.createElement("button");  
   button.classList.add("button__klopot");
+  button.setAttribute('id', 'make_klop');
   button.innerText = "Сформувати клопотання";
-  buttonBlock.append(button);
+
   divTable.append(buttonBlock);
-
-  let buttonBlock2 = document.createElement("div");
-  let buttonAdd = document.createElement("button");
-  buttonBlock2.classList.add("button__block");
+  const buttonAdd = document.createElement("button");
   buttonAdd.classList.add("button__klopot");
+  buttonAdd.setAttribute('id', 'add_kurs');
   buttonAdd.innerText = "Додати нові курси";
-  buttonBlock2.append(buttonAdd);
-  divTable.append(buttonBlock2);
+  
+  
+  btnBl2.append(button, buttonAdd);
+  buttonBlock.append(btnBl2);
 
-  let teachName = teachCombo.value;
-  let dat = glData[0].data;
+  const compareDates = (a, b) => {
+    const dateA = new Date(a[COL_DATE_DOCUM].split('.').reverse().join('-'));
+    const dateB = new Date(b[COL_DATE_DOCUM].split('.').reverse().join('-'));
+    return dateA - dateB;
+  };
+
+  const teachName = teachCombo.value;
+  const dat = glData[0].data;
   let ii = 0;
-  // Час уведення ${r[0]}
-  for (r of dat) {
-    if (teachName == r[1]) {
+  const filteredArray = dat.filter(subArray => subArray[COL_TEACHER] === teachName);
+  filteredArray.sort(compareDates);
+
+  for (r of filteredArray) {
+
+
+    if (true) {
+    // if (teachName == r[COL_TEACHER]) {
       let row = document.createElement("tr");
 
       let r88 = "";
-      if (r[8] !== "") {
-        let r8 = imgFromGoogleToHtml(r[8]);
-        r88 = `<a class="popup_image" href="${r8}" target="_blank"><div class="td_a_img"><img class="min_img" src="./assets/icons/ospr.png"></div></a>`;
+      if (r[COL_DOCUM] !== "") {
+        let r8 = imgFromGoogleToHtml(r[COL_DOCUM]);
+        r88 = `<a class="popup_image" href="${r[COL_DOCUM]}" target="_blank"><div class="td_a_img"><img class="min_img" src="./assets/icons/ospr.png"></div></a>`;
       } else {
         r88 = "";
       }
       row.setAttribute("id", "ii_" + String(ii));
       // console.log(r[14]);
       let pedrada = '' 
-      if (r[14]){
-        pedrada = ', затверджено рішенням педради від ' + r[14];
+      
+      if (r[COL_PEDRADA]){
+        pedrada = '. Зараховано рішенням педради від ' + r[COL_PEDRADA];
       }
-      if (!r[15]){
-        r[15] = '2000';
+      if (!r[COL_ATEST_YEAR]){
+        r[COL_ATEST_YEAR] = '2000';
       }
-      let [day, month, year] = r[5].split('.').map(Number);
+      let [day, month, year] = r[COL_DATE_DOCUM].split('.').map(Number);
       let dateKursi = new Date(year, month - 1, day);
-      let dateAtest = new Date(r[15], 3, 1);
+      let dateAtest = new Date(r[COL_ATEST_YEAR], 3, 1);
       if (dateKursi < dateAtest){
         row.classList.add('gray_row')
+        row.classList.add('tr_hide')
       } 
-      row.setAttribute("title", `Дата та час уведення: ${r[0]}${pedrada}`);
+      row.setAttribute("title", `Уведено: ${r[COL_DATA_TIME]}${pedrada}`);
       row.innerHTML = `
 
 
-            <td class="row__title truncate-text">${r[2]}</td>
-            <td class="row__long">${r[3]}</td>
-            <td class="wwrap_no">${r[4]}</td>
-            <td class="row__date">${r[5]}</td>
-            <td class="row__subj">${r[6]}</td>
-            <td class="row__forma" hidden>${r[7]}</td>
+            <td class="row__title truncate-text">${r[COL_TITLE]}</td>
+            <td class="row__long">${r[COL_GODIN]}</td>
+            <td class="wwrap_no">${r[COL_NUM_DOCUM]}</td>
+            <td class="row__date">${r[COL_DATE_DOCUM]}</td>
+            <td class="row__subj">${r[COL_PLATFORM]}</td>
+            <td class="row__forma" hidden>${r[COL_FORMA]}</td>
             <td>${r88}</td>
             <td><input class="chk_clas" type="checkbox"></td>
             `;
@@ -136,7 +231,7 @@ teachList.addEventListener("change", () => {
   }
 
   buttonAdd.addEventListener("click", ()=>{
-    document.location.href ="https://docs.google.com/forms/d/e/1FAIpQLSe6ghl4Quw7gCGBwbgUz1V4GilJQrzk1NM1Hxyp79pkOI8ceg/viewform?usp=sf_link"
+    document.location.href ="https://docs.google.com/forms/d/e/1FAIpQLScQf3nU3fBL49wHU7Lg1KCK8RQijuGY6kbGW2TYHPO14YUI8g/viewform"
   })
 
   function fullNameToInic(s){
@@ -168,17 +263,20 @@ teachList.addEventListener("change", () => {
   }
 
   button.addEventListener("click", () => {
-    let sp = [];
+    let sp = []; 
+    let date_input = '';
     for (let i = 0; i < tBody.childNodes.length; i++) {
       const ch = tBody.childNodes[i].querySelector(".chk_clas");
       if (ch.checked) {
-        let title = tBody.childNodes[i].querySelector(".row__title");
-        let long = tBody.childNodes[i].querySelector(".row__long");
-        let num = tBody.childNodes[i].querySelector(".wwrap_no");
-        let date = tBody.childNodes[i].querySelector(".row__date");
-        let subj = tBody.childNodes[i].querySelector(".row__subj");
-        let forma = tBody.childNodes[i].querySelector(".row__forma");
-        let rec = {
+        const title = tBody.childNodes[i].querySelector(".row__title");
+        const long = tBody.childNodes[i].querySelector(".row__long");
+        const num = tBody.childNodes[i].querySelector(".wwrap_no");
+        const date = tBody.childNodes[i].querySelector(".row__date");
+        const subj = tBody.childNodes[i].querySelector(".row__subj");
+        const forma = tBody.childNodes[i].querySelector(".row__forma");
+
+        date_input = tBody.childNodes[i].title
+        const rec = {
             'title': title.innerText,
             'long': long.innerText,
             'num': num.innerText,
@@ -191,13 +289,13 @@ teachList.addEventListener("change", () => {
       //
     }
     console.log(shevchenko.inGenitive(fullNameToParts(teachCombo.value)))
-    let s = shevchenko.inGenitive(fullNameToParts(teachCombo.value))
-    let teachRod = s.lastName + " " + s.firstName + " " + s.middleName
+    const s = shevchenko.inGenitive(fullNameToParts(teachCombo.value))
+    const teachRod = s.lastName + " " + s.firstName + " " + s.middleName
     if (sp.length > 0){
-      console.log(sp);
-      let dat = new Date;
-      console.log(formatDate(dat));
-      let context = {
+      // console.log(sp);
+      const dat = new Date;
+      // console.log(formatDate(dat));
+      const context = {
         'teacher':teachRod,
         // 'teacher':teachCombo.value,
         'teacherINIC':fullNameToInic(teachCombo.value),
@@ -206,8 +304,9 @@ teachList.addEventListener("change", () => {
         'zaklad': zaklad,
         'date': formatDate(dat),
         'file': 'klopot.docx',
+        'dateInput': date_input
       }
-      s = ''
+      let s = ''
       let sym = ''
       for (let i = 0; i < sp.length; i++) {
         context['title'+i] = sp[i]['title']
@@ -300,8 +399,9 @@ let readKursi = () => {
   $.getJSON(url + "getmultiblock/" + key, function (data) {
     glData = data;
     let dat = glData[0].data;
+    // console.log(dat);
     for (r of dat) {
-      teachers.add(r[1]);
+      teachers.add(r[COL_TEACHER]);
     }
     sortSet(teachers);
     let i = 0;
@@ -312,16 +412,22 @@ let readKursi = () => {
       opt.innerText = t;
       teachList.append(opt);
     }
+    loader.classList.add('hide-loader');
   });
 };
 
 // readStorage();
 
 //TODO ---- devmode
-let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E";
+// СТара таблиця
+// let key = "1PrzC3ODe_HSdcn7kGxGJZBWW5vHb__uDv9U3zD-IE5E";
+// Нова таблиця
+const key = "1W6zD4eXSqCFW2iObVuNUyjj_hyS1aPi_tWe7Ce8dxWU";
+
 let sheet = "Відповіді форми (1)";
 
 readKursi();
 
 
 // https://shevchenko-js.tooleks.com/#usageExample
+

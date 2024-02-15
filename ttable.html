@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="stylesheet" href="./css/ttable.css">
     <script src="./js/jquery-3.5.0.js"></script>
     <script defer src="./js/ttable.js"></script>
     <title>Розклад</title>
 </head>
 <body>
+    <div class="loader"></div>
+    <div class="alarm">
+        <img class="img-alarm" id="alarm-map" 
+        src="https://ubilling.net.ua/aerialalerts/?map=webp">
+        <div class="cross">&#10005;</div>
+    </div>
+    <!-- <canvas id="myCanvas" width="400" height="300"></canvas> -->
     <header>
         <div class="title">...</div>
         <div class="date">         
@@ -20,10 +28,10 @@
         <div class="main-sel">
             <div class="sel-block">
                 <select class="sel-item" name="teach" id="teach_id">
-                    <option value=""></option>
+                    <option class="gray" value="" disabled selected hidden>Оберіть учителя</option>
                 </select>
                 <select class="sel-item" name="clas" id="clas_id">
-                    <option value=""></option>
+                    <option class="gray" value="" disabled selected hidden>Оберіть клас</option>
                 </select>
             </div>
         </div>
